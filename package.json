@@ -7,6 +7,12 @@
   "author": "Pau Aliagas <linuxnow@gmail.com>",
   "description": "The openmixer project website.",
   "scripts": {
+    "docs:rest": "node scripts/gen-rest-reference.mjs",
+    "docs:api": "node scripts/gen-typedoc.mjs && node scripts/gen-abstractions.mjs",
+    "docs:gen": "npm run docs:rest && npm run docs:api",
+    "predev": "npm run docs:gen",
+    "prebuild": "npm run docs:gen",
+    "pregenerate": "npm run docs:gen",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",

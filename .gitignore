@@ -7,3 +7,11 @@ dist
 .data/
 .env
 *.log
+
+# Generated docs pipeline (scripts/gen-*.mjs). Regenerated from an openmixer checkout
+# by predev/prebuild/pregenerate — never hand-edit or commit the output.
+/.docgen-tmp/
+/public/api-docs/
+/app/data/rest-reference.json
+/app/data/refusal-codes.json
+/app/data/abstractions.json
