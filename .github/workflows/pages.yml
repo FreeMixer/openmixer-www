@@ -1,0 +1,54 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Build the site and publish it to GitHub Pages.
+#
+# INERT UNTIL THE REPOSITORY IS PUSHED AND PAGES IS ENABLED. Nothing here runs
+# locally, and nothing runs on a fork until its owner turns Pages on with
+# "GitHub Actions" as the source (Settings -> Pages -> Build and deployment).
+#
+# BASE URL. A prerendered page names its assets absolutely, so a site built for
+# "/" and served under "/openmixer-www/" has every asset 404 one level above the
+# mount. NUXT_APP_BASE_URL below is what makes a project page work. Serving from
+# a domain root instead? Set it to "/" — or drop the line.
+name: pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run generate
+        env:
+          NUXT_APP_BASE_URL: /openmixer-www/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .output/public
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

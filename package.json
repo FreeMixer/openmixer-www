@@ -1,0 +1,26 @@
+{
+  "name": "openmixer-www",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "author": "Pau Aliagas <linuxnow@gmail.com>",
+  "description": "The openmixer project website.",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "typecheck": "nuxt typecheck"
+  },
+  "dependencies": {
+    "@nuxt/ui": "^4.10.0",
+    "nuxt": "^4.4.8",
+    "tailwindcss": "^4.3.2",
+    "vue": "^3.5.40"
+  },
+  "devDependencies": {
+    "typescript": "^6.0.3",
+    "vue-tsc": "^3.3.7"
+  }
+}
