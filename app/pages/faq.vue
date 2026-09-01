@@ -107,6 +107,74 @@ const groups: readonly Group[] = [
     ],
   },
   {
+    heading: 'Recording and the virtual soundcheck',
+    items: [
+      {
+        q: 'Where are recordings stored, and in what format?',
+        a: [
+          'Under the console’s state directory — $XDG_STATE_HOME/openmixer/takes/<id>/, or ~/.local/state/openmixer/takes/<id>/ if that variable is not set, or wherever --state-dir points. Each track is its own file: one mono 32-bit float channel, WAV while it stays under 4 GB and RF64 once it does not, at the sample rate the graph was running when the take was recorded.',
+          'RF64 only changes the header once a file needs 64-bit sizes; any DAW that opens a WAV opens either form the same way.',
+        ],
+      },
+      {
+        q: 'What gets recorded when I press record?',
+        a: [
+          'Every patched input and MAIN, by default, with a per-channel opt-out — there is no channel list to fill in first. Aux and matrix channels are not armed unless you ask for them.',
+          'Each armed channel is captured at two points, simultaneously: its raw input and its post-fader signal. A pre-fader tap is offered too, off until you turn it on.',
+        ],
+      },
+      {
+        q: 'Can I arm or unarm a channel while a take is running?',
+        a: [
+          'No. A take’s channel set is fixed the moment it starts. Changing an arm setting mid-take affects the next take, not the one in progress — otherwise nobody could say afterwards what the first ten minutes of a show actually held.',
+        ],
+      },
+      {
+        q: 'Is there a quick way to arm a lot of channels at once?',
+        a: [
+          'Not yet. Arming is one channel at a time today. A wall-mode — tap tiles across the whole fader wall to arm or disarm them, with select-all and select-none — is designed, using the same mechanism sends-on-fader already has, but it is not built.',
+        ],
+      },
+      {
+        q: 'Can I export a take as something smaller than the raw stems?',
+        a: [
+          'Not today. The stems stay untouched RF64 float — there is no lossy export, because a mixer that recorded a show in a lesser format than it captured it would be throwing away the reason to have recorded at all. A FLAC print of the take’s main mix, as a show deliverable rather than a stem export, is planned and not built yet.',
+        ],
+      },
+      {
+        q: 'What is a virtual soundcheck?',
+        a: [
+          'Loading a recorded take back into the live desk so it plays as if the band were on stage again. Load a take, engage it, and every channel with a matching track switches from its live input to that track — so you can set monitors, try a plugin chain or train an operator without anyone in the room performing.',
+          'A channel the take has nothing for stays on its live input; a soundcheck never replaces a working microphone with silence.',
+        ],
+      },
+      {
+        q: 'I pressed play and nothing happened — why?',
+        a: [
+          'Play moves the take’s transport position; it does not by itself connect a channel to the take. Engage first — that is the step that switches the channels over. Playing before engaging just advances a position number nothing is listening to yet.',
+        ],
+      },
+      {
+        q: 'Can I run a virtual soundcheck at a different sample rate than the take was recorded at?',
+        a: [
+          'No, and this is deliberate. There is no resampler on the playback path, so a take recorded at one rate refuses to play back at another rather than running at the wrong pitch and the wrong length. Match the graph’s rate to the take’s, or re-record.',
+        ],
+      },
+      {
+        q: 'Can I record and run a virtual soundcheck at the same time?',
+        a: [
+          'No. Recording and playback both use the one audio graph, and starting either while the other holds it refuses outright rather than queueing silently behind it.',
+        ],
+      },
+      {
+        q: 'Can I trust recording and the virtual soundcheck on a real show?',
+        a: [
+          'Not yet. The capture path, the file writer and the take library are landing now and nothing has recorded a real show through them — treat the feature as unfinished until that changes, the same way the features page already labels it.',
+        ],
+      },
+    ],
+  },
+  {
     heading: 'Whether to trust it',
     items: [
       {
