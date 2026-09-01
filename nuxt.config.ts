@@ -20,6 +20,12 @@ export default defineNuxtConfig({
   ssr: true,
   nitro: { prerender: { crawlLinks: true, routes: ['/', ...familyRoutes], failOnError: true } },
 
+  // /api-docs/ (typedoc's own static HTML tree, copied verbatim from public/) and
+  // openapi.json are plain files, not Vue routes — the prerender crawler otherwise
+  // tries to resolve a linked /api-docs/ through the app router, gets a 404 (nothing
+  // registers that path as a page) and fails the whole generate under failOnError.
+  routeRules: { '/api-docs/**': { prerender: false } },
+
   // Nuxt UI v4 owns the Tailwind v4 pipeline itself (it registers @tailwindcss/vite),
   // so there is no separate Tailwind module and no tailwind.config.
   modules: ['@nuxt/ui'],
