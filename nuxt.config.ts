@@ -1,11 +1,24 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // openmixer-www — the project website. Statically generated, no server at runtime.
 
+import { existsSync, readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+// crawlLinks finds a dynamic route only via an <a href> already sitting in ALREADY-
+// prerendered HTML; a STATIC sibling page is included by the `static` preset regardless
+// of whether anything links to it yet. /docs/rest/[family].vue is the one dynamic route
+// on the site, so its instances are named explicitly rather than trusted to the crawler —
+// generated ahead of this config by predev/prebuild/pregenerate, read straight off disk.
+const restReferencePath = fileURLToPath(new URL('./app/data/rest-reference.json', import.meta.url));
+const familyRoutes: string[] = existsSync(restReferencePath)
+  ? (JSON.parse(readFileSync(restReferencePath, 'utf8')).families as { slug: string }[]).map((f) => `/docs/rest/${f.slug}`)
+  : [];
+
 export default defineNuxtConfig({
   // A brochure site: prerender every route to plain files so it can be served from
   // GitHub Pages, an nginx root, or the cluster, with nothing running behind it.
   ssr: true,
-  nitro: { prerender: { crawlLinks: true, routes: ['/'], failOnError: true } },
+  nitro: { prerender: { crawlLinks: true, routes: ['/', ...familyRoutes], failOnError: true } },
 
   // Nuxt UI v4 owns the Tailwind v4 pipeline itself (it registers @tailwindcss/vite),
   // so there is no separate Tailwind module and no tailwind.config.
