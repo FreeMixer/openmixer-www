@@ -1,7 +1,9 @@
 node_modules/
 .nuxt/
 .output/
-dist/
+# `nuxt generate` drops a `dist` SYMLINK to .output/public. A trailing slash
+# only matches directories, so it never matched the link and the tree read dirty.
+dist
 .data/
 .env
 *.log
