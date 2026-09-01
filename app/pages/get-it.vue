@@ -128,10 +128,13 @@ const rpm = [
       <div class="mx-auto max-w-4xl px-6 py-16">
         <SectionHead eyebrow="Before a show" title="Read these two things first." />
         <div class="grid gap-5 sm:grid-cols-2">
-          <Slab title="The first-session guide" tag="documentation">
+          <Slab title="Getting started" tag="documentation">
             <p>
               It takes a fresh install from silence to one channel audible in the main
               mix. Everything else in the manual assumes you have done it once.
+            </p>
+            <p>
+              <NuxtLink to="/docs/getting-started" class="text-accent hover:underline">Read it before you open the surface.</NuxtLink>
             </p>
           </Slab>
           <Slab title="The known limitations" tag="honesty">
