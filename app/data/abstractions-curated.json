@@ -1,0 +1,101 @@
+{
+  "_comment": "SPDX-License-Identifier: GPL-3.0-or-later — Hand-curated inventory for the abstractions catalog, distilled from an in-tree audit of packages/web-ui (Vue) and packages/pipewire-native (C), neither of which TSDoc/typedoc can read. Committed as source; merged with the generated core+server listing at build time by scripts/gen-abstractions.mjs. Keep entries to one plain-prose line — this is the curation layer, not the audit report it was drawn from.",
+  "groups": [
+    {
+      "label": "Composables — packages/web-ui",
+      "items": [
+        { "name": "useResource", "path": "composables/useResource.ts", "summary": "The one write/read client for a REST row: optimistic hold, refusal surfacing, supersede-by-later-write." },
+        { "name": "useContract", "path": "composables/useContract.ts", "summary": "Reads a row's declared OPTIONS contract — the writable fields, ranges and enumerated options." },
+        { "name": "useStripRow", "path": "composables/useStripRow.ts", "summary": "Write-backed binding to one channel strip's row." },
+        { "name": "strip-view-store", "path": "composables/strip-view-store.ts", "summary": "Read-only per-channel row binding, split out to break an import cycle with useStripRow." },
+        { "name": "row-store-registry", "path": "composables/row-store-registry.ts", "summary": "The central registry every declared row store joins, so a test can reset every store and stream in one call." },
+        { "name": "useVisibleDemand", "path": "composables/useVisibleDemand.ts", "summary": "Turns a widget's on-screen visibility into the demand signal that lets nothing compute unwatched." },
+        { "name": "useConsoleStream", "path": "composables/useConsoleStream.ts", "summary": "The one EventSource connection to the console — every SSE stream in the surface goes through it." },
+        { "name": "useNumberFormat", "path": "composables/useNumberFormat.ts", "summary": "Locale-aware numeric display formatting." },
+        { "name": "useDeclaration", "path": "composables/useDeclaration.ts", "summary": "Reads a resource's declared schema and limits." },
+        { "name": "useTraceDemand", "path": "composables/useTraceDemand.ts", "summary": "Demand-gates a trace-buffer subscription." },
+        { "name": "useScreenClass", "path": "composables/useScreenClass.ts", "summary": "Responsive breakpoint classification." },
+        { "name": "useTheme", "path": "composables/useTheme.ts", "summary": "Reads the active theme's tokens." },
+        { "name": "useControlDescriptor", "path": "composables/useControlDescriptor.ts", "summary": "Generic control metadata — label, unit and range — for a declared field." }
+      ]
+    },
+    {
+      "label": "Components & widgets — packages/web-ui",
+      "items": [
+        { "name": "ConfirmButton", "path": "components/ConfirmButton.vue", "summary": "Arm-then-fire two-tap confirmation for an unrecoverable action, including the global no-confirmation escape hatch." },
+        { "name": "db.ts / FADER_TAPER", "path": "utils/db.ts", "summary": "The one canonical fader position↔dB taper, shared by the fader widget, the channel tile and the model." },
+        { "name": "controls/Fader.vue", "path": "components/controls/Fader.vue", "summary": "The base fader widget — taper, drag and keyboard nudge — wrapped by the gain fader and the fader bank." },
+        { "name": "controls/Encoder.vue, EncoderRow.vue", "path": "components/controls/", "summary": "A rotary parameter control, alone or as a labelled row." },
+        { "name": "controls/Meter.vue", "path": "components/controls/Meter.vue", "summary": "The per-strip level meter." },
+        { "name": "controls/ConsoleSelect.vue", "path": "components/controls/ConsoleSelect.vue", "summary": "A styled select control with contrast handling built in." },
+        { "name": "Stepper.vue", "path": "components/Stepper.vue", "summary": "A stepped +/- numeric control." },
+        { "name": "NudgeField.vue", "path": "components/NudgeField.vue", "summary": "A numeric field with nudge buttons." },
+        { "name": "SchemaForm.vue / SchemaField.vue", "path": "components/", "summary": "Generic form rendering from a declared schema." }
+      ]
+    },
+    {
+      "label": "C libraries — packages/pipewire-native",
+      "items": [
+        { "name": "mix_dsp.h", "path": "src/mix_dsp.h", "summary": "The shared DSP kernel library: click-free gain ramps, gate/EQ/compressor primitives, bus summing, output delay and the real-FFT analyser." },
+        { "name": "mixer_state.h", "path": "src/mixer_state.h", "summary": "The node's state layout and its concurrency contract — which fields are word-atomic, real-time-owned, or release/acquire." },
+        { "name": "omx_napi.h / .c", "path": "src/omx_napi.h", "summary": "The one JS-boundary argument-fetch-and-validate shape every native binding declares its signature through." },
+        { "name": "mix_bus.h", "path": "src/mix_bus.h", "summary": "The summing bus: width folding, sparsity skipping, one send struct for every bus in the desk." },
+        { "name": "mix_lane.h", "path": "src/mix_lane.h", "summary": "The one processing-lane stage walk shared verbatim by every channel strip and the master lane." },
+        { "name": "mix_order.h", "path": "src/mix_order.h", "summary": "The data-driven, allocation-free per-strip stage order — a reorderable chain of gate, EQ, compressor, delay, reverb and insert steps." },
+        { "name": "mix_host.h", "path": "src/mix_host.h", "summary": "The addon's one shared, refcounted PipeWire client and thread loop." },
+        { "name": "mix_delay.h", "path": "src/mix_delay.h", "summary": "The real-time-safe stereo delay-line kernel, used as a send/return or an insert." },
+        { "name": "mix_reverb.h", "path": "src/mix_reverb.h", "summary": "One Schroeder-Moorer comb-and-allpass kernel serving both room and hall reverbs, plus a Dattorro plate kernel." },
+        { "name": "mix_tap.h", "path": "src/mix_tap.h", "summary": "The named tap-point bank: post-trim, pre-EQ, post-EQ, pre-fader, post-fader." },
+        { "name": "mix_insert.h", "path": "src/mix_insert.h", "summary": "The in-lane hosted-plugin send/return detour." },
+        { "name": "mix_rec.h", "path": "src/mix_rec.h", "summary": "The real-time-safe capture ring: monotonic cursors, a counted gap standing in for silence." },
+        { "name": "mix_pb.h", "path": "src/mix_pb.h", "summary": "The playback ring counterpart to mix_rec.h — lockstep multitrack reads, silence on a stall." },
+        { "name": "mix_loop.h", "path": "src/mix_loop.h", "summary": "Routing-loop (howl-round) graph detection, kept as the one topology mirror in the codebase." },
+        { "name": "mix_rf64.h", "path": "src/mix_rf64.h", "summary": "The WAV/RF64 grammar — the single writer and reader for every take file." },
+        { "name": "hrp_baseline.h, hrp_attribute.h, hrp_pitch.h, hrp_track.h, hrp_analyze.c", "path": "src/", "summary": "The composed HRP (harmonic reference pitch) pipeline: pitch, then attribution, then baseline, then tracking, one contract per stage." },
+        { "name": "generator.h / .c", "path": "src/generator.h", "summary": "Talkback and test-signal source nodes, sharing mix_host.h's client." }
+      ]
+    },
+    {
+      "label": "Resource molds — packages/core, instantiated from packages/server",
+      "items": [
+        { "name": "DerivedResource", "path": "core", "summary": "A read-only row recomputed on every read." },
+        { "name": "ScalarRecordResource", "path": "core", "summary": "One writable scalar or record per address." },
+        { "name": "CollectionResource", "path": "core", "summary": "An addressable multi-item collection, such as a set of EQ bands." },
+        { "name": "LatchResource", "path": "core", "summary": "Momentary or latched state, extending ScalarRecordResource." },
+        { "name": "OperationResource", "path": "core", "summary": "An action-style, POST-shaped resource." },
+        { "name": "ConsoleResource<S>", "path": "core", "summary": "The umbrella interface every row satisfies, for the rare row that needs more than a mold provides." },
+        { "name": "stripFieldRow()", "path": "server/channel-strip-rows.ts", "summary": "A generic builder that turns a strip field, its wire codec and its engine door into a full row." },
+        { "name": "StripStateController<...>", "path": "server", "summary": "The shared base behind the compressor, delay, reverb and gate controllers." }
+      ]
+    },
+    {
+      "label": "Controllers — packages/server",
+      "summary": "State plus a broadcastable frame, with no I/O of their own.",
+      "items": [
+        { "name": "BpmController" }, { "name": "ClockController" }, { "name": "CompController" },
+        { "name": "DelayController" }, { "name": "DiscoveryController" }, { "name": "GateController" },
+        { "name": "HeadAmpLifecycleController" }, { "name": "RecordController" }, { "name": "ReverbController" },
+        { "name": "RmeTotalmixController" }, { "name": "SafetyController" }, { "name": "StripStateController" },
+        { "name": "VscController" }, { "name": "WarningsController" }
+      ]
+    },
+    {
+      "label": "Stores — packages/server",
+      "summary": "Persisted state, one module per concern.",
+      "items": [
+        { "name": "ChannelConfigStore" }, { "name": "ChannelEqStore" }, { "name": "ChannelPatchStore" },
+        { "name": "ClockOwnershipStore" }, { "name": "JsonSettingsStore" }, { "name": "MeasurementStore" },
+        { "name": "NetworkSettingsStore" }, { "name": "PatchbaySettingsStore" }, { "name": "PatchStore" },
+        { "name": "ReacConfigStore" }, { "name": "SceneStore" }, { "name": "SessionStore" },
+        { "name": "TakeStore" }, { "name": "TouchedStore" }
+      ]
+    },
+    {
+      "label": "Transport — packages/server",
+      "items": [
+        { "name": "protocol.ts", "path": "server/protocol.ts", "summary": "Every outbound wire frame shape, each with its own builder function — the one declared home for what goes out on the wire." },
+        { "name": "rest-router.ts", "path": "server/rest-router.ts", "summary": "The single REST door. It names no entity itself, which is what lets every row be plain configuration instead of wiring its own HTTP verbs." }
+      ]
+    }
+  ]
+}
