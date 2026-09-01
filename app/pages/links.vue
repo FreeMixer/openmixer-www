@@ -18,17 +18,26 @@ useSeoMeta({
       <div class="mx-auto max-w-6xl px-6 py-16">
         <SectionHead eyebrow="The project" title="Source." />
         <div class="grid gap-5 md:grid-cols-2">
-          <LinkCard
-            title="openmixer"
-            href="https://github.com/FreeMixer/openmixer"
-            label="github.com/FreeMixer/openmixer"
-          >
-            <p>
-              The whole console: the model, the server, the surface, the native
-              PipeWire engine and its C signal processing, the plugin catalog, the
-              adapters and the documentation set. A pnpm workspace, GPL-3.0-or-later.
-            </p>
-          </LinkCard>
+          <article class="rounded border border-edge bg-surface/60 p-6">
+            <div class="flex items-baseline gap-3">
+              <h3 class="font-display text-lg font-semibold tracking-tight text-ink">openmixer</h3>
+              <span class="ml-auto font-mono text-[10px] uppercase tracking-[0.12em] text-ink-faint">
+                not public yet
+              </span>
+            </div>
+            <div class="mt-3 space-y-2 text-sm leading-relaxed text-ink-dim">
+              <p>
+                The whole console: the model, the server, the surface, the native
+                PipeWire engine and its C signal processing, the plugin catalog, the
+                adapters and the documentation set. A pnpm workspace,
+                GPL-3.0-or-later.
+              </p>
+              <p>
+                The repository is not open to the public at the moment, so there is no
+                link here. When that changes this card gets one.
+              </p>
+            </div>
+          </article>
           <LinkCard
             title="FreeREAC"
             href="https://github.com/FreeREAC"

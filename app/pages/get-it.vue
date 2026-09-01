@@ -7,9 +7,7 @@ useSeoMeta({
 });
 
 const build = [
-  '# Node 22 or newer, and pnpm.',
-  'git clone https://github.com/FreeMixer/openmixer.git',
-  'cd openmixer',
+  '# Node 22 or newer, and pnpm. From the top of the workspace:',
   'pnpm install',
   'pnpm -r build',
 ];
@@ -42,17 +40,33 @@ const rpm = [
   <div>
     <PageHero
       eyebrow="Get it"
-      title="Build it from source."
-      lede="That is the honest answer today. There is a complete package specification and a one-command build behind it, and there is no published repository to point a package manager at yet."
-    />
+      title="Build it from source — when there is a source to clone."
+      lede="That is the honest answer today — and there is a step in front of it: the source is not public yet. This page says what there is rather than what would be convenient."
+    >
+      <div class="mt-8 max-w-3xl rounded border border-edge-strong bg-surface/60 p-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">
+          Before you read any further
+        </p>
+        <p class="mt-3 text-base leading-relaxed text-ink-dim">
+          The openmixer repository is <span class="text-ink">not public yet</span>. There
+          is no clone URL on this page, because there is nothing a clone URL would reach.
+          The build below is accurate and it is not yet something a stranger can run.
+        </p>
+        <p class="mt-3 text-base leading-relaxed text-ink-dim">
+          It is written down now because the console is real and running, and because a
+          project page that implies a download it does not have is worse than one that
+          admits the gap.
+        </p>
+      </div>
+    </PageHero>
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
         <SectionHead eyebrow="01" title="Build" />
         <p class="mb-6 text-base leading-relaxed text-ink-dim">
-          You need Linux with PipeWire, Node 22 or newer, and pnpm. Audio can come
-          from anything PipeWire can see, so a plain USB interface is enough to try it —
-          a stagebox is not required.
+          It needs Linux with PipeWire, Node 22 or newer, and pnpm. Audio can come from
+          anything PipeWire can see, so a plain USB interface is enough — a stagebox is
+          not required.
         </p>
         <CodeBlock :lines="build" />
 
