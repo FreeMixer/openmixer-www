@@ -15,6 +15,7 @@
 //   app/data/refusal-codes.json
 
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -292,176 +293,26 @@ function buildRestReference(travelSheet, rowsDoc) {
 }
 
 // ---------------------------------------------------------------------------
-// OpenAPI 3.1 — the same rows and refusal catalog, in a standard shape
+// OpenAPI 3.1 — built by @openmixer/core's buildOpenApiDocument
+// (packages/core/src/openapi-doc.ts), called through its CLI face
+// (scripts/print-openapi-doc.mjs) since this site has no dependency on core. One
+// author for the transform: the console is planned to serve the identical document
+// from its own live registry in a later increment, and a second implementation here
+// would be exactly the drift that reusable-module law exists to prevent. Verified
+// against real data with `npx @redocly/cli lint` before adopting it, the same check
+// this file's own former inline version was fixed against.
 // ---------------------------------------------------------------------------
 
-function opId(verb, path) {
-  return verb + path.replace(/\{(\w+)\}/g, '_$1_').replace(/[^a-zA-Z0-9]+/g, '_').replace(/_+$/, '');
-}
-function fieldSchema(field, sampleValue) {
-  if (field.values) {
-    const allNumeric = field.values.every((v) => typeof v === 'number');
-    const baseType = allNumeric ? 'number' : 'string';
-    const enumSchema = { type: baseType, enum: [...field.values] };
-    if (sampleValue === null) {
-      // Unset — e.g. no instrument tag assigned. JSON Schema needs null in both the type
-      // array and the enum list itself, or a null instance fails to validate either way.
-      return { type: [baseType, 'null'], enum: [...field.values, null] };
-    }
-    if (sampleValue !== undefined && !field.values.includes(sampleValue)) {
-      const sampleType = typeof sampleValue === 'number' ? 'number' : typeof sampleValue === 'boolean' ? 'boolean' : 'string';
-      if (sampleType !== baseType) {
-        // A live sample outside the declared enum, of a DIFFERENT type, means the enum is a
-        // sentinel layered over an otherwise free-typed field (e.g. a numeric hold time with a
-        // "never" sentinel) — found by running this generator's output through an external
-        // OpenAPI linter, not asserted a priori.
-        return { oneOf: [{ type: sampleType }, enumSchema] };
-      }
-      // Same primitive type, just a value the travel sheet's enum didn't happen to list:
-      // the enum isn't proven exhaustive, so don't pretend it is.
-      return { type: baseType };
-    }
-    return enumSchema;
-  }
-  if (field.limit) {
-    const s = { type: 'number' };
-    if (typeof field.limit.min === 'number') s.minimum = field.limit.min;
-    if (typeof field.limit.max === 'number') s.maximum = field.limit.max;
-    if (field.limit.unit) s.description = `Unit: ${field.limit.unit}`;
-    return s;
-  }
-  if (field.perInstance) return { type: 'number', description: 'Range depends on the instance (e.g. hardware-reported limits).' };
-  if (typeof sampleValue === 'boolean') return { type: 'boolean' };
-  if (typeof sampleValue === 'number') return { type: 'number' };
-  if (typeof sampleValue === 'string') return { type: 'string' };
-  return {};
-}
-function refusalSchemaName(code) {
-  return 'Refusal_' + code.replace(/[^a-zA-Z0-9]+/g, '_');
-}
-
 function buildOpenApi(rest, refusals, meta) {
-  const paths = {};
-  for (const family of rest.families) {
-    for (const group of family.groups) {
-      for (const row of group.rows) {
-        const parameters = [...row.path.matchAll(/\{(\w+)\}/g)].map((m) => ({
-          name: m[1],
-          in: 'path',
-          required: true,
-          schema: { type: 'string' },
-        }));
-        const properties = {};
-        const writableProperties = {};
-        for (const f of row.fields) {
-          const schema = fieldSchema(f, row.sample ? row.sample[f.name] : undefined);
-          if (!f.writable) schema.readOnly = true;
-          properties[f.name] = schema;
-          if (f.writable) writableProperties[f.name] = schema;
-        }
-        const stateSchema = { type: 'object', properties };
-        const shared = {
-          tags: [family.slug],
-          parameters,
-          ...(row.demand ? { description: 'On demand: only computes while at least one client is watching it (`?watch=1`).' } : {}),
-        };
-        const notFound = {
-          description: 'No such instance of this entity — the address is well-formed but nothing lives there.',
-          content: { 'application/json': { schema: { $ref: '#/components/schemas/Refusal' } } },
-        };
-        const pathItem = {
-          get: {
-            ...shared,
-            operationId: opId('get', row.path),
-            summary: `Read ${row.path}`,
-            responses: {
-              '200': {
-                description: 'Current state.',
-                content: { 'application/json': { schema: stateSchema, ...(row.sample ? { example: row.sample } : {}) } },
-              },
-              '404': notFound,
-            },
-          },
-          options: {
-            ...shared,
-            operationId: opId('options', row.path),
-            summary: `The declared contract of ${row.path}`,
-            description: (shared.description ? shared.description + ' ' : '') + "Publishes this entity's live contract: writable fields, ranges, units and enumerated options.",
-            responses: {
-              '200': { description: 'The contract.', content: { 'application/json': { schema: {} } } },
-              '404': notFound,
-            },
-          },
-        };
-        if (row.writable) {
-          pathItem.patch = {
-            ...shared,
-            operationId: opId('patch', row.path),
-            summary: `Write ${row.path}`,
-            requestBody: {
-              required: true,
-              content: { 'application/json': { schema: { type: 'object', properties: writableProperties, additionalProperties: false } } },
-            },
-            responses: {
-              '200': { description: 'Updated state.', content: { 'application/json': { schema: stateSchema } } },
-              '4XX': {
-                description: 'Refused. See the refusal-codes reference for the full catalog.',
-                content: { 'application/json': { schema: { $ref: '#/components/schemas/Refusal' } } },
-              },
-            },
-          };
-        }
-        paths['/api' + row.path] = pathItem;
-      }
-    }
-  }
-
-  const schemas = {
-    Refusal: {
-      type: 'object',
-      description: 'The envelope every refusal, warning and undo-label rides in. See the named Refusal_* schemas for individual codes.',
-      properties: {
-        code: { type: 'string' },
-        params: { type: 'object', additionalProperties: { type: ['string', 'number'] } },
-      },
-      required: ['code', 'params'],
-    },
-  };
-  for (const section of refusals.sections) {
-    for (const c of section.codes) {
-      schemas[refusalSchemaName(c.code)] = {
-        type: 'object',
-        description: c.doc || `See ${c.paramType}.`,
-        properties: {
-          code: { const: c.code },
-          params: {
-            type: 'object',
-            properties: Object.fromEntries(c.params.map((p) => [p.name, { type: /number/.test(p.type) ? 'number' : 'string' }])),
-            required: c.params.map((p) => p.name),
-          },
-        },
-        required: ['code', 'params'],
-      };
-    }
-  }
-
-  return {
-    openapi: '3.1.0',
-    info: {
-      title: 'openmixer console API',
-      version: `0.0.0-generated.${meta.generatedAt.slice(0, 10)}`,
-      license: { name: 'GPL-3.0-or-later', identifier: 'GPL-3.0-or-later' },
-      description:
-        "Generated from the running console's own contract (travel-sheet.json, engine-ui-rows.json, message-code.ts) — never hand-written. " +
-        'Every path also answers `?watch=1` as a server-sent event stream emitting exactly what its `GET` returns; that half has no OpenAPI shape of its own, so it rides as a plain note on each operation rather than a fabricated one. ' +
-        'The console has no authentication today, hence the empty top-level `security`.',
-    },
-    servers: [{ url: 'http://localhost:8080/api', description: 'A default local console.' }],
-    security: [],
-    tags: rest.families.map((f) => ({ name: f.slug, description: `Every address under ${f.root}.` })),
-    paths,
-    components: { schemas },
-  };
+  const cliPath = resolve(src, 'scripts/print-openapi-doc.mjs');
+  const payload = JSON.stringify({
+    families: rest.families,
+    refusalSections: refusals.sections,
+    serverUrl: 'http://localhost:8080/api',
+    generatedAt: meta.generatedAt.slice(0, 10),
+  });
+  const stdout = execFileSync('node', [cliPath], { input: payload, encoding: 'utf8', cwd: src, maxBuffer: 64 * 1024 * 1024 });
+  return JSON.parse(stdout);
 }
 
 // ---------------------------------------------------------------------------
