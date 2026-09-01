@@ -1,0 +1,59 @@
+/* SPDX-License-Identifier: GPL-3.0-or-later */
+/*
+ * Tailwind v4 entry. Core first, then Nuxt UI (v4 integrates Tailwind v4 itself).
+ *
+ * The @theme block below is the site's ONE palette. It carries the same values as
+ * the console surface's own tokens (packages/web-ui/app/assets/tokens.css in the
+ * openmixer repo) so the site and the product read as one thing: the console field
+ * #15191e, the console cyan #28c8e6, the meter green #34d17b.
+ *
+ * Everything else on this site is Tailwind utilities and Nuxt UI components. There
+ * are no hand-written rules and no second stylesheet.
+ */
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme {
+  --color-field: #0b0e11;
+  --color-surface: #15191e;
+  --color-surface-2: #1c2127;
+  --color-surface-3: #242b33;
+  --color-ink: #eaf0f4;
+  --color-ink-dim: #8a97a3;
+  --color-ink-faint: #5a6571;
+  --color-accent: #28c8e6;
+  --color-accent-ink: #04161c;
+  --color-meter: #34d17b;
+  --color-edge: #2a323b;
+  --color-edge-strong: #3a444f;
+
+  /* Families are named here and nowhere else. @nuxt/fonts (shipped with Nuxt UI)
+     reads them off this file, downloads them AT BUILD TIME and emits self-hosted
+     @font-face rules — so the built site fetches no stylesheet from anyone. */
+  --font-display: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/*
+ * `static` is load-bearing. Tailwind v4 emits only the theme variables some
+ * generated utility references, and nothing on this site writes `bg-omx-500` —
+ * Nuxt UI reads the ramp itself, through its own `--ui-*` indirection. Without
+ * `static` the whole ramp is tree-shaken away and every Nuxt UI control silently
+ * falls back to an unstyled slab.
+ */
+@theme static {
+  /* The accent ramp Nuxt UI's colour system needs (50..950) so its components
+     render on-brand; 500 is the accent above. */
+  --color-omx-50: #e8fbff;
+  --color-omx-100: #c8f5fd;
+  --color-omx-200: #9eecfa;
+  --color-omx-300: #6fe3ff;
+  --color-omx-400: #3fd6f2;
+  --color-omx-500: #28c8e6;
+  --color-omx-600: #1aa6c0;
+  --color-omx-700: #157f93;
+  --color-omx-800: #125f6e;
+  --color-omx-900: #103f49;
+  --color-omx-950: #0a2730;
+}
