@@ -12,6 +12,7 @@ dist
 # by predev/prebuild/pregenerate — never hand-edit or commit the output.
 /.docgen-tmp/
 /public/api-docs/
+/public/openapi.json
 /app/data/rest-reference.json
 /app/data/refusal-codes.json
 /app/data/abstractions.json

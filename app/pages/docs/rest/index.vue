@@ -54,18 +54,32 @@ const totalRows = restReference.families.reduce((n, f) => n + f.count, 0);
 
     <section>
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <LinkCard
-          title="Refusal and undo-label codes"
-          href="/docs/rest/refusal-codes"
-          label="/docs/rest/refusal-codes"
-        >
-          <p>
-            Every refusal, warning and undo-entry label the server can send, with the
-            parameters each one carries. Nothing below the surface renders display
-            prose directly — a code plus its parameters travels the wire, and the
-            client's own locale supplies the sentence.
-          </p>
-        </LinkCard>
+        <div class="grid gap-5 sm:grid-cols-2">
+          <LinkCard
+            title="Refusal and undo-label codes"
+            href="/docs/rest/refusal-codes"
+            label="/docs/rest/refusal-codes"
+          >
+            <p>
+              Every refusal, warning and undo-entry label the server can send, with
+              the parameters each one carries. Nothing below the surface renders
+              display prose directly — a code plus its parameters travels the wire,
+              and the client's own locale supplies the sentence.
+            </p>
+          </LinkCard>
+          <LinkCard
+            title="OpenAPI 3.1 document"
+            href="/openapi.json"
+            label="/openapi.json"
+          >
+            <p>
+              The same {{ totalRows }} rows and the refusal catalog as one standard,
+              tool-readable document — paths, request and response JSON Schema, and
+              the refusal codes as reusable components. Generated, not hand-written,
+              same as everything else on this page.
+            </p>
+          </LinkCard>
+        </div>
       </div>
     </section>
   </div>
