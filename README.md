@@ -58,10 +58,20 @@ there are no mockups.
 ## Structure
 
 ```
-app/pages/         one file per route: index, architecture, features, docs, faq, get-it, links
+app/pages/         index, architecture, features, faq, get-it, links, and docs/ (the docs
+                   section: index, getting-started, recording, rest/, abstractions)
 app/components/    the shared pieces: header, footer, hero, slab, screenshot, status tag
+app/data/          generated JSON the docs pages import at build time, plus the one hand-
+                   curated file (abstractions-curated.json) — see scripts/ below
 app/assets/css/    Tailwind entry, Nuxt UI, and the brand tokens — the only stylesheet
 public/img/        the console mark and the screenshots
+scripts/           the docs pipeline: gen-rest-reference.mjs and gen-typedoc.mjs +
+                   gen-abstractions.mjs read an openmixer checkout (OPENMIXER_SRC, default
+                   ../openmixer) and regenerate app/data/*.json, public/api-docs/ and
+                   public/openapi.json — wired as predev/prebuild/pregenerate, so they run
+                   before dev, build and generate and the site never carries stale reference
+                   pages. Never hand-edit the generated files; the checked-in one is the
+                   curated half typedoc cannot read (Vue components, C headers).
 ```
 
 Styling is Tailwind utilities and Nuxt UI components. There are no hand-written CSS rules
