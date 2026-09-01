@@ -1,10 +1,15 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
+import restReference from '~/data/rest-reference.json';
+import abstractions from '~/data/abstractions.json';
+
 useSeoMeta({
   title: 'Documentation — openmixer',
   description:
-    'The openmixer documentation set: an operator manual, installation and first-session guides, hardware notes, troubleshooting, and an administrator reference.',
+    'Tech docs, the operator manual, user docs and the FAQ: everything published about openmixer, generated where the console can generate it and authored where a person has to.',
 });
+
+const totalRestRows = restReference.families.reduce((n: number, f: { count: number }) => n + f.count, 0);
 
 const manualDesk = [
   { title: 'The surface', blurb: 'The header, the layout chips, the fader bay, and where to find things that are not where you would first look.' },
@@ -23,15 +28,23 @@ const manualMix = [
   { title: 'Talkback and test signals', blurb: 'Talkback routing and the built-in generators.' },
 ];
 const manualShow = [
+  {
+    title: 'Recording and the virtual soundcheck',
+    blurb: 'Arming channels, what a take captures, the take library, and running a soundcheck: load, engage, play, eject.',
+    to: '/docs/recording',
+  },
   { title: 'Scenes, snapshots and saving your work', blurb: 'Sessions, scenes, recall safe, and what a save actually captures.' },
   { title: 'Console profiles, personalities and themes', blurb: 'Console appliances, the visual personality axis, and the dark, light and high-contrast themes.' },
   { title: 'Keyboard reference', blurb: 'Every shortcut the surface answers to.' },
 ];
 const install = [
+  {
+    title: 'Getting started',
+    blurb: 'From a built checkout to one channel audible in the main mix — start the console, patch an input, hear it.',
+    to: '/docs/getting-started',
+  },
   { title: 'Installing', blurb: 'What the packages are and what each one puts on the machine.' },
   { title: 'Services', blurb: 'The units that run, what starts what, and in which order.' },
-  { title: 'First boot', blurb: 'From an installed machine to a console that answers.' },
-  { title: 'Your first session', blurb: 'From a fresh install to one channel audible in the main mix.' },
   { title: 'Upgrading', blurb: 'What survives an upgrade and what to check afterwards.' },
 ];
 const hardware = [
@@ -57,23 +70,57 @@ const admin = [
   { title: 'Logs', blurb: 'Where to look, and what the console tells you when it refuses.' },
   { title: 'REAC configuration', blurb: 'Segment, interface and stagebox settings on a packaged install.' },
 ];
+
+const faqGroups = [
+  'What it is', 'Running it', 'Building on it', 'Recording and the virtual soundcheck', 'Whether to trust it',
+];
 </script>
 
 <template>
   <div>
     <PageHero
       eyebrow="Documentation"
-      title="The documentation set."
-      lede="An operator manual, an installation path, hardware notes, troubleshooting and an administrator reference. It is written as documentation for people using the console, and it ships with the console: a packaged install serves the whole set locally, so a desk with no internet still has its manual."
+      title="Four kinds of document, one page to find them from."
+      lede="Tech docs for building against the console, an operator manual for driving it, user docs for getting it running, and an FAQ for the straight answer. Tech docs are generated from the running contract wherever the console can generate them; the rest is written by a person and says so when a chapter is not there yet. It all ships with the console, too — a packaged install serves the whole set locally, so a desk with no internet still has its manual."
     />
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Operator manual" title="Driving the desk." >
+        <SectionHead eyebrow="Tech docs" title="Reference for developers and integrators.">
           <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
-            Sixteen chapters. If you are new, the first-session guide takes a fresh
-            install from silence to one channel audible in the main mix, and the manual
-            covers everything after that.
+            Generated from the running console's own contract, not hand-written —
+            each one dates itself and cannot describe a control the server does
+            not actually serve.
+          </p>
+        </SectionHead>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <LinkCard title="API reference" href="/api-docs/" label="/api-docs/">
+            <p>TSDoc for @openmixer/core and the server's public surface, generated with typedoc.</p>
+          </LinkCard>
+          <LinkCard title="REST reference" href="/docs/rest" label="/docs/rest">
+            <p>{{ totalRestRows }} addressable rows, their fields, ranges and refusal codes.</p>
+          </LinkCard>
+          <LinkCard title="OpenAPI 3.1 document" href="/openapi.json" label="/openapi.json">
+            <p>The same address space as one standard, tool-readable document.</p>
+          </LinkCard>
+          <LinkCard title="Abstractions catalog" href="/docs/abstractions" label="/docs/abstractions">
+            <p>{{ abstractions.meta.generatedCount }} reusable elements — types, composables, components, C libraries — one line each.</p>
+          </LinkCard>
+        </div>
+        <DocList
+          title="Architecture and administration"
+          note="The architecture page covers the design; these two chapters are the concise reference for running one."
+          :items="[...hardware, ...admin]"
+        />
+      </div>
+    </section>
+
+    <section class="border-b border-edge bg-surface/40">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="Manuals" title="Driving the desk.">
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
+            Task-oriented chapters for operating a running console, grouped the
+            way the surface itself is: the desk, the mix, and the show.
           </p>
         </SectionHead>
         <DocList title="The desk" :items="manualDesk" />
@@ -82,35 +129,29 @@ const admin = [
       </div>
     </section>
 
-    <section class="border-b border-edge bg-surface/40">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Getting it running" title="Installation and hardware." />
-        <DocList title="Installing" :items="install" />
-        <DocList
-          title="Hardware"
-          note="What has actually been run, on what, and at which rates."
-          :items="hardware"
-        />
-      </div>
-    </section>
-
     <section class="border-b border-edge">
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="When something is wrong" title="Troubleshooting." >
+        <SectionHead eyebrow="User docs" title="Getting it running, and what to do when it is not.">
           <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
-            Each of these is written from a symptom you can observe, not from a
-            subsystem name — because at the point you need one of these pages, you know
-            what you can hear and not what is broken.
+            Getting started takes a built checkout to a channel audible in
+            the mix; troubleshooting is written from the symptom you can
+            observe, because at the point you need one of these pages you
+            know what you can hear and not what is broken.
           </p>
         </SectionHead>
-        <DocList title="By symptom" :items="trouble" />
+        <DocList title="Getting started" :items="install" />
+        <DocList title="Troubleshooting, by symptom" :items="trouble" />
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Running one" title="Administration." />
-        <DocList title="Reference" :items="admin" />
+      <div class="mx-auto max-w-3xl px-6 py-16">
+        <SectionHead eyebrow="FAQ" title="Questions with straight answers." />
+        <p class="mb-6 text-base leading-relaxed text-ink-dim">
+          Including the ones where the answer is no.
+          {{ faqGroups.join(' · ') }}.
+        </p>
+        <UButton to="/faq" color="primary" trailing-icon="i-lucide-arrow-right">Read the FAQ</UButton>
       </div>
     </section>
 
@@ -125,33 +166,22 @@ const admin = [
             </p>
             <ul class="space-y-3">
               <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">Recording and the virtual soundcard.</span> The
-                feature is landing now; its chapter is being authored alongside it.
-              </li>
-              <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">Control surfaces.</span> There is no operator
                 chapter for the X-Touch yet, because nothing has been driven on real
                 hardware to write one from.
-              </li>
-            </ul>
-          </div>
-          <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-            <ul class="space-y-3">
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">An API guide for integrators.</span> The REST
-                surface publishes its own contract through
-                <code class="font-mono text-sm text-ink">OPTIONS</code> on every entity,
-                which is enough to work from, but the written guide to it is owed.
               </li>
               <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">A deployment guide beyond a single machine.</span>
                 One console on one box is documented. Anything larger is not.
               </li>
             </ul>
+          </div>
+          <div class="space-y-4 text-base leading-relaxed text-ink-dim">
             <p class="text-sm text-ink-faint">
               Development notes, design records and working material are not part of the
               published set and are not linked here. What publishes is documentation
-              written to be read.
+              written to be read, or generated straight from the same contract the
+              console itself answers on.
             </p>
           </div>
         </div>
