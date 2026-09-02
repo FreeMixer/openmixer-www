@@ -25,12 +25,17 @@ const outDir = resolve(wwwRoot, 'public/api-docs');
 const jsonOut = resolve(wwwRoot, '.docgen-tmp/typedoc-model.json');
 const bin = resolve(src, 'node_modules/.bin/typedoc');
 
-if (!existsSync(bin)) {
-  console.error(`[gen-typedoc] no typedoc binary at ${bin} — run "pnpm install" in ${src} first`);
-  process.exit(1);
-}
-if (!existsSync(resolve(src, 'typedoc.json'))) {
-  console.error(`[gen-typedoc] no typedoc.json at ${src}`);
+// The GitHub Pages runner has no sibling openmixer checkout (private, no
+// credential carried by this workflow). Regeneration is an operator step done
+// locally where the checkout lives, and its output IS committed so CI has
+// something to build from — a missing checkout keeps the committed
+// public/api-docs/ tree as-is; only a missing checkout AND no snapshot fails.
+if (!existsSync(bin) || !existsSync(resolve(src, 'typedoc.json'))) {
+  if (existsSync(outDir) && readdirSync(outDir).length > 0) {
+    console.log(`[gen-typedoc] no checkout at ${src} — keeping the committed public/api-docs/ snapshot`);
+    process.exit(0);
+  }
+  console.error(`[gen-typedoc] no checkout at ${src} and no committed public/api-docs/ snapshot to fall back to`);
   process.exit(1);
 }
 

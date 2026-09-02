@@ -14,7 +14,7 @@
 //   app/data/rest-reference.json
 //   app/data/refusal-codes.json
 
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -22,6 +22,24 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
 const src = resolve(wwwRoot, process.env.OPENMIXER_SRC || '../openmixer');
+
+// The GitHub Pages runner has no sibling openmixer checkout — that repo is
+// private, and this workflow carries no credential for it. Regeneration is an
+// operator step, done locally where the checkout lives, and its output IS
+// committed (see the .gitignore note by these paths) so CI has something to
+// build from. Missing checkout + an existing snapshot → publish the snapshot.
+// Missing checkout + no snapshot at all is the only real failure.
+const REST_OUT = resolve(wwwRoot, 'app/data/rest-reference.json');
+const REFUSALS_OUT = resolve(wwwRoot, 'app/data/refusal-codes.json');
+const OPENAPI_OUT = resolve(wwwRoot, 'public/openapi.json');
+if (!existsSync(resolve(src, 'docs/design/travel-sheet.json'))) {
+  if (existsSync(REST_OUT) && existsSync(REFUSALS_OUT) && existsSync(OPENAPI_OUT)) {
+    console.log(`[gen-rest-reference] no checkout at ${src} — keeping the committed snapshot`);
+    process.exit(0);
+  }
+  console.error(`[gen-rest-reference] no checkout at ${src} and no committed snapshot to fall back to`);
+  process.exit(1);
+}
 
 function readJson(relPath) {
   return JSON.parse(readFileSync(resolve(src, relPath), 'utf8'));
