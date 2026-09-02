@@ -255,7 +255,7 @@ const groups: readonly Group[] = [
         ],
       },
       {
-        q: '“CH3 fader reads −3.0 now, not the −12.0 this step left (changed by entry 41)”',
+        q: '“db reads −3.0 now, not the −12.0 this step left (changed by entry 41)”',
         a: [
           'You asked to take back one change out of the middle of the history, and the field has moved since — by another operator, by a control surface, or by a later gesture of your own. Writing the old value now would jump the fader from a value nobody expects to one nobody asked for.',
           'The console asks instead of choosing: go back anyway, and the new entry records that it went over the later one, so the list says a jump-back happened; or leave it. It never retries behind your back, and if the desk moves again while the question is on screen the offer is dropped rather than answered against a stale value.',
