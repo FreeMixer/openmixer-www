@@ -243,11 +243,16 @@ const arriving = [
             </li>
           </ol>
           <p>
-            One rule has no exception: a take recorded at one sample rate
-            will not play back at another. There is deliberately no
-            resampler on this path, so a mismatch refuses outright, naming
-            both rates, rather than playing at the wrong pitch and the wrong
-            length. Match the graph's rate to the take's, or re-record.
+            The live playback path still has no resampler and never will — a
+            track handed to the graph has to already be at the graph's rate.
+            But a take recorded at another rate is not refused for it: loading
+            the take converts the tracks it will replay, offline, on disk,
+            before a transport exists, and the node then opens ordinary files
+            at its own rate. The conversion is cached in the take's own
+            folder, so a second load costs one file check. Only what
+            conversion cannot fix still refuses — no converter built in, or a
+            conversion that could not finish — and that refusal names both
+            rates.
           </p>
           <p>
             Recording and virtual soundcheck cannot run at the same time —
