@@ -3,7 +3,7 @@
 useSeoMeta({
   title: 'Recording and the virtual soundcheck — openmixer',
   description:
-    'Arming channels, what a take captures, the take library, and running a virtual soundcheck: load, engage, play, eject.',
+    'Arming channels, which taps a channel records, the take library, exporting the print of the main mix, and running a virtual soundcheck: load, engage, play, eject.',
 });
 
 const arriving = [
@@ -11,7 +11,10 @@ const arriving = [
   'A play/pause toggle and a ±1 second nudge on the virtual-soundcheck transport, next to the scrub. Today, play is on or off and the position is set directly.',
   'A top-bar record button and a recording LED visible from any page. Today, the record control lives on the channel strip.',
   'The take’s files carrying BWF and iXML metadata (channel name, patch source, tap) so a DAW shows names without anyone retyping them. Today, that information lives only in the take’s own sidecar.',
-  'A FLAC export of the take’s main mix as a show deliverable. Today, nothing exports a mixdown — the stems are the only output.',
+  'A FLAC print. The export writes 24-bit WAV, which is the right depth and the wrong container for a deliverable that has to travel.',
+  'A button that fires the print. The export is served and it works; no surface offers it yet, so today it is fired over the API.',
+  'A tap picker on the channel. Which taps a channel records is a field the console serves and answers on, but no control writes it, so today a channel records its default set unless something drives it over the API.',
+  'A take library that prints the empty and unmeasured counts it already carries. The facts are on the take; the picker does not show them yet.',
 ];
 </script>
 
@@ -20,7 +23,7 @@ const arriving = [
     <PageHero
       eyebrow="Manual — Recording &amp; virtual soundcheck"
       title="Capture a show, then mix it again without the band."
-      lede="Multitrack recording and virtual soundcheck are landing now and have not recorded a real show yet — see the known limitations before you rely on this for anything you cannot afford to lose. What is described below is what the console does today; anything still being built is marked as such at the end of the chapter."
+      lede="Multitrack recording and virtual soundcheck have taken their first real take on the rig — eighty-four tracks of it — and have not yet carried a show. See the known limitations before you rely on this for anything you cannot afford to lose. What is described below is what the console does today; anything still being built is marked as such at the end of the chapter."
     />
 
     <section class="border-b border-edge">
@@ -39,10 +42,20 @@ const arriving = [
           </p>
           <p>
             Each armed channel is captured at two points by default — its
-            raw input and its post-fader signal — so a re-mix afterwards has
-            both the untouched source and what you actually pushed to the
-            house that night. A pre-fader tap is offered too, off until you
-            turn it on.
+            raw input, taken straight after the trim, and its post-fader
+            signal — so a re-mix afterwards has both the untouched source
+            and what you actually pushed to the house that night. An input
+            channel is offered a third point, pre-fader, and the three are a
+            set rather than a choice: a channel can record pre and post
+            fader at the same time. A bus master is offered one point,
+            post-fader, and that is a stated fact about a bus rather than
+            an oversight.
+          </p>
+          <p>
+            Which taps a channel records is decided when the take starts.
+            Changing the set while a take is running moves nothing and
+            costs nothing — it is a decision about the files the next take
+            will open.
           </p>
           <p>
             The channel set is fixed for the whole take. Arming or unarming
@@ -98,13 +111,101 @@ const arriving = [
             two the same — one mono 32-bit float file per track, at the
             rate the graph was running when the take was recorded.
           </p>
+          <p>
+            One file per track means one file per leg, so a stereo channel
+            contributes two, sharing a channel and a tap between them. Each
+            one names its side in the take's own record, left or right, so
+            nothing downstream has to infer a stereo pair from the order the
+            files happen to be listed in. The file names stay the track
+            number and the tap — <code class="font-mono text-sm text-ink">ch09.post-fader.wav</code> —
+            because that is what stops a DAW laying the wrong tap under the
+            vocal; the side is in the record beside them. Takes recorded
+            before the side was written down do not carry it.
+          </p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="04" title="Running a virtual soundcheck." />
+        <SectionHead eyebrow="04" title="The print of the main mix." />
+        <div class="space-y-4 text-base leading-relaxed text-ink-dim">
+          <p>
+            MAIN is armed like any other strip, so the take already holds
+            the mix you made on the night — the print. Exporting it writes
+            that one capture out as a 24-bit WAV, beside the stems and never
+            over them; the stems stay as they are.
+          </p>
+          <p>
+            Nothing is summed to produce it. An offline sum of the stems
+            would answer a different question: the stems are captured before
+            the processing, so their sum is the console's inputs rather than
+            the show. The print is the show.
+          </p>
+          <p>
+            Clipping is reported rather than hidden. A sample past the rail
+            is held at it and counted, and the count and the true peak —
+            measured before the rail — go on the take, so you learn the show
+            clipped from the export rather than from someone listening to it
+            later.
+          </p>
+          <p>
+            This is not the same action as a render. A render is the offline
+            improvement pass over the tracks you select and writes a better
+            copy of each of them; the export reads one file and writes one.
+            That is also why a soundcheck playing does not block an export
+            while it does block a render — refusing you your print because
+            something is playing would be a rule with no cost behind it.
+          </p>
+          <p>
+            An export refuses rather than producing a file that is not the
+            print: when the take carries no MAIN capture, when that capture
+            holds no frames, when it cannot be read as an audio file, when
+            there is not enough disk for it, and when one is already running.
+            Each refusal says which of those it is.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge">
+      <div class="mx-auto max-w-4xl px-6 py-16">
+        <SectionHead eyebrow="05" title="Tracks the take could not fill." />
+        <div class="space-y-4 text-base leading-relaxed text-ink-dim">
+          <p>
+            A channel that was armed but never carried a buffer records a
+            file with a header and nothing in it. The take is not refused
+            for it and the track is not quietly dropped: the take counts how
+            many of its tracks are known empty, and separately how many it
+            cannot speak for at all, because a take made before the console
+            measured this carries no answer rather than a zero.
+          </p>
+          <p>
+            An empty track is not the same thing as a take that lost frames.
+            A channel with no signal path attached is skipped by the audio
+            thread entirely, so nothing was dropped and the take honestly
+            reports no drops. Two facts, and neither implies the other.
+          </p>
+          <p>
+            The consequence you will meet is at soundcheck: a channel whose
+            track in the take is empty is left on its live input rather than
+            switched to silence, and the console names which channels those
+            were. If that leaves nothing at all to listen to, the load
+            refuses instead of engaging a take that would play to no one.
+          </p>
+          <p>
+            Hiding an empty track would be worse than carrying an honest
+            one. It is how you find out about a channel that recorded
+            nothing from the library, rather than from a silent strip at the
+            next soundcheck.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge bg-surface/40">
+      <div class="mx-auto max-w-4xl px-6 py-16">
+        <SectionHead eyebrow="06" title="Running a virtual soundcheck." />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
           <p>
             A virtual soundcheck plays a take back through the live desk as
@@ -127,9 +228,13 @@ const arriving = [
             </li>
             <li>
               <span class="text-ink">Play.</span> Moves the take's
-              transport. Playing before engaging moves the position number
-              without anything audible changing, because nothing is
-              listening to the take yet — engage first.
+              transport. Play means hear it, so pressing it with nothing
+              engaged is refused rather than obeyed — <span class="text-ink">nothing
+              is listening to the take, so it would play unheard — engage a
+              channel first, or check the take can serve these
+              channels</span>. A transport that ran to an empty room while
+              the position number climbed is the kind of working control
+              that wastes a soundcheck.
             </li>
             <li>
               <span class="text-ink">Eject.</span> One action: stops
@@ -165,7 +270,9 @@ const arriving = [
         <p class="mt-8 text-sm leading-relaxed text-ink-faint">
           The exact fields behind every step above — <code class="font-mono text-xs text-ink">/record</code>,
           <code class="font-mono text-xs text-ink">/vsc</code>,
-          <code class="font-mono text-xs text-ink">/takes</code> — are in the
+          <code class="font-mono text-xs text-ink">/takes</code>,
+          <code class="font-mono text-xs text-ink">/takes/{id}/export</code>,
+          <code class="font-mono text-xs text-ink">/channel/{kind}/{index}/record</code> — are in the
           <NuxtLink to="/docs/rest/record" class="text-accent hover:underline">REST reference</NuxtLink>,
           including the refusal a given field can send back and what it means, in the
           <NuxtLink to="/docs/rest/refusal-codes" class="text-accent hover:underline">refusal and undo-label codes</NuxtLink>.
