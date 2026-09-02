@@ -18,14 +18,14 @@ the session (and the wire) in MINUTES under <code>holdMinutes</code>. Only the s
 seam should ever see this shape — see <a href="../functions/_openmixer_core..normalizeFbsChannelState.html" class="tsd-kind-function">normalizeFbsChannelState</a>.</p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">FbsChannelStateJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#cooldownminutes">cooldownMinutes</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#holdminutes">holdMinutes</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..FbsHold.html" class="tsd-signature-type tsd-kind-type-alias">FbsHold</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#holdseconds">holdSeconds</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..FbsHold.html" class="tsd-signature-type tsd-kind-type-alias">FbsHold</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxautobands">maxAutoBands</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mergecents">mergeCents</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mode">mode</a><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..FbsMode.html" class="tsd-signature-type tsd-kind-type-alias">FbsMode</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#notchq">notchQ</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sensitivity">sensitivity</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="13782">
+<section class="tsd-panel tsd-hierarchy" data-refl="13805">
 <h4>Hierarchy</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-signature-type">Omit</span><span class="tsd-signature-symbol">&lt;</span><br/>    <a href="_openmixer_core..FbsChannelState.html" class="tsd-signature-type tsd-kind-interface">FbsChannelState</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-signature-type">&quot;holdSeconds&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;sensitivity&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;notchQ&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;mergeCents&quot;</span><br/>    <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;cooldownMinutes&quot;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">&gt;</span>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">FbsChannelStateJson</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L179">packages/core/src/fbs.ts:179</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L179">packages/core/src/fbs.ts:179</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -51,19 +51,19 @@ seam should ever see this shape — see <a href="../functions/_openmixer_core..n
 <div class="tsd-comment tsd-typography"><p>Ring-memory window (minutes); absent in an older session → the default.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L191">packages/core/src/fbs.ts:191</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L191">packages/core/src/fbs.ts:191</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="holdminutes"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>hold<wbr/>Minutes</span><a href="#holdminutes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">holdMinutes</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..FbsHold.html" class="tsd-signature-type tsd-kind-type-alias">FbsHold</a></div>
 <div class="tsd-comment tsd-typography"><p>The pre-#116 spelling (minutes). Ignored when <code>holdSeconds</code> is present.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L183">packages/core/src/fbs.ts:183</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L183">packages/core/src/fbs.ts:183</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="holdseconds"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>hold<wbr/>Seconds</span><a href="#holdseconds" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">holdSeconds</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..FbsHold.html" class="tsd-signature-type tsd-kind-type-alias">FbsHold</a></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L181">packages/core/src/fbs.ts:181</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L181">packages/core/src/fbs.ts:181</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="maxautobands"><span>max<wbr/>Auto<wbr/>Bands</span><a href="#maxautobands" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">maxAutoBands</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -71,14 +71,14 @@ seam should ever see this shape — see <a href="../functions/_openmixer_core..n
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="_openmixer_core..FbsChannelState.html">FbsChannelState</a>.<a href="_openmixer_core..FbsChannelState.html#maxautobands">maxAutoBands</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L157">packages/core/src/fbs.ts:157</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L157">packages/core/src/fbs.ts:157</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mergecents"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>merge<wbr/>Cents</span><a href="#mergecents" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mergeCents</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Merge radius (cents); absent in an older session → the default.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L189">packages/core/src/fbs.ts:189</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L189">packages/core/src/fbs.ts:189</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="mode"><span>mode</span><a href="#mode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mode</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..FbsMode.html" class="tsd-signature-type tsd-kind-type-alias">FbsMode</a></div>
@@ -86,21 +86,21 @@ seam should ever see this shape — see <a href="../functions/_openmixer_core..n
 </div><aside class="tsd-sources">
 <p>Inherited from <a href="_openmixer_core..FbsChannelState.html">FbsChannelState</a>.<a href="_openmixer_core..FbsChannelState.html#mode">mode</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L153">packages/core/src/fbs.ts:153</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L153">packages/core/src/fbs.ts:153</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="notchq"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>notch<wbr/>Q</span><a href="#notchq" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">notchQ</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Planted-notch width; absent in a pre-tunable session → the default (116).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L187">packages/core/src/fbs.ts:187</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L187">packages/core/src/fbs.ts:187</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="sensitivity"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>sensitivity</span><a href="#sensitivity" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sensitivity</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Detection sensitivity; absent in a pre-tunable session → the default (today's gates).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/fbs.ts#L185">packages/core/src/fbs.ts:185</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/fbs.ts#L185">packages/core/src/fbs.ts:185</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
