@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T05:38:26.575Z",
+    "generatedAt": "2026-09-02T05:52:42.031Z",
     "toolCount": 16
   },
   "tools": [
@@ -111,7 +111,7 @@
       ],
       "writes": false,
       "effect": "read",
-      "answers": "The governing spec and the law line for each path, from .claude/spec-map.txt with the design gate's own matching (a shell glob as a prefix, first row wins). An ungoverned path is reported as such."
+      "answers": "The governing spec and the law line for each path, from the design gate’s spec map with the design gate's own matching (a shell glob as a prefix, first row wins). An ungoverned path is reported as such."
     },
     {
       "name": "rulings_search",
@@ -133,7 +133,7 @@
       ],
       "writes": false,
       "effect": "read",
-      "answers": "The traps that have cost real time, from the \"traps\" section of the tree's local CLAUDE.md, ranked against the query (empty query: all of them). Read at call time; a tree without the file says so."
+      "answers": "The traps that have cost real time, from the \"traps\" section of the tree’s own working notes, ranked against the query (empty query: all of them). Read at call time; a tree without the file says so."
     },
     {
       "name": "compliance_preflight",

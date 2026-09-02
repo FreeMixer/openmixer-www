@@ -56,43 +56,36 @@ const install = [
 const skills = [
   {
     name: 'design-first',
-    at: '.claude/skills/design-first',
     blurb:
       'Resolve the governing design before reading or writing a line. It is three questions — which primitive does this belong to, does it need a new word in the vocabulary, and why is it not an existing thing configured differently — and a search of the specs and the log for the subject before anything is built. The week that produced it lost most of its time re-deriving decisions that were already written down.',
   },
   {
     name: 'design-ruling',
-    at: '.claude/skills/design-ruling',
     blurb:
       'Record a decision where the automation reads it. When a spec is written or amended, a contract field changes, or a law is superseded, the ruling goes into the design records and the spec map that the pre-edit gate consults — otherwise the next person to touch that file is told the old law.',
   },
   {
     name: 'false-signals',
-    at: '.claude/skills/false-signals',
     blurb:
       'The house rule for a signal that does not observe what it claims to. A green suite over an empty function body, a grep that finds nothing because it is broken, a probe that reports silence because it was pointed at the wrong strip: each one has cost a night here. The rule it enforces is to prove a check can detect presence before believing its report of absence.',
   },
   {
     name: 'round-trip-proof',
-    at: '.claude/skills/round-trip-proof',
     blurb:
       'A feature is done when the operator’s whole job has been measured end to end, not when its parts pass. It is the skill to read before calling anything finished, and the one that governs any audio measurement that comes back a null, a ratio or a surprise — a gain test needs a real signal well above the noise floor before its delta means anything.',
   },
   {
     name: 'openmixer-dev-discipline',
-    at: '.claude/skills/openmixer-dev-discipline',
     blurb:
       'The house style, in one place: how a change lands in git, what the TypeScript and C look like, the rules for the surface’s components and its translations, which testing tier a change owes, and how the packaging stays parametrised. Its first principle is operator authority — the console states the cost of a choice and lets the operator make it, rather than vetoing; the narrow exception is anything irreversible that lands on people who are not at the desk.',
   },
   {
     name: 'lane-discipline',
-    at: '.claude/skills/lane-discipline',
     blurb:
       'How parallel work stays separable. Each lane gets its own worktree and branch, commits often with explicit paths, keeps its evidence in the repository rather than in a scratch file, and never merges its own work onto the integration branch. Written after a fan-out lost a night of findings that existed only outside the repository.',
   },
   {
     name: 'settle-gate',
-    at: '.claude/skills/settle-gate',
     blurb:
       'The procedure that puts an integration branch on the live console. It is deliberately not something a lane can invoke: it builds before it deploys, verifies with a question only the new commit can answer rather than with a health check, and drops real audio if it is wrong.',
   },
@@ -193,24 +186,23 @@ const skills = [
         <SectionHead eyebrow="04" title="The process skills the tree carries.">
           <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
             Alongside the server, the repository keeps its working discipline as readable
-            documents under <code class="font-mono text-sm text-ink">.claude/skills/</code>. Each
-            one exists because something went wrong the other way. They are listed here because
-            they describe how this project is built, not because a reader needs to run them.
+            documents, one per subject, checked in beside the code they govern. Each one exists
+            because something went wrong the other way. They are listed here because they
+            describe how this project is built, not because a reader needs to run them.
           </p>
         </SectionHead>
         <dl>
           <div v-for="s in skills" :key="s.name" class="border-t border-edge py-6 first:border-t-0 first:pt-0">
-            <dt class="flex flex-wrap items-baseline gap-3">
+            <dt>
               <span class="font-display text-lg font-semibold tracking-tight text-ink">{{ s.name }}</span>
-              <code class="font-mono text-xs text-ink-faint">{{ s.at }}</code>
             </dt>
             <dd class="mt-2 text-base leading-relaxed text-ink-dim">{{ s.blurb }}</dd>
           </div>
         </dl>
         <p class="mt-8 text-sm leading-relaxed text-ink-faint">
-          The repository is not public yet, so these paths are inside a tree you cannot clone
-          today. They are named rather than described vaguely, because the paths are what makes
-          the description checkable the day it opens.
+          The repository is not public yet, so these documents live in a tree you cannot clone
+          today. They are named rather than summarised away, because a name is what makes the
+          description checkable the day it opens.
         </p>
       </div>
     </section>

@@ -54,7 +54,12 @@ function redactInternalPaths(text) {
     .replace(/docs\/design\/specs and docs\/design\/notes/g, 'the design specs and the working notes')
     .replace(/docs\/design\/[A-Za-z0-9_./*-]+/g, 'an internal design record')
     .replace(/docs\/design\b/g, 'the internal design records')
-    .replace(/~\/Devel[A-Za-z0-9_./-]*/g, 'an internal checkout');
+    .replace(/~\/Devel[A-Za-z0-9_./-]*/g, 'an internal checkout')
+    // The tooling directory and the working-notes file are named for the editor
+    // that reads them. The site describes what they hold, not what they are called.
+    .replace(/\.claude\/spec-map\.txt/g, 'the design gate’s spec map')
+    .replace(/the tree's local CLAUDE\.md/g, 'the tree’s own working notes')
+    .replace(/\.claude\/[A-Za-z0-9_./*-]+/g, 'the tree’s discipline documents');
 }
 
 const rows = [];
@@ -107,7 +112,7 @@ if (envSection) {
 // carries what the rule above exists to keep off the site.
 const leaks = [...rows, ...env]
   .flatMap((r) => Object.values(r))
-  .filter((v) => typeof v === 'string' && /docs\/design|~\/Devel/.test(v));
+  .filter((v) => typeof v === 'string' && /docs\/design|~\/Devel|\.claude|CLAUDE\.md/.test(v));
 if (leaks.length > 0) {
   console.error(`[gen-mcp-tools] ${leaks.length} internal-path citation(s) survived redaction — fix redactInternalPaths before publishing`);
   for (const leak of leaks) console.error(`  ${leak}`);
