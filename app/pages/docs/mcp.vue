@@ -168,6 +168,14 @@ const skills = [
             the console decides, and what comes back is what it decided.
           </p>
           <p>
+            A write that targets an operation the console’s own <code class="font-mono text-sm text-ink">confirms</code>
+            sheet marks destructive — a channel-config apply that would move gain, trim or pan is
+            the example — is withheld rather than sent when the preview lists moves and the
+            operator’s sign-off setting is on: nothing reaches the desk, and the answer carries
+            the preview in its place. Calling again with <code class="font-mono text-sm text-ink">confirm: true</code>
+            applies it, because the agent has now been shown what it is agreeing to.
+          </p>
+          <p>
             The metered row is the one place a read is not simply a GET. A pump-fed row measures
             only while something is watching it, so an unmeasured frame is followed by a single
             watch that closes the moment the first measured frame lands. No stream is left open.
