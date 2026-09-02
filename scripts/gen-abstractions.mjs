@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
+const src = resolve(wwwRoot, process.env.OPENMIXER_SRC || '../openmixer');
 const modelPath = resolve(wwwRoot, '.docgen-tmp/typedoc-model.json');
 const curatedPath = resolve(wwwRoot, 'app/data/abstractions-curated.json');
 const outPath = resolve(wwwRoot, 'app/data/abstractions.json');
@@ -85,12 +86,19 @@ function main() {
   // no sibling openmixer checkout (the Pages runner never has one) — and in that
   // case it never writes a fresh typedoc-model.json. Fall back the same way here:
   // keep the committed app/data/abstractions.json rather than fail the build.
-  if (!existsSync(modelPath)) {
+  // The absence to test is the CHECKOUT, not the model file. A machine that has run
+  // this pipeline before still has a typedoc-model.json in .docgen-tmp/ from whatever
+  // tree it last read, and gen-typedoc leaves it exactly as it found it when it falls
+  // back — so testing the model alone would rebuild this page off a stale model while
+  // the HTML beside it stayed on the committed snapshot, and the two would disagree.
+  const haveCheckout = existsSync(resolve(src, 'typedoc.json'));
+  if (!haveCheckout || !existsSync(modelPath)) {
+    const why = haveCheckout ? `no typedoc model at ${modelPath}` : `no checkout at ${src}`;
     if (existsSync(outPath)) {
-      console.log(`[gen-abstractions] no typedoc model at ${modelPath} — keeping the committed app/data/abstractions.json`);
+      console.log(`[gen-abstractions] ${why} — keeping the committed app/data/abstractions.json`);
       process.exit(0);
     }
-    console.error(`[gen-abstractions] no typedoc model at ${modelPath} and no committed abstractions.json to fall back to`);
+    console.error(`[gen-abstractions] ${why} and no committed abstractions.json to fall back to`);
     process.exit(1);
   }
   const model = JSON.parse(readFileSync(modelPath, 'utf8'));
