@@ -81,8 +81,16 @@ function crawl(model) {
 }
 
 function main() {
+  // gen-typedoc.mjs itself falls back to its committed HTML snapshot when there is
+  // no sibling openmixer checkout (the Pages runner never has one) — and in that
+  // case it never writes a fresh typedoc-model.json. Fall back the same way here:
+  // keep the committed app/data/abstractions.json rather than fail the build.
   if (!existsSync(modelPath)) {
-    console.error(`[gen-abstractions] no typedoc model at ${modelPath} — run gen-typedoc.mjs first`);
+    if (existsSync(outPath)) {
+      console.log(`[gen-abstractions] no typedoc model at ${modelPath} — keeping the committed app/data/abstractions.json`);
+      process.exit(0);
+    }
+    console.error(`[gen-abstractions] no typedoc model at ${modelPath} and no committed abstractions.json to fall back to`);
     process.exit(1);
   }
   const model = JSON.parse(readFileSync(modelPath, 'utf8'));
