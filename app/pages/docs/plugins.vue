@@ -51,7 +51,7 @@ const findings = [
           <p>
             <span class="text-ink">The chain</span> is the strip’s own structure — trim, EQ,
             gate, fader — and it offers named points inside that structure where one plugin can
-            be placed: Top Of Ch, Post-Trim, Pre-EQ, Post-EQ and Pre-Fader. Use it when the
+            be placed: Top-Of-Ch, Post-Trim, Pre-EQ, Post-EQ and Pre-Fader. Use it when the
             plugin has to run <em>before</em> something the console does natively rather than
             after everything.
           </p>
@@ -78,7 +78,7 @@ const findings = [
           <p>
             Each slot shows the plugin’s measured latency in milliseconds, and the rack shows
             the total at the foot, with the console’s own verdict on it underneath. A verdict
-            that has not arrived yet reads as loading, never as fine.
+            that has not arrived yet shows nothing under the total, never a false <em>fine</em>.
           </p>
         </div>
       </div>
