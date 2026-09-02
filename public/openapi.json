@@ -113,6 +113,10 @@
       "description": "Rows under /clipboard."
     },
     {
+      "name": "plugins",
+      "description": "Rows under /plugins."
+    },
+    {
       "name": "reac",
       "description": "Rows under /reac."
     },
@@ -5486,6 +5490,10 @@
                       "type": "boolean",
                       "readOnly": true
                     },
+                    "bySip": {
+                      "type": "boolean",
+                      "readOnly": true
+                    },
                     "individual": {
                       "type": "boolean"
                     }
@@ -5593,6 +5601,10 @@
                       "readOnly": true
                     },
                     "byPanic": {
+                      "type": "boolean",
+                      "readOnly": true
+                    },
+                    "bySip": {
                       "type": "boolean",
                       "readOnly": true
                     },
@@ -12463,6 +12475,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "override": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -12532,6 +12547,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "override": {
+                    "type": "string"
+                  },
                   "running": {
                     "type": "boolean"
                   }
@@ -12549,6 +12567,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "override": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -12600,6 +12621,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "override": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -12669,6 +12693,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "override": {
+                    "type": "string"
+                  },
                   "running": {
                     "type": "boolean"
                   }
@@ -12686,6 +12713,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "override": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -15346,6 +15376,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "confirm": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -15455,6 +15488,9 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "confirm": {
+                    "type": "string"
+                  },
                   "running": {
                     "type": "boolean"
                   }
@@ -15472,6 +15508,9 @@
                 "schema": {
                   "type": "object",
                   "properties": {
+                    "confirm": {
+                      "type": "string"
+                    },
                     "params": {
                       "type": "string",
                       "readOnly": true
@@ -19077,6 +19116,174 @@
           }
         }
       }
+    },
+    "/api/plugins": {
+      "get": {
+        "tags": [
+          "plugins"
+        ],
+        "operationId": "get_plugins",
+        "summary": "/plugins",
+        "x-sse-watchable": true,
+        "description": "Add `?watch=1` to follow this row live over server-sent events, snapshot first.",
+        "responses": {
+          "200": {
+            "description": "The row’s current value.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "plugins": {
+                      "type": "array",
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Refusal"
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "plugins"
+        ],
+        "operationId": "options_plugins",
+        "summary": "The live contract for /plugins",
+        "description": "Publishes this row’s writable fields, ranges and enumerated options as the server currently serves them — the authority this generated document mirrors at build time, not a substitute for asking the running console.",
+        "responses": {
+          "200": {
+            "description": "The row’s live contract.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Refusal"
+          }
+        }
+      }
+    },
+    "/api/plugins/{uri}": {
+      "get": {
+        "tags": [
+          "plugins"
+        ],
+        "operationId": "get_plugins_uri",
+        "summary": "/plugins/{uri}",
+        "x-sse-watchable": true,
+        "description": "Add `?watch=1` to follow this row live over server-sent events, snapshot first.",
+        "responses": {
+          "200": {
+            "description": "The row’s current value.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "audioInputs": {
+                      "type": "number",
+                      "readOnly": true
+                    },
+                    "audioOutputs": {
+                      "type": "number",
+                      "readOnly": true
+                    },
+                    "family": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "hasMidiIn": {
+                      "type": "boolean",
+                      "readOnly": true
+                    },
+                    "label": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "latencyClass": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "lv2Class": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "name": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "notForLive": {
+                      "type": "boolean",
+                      "readOnly": true
+                    },
+                    "params": {
+                      "type": "array",
+                      "readOnly": true
+                    },
+                    "points": {
+                      "type": "array",
+                      "readOnly": true
+                    },
+                    "role": {
+                      "type": "string",
+                      "readOnly": true
+                    },
+                    "uri": {
+                      "type": "string",
+                      "readOnly": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Refusal"
+          }
+        }
+      },
+      "options": {
+        "tags": [
+          "plugins"
+        ],
+        "operationId": "options_plugins_uri",
+        "summary": "The live contract for /plugins/{uri}",
+        "description": "Publishes this row’s writable fields, ranges and enumerated options as the server currently serves them — the authority this generated document mirrors at build time, not a substitute for asking the running console.",
+        "responses": {
+          "200": {
+            "description": "The row’s live contract.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "4XX": {
+            "$ref": "#/components/responses/Refusal"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "uri",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
     },
     "/api/reac/segment": {
       "get": {

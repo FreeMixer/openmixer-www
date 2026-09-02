@@ -19,11 +19,11 @@ other entities, and the composed value the audio must follow.</p>
 named for the audit's phrase &quot;audible truth&quot; (the quantity that decides what is heard), not
 for &quot;this channel is audible&quot;. A boolean called <code>audible</code> that is <code>true</code> when the channel is
 silent is the inverted-sense trap this layer exists to remove.</p>
-<p>Only <a href="#individual" class="tsd-kind-property">individual</a> is state. The other three are derived on every read from the one state
-plus the mute-group and panic entities' own state, so they cannot go stale and cannot be
+<p>Only <a href="#individual" class="tsd-kind-property">individual</a> is state. The other four are derived on every read from the one state
+plus the mute-group, panic and cue entities' own state, so they cannot go stale and cannot be
 written back.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelMuteState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audiblemute">audibleMute</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bygroup">byGroup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypanic">byPanic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#individual">individual</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelMuteState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audiblemute">audibleMute</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bygroup">byGroup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypanic">byPanic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bysip">bySip</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#individual">individual</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -34,6 +34,7 @@ written back.</p>
 <div class="tsd-index-list"><a href="#audiblemute" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>audible<wbr/>Mute</span></a>
 <a href="#bygroup" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Group</span></a>
 <a href="#bypanic" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Panic</span></a>
+<a href="#bysip" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Sip</span></a>
 <a href="#individual" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>individual</span></a>
 </div></section></div></details></section></section>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -45,6 +46,9 @@ written back.</p>
 <div class="tsd-comment tsd-typography"><p>The composed value that decides audibility — <code>individual OR byGroup OR byPanic</code>, computed by
 <a href="../functions/_openmixer_core..effectiveChannelMute.html" class="tsd-kind-function">effectiveChannelMute</a>. <code>true</code> = SILENCED. This is what reaches the audio, and the only
 quantity a backend may be given.</p>
+<p><a href="#bysip" class="tsd-kind-property">bySip</a> is deliberately outside this OR: a SIP silence is a console-wide condition
+somebody else's solo imposes, and it clears when that solo clears. A surface reads the two
+separately because it draws them differently.</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="bygroup"><code class="tsd-tag">Readonly</code><span>by<wbr/>Group</span><a href="#bygroup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
@@ -55,6 +59,18 @@ quantity a backend may be given.</p>
 <h3 class="tsd-anchor-link" id="bypanic"><code class="tsd-tag">Readonly</code><span>by<wbr/>Panic</span><a href="#bypanic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">byPanic</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Held by the engaged panic latch. Owned by the safety/panic entity; read-only here.</p>
+</div></section>
+<section class="tsd-panel tsd-member">
+<h3 class="tsd-anchor-link" id="bysip"><code class="tsd-tag">Readonly</code><span>by<wbr/>Sip</span><a href="#bysip" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">bySip</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
+<div class="tsd-comment tsd-typography"><p>Held out of MAIN by a solo-in-place: the console is in SIP mode, some channel is soloed, and
+this strip is neither soloed nor solo-safe. Owned by the cue entity (<code>/cue</code>,
+<code>/channel/{kind}/{index}/solo</code>, <code>/channel/{kind}/{index}/soloSafe</code>); read-only here.</p>
+<p>It is NOT part of <a href="#audiblemute" class="tsd-kind-property">audibleMute</a> and never reaches <a href="_openmixer_core..ChannelMuteSink.html" class="tsd-kind-interface">ChannelMuteSink</a>. The RT graph
+evaluates the same condition every block from its own console-wide <code>any_solo</code>, so a
+projection carrying the term would be a second writer of one bit — and a re-projection that
+failed to land would leave a strip muted at the lane after the solo cleared. The C actuates
+it; this row reports it.</p>
 </div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="individual"><code class="tsd-tag">Readonly</code><span>individual</span><a href="#individual" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
@@ -76,7 +92,7 @@ quantity a backend may be given.</p>
 <h3>On This Page</h3></summary>
 <div class="tsd-accordion-details">
 <details open class="tsd-accordion tsd-page-navigation-section"><summary class="tsd-accordion-summary" data-key="section-Properties"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>Properties</summary>
-<div><a href="#audiblemute"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>audible<wbr/>Mute</span></a><a href="#bygroup"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Group</span></a><a href="#bypanic"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Panic</span></a><a href="#individual"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>individual</span></a></div></details></div></details></div>
+<div><a href="#audiblemute"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>audible<wbr/>Mute</span></a><a href="#bygroup"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Group</span></a><a href="#bypanic"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Panic</span></a><a href="#bysip"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>by<wbr/>Sip</span></a><a href="#individual"><svg class="tsd-kind-icon" viewBox="0 0 24 24" aria-label="Property"><use href="../assets/icons.svg#icon-1024"></use></svg><span>individual</span></a></div></details></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="../index.html">openmixer — generated API reference</a>
 <ul class="tsd-small-nested-navigation" id="tsd-nav-container">

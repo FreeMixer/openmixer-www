@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T06:19:28.476Z",
+    "generatedAt": "2026-09-02T10:02:45.581Z",
     "toolCount": 16
   },
   "tools": [
@@ -44,7 +44,7 @@
       ],
       "writes": true,
       "effect": "writes",
-      "answers": "PATCH one row with a JSON delta. A REAL WRITE to a desk, sent exactly once and never retried; the console's answer — status, Allow, and the body with its fault, refusal and reason — is returned verbatim. A write that targets a confirm-gated operation (the console's own confirms sheet, e.g. a channel-config apply that would move gain/trim/pan) is WITHHELD when the preview lists moves and the operator's sign-off is on: nothing is sent, and the answer carries the preview instead. Re-call with confirm: true to apply anyway."
+      "answers": "PATCH one row with a JSON delta. A REAL WRITE to a desk, sent exactly once and never retried; the console's answer — status, Allow, and the body with its fault, refusal and reason — is returned verbatim. A fire on a confirm-gated row (a channel-config apply that would move gain/trim/pan) is REFUSED BY THE CONSOLE with 409 CONFIRM_REQUIRED while its preview lists moves and the operator's sign-off is on; the body carries the preview. Re-call with confirm: true — it rides the delta as the row's own confirm argument — to apply anyway."
     },
     {
       "name": "console_health",
