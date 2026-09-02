@@ -10,6 +10,7 @@
     "docs:rest": "node scripts/gen-rest-reference.mjs",
     "docs:api": "node scripts/gen-typedoc.mjs && node scripts/gen-abstractions.mjs",
     "docs:gen": "npm run docs:rest && npm run docs:api",
+    "docs:links": "node scripts/check-links.mjs",
     "predev": "npm run docs:gen",
     "prebuild": "npm run docs:gen",
     "pregenerate": "npm run docs:gen",
