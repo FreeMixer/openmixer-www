@@ -9,6 +9,11 @@
 // on machines with no internet, so a network check would fail for the wrong reason.
 //
 // Usage: node scripts/check-links.mjs [dist-dir]   (default .output/public)
+//
+// A project-page build sets NUXT_APP_BASE_URL (e.g. /openmixer-www/) so every
+// absolute href on the live site carries that prefix — but the generated tree
+// on disk has no such subdirectory, so the prefix has to come off a site-absolute
+// href before it is checked against the output root.
 
 import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs';
 import { resolve, dirname, join, posix } from 'node:path';
@@ -16,6 +21,15 @@ import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const root = resolve(here, '..', process.argv[2] || '.output/public');
+const base = (process.env.NUXT_APP_BASE_URL || '/').replace(/\/+$/, ''); // '' for a domain root
+
+/** Strip the app's base path off a site-absolute path, e.g. /openmixer-www/faq -> /faq. */
+function stripBase(sitePath) {
+  if (!base) return sitePath;
+  if (sitePath === base) return '/';
+  if (sitePath.startsWith(`${base}/`)) return sitePath.slice(base.length);
+  return sitePath;
+}
 
 if (!existsSync(root)) {
   console.error(`[check-links] no generated site at ${root} — run \`npm run generate\` first`);
@@ -62,7 +76,7 @@ for (const page of pages) {
       external++;
       continue;
     }
-    const sitePath = raw.startsWith('/') ? raw : posix.join(posix.dirname(from), raw);
+    const sitePath = raw.startsWith('/') ? stripBase(raw) : posix.join(posix.dirname(from), raw);
     internal++;
     if (!resolves(sitePath)) broken.push({ from, raw });
   }
