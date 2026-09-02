@@ -45,8 +45,7 @@ const never = [
             That is the point rather than a hazard, and the list is what makes it safe: each
             entry says where it came from before you press anything. An entry made on a
             surface names the surface, one made by a REST client names the client’s address,
-            one made by the console itself says so, and an entry that is itself an undo says
-            that too.
+            and an entry that is itself an undo says that too.
           </p>
           <p>
             It holds the last 512 changes and the panel says so at the foot of the list. The
@@ -154,8 +153,8 @@ const never = [
             console asks first, in the entry’s own row:
           </p>
           <blockquote class="border-l-2 border-accent/60 pl-4 text-ink">
-            CH3 fader is −3.0 dB now, not the −12.0 this step left. X-Touch moved it two
-            minutes ago. Go back to −6.0 anyway?
+            This has changed since — db reads −3.0 now, not the −12.0 this step left (changed
+            by entry 47).
           </blockquote>
           <p>
             <span class="text-ink">Go back anyway</span> makes the write and records in the new
