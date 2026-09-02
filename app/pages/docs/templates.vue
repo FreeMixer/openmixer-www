@@ -141,6 +141,29 @@ const notCarried = [
             the Apply button in the library both ask the same question. Cancelling leaves both
             doors shut, so a channel is never labelled with a template it did not get.
           </p>
+          <p>
+            The question is asked by the console, not by the screen you happen to be using. An
+            apply that would move something is refused at the door and comes back carrying the
+            same list of moves, and nothing is written until the apply is sent again saying, in
+            so many words, go ahead. That is why the dialog you see is not a screen the browser
+            invented: the button fires, the console refuses, and the refusal is what the dialog
+            is drawn from.
+          </p>
+          <blockquote class="border-l-2 border-accent/60 pl-4 text-ink">
+            applying this would move 5 of what the channel holds (gain, trim, pan, eq, inserts)
+            — confirm to go ahead
+          </blockquote>
+          <p>
+            An OSC surface and an MCP client meet exactly the same refusal, with the same list,
+            and answer it the same way. There is no client that quietly applies without asking,
+            and no client that has to be taught the rule: the desk holds it, in one place, and
+            every surface renders what the desk said.
+          </p>
+          <p>
+            Both the sign-off setting and the list of moves are read afresh on every attempt.
+            Turning the warning off takes effect on the next apply rather than on the next
+            reload, and a console that cannot read its own setting asks rather than assumes.
+          </p>
         </div>
       </div>
     </section>
@@ -162,23 +185,14 @@ const notCarried = [
 
     <section>
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="Arriving" title="What this chapter does not describe yet." />
-        <ul class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <li class="flex gap-3 border-l-2 border-edge-strong pl-4">
-            <StatusTag state="building" />
-            <span>
-              The preview on every surface. The console publishes the warning as protocol — which
-              row to read and which setting governs it — so a surface with no dialog of its own can
-              ask the same question before it writes. Adoption is per surface, and one that has not
-              adopted it applies without a preview.
-            </span>
-          </li>
-        </ul>
-        <p class="mt-8 text-sm leading-relaxed text-ink-faint">
+        <p class="text-sm leading-relaxed text-ink-faint">
           The library is <code class="font-mono text-xs text-ink">/channelConfigs</code>, the apply is
           <code class="font-mono text-xs text-ink">/channelConfigs/{id}/apply/{kind}/{index}</code>
           and the preview is the read-only sibling at
-          <code class="font-mono text-xs text-ink">…/applyMoves/{kind}/{index}</code> — both in the
+          <code class="font-mono text-xs text-ink">…/applyMoves/{kind}/{index}</code>, whose state
+          is what a refused apply hands back. The console lists every row that asks before it
+          fires in its own index, so a client knows to expect the question rather than guessing —
+          both rows are in the
           <NuxtLink to="/docs/rest/channelConfigs" class="text-accent hover:underline">REST reference</NuxtLink>.
         </p>
       </div>
