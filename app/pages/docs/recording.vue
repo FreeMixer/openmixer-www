@@ -190,8 +190,8 @@ const arriving = [
             The consequence you will meet is at soundcheck: a channel whose
             track in the take is empty is left on its live input rather than
             switched to silence, and the console names which channels those
-            were. If that leaves nothing at all to listen to, the load
-            refuses instead of engaging a take that would play to no one.
+            were. If that leaves nothing at all engaged, play refuses rather
+            than running a transport no channel is listening to.
           </p>
           <p>
             Hiding an empty track would be worse than carrying an honest
