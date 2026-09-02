@@ -93,9 +93,13 @@ const refusals = [
             and tells you why.
           </p>
           <p class="text-sm text-ink-faint">
-            The word recorder does double duty on this desk. Here it means the end of a REAC
-            pairing the console presents as. It has nothing to do with the multitrack recorder
-            that writes takes to disk.
+            The word recorder does double duty on this desk, and the labels keep the two apart.
+            The control in Setup is called <span class="text-ink">REAC role</span>, and its
+            three settings are Mixer, Recorder and Automatic — that recorder is the end of a
+            REAC pairing the console presents as. Everywhere the desk means the multitrack
+            recorder that writes takes to disk it says
+            <span class="text-ink">recorder (takes)</span> instead, so a sentence like “this
+            console has no recorder (takes)” is never about the wire.
           </p>
         </div>
       </div>
@@ -175,6 +179,41 @@ const refusals = [
           <p>
             A rate the segment does not publish as drivable is refused too, naming the rates it
             will take. It is never quietly rounded to the nearest one it likes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge">
+      <div class="mx-auto max-w-4xl px-6 py-16">
+        <SectionHead eyebrow="06" title="The file the console writes." />
+        <div class="space-y-4 text-base leading-relaxed text-ink-dim">
+          <p>
+            The REAC daemon is configured by a small environment file at
+            <code class="font-mono text-sm text-ink">~/.config/openmixer/reac.env</code>, and the
+            console generates it: setting the role in Setup is what puts
+            <code class="font-mono text-sm text-ink">REAC_ROLE</code> on disk, so the choice
+            survives a restart of the daemon and of the machine. The write is atomic — a new
+            file is put in place whole — so an interrupted save never leaves a half-written
+            configuration behind.
+          </p>
+          <p>
+            The file says what the console <em>is</em> on the wire, and holds nothing else: the
+            role, the two interfaces, the mixer family and the wire’s rate, plus the box model
+            where the rig still carries an expectation of one. Which stagebox is actually out
+            there is learned from the wire and is deliberately not written down here.
+          </p>
+          <p>
+            Because the console regenerates the file rather than editing it in place, it is the
+            console’s file and not a shared one: a comment or a variable of your own added by
+            hand is dropped the next time the console writes it. Keep anything you need for
+            yourself somewhere else.
+          </p>
+          <p>
+            The console is conservative about writing at all. A role change writes only when the
+            file actually says something different, and if there is no file, or the file does not
+            parse, nothing is written — an unconfigured host stays unconfigured rather than
+            acquiring a binding nobody chose.
           </p>
         </div>
       </div>
