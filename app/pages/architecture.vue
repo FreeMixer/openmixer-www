@@ -332,6 +332,15 @@ useSeoMeta({
               by asserting that a model changed. A model is correct in exactly the cases
               where it is the thing that is wrong.
             </p>
+            <p>
+              A test that needs a real graph gets one of its own. Each test process
+              starts a private PipeWire daemon in a scratch directory, on a socket named
+              after the process, and points both the daemon and its clients at that
+              socket rather than at the session's — so a suite cannot reach the
+              operator's audio, two suites running at once cannot see each other, and
+              nothing survives the process that made it. The daemon is not waited for by
+              a sleep: it counts as up when it answers a question.
+            </p>
           </div>
           <div class="rounded border border-edge bg-field p-6">
             <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">
