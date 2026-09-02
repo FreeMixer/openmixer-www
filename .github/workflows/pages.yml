@@ -40,6 +40,8 @@ jobs:
         env:
           NUXT_APP_BASE_URL: /openmixer-www/
       - run: npm run docs:links
+        env:
+          NUXT_APP_BASE_URL: /openmixer-www/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .output/public
