@@ -120,7 +120,8 @@ const groups: readonly Group[] = [
         q: 'What gets recorded when I press record?',
         a: [
           'Every patched input and MAIN, by default, with a per-channel opt-out — there is no channel list to fill in first. Aux and matrix channels are not armed unless you ask for them.',
-          'Each armed channel is captured at two points, simultaneously: its raw input and its post-fader signal. A pre-fader tap is offered too, off until you turn it on.',
+          'Each armed channel is captured at two points, simultaneously: its raw input, taken straight after the trim, and its post-fader signal. An input channel is offered a third point, pre-fader, and the points are a set rather than a choice — a channel can record pre and post fader at once. A bus master is offered post-fader only.',
+          'No control on the surface changes that set yet, so today a channel records its default unless something writes the field over the API.',
         ],
       },
       {
@@ -136,9 +137,18 @@ const groups: readonly Group[] = [
         ],
       },
       {
-        q: 'Can I export a take as something smaller than the raw stems?',
+        q: 'Can I get one file of the show out, rather than the whole stem folder?',
         a: [
-          'Not today. The stems stay untouched RF64 float — there is no lossy export, because a mixer that recorded a show in a lesser format than it captured it would be throwing away the reason to have recorded at all. A FLAC print of the take’s main mix, as a show deliverable rather than a stem export, is planned and not built yet.',
+          'Yes — the print. MAIN is armed like every other strip, so the take already holds the mix you made on the night, and exporting writes that one capture out as a 24-bit WAV beside the stems. Nothing is summed to produce it: the stems are captured before the processing, so a sum of them would be the console’s inputs rather than the show.',
+          'Two limits worth knowing. It is WAV and not yet FLAC, which is the right depth in the wrong container for something that has to travel. And no button fires it yet — the export is served and works, but today it is fired over the API.',
+          'The stems themselves are never rewritten and there is no lossy stem export, because a mixer that recorded a show in a lesser format than it captured it would be throwing away the reason to have recorded at all.',
+        ],
+      },
+      {
+        q: 'A track in my take is an empty file. Did the recording fail?',
+        a: [
+          'No, and the take says so rather than hiding it. A channel that was armed but had nothing patched into it is skipped by the audio thread entirely, so its file is a header with no frames — and no frames were dropped, which is why the take honestly reports no drops at the same time. Emptiness and dropped frames are two different facts.',
+          'The take counts how many of its tracks are known empty, and separately how many it cannot speak for at all, because a take made before the console measured this carries no answer rather than a zero. At soundcheck, a channel whose track is empty is left on its live input instead of being switched to silence, and the console names which ones those were.',
         ],
       },
       {
@@ -149,9 +159,11 @@ const groups: readonly Group[] = [
         ],
       },
       {
-        q: 'I pressed play and nothing happened — why?',
+        q: 'I pressed play and the desk refused it — why?',
         a: [
-          'Play moves the take’s transport position; it does not by itself connect a channel to the take. Engage first — that is the step that switches the channels over. Playing before engaging just advances a position number nothing is listening to yet.',
+          '“nothing is listening to the take, so it would play unheard — engage a channel first, or check the take can serve these channels.” Play is a separate step from engage: engage is what switches channels from their live inputs over to the take’s tracks, and play only moves the transport.',
+          'Press engage first. If you did engage and still get this, the take has no track for any of the channels you engaged — check the take is the one you meant.',
+          'Play means hear it, which is why this refuses rather than obeying. A transport running to an empty room while the position number climbs is the kind of working control that wastes a soundcheck.',
         ],
       },
       {
@@ -169,7 +181,99 @@ const groups: readonly Group[] = [
       {
         q: 'Can I trust recording and the virtual soundcheck on a real show?',
         a: [
-          'Not yet. The capture path, the file writer and the take library are landing now and nothing has recorded a real show through them — treat the feature as unfinished until that changes, the same way the features page already labels it.',
+          'Not yet. The path has taken its first real take on the rig — eighty-four tracks — which is more than it had, and it is not a show. Treat the feature as unfinished until one has been carried through it, the same way the features page already labels it.',
+        ],
+      },
+    ],
+  },
+  {
+    heading: 'When the desk refuses',
+    items: [
+      {
+        q: '“the destination cannot afford this insert chain”',
+        a: [
+          'The plugins on that rack add more delay than the place the signal is going can carry. The budget belongs to the destination, not to the plugin: a monitor destination is held to 5 ms and refuses; a program destination has 100 ms and an effects destination 60 ms, and those two let the edit through and warn instead.',
+          'The reason underneath names the plugin and the numbers — “ZaMaximX2 puts this chain at 7.4 ms — over the 5.0 ms budget for a monitor destination at 48 kHz. On a monitor send the performer hears themself that late.”',
+          'Take out the plugin it names, replace it with a lower-latency one, or rack it somewhere the delay does not matter. Bypassing does not help: a bypassed plugin still costs its delay.',
+        ],
+      },
+      {
+        q: '“… has 2 audio legs and this strip is mono — rack the plugin’s mono build, or make the strip stereo.”',
+        a: [
+          'You racked a stereo plugin on a mono strip. The sentence names both ways out because both are real: most plugin families ship a mono build of the same processor, and a strip fed a stereo source can be made stereo.',
+          'It refuses rather than folding the plugin down because folding would be silent and wrong. Both output legs land in the strip’s one input port and are summed there — a measured 6.02 dB lift on the main mix from a stereo EQ sitting at unity, doing nothing. The mono twin of the same plugin moves the mix by 0.00 dB.',
+          'Nothing is written when it fires, and the whole rack is refused rather than quietly trimmed. Only the first plugin that does not fit is named.',
+        ],
+      },
+      {
+        q: '“a plugin cannot run at Post-Fader yet — rack it at one of Top-Of-Ch, Post-Trim, Pre-EQ, Post-EQ, Pre-Fader instead”',
+        a: [
+          'Post-Fader is a named point on the channel chain that does not carry audio yet. The slot is deliberately still there rather than tidied away, because a missing mechanism you can see is better than one that has quietly vanished.',
+          'Rack the plugin at one of the five points the sentence lists, or put it in the strip’s insert rack, which is after the fader anyway. When Post-Fader carries audio it joins the list and this stops firing, with no change needed to anything that talks to the console.',
+        ],
+      },
+      {
+        q: '“the plugin host has no instance slot left … restart the plugin host to reclaim them”',
+        a: [
+          'The sentence carries two numbers — how many slots the host has in all, and how many are held by plugins that were un-racked and never freed. When the second number is close to the first, that is the whole diagnosis: the host leaks a slot per un-rack, so a long session of trying plugins runs it dry.',
+          'Restart the plugin host. Nothing about the console’s own processing depends on it, so the desk keeps mixing while it comes back.',
+        ],
+      },
+      {
+        q: '“the take was recorded at 48000 Hz and the desk is running at 96000 Hz — match the clock or record it again”',
+        a: [
+          'There is no resampler on the playback path, deliberately. A take plays at the rate it was recorded at or it does not play, rather than playing at the wrong pitch and the wrong length while everyone tries to work out what is odd about the monitors.',
+          'Set the graph to the take’s rate, or record a new take at the rate you are running.',
+        ],
+      },
+      {
+        q: '“a virtual soundcheck is loaded — eject it before recording, so the take on the disk is the room and not the recording”',
+        a: [
+          'A soundcheck is feeding the channels from a take, so recording now would capture that take back to disk rather than the room. Eject, then record.',
+          'It goes the other way too: “a take is being recorded — stop it before playing one back.” Both directions use the one audio graph and refuse rather than queueing silently behind each other.',
+        ],
+      },
+      {
+        q: '“no channel would be recorded: check that inputs are patched and that they have not been taken out of the take”',
+        a: [
+          'Nothing is armed. Because arming is opt-out rather than opt-in, this almost always means nothing is patched — a channel with no source records nothing worth keeping and is left out of the derivation until something is patched into it.',
+          'Patch an input, or put back a channel you took out of the take. It refuses before the first sample rather than leaving you with a folder to clean up.',
+        ],
+      },
+      {
+        q: '“the disk holds 3221225472 bytes and this take needs at least 15032385536 before it will start”',
+        a: [
+          'The recorder works out what the take needs to open safely and checks it first. The numbers are both there on purpose: “not enough space” is not something you can act on, and “it needs 14 GB and there is 3” is.',
+          'Free space or point the state directory somewhere with room. The same check guards a render and the print export, each with its own numbers.',
+        ],
+      },
+      {
+        q: '“this take carries no MAIN capture, and the print is the main capture”',
+        a: [
+          'The print is not a mixdown the console computes; it is the MAIN capture the take already holds. A take recorded with MAIN taken out of it has nothing to print.',
+          'Nothing can be done for that take. Leave MAIN armed — it is armed by default — and the next take will have one.',
+        ],
+      },
+      {
+        q: '“CH3 fader reads −3.0 now, not the −12.0 this step left (changed by entry 41)”',
+        a: [
+          'You asked to take back one change out of the middle of the history, and the field has moved since — by another operator, by a control surface, or by a later gesture of your own. Writing the old value now would jump the fader from a value nobody expects to one nobody asked for.',
+          'The console asks instead of choosing: go back anyway, and the new entry records that it went over the later one, so the list says a jump-back happened; or leave it. It never retries behind your back, and if the desk moves again while the question is on screen the offer is dropped rather than answered against a stale value.',
+        ],
+      },
+      {
+        q: '“You asked to be the mixer, but a desk is already mastering this segment.”',
+        a: [
+          'One master per REAC segment is the protocol’s law, not a policy of this console’s. Another desk holds the wire, so the console is holding and has asserted nothing on it.',
+          'The panel offers the one gesture that resolves it: switch the segment to recorder and join the wire as the box end. Or take the other desk off the segment, at which point automatic picks it up on its own.',
+          'Two related sentences have no button, because the remedy is not the console’s to make. “A stagebox on this segment has its REAC Mode switch on M (master)” means walking to the box, setting the switch to S and power-cycling it. “Something is mastering this segment and the console cannot tell what it is” means finding out what else is on that wire.',
+        ],
+      },
+      {
+        q: '“A slave segment has no rate to set — it follows the foreign master’s pace”',
+        a: [
+          'The segment is following another desk, and a follower has no pace of its own to set — it locks to the master’s, physically.',
+          'If the rate is yours to choose, take the segment first: promote it to mixer, then set the rate on it. That is two confirmations rather than one, and each of them re-establishes the segment on the wire.',
         ],
       },
     ],
