@@ -102,7 +102,7 @@ const notCarried = [
             what would actually change and shows you the answer:
           </p>
           <blockquote class="space-y-2 border-l-2 border-accent/60 pl-4">
-            <p class="text-ink">Apply “Lead Vocal”?</p>
+            <p class="text-ink">Apply “FOH Vocal Capture”?</p>
             <p class="text-sm">
               A config is a whole statement about a channel, so applying it will move what CH3
               holds now:
