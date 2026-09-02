@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T05:52:42.031Z",
+    "generatedAt": "2026-09-02T06:18:30.782Z",
     "toolCount": 16
   },
   "tools": [
@@ -39,11 +39,12 @@
       "family": "console",
       "args": [
         "path",
-        "body"
+        "body",
+        "confirm"
       ],
       "writes": true,
       "effect": "writes",
-      "answers": "PATCH one row with a JSON delta. A REAL WRITE to a desk, sent exactly once and never retried; the console's answer — status, Allow, and the body with its fault, refusal and reason — is returned verbatim."
+      "answers": "PATCH one row with a JSON delta. A REAL WRITE to a desk, sent exactly once and never retried; the console's answer — status, Allow, and the body with its fault, refusal and reason — is returned verbatim. A write that targets a confirm-gated operation (the console's own confirms sheet, e.g. a channel-config apply that would move gain/trim/pan) is WITHHELD when the preview lists moves and the operator's sign-off is on: nothing is sent, and the answer carries the preview instead. Re-call with confirm: true to apply anyway."
     },
     {
       "name": "console_health",

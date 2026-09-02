@@ -16,9 +16,7 @@
 <div class="tsd-comment tsd-typography"><p>The outcome of projecting state onto the audio. Deliberately not <code>void</code>: a projection that
 reached nothing must say so.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ProjectionResult</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#applied">applied</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#reason">reason</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#refusal">refusal</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L620">packages/core/src/resource.ts:620</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ProjectionResult</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#applied">applied</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#reason">reason</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#refusal">refusal</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -35,25 +33,19 @@ reached nothing must say so.</p>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="applied"><code class="tsd-tag">Readonly</code><span>applied</span><a href="#applied" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">applied</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L621">packages/core/src/resource.ts:621</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">applied</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="reason"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>reason</span><a href="#reason" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">reason</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Why it did not apply, for a log line. Never a client-facing string — see <a href="#refusal" class="tsd-kind-property">refusal</a>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L629">packages/core/src/resource.ts:629</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="refusal"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>refusal</span><a href="#refusal" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">refusal</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a></div>
 <div class="tsd-comment tsd-typography"><p>The machine-readable why — a <a href="../types/_openmixer_core..RefusalCode.html" class="tsd-kind-type-alias">RefusalCode</a> plus named args, the same closed union a
 write refusal carries. Absent only for producers not yet migrated onto it, which still set
 <a href="#reason" class="tsd-kind-property">reason</a> alone; a client renders this through <code>refusalText()</code>, never <code>reason</code>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L627">packages/core/src/resource.ts:627</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

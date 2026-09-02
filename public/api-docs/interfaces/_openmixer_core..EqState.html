@@ -12,9 +12,7 @@
 <li><a href="../modules/_openmixer_core..html"></a></li>
 <li><a href="" aria-current="page">EqState</a></li></ul>
 <h1>Interface EqState</h1></div>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">EqState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#bands">bands</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#hpf">hpf</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lpf">lpf</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#on">on</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L363">packages/core/src/model.ts:363</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">EqState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#bands">bands</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#hpf">hpf</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lpf">lpf</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#on">on</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -48,30 +46,22 @@ inherit its neighbour's filter memory. Keeping the list still is what avoids tha
 <p>Where a surface must enumerate bands — the chip strip is the only one — it orders them BY
 ID, which is creation order: stable, already stored, and it will not reshuffle under the
 operator's finger mid-drag the way a frequency sort would.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L383">packages/core/src/model.ts:383</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="hpf"><code class="tsd-tag">Optional</code><span>hpf</span><a href="#hpf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">hpf</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a></div>
 <div class="tsd-comment tsd-typography"><p>Built-in high-pass (low-cut) roll-off on the whole channel — the desk's dedicated
 pass section, distinct from an <code>hpf</code>-type <a href="_openmixer_core..EqBand.html" class="tsd-kind-interface">EqBand</a> (this one carries a
 selectable 12/24 dB-oct slope; a band is a single Q-shaped section).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L389">packages/core/src/model.ts:389</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lpf"><code class="tsd-tag">Optional</code><span>lpf</span><a href="#lpf" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lpf</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..PassFilter.html" class="tsd-signature-type tsd-kind-interface">PassFilter</a></div>
 <div class="tsd-comment tsd-typography"><p>Built-in low-pass (high-cut) roll-off on the whole channel (see <a href="#hpf" class="tsd-kind-property">hpf</a>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L391">packages/core/src/model.ts:391</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="on"><span>on</span><a href="#on" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">on</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L364">packages/core/src/model.ts:364</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">on</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

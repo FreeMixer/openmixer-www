@@ -14,9 +14,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>One HTTP request, reduced to what the router needs. The host does the byte handling.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RestRequest</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#body">body</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#method">method</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#origin">origin</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..WriteSource.html" class="tsd-signature-type tsd-kind-type-alias">WriteSource</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#url">url</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/rest-router.ts#L135">packages/server/src/rest-router.ts:135</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RestRequest</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#body">body</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#method">method</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#origin">origin</a><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..WriteSource.html" class="tsd-signature-type tsd-kind-type-alias">WriteSource</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#url">url</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,16 +35,12 @@
 <div class="tsd-signature"><span class="tsd-kind-property">body</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">unknown</span></div>
 <div class="tsd-comment tsd-typography"><p>The request body: an already-parsed JSON value (Fastify), a raw JSON string (<code>node:http</code>),
 or absent. Anything that does not end up a JSON object is a 400 on <code>PATCH</code>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/rest-router.ts#L144">packages/server/src/rest-router.ts:144</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="method"><code class="tsd-tag">Readonly</code><span>method</span><a href="#method" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">method</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The HTTP method, any case.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/rest-router.ts#L137">packages/server/src/rest-router.ts:137</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="origin"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>origin</span><a href="#origin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">origin</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..WriteSource.html" class="tsd-signature-type tsd-kind-type-alias">WriteSource</a></div>
@@ -54,16 +48,12 @@ or absent. Anything that does not end up a JSON object is a 400 on <code>PATCH</
 attribute it. The transport is the only layer that knows, and it is optional because a host
 that cannot say is better answering nothing than naming the wrong operator
 (<code>2026-09-01-undo-history.md</code> §7).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/rest-router.ts#L151">packages/server/src/rest-router.ts:151</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="url"><code class="tsd-tag">Readonly</code><span>url</span><a href="#url" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">url</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The request target as it arrived: path, optionally with a query string.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/rest-router.ts#L139">packages/server/src/rest-router.ts:139</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

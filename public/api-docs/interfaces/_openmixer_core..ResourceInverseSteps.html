@@ -18,9 +18,7 @@
 inverse. A row that returns this is asserting it read both images itself; a row that cannot
 returns <code>undefined</code> and its write is simply not undoable, exactly as before.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ResourceInverseSteps</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#redo">redo</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#scope">scope</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#undo">undo</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L814">packages/core/src/resource.ts:814</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ResourceInverseSteps</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#redo">redo</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#scope">scope</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#undo">undo</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,19 +35,13 @@ returns <code>undefined</code> and its write is simply not undoable, exactly as 
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="redo"><code class="tsd-tag">Readonly</code><span>redo</span><a href="#redo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">redo</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L816">packages/core/src/resource.ts:816</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">redo</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="scope"><code class="tsd-tag">Readonly</code><span>scope</span><a href="#scope" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">scope</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L817">packages/core/src/resource.ts:817</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">scope</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="undo"><code class="tsd-tag">Readonly</code><span>undo</span><a href="#undo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">undo</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L815">packages/core/src/resource.ts:815</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">undo</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ResourcePatchStep.html" class="tsd-signature-type tsd-kind-interface">ResourcePatchStep</a><span class="tsd-signature-symbol">[]</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

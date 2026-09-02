@@ -16,9 +16,7 @@
 <div class="tsd-comment tsd-typography"><p>One voice's one correctable partial, as the corrector proposes it — the band the placement
 law described, plus the identity and weight the selection needs.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">HrpCandidate</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#band">band</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#harmonic">harmonic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#score">score</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#voiceid">voiceId</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/hrp-select.ts#L23">packages/core/src/hrp-select.ts:23</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">HrpCandidate</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#band">band</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#harmonic">harmonic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#score">score</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#voiceid">voiceId</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -38,30 +36,22 @@ law described, plus the identity and weight the selection needs.</p>
 <h3 class="tsd-anchor-link" id="band"><code class="tsd-tag">Readonly</code><span>band</span><a href="#band" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">band</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..EqBand.html" class="tsd-signature-type tsd-kind-interface">EqBand</a></div>
 <div class="tsd-comment tsd-typography"><p>The band <code>harmonicBands</code> described for this partial — id-less, bell, <code>hrp</code>-tagged.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/hrp-select.ts#L29">packages/core/src/hrp-select.ts:29</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="harmonic"><code class="tsd-tag">Readonly</code><span>harmonic</span><a href="#harmonic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">harmonic</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>1-based, harmonic 1 = the fundamental (which the excess rule never cuts).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/hrp-select.ts#L27">packages/core/src/hrp-select.ts:27</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="score"><code class="tsd-tag">Readonly</code><span>score</span><a href="#score" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">score</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p><a href="../functions/_openmixer_core..hrpResonanceScore.html" class="tsd-kind-function">hrpResonanceScore</a>'s answer — the weight the global ranking orders by.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/hrp-select.ts#L31">packages/core/src/hrp-select.ts:31</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="voiceid"><code class="tsd-tag">Readonly</code><span>voice<wbr/>Id</span><a href="#voiceid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">voiceId</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The C tracker's voice id — never reused, so a planted band can never reattach.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/hrp-select.ts#L25">packages/core/src/hrp-select.ts:25</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

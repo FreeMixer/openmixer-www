@@ -18,9 +18,7 @@ the desired audio graph, e.g. a bus output patched back onto a channel that feed
 in the AUDIO, this one reads a ring in the ROUTING. A topological ring is the cause; the
 spectral candidates are the symptom, and only if the loop gain is above unity.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">FeedbackLoopFrame</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channels">channels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#detail">detail</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L726">packages/server/src/protocol.ts:726</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">FeedbackLoopFrame</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channels">channels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#detail">detail</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -40,18 +38,14 @@ spectral candidates are the symptom, and only if the loop gain is above unity.</
 <div class="tsd-comment tsd-typography"><p>Every channel whose fader lies on a detected ring — the STRUCTURED field the banner
 renders from (named + joined client-side, in the operator's locale). Merged across
 rings when there are several: each of these channels really is in a loop.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L732">packages/server/src/protocol.ts:732</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="detail"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>detail</span><a href="#detail" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">detail</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The rings as node paths (<code>main → input.omx_head_input_2 → …</code>). LOG / DEBUG ONLY —
 English engine prose, never rendered on the surface (i18n rule: the wire carries codes
 and structured fields, the client owns display text).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L738">packages/server/src/protocol.ts:738</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -14,9 +14,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>One created virtual PipeWire node: its base name, both port pairs, and the kill handle.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">DemoNode</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#handle">handle</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SpawnHandle</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#input">input</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#output">output</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L58">packages/server/src/demo-console.ts:58</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">DemoNode</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#handle">handle</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SpawnHandle</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#input">input</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#output">output</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -36,30 +34,22 @@
 <h3 class="tsd-anchor-link" id="handle"><code class="tsd-tag">Readonly</code><span>handle</span><a href="#handle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">handle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SpawnHandle</span></div>
 <div class="tsd-comment tsd-typography"><p>Kill handle for the underlying <code>pw-loopback</code> process.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L66">packages/server/src/demo-console.ts:66</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="input"><code class="tsd-tag">Readonly</code><span>input</span><a href="#input" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">input</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span></div>
 <div class="tsd-comment tsd-typography"><p>Sink-side ports (<code>input.&lt;name&gt;:playback_FL/FR</code>) — feed audio in here.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L62">packages/server/src/demo-console.ts:62</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The <code>pw-loopback</code> base name (e.g. <code>omx-demo-in-1</code>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L60">packages/server/src/demo-console.ts:60</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="output"><code class="tsd-tag">Readonly</code><span>output</span><a href="#output" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">output</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">NodePorts</span></div>
 <div class="tsd-comment tsd-typography"><p>Source-side ports (<code>output.&lt;name&gt;:output_FL/FR</code>) — take audio out here.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L64">packages/server/src/demo-console.ts:64</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

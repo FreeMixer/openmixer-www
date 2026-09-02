@@ -18,9 +18,7 @@
 <ul class="tsd-type-parameter-list">
 <li><span id="a"><span class="tsd-kind-type-parameter">A</span></span></li>
 <li><span id="p"><span class="tsd-kind-type-parameter">P</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span> = <a href="../types/_openmixer_core..NoOperationColumn.html" class="tsd-signature-type tsd-kind-type-alias">NoOperationColumn</a></span></li>
-<li><span id="r"><span class="tsd-kind-type-parameter">R</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span> = <a href="../types/_openmixer_core..NoOperationColumn.html" class="tsd-signature-type tsd-kind-type-alias">NoOperationColumn</a></span></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L134">packages/core/src/operation-resource-mold.ts:134</a></li></ul></aside>
+<li><span id="r"><span class="tsd-kind-type-parameter">R</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span> = <a href="../types/_openmixer_core..NoOperationColumn.html" class="tsd-signature-type tsd-kind-type-alias">NoOperationColumn</a></span></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -45,16 +43,12 @@
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="address"><code class="tsd-tag">Readonly</code><span>address</span><a href="#address" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">address</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..AddressCodec.html" class="tsd-signature-type tsd-kind-interface">AddressCodec</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L140">packages/core/src/operation-resource-mold.ts:140</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">address</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..AddressCodec.html" class="tsd-signature-type tsd-kind-interface">AddressCodec</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="cancel"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>cancel</span><a href="#cancel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">cancel</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-comment tsd-typography"><p>Stop the current run, best effort. The mold drops the run's landings either way.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L155">packages/core/src/operation-resource-mold.ts:155</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="instances"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>instances</span><a href="#instances" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">instances</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div>
@@ -63,34 +57,26 @@
 fallback enumerates it. An operation addressed at a KEY (<code>/clipboard/{slot}/paste</code>) has as
 many instances as there are keys, and a row that cannot enumerate is absent from the opening
 burst — a client that never received it has no idea the door is there.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L190">packages/core/src/operation-resource-mold.ts:190</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inversesteps"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>inverse<wbr/>Steps</span><a href="#inversesteps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">inverseSteps</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="_openmixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></div>
 <div class="tsd-comment tsd-typography"><p>The patches that put the console back after this operation fired — see
 <a href="_openmixer_core..ConsoleResource.html#inversesteps" class="tsd-kind-method">ConsoleResource.inverseSteps</a>. An operation is the mold most likely to need one: its
 own state narrates a run, and what the run CHANGED is somewhere else entirely.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L181">packages/core/src/operation-resource-mold.ts:181</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lifecycle"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>lifecycle</span><a href="#lifecycle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lifecycle</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..LifecycleDoors.html" class="tsd-signature-type tsd-kind-interface">LifecycleDoors</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>The item-lifecycle doors. An operation addressed at a STORED item (<code>/scenes/{id}</code> — recall)
 is also the place that item is addressable at all, so DELETE there is &quot;delete the scene&quot;,
 not &quot;cancel the recall&quot; (that is <code>PATCH { running: false }</code>, and it stays that).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L169">packages/core/src/operation-resource-mold.ts:169</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="now"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>now</span><a href="#now" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">now</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The clock behind <code>startedAt</code>. Defaults to <code>Date.now</code>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L163">packages/core/src/operation-resource-mold.ts:163</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="params"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>params</span><a href="#params" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">params</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..OperationParamCodecs.html" class="tsd-signature-type tsd-kind-type-alias">OperationParamCodecs</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#p">P</a><span class="tsd-signature-symbol">&gt;</span></div>
@@ -98,41 +84,31 @@ not &quot;cancel the recall&quot; (that is <code>PATCH { running: false }</code>
 REQUIRED on the fire and accepted ONLY alongside <code>running: true</code> — a stored argument that
 takes effect at some later fire is an ambiguous success, and a defaulted one is a run
 nobody asked for.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L153">packages/core/src/operation-resource-mold.ts:153</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Readonly</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L139">packages/core/src/operation-resource-mold.ts:139</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a></div>
 <div class="tsd-comment tsd-typography"><p>What a committed write here means for the session's dirtiness and the operator's
 history. Absent means the layer default: it dirties the session, is not undoable,
 and is not a barrier (see <a href="../types/_openmixer_core..ResourcePolicy.html" class="tsd-kind-type-alias">ResourcePolicy</a>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L175">packages/core/src/operation-resource-mold.ts:175</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="report"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>report</span><a href="#report" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">report</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-comment tsd-typography"><p>Called when a run changed this instance OUTSIDE a patch — progress, the landing.
 The server wires this to <code>registry.reproject</code>, which is how completion becomes the
 next frame of the same instance.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L161">packages/core/src/operation-resource-mold.ts:161</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="start"><code class="tsd-tag">Readonly</code><span>start</span><a href="#start" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">start</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><br/>    <span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">run</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..OperationRun.html" class="tsd-signature-type tsd-kind-interface">OperationRun</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#r">R</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/>    <span class="tsd-kind-parameter">params</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..OperationParams.html" class="tsd-signature-type tsd-kind-interface">OperationParams</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#p">P</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span><br/><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></div>
 <div class="tsd-comment tsd-typography"><p>Fire the work: dispatch and RETURN — the patch never awaits. A returned refusal
 means the run never started. A fast operation may land synchronously; its landed
 state rides the patch's own broadcast.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/operation-resource-mold.ts#L146">packages/core/src/operation-resource-mold.ts:146</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

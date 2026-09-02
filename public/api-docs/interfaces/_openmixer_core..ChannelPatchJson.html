@@ -17,9 +17,7 @@
 <code>[primary, ...extras]</code>. More than one entry means several inputs sum at the head (the
 crosspoint patchbay's multi-in). Always at least one entry (else the channel is omitted).</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelPatchJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sources">sources</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..StoredPatchEndpoint.html" class="tsd-signature-type tsd-kind-interface">StoredPatchEndpoint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stereo">stereo</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/patch.ts#L116">packages/core/src/patch.ts:116</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelPatchJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#sources">sources</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..StoredPatchEndpoint.html" class="tsd-signature-type tsd-kind-interface">StoredPatchEndpoint</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stereo">stereo</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -36,9 +34,7 @@ crosspoint patchbay's multi-in). Always at least one entry (else the channel is 
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="id"><code class="tsd-tag">Readonly</code><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/patch.ts#L117">packages/core/src/patch.ts:117</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="sources"><code class="tsd-tag">Readonly</code><span>sources</span><a href="#sources" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sources</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..StoredPatchEndpoint.html" class="tsd-signature-type tsd-kind-interface">StoredPatchEndpoint</a><span class="tsd-signature-symbol">[]</span></div>
@@ -46,9 +42,7 @@ crosspoint patchbay's multi-in). Always at least one entry (else the channel is 
 input on it, anything else names its port (import('./patch-identity.js')). The two
 documents share the shape deliberately — a standalone patch and a session must not disagree
 about what an endpoint means.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/patch.ts#L124">packages/core/src/patch.ts:124</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="stereo"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>stereo</span><a href="#stereo" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stereo</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -59,9 +53,7 @@ matters: a construction-seeded engine feed is 2-channel plumbing (mono by the
 surface's convention), while the <em>same-shaped</em> pair patched by the operator is a
 stereo source. Absent on files predating the field — the loader falls back to
 deriving from the endpoint shapes (<a href="../functions/_openmixer_core..isStereoPatch.html" class="tsd-kind-function">isStereoPatch</a>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/patch.ts#L134">packages/core/src/patch.ts:134</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

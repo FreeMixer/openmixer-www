@@ -23,9 +23,7 @@ made walkable (<code>an internal spec</code>). Adding a contract to
 <code>contract-census.test.ts</code> proves the mechanism over a fixture so an empty list cannot read as
 a broken one.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">UnenumerableContract</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#contract">contract</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;channel&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;console&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#documentedfacts">documentedFacts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#reason">reason</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/contract-census.ts#L83">packages/core/src/contract-census.ts:83</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">UnenumerableContract</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#contract">contract</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;channel&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;console&quot;</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#documentedfacts">documentedFacts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#reason">reason</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,23 +40,17 @@ a broken one.</p>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="contract"><code class="tsd-tag">Readonly</code><span>contract</span><a href="#contract" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">contract</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;channel&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;console&quot;</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/contract-census.ts#L84">packages/core/src/contract-census.ts:84</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">contract</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;channel&quot;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">&quot;console&quot;</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="documentedfacts"><code class="tsd-tag">Readonly</code><span>documented<wbr/>Facts</span><a href="#documentedfacts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">documentedFacts</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>The facts the contract's own documentation names, so the size of the hole is not unknown.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/contract-census.ts#L88">packages/core/src/contract-census.ts:88</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="reason"><code class="tsd-tag">Readonly</code><span>reason</span><a href="#reason" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">reason</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Why no table can be walked — stated so the census output explains itself.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/contract-census.ts#L86">packages/core/src/contract-census.ts:86</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

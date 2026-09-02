@@ -14,9 +14,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>Options for <a href="../classes/_openmixer_server.PipeWireDemoNodeFactory.html" class="tsd-kind-class">PipeWireDemoNodeFactory</a>.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PipeWireDemoNodeFactoryOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#attempts">attempts</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pollms">pollMs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#run">run</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NodeCommandRunner</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#spawner">spawner</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ProcessSpawner</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L84">packages/server/src/demo-console.ts:84</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PipeWireDemoNodeFactoryOptions</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#attempts">attempts</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pollms">pollMs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#run">run</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NodeCommandRunner</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#spawner">spawner</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ProcessSpawner</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -34,30 +32,22 @@
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="attempts"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>attempts</span><a href="#attempts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">attempts</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L91">packages/server/src/demo-console.ts:91</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">attempts</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="pollms"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>poll<wbr/>Ms</span><a href="#pollms" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">pollMs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Poll interval + attempts waiting for a freshly-spawned node to register. Default 100ms × 50.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L90">packages/server/src/demo-console.ts:90</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="run"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>run</span><a href="#run" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">run</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">NodeCommandRunner</span></div>
 <div class="tsd-comment tsd-typography"><p>Runs <code>pw-link -o</code> to confirm registration. Default: an <code>execFile</code>-backed runner.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L88">packages/server/src/demo-console.ts:88</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="spawner"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>spawner</span><a href="#spawner" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">spawner</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">ProcessSpawner</span></div>
 <div class="tsd-comment tsd-typography"><p>Spawns <code>pw-loopback</code>. Default: a <code>child_process.spawn</code>-backed spawner.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/demo-console.ts#L86">packages/server/src/demo-console.ts:86</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

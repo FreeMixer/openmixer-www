@@ -20,9 +20,7 @@
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-signature-type">PolledFeedOptions</span>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">TelemetryBroadcasterOptions</span></li></ul></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/telemetry.ts#L31">packages/server/src/telemetry.ts:31</a></li></ul></aside>
+<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">TelemetryBroadcasterOptions</span></li></ul></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,39 +40,29 @@
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="clearinterval"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>clear<wbr/>Interval</span><a href="#clearinterval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">clearInterval</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">handle</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Timeout</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span></div><aside class="tsd-sources">
-<p>Inherited from PolledFeedOptions.clearInterval</p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/polled-feed.ts#L40">packages/server/src/polled-feed.ts:40</a></li></ul></aside></section>
+<p>Inherited from PolledFeedOptions.clearInterval</p></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="hz"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>hz</span><a href="#hz" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">hz</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Poll rate in Hz. Each feed declares its own default.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from PolledFeedOptions.hz</p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/polled-feed.ts#L37">packages/server/src/polled-feed.ts:37</a></li></ul></aside></section>
+<p>Inherited from PolledFeedOptions.hz</p></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="setinterval"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>set<wbr/>Interval</span><a href="#setinterval" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">setInterval</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">fn</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">ms</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Timeout</span></div>
 <div class="tsd-comment tsd-typography"><p>Timer hooks (override in tests). Default the global timers.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from PolledFeedOptions.setInterval</p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/polled-feed.ts#L39">packages/server/src/polled-feed.ts:39</a></li></ul></aside></section>
+<p>Inherited from PolledFeedOptions.setInterval</p></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="sink"><code class="tsd-tag">Readonly</code><span>sink</span><a href="#sink" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">sink</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_server.TelemetrySink.html" class="tsd-signature-type tsd-kind-type-alias">TelemetrySink</a></div>
 <div class="tsd-comment tsd-typography"><p>Where to deliver each tick.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/telemetry.ts#L35">packages/server/src/telemetry.ts:35</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="source"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>source</span><a href="#source" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">source</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..LatencyReportSource.html" class="tsd-signature-type tsd-kind-interface">LatencyReportSource</a></div>
 <div class="tsd-comment tsd-typography"><p>The engine-side latency measurement, when the console has one.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/telemetry.ts#L33">packages/server/src/telemetry.ts:33</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

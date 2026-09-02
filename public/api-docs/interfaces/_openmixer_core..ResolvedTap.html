@@ -19,9 +19,7 @@ source boundary — the signal entering the chain, before any processor (a &quot
 whose anchor sits at the very head, e.g. a pre-fader monitor send on a fader-first
 chain). The engine reads <code>index</code> to find the port and the latency-to-here.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ResolvedTap</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#fellthrough">fellThrough</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#index">index</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#processor">processor</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-chain.ts#L207">packages/core/src/channel-chain.ts:207</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ResolvedTap</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#fellthrough">fellThrough</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#index">index</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#processor">processor</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -43,23 +41,17 @@ chain). The engine reads <code>index</code> to find the port and the latency-to-
 tap fell through to the previous processor's output. The fall-through target is
 always a valid port (recommendation 2/3 of the WING/SSL comparison). A pre-the-head
 tap (<code>index === CHAIN_INPUT</code>) is <em>not</em> a fall-through — it is the legitimate input.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-chain.ts#L218">packages/core/src/channel-chain.ts:218</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="index"><code class="tsd-tag">Readonly</code><span>index</span><a href="#index" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">index</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Chain index of the tapped processor, or <a href="../variables/_openmixer_core..CHAIN_INPUT.html" class="tsd-kind-variable">CHAIN_INPUT</a> for the strip source.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-chain.ts#L209">packages/core/src/channel-chain.ts:209</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="processor"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>processor</span><a href="#processor" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">processor</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..Processor.html" class="tsd-signature-type tsd-kind-interface">Processor</a></div>
 <div class="tsd-comment tsd-typography"><p>The processor at <code>index</code>; <code>undefined</code> when <code>index === CHAIN_INPUT</code> (the source).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-chain.ts#L211">packages/core/src/channel-chain.ts:211</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

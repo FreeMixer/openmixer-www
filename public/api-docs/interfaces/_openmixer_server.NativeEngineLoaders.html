@@ -18,9 +18,7 @@ A config switch like <code>OPENMIXER_NATIVE_GRAPH=0</code> has nothing to fall b
 pw-dump/pw-link subprocess path — so its only effect would be to make the desk refuse to
 start: a way to break a console, not a kill-switch.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">NativeEngineLoaders</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#graph">graph</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">PwGraph</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mixerhost">mixerHost</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">NativeMixerHost</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/console-rig.ts#L1630">packages/server/src/console-rig.ts:1630</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">NativeEngineLoaders</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#graph">graph</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">PwGraph</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mixerhost">mixerHost</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">NativeMixerHost</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -53,9 +51,7 @@ addon failing to connect throws from <code>start()</code> like any real error.</
 <p>The five names below are the registry surface's runtime contract — the methods
 PwGraph drives, declared here and narrowed by hasFunctions.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PwGraph</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/console-rig.ts#L1632">packages/server/src/console-rig.ts:1632</a></li></ul></aside></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">PwGraph</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></li></ul></li></ul></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mixerhost"><code class="tsd-tag">Readonly</code><span>mixer<wbr/>Host</span><a href="#mixerhost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mixerHost</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">NativeMixerHost</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></div>
@@ -78,9 +74,7 @@ hasFunctions. <code>mixerCapacity</code> is one of them: an addon that cannot st
 cannot be built against safely (the allocation would have to guess), so it is refused as a
 mixer surface rather than accepted with an unqueryable ceiling.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeMixerHost</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></li></ul></li></ul></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/console-rig.ts#L1634">packages/server/src/console-rig.ts:1634</a></li></ul></aside></section></section></details></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">NativeMixerHost</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></li></ul></li></ul></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
