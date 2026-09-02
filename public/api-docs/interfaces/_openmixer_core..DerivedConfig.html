@@ -17,9 +17,7 @@
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
 <li><span id="a"><span class="tsd-kind-type-parameter">A</span></span></li>
-<li><span id="s"><span class="tsd-kind-type-parameter">S</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span></span></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L34">packages/core/src/derived-resource-mold.ts:34</a></li></ul></aside>
+<li><span id="s"><span class="tsd-kind-type-parameter">S</span> <span class="tsd-signature-keyword">extends</span> <span class="tsd-signature-type">object</span></span></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,9 +40,7 @@
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="address"><code class="tsd-tag">Readonly</code><span>address</span><a href="#address" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">address</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..AddressCodec.html" class="tsd-signature-type tsd-kind-interface">AddressCodec</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L36">packages/core/src/derived-resource-mold.ts:36</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">address</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..AddressCodec.html" class="tsd-signature-type tsd-kind-interface">AddressCodec</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="carried"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>carried</span><a href="#carried" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">carried</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..CarriedSeriesDeclaration.html" class="tsd-signature-type tsd-kind-interface">CarriedSeriesDeclaration</a></div>
@@ -52,9 +48,7 @@
 <code>carried-series.ts</code>. From this one declaration the mold publishes every series' codec on
 OPTIONS (beside <code>declares</code>), the registry answers which collection carries a path, and the
 stream hub projects the frame per subscriber. A collection declares it; nothing else does.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L61">packages/core/src/derived-resource-mold.ts:61</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="declares"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>declares</span><a href="#declares" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">declares</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_openmixer_core..FieldCodec.html" class="tsd-signature-type tsd-kind-interface">FieldCodec</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span></div>
@@ -63,16 +57,12 @@ that spells each — published on OPTIONS with the codec's travel, exactly as a 
 field's codec is. A view whose served body takes a subscriber-chosen projection (the
 spectrum at <code>?bands=N</code>) declares that projection's field here, so a client learns the
 quantum and the unit from the desk rather than compiling them in.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L54">packages/core/src/derived-resource-mold.ts:54</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="derive"><code class="tsd-tag">Readonly</code><span>derive</span><a href="#derive" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">derive</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></div>
 <div class="tsd-comment tsd-typography"><p>The whole state, computed fresh; undefined means the instance does not exist.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L38">packages/core/src/derived-resource-mold.ts:38</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="instances"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>instances</span><a href="#instances" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">instances</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">()</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div>
@@ -80,32 +70,24 @@ quantum and the unit from the desk rather than compiling them in.</p>
 <p>Omitted is not &quot;none&quot;: a derived row over somebody else's store often has no key list, and
 the registry then probes the empty id — which is all a SINGLETON view needs, so no
 <code>/telemetry/latency</code>-shaped row declares this to be in a console snapshot.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L46">packages/core/src/derived-resource-mold.ts:46</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lifecycle"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>lifecycle</span><a href="#lifecycle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lifecycle</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..LifecycleDoors.html" class="tsd-signature-type tsd-kind-interface">LifecycleDoors</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>The item-lifecycle doors. A derived view of a STORE is exactly where creation belongs:
 <code>POST /scenes</code> has no instance to patch — the id does not exist until the store mints it —
 so the collection itself is the addressable thing and the minted id is the answer.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L74">packages/core/src/derived-resource-mold.ts:74</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Readonly</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L35">packages/core/src/derived-resource-mold.ts:35</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a></div>
 <div class="tsd-comment tsd-typography"><p>What a committed write here means for the session's dirtiness and the operator's
 history. Absent means the layer default: it dirties the session, is not undoable,
 and is not a barrier (see <a href="../types/_openmixer_core..ResourcePolicy.html" class="tsd-kind-type-alias">ResourcePolicy</a>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L80">packages/core/src/derived-resource-mold.ts:80</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="served"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>served</span><a href="#served" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">served</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">state</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">view</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ReadView.html" class="tsd-signature-type tsd-kind-interface">ReadView</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-type">object</span></div>
@@ -113,9 +95,7 @@ and is not a barrier (see <a href="../types/_openmixer_core..ResourcePolicy.html
 declares its banding here (<code>bands</code> = the reader's resolution). A row that declares <code>carried</code>
 and no <code>served</code> gets the carried projection: the frame narrowed to the instances the reader
 demands, whole for a reader that demands the collection itself.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/derived-resource-mold.ts#L68">packages/core/src/derived-resource-mold.ts:68</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

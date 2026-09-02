@@ -15,9 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>What was copied: the captured fields plus enough provenance for the UI to name it.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelClipboardEntry</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#from">from</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fromname">fromName</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#parts">parts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_openmixer_core..ChannelPart.html" class="tsd-signature-type tsd-kind-type-alias">ChannelPart</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#values">values</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="_openmixer_core..ChannelSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ChannelSnapshotJson</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-clipboard.ts#L215">packages/core/src/channel-clipboard.ts:215</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelClipboardEntry</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#from">from</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fromname">fromName</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#parts">parts</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_openmixer_core..ChannelPart.html" class="tsd-signature-type tsd-kind-type-alias">ChannelPart</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#values">values</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="_openmixer_core..ChannelSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ChannelSnapshotJson</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,30 +35,22 @@
 <h3 class="tsd-anchor-link" id="from"><code class="tsd-tag">Readonly</code><span>from</span><a href="#from" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">from</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></div>
 <div class="tsd-comment tsd-typography"><p>The channel it came from, for &quot;EQ from ch3&quot;.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-clipboard.ts#L217">packages/core/src/channel-clipboard.ts:217</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="fromname"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>from<wbr/>Name</span><a href="#fromname" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">fromName</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Its name at capture time, so the label survives a later rename.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-clipboard.ts#L219">packages/core/src/channel-clipboard.ts:219</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="parts"><code class="tsd-tag">Readonly</code><span>parts</span><a href="#parts" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">parts</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_openmixer_core..ChannelPart.html" class="tsd-signature-type tsd-kind-type-alias">ChannelPart</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>The parts as selected, composites preserved — this is what the operator chose.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-clipboard.ts#L221">packages/core/src/channel-clipboard.ts:221</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="values"><code class="tsd-tag">Readonly</code><span>values</span><a href="#values" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">values</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">Partial</span><span class="tsd-signature-symbol">&lt;</span><a href="_openmixer_core..ChannelSnapshotJson.html" class="tsd-signature-type tsd-kind-interface">ChannelSnapshotJson</a><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>The captured values, detached from the live channel.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-clipboard.ts#L223">packages/core/src/channel-clipboard.ts:223</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

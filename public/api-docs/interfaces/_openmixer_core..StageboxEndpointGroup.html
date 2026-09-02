@@ -15,9 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>One side of a stagebox — its capture (input) or playback (output) channel bank.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">StageboxEndpointGroup</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#count">count</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#node">node</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ordinalchannels">ordinalChannels</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ordinals">ordinals</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ports">ports</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L104">packages/core/src/stagebox.ts:104</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">StageboxEndpointGroup</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#count">count</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#node">node</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ordinalchannels">ordinalChannels</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ordinals">ordinals</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#ports">ports</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -38,16 +36,12 @@
 <h3 class="tsd-anchor-link" id="count"><code class="tsd-tag">Readonly</code><span>count</span><a href="#count" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">count</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>How many channels this side carries — the box's real width, clamped from the fabric.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L108">packages/core/src/stagebox.ts:108</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="node"><code class="tsd-tag">Readonly</code><span>node</span><a href="#node" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">node</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The backing PipeWire <code>node.name</code> (<code>reac-capture</code> / <code>reac-playback</code>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L106">packages/core/src/stagebox.ts:106</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ordinalchannels"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>ordinal<wbr/>Channels</span><a href="#ordinalchannels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ordinalChannels</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">[]</span></div>
@@ -56,9 +50,7 @@ exactly when <code>ordinals</code> is.</p>
 <p>A REPLACE on an identity ghost writes a channel's patch directly; recovering &quot;which channel&quot;
 from a live port is exactly the guess this identity model exists to delete, so the ghost
 states it instead of leaving a consumer to re-derive it.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L129">packages/core/src/stagebox.ts:129</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ordinals"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>ordinals</span><a href="#ordinals" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ordinals</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div>
@@ -68,16 +60,12 @@ gone and has no <code>pw-link</code> ports to name — <code>ports</code> is emp
 names a departed box would have had is the socket-guessing this identity model exists to
 delete. A live group states <code>ports</code> and omits this; a consumer that maps by ordinal reads
 this when it is present and derives from <code>ports</code> when it is not.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L120">packages/core/src/stagebox.ts:120</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ports"><code class="tsd-tag">Readonly</code><span>ports</span><a href="#ports" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ports</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>The ordered <code>pw-link</code> port names, channel 1..N (sorted by the trailing number), clamped to <a href="#count" class="tsd-kind-property">count</a>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/stagebox.ts#L110">packages/core/src/stagebox.ts:110</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

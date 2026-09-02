@@ -23,9 +23,7 @@ silent is the inverted-sense trap this layer exists to remove.</p>
 plus the mute-group and panic entities' own state, so they cannot go stale and cannot be
 written back.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelMuteState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audiblemute">audibleMute</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bygroup">byGroup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypanic">byPanic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#individual">individual</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-mute-resource.ts#L64">packages/core/src/channel-mute-resource.ts:64</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ChannelMuteState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audiblemute">audibleMute</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bygroup">byGroup</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypanic">byPanic</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#individual">individual</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -47,30 +45,22 @@ written back.</p>
 <div class="tsd-comment tsd-typography"><p>The composed value that decides audibility — <code>individual OR byGroup OR byPanic</code>, computed by
 <a href="../functions/_openmixer_core..effectiveChannelMute.html" class="tsd-kind-function">effectiveChannelMute</a>. <code>true</code> = SILENCED. This is what reaches the audio, and the only
 quantity a backend may be given.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-mute-resource.ts#L76">packages/core/src/channel-mute-resource.ts:76</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="bygroup"><code class="tsd-tag">Readonly</code><span>by<wbr/>Group</span><a href="#bygroup" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">byGroup</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Held by at least one ACTIVE mute group. Owned by the mute-group entity; read-only here.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-mute-resource.ts#L68">packages/core/src/channel-mute-resource.ts:68</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="bypanic"><code class="tsd-tag">Readonly</code><span>by<wbr/>Panic</span><a href="#bypanic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">byPanic</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Held by the engaged panic latch. Owned by the safety/panic entity; read-only here.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-mute-resource.ts#L70">packages/core/src/channel-mute-resource.ts:70</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="individual"><code class="tsd-tag">Readonly</code><span>individual</span><a href="#individual" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">individual</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>THE state: the channel's own mute latch — <code>ChannelStrip.mute</code>. <code>true</code> = muted by hand.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/channel-mute-resource.ts#L66">packages/core/src/channel-mute-resource.ts:66</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

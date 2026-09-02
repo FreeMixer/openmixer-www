@@ -15,9 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>A matrix node: a mix of buses/groups feeding a matrix output.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">MatrixSnapshotJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#balance">balance</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fader">fader</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..FaderLevelJson.html" class="tsd-signature-type tsd-kind-interface">FaderLevelJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputs">inputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..SendJson.html" class="tsd-signature-type tsd-kind-interface">SendJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mute">mute</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L361">packages/core/src/session.ts:361</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">MatrixSnapshotJson</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#balance">balance</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fader">fader</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..FaderLevelJson.html" class="tsd-signature-type tsd-kind-interface">FaderLevelJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputs">inputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..SendJson.html" class="tsd-signature-type tsd-kind-interface">SendJson</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mute">mute</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -40,40 +38,28 @@
 <div class="tsd-signature"><span class="tsd-kind-property">balance</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The matrix strip's own L/R BALANCE (−1 hard-L … 0 centre … +1 hard-R). Absent ⇒ centred,
 so a legacy session without the field restores unchanged.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L375">packages/core/src/session.ts:375</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="fader"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>fader</span><a href="#fader" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">fader</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..FaderLevelJson.html" class="tsd-signature-type tsd-kind-interface">FaderLevelJson</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L364">packages/core/src/session.ts:364</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">fader</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..FaderLevelJson.html" class="tsd-signature-type tsd-kind-interface">FaderLevelJson</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="id"><code class="tsd-tag">Readonly</code><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L362">packages/core/src/session.ts:362</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelRefJson.html" class="tsd-signature-type tsd-kind-interface">ChannelRefJson</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inputs"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>inputs</span><a href="#inputs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">inputs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..SendJson.html" class="tsd-signature-type tsd-kind-interface">SendJson</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Source → level into this matrix output.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L377">packages/core/src/session.ts:377</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mute"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>mute</span><a href="#mute" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mute</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>The matrix strip's own MUTE (#146, ADR 0017 layer 2 — a matrix is an output controlled
 like main). Absent ⇒ un-muted, so a pre-matrix-strip session (which never wrote this)
 restores exactly as before.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L370">packages/core/src/session.ts:370</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/session.ts#L363">packages/core/src/session.ts:363</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

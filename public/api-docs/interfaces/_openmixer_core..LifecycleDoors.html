@@ -20,9 +20,7 @@ but not creatable (its address is the pair, which always exists); a scene librar
 <section class="tsd-panel">
 <h4>Type Parameters</h4>
 <ul class="tsd-type-parameter-list">
-<li><span id="a"><span class="tsd-kind-type-parameter">A</span></span></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-lifecycle.ts#L63">packages/core/src/resource-lifecycle.ts:63</a></li></ul></aside>
+<li><span id="a"><span class="tsd-kind-type-parameter">A</span></span></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,17 +40,13 @@ but not creatable (its address is the pair, which always exists); a scene librar
 <div class="tsd-signature"><span class="tsd-kind-property">create</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">delta</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="../types/_openmixer_core..CreateOutcome.html" class="tsd-signature-type tsd-kind-type-alias">CreateOutcome</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_openmixer_core..CreateOutcome.html" class="tsd-signature-type tsd-kind-type-alias">CreateOutcome</a><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>Create an item under the collection this address names, from the request body. The row
 narrows every value through codecs exactly as a patch does, and answers the minted id.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-lifecycle.ts#L73">packages/core/src/resource-lifecycle.ts:73</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="remove"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>remove</span><a href="#remove" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">remove</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <a href="../types/_openmixer_core..RemoveOutcome.html" class="tsd-signature-type tsd-kind-type-alias">RemoveOutcome</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/_openmixer_core..RemoveOutcome.html" class="tsd-signature-type tsd-kind-type-alias">RemoveOutcome</a><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>Remove the item this address names. The row drives its ONE store — the same store its
 fields read — and answers what actually happened.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-lifecycle.ts#L68">packages/core/src/resource-lifecycle.ts:68</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ripples"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>ripples</span><a href="#ripples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">ripples</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">addr</span><span class="tsd-signature-symbol">:</span> <a class="tsd-signature-type tsd-kind-type-parameter" href="#a">A</a><span class="tsd-signature-symbol">)</span> <span class="tsd-signature-symbol">=&gt;</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span></div>
@@ -63,9 +57,7 @@ Declared here, EXECUTED by the registry, exactly as <a href="_openmixer_core..Ri
 after: a removal's consequences are defined by what the item still was, and a deleted mute
 group asked afterwards who its members were would answer the empty set. For a CREATE the
 address is the collection, which exists on both sides, so it is read once after.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-lifecycle.ts#L84">packages/core/src/resource-lifecycle.ts:84</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

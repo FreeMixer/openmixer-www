@@ -15,9 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>The allocation ceiling: per-bus-type maxima, and/or a shared O.H.R.C.A. path pool.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">AllocationCaps</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#buses">buses</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..BusAllocation.html" class="tsd-signature-type tsd-kind-interface">BusAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputchannels">inputChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pathpool">pathPool</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stereochannels">stereoChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-profile.ts#L52">packages/core/src/console-profile.ts:52</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">AllocationCaps</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#buses">buses</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..BusAllocation.html" class="tsd-signature-type tsd-kind-interface">BusAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputchannels">inputChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#pathpool">pathPool</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#stereochannels">stereoChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -37,16 +35,12 @@
 <h3 class="tsd-anchor-link" id="buses"><code class="tsd-tag">Readonly</code><span>buses</span><a href="#buses" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">buses</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..BusAllocation.html" class="tsd-signature-type tsd-kind-interface">BusAllocation</a></div>
 <div class="tsd-comment tsd-typography"><p>Per-bus-type maxima. A count of 0 HIDES that bus type (e.g. Midas has no mix-minus).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-profile.ts#L56">packages/core/src/console-profile.ts:56</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inputchannels"><code class="tsd-tag">Readonly</code><span>input<wbr/>Channels</span><a href="#inputchannels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">inputChannels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Max input channels the appliance permits (≤ the engine's <a href="../variables/_openmixer_core..BUS_INPUT_CAP.html" class="tsd-kind-variable">BUS_INPUT_CAP</a>).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-profile.ts#L54">packages/core/src/console-profile.ts:54</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="pathpool"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>path<wbr/>Pool</span><a href="#pathpool" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">pathPool</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -56,16 +50,12 @@ still apply on top (a type can't exceed its own max even if the pool has room). 
 control-domain group (carries no audio, like <a href="../functions/_openmixer_core..totalAudioPaths.html" class="tsd-kind-function">totalAudioPaths</a>), so it does NOT
 draw from the pool — it is bounded by its own per-type max alone. Unset ⇒ per-type maxima
 alone bound the allocation (the Midas / fixed-format model).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-profile.ts#L65">packages/core/src/console-profile.ts:65</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="stereochannels"><code class="tsd-tag">Readonly</code><span>stereo<wbr/>Channels</span><a href="#stereochannels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">stereoChannels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>May an input channel be declared stereo-width (one strip, L/R pair)?</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-profile.ts#L67">packages/core/src/console-profile.ts:67</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

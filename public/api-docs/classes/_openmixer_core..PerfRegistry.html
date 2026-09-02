@@ -17,9 +17,7 @@
 first use) a stable <a href="_openmixer_core..PerfHistogram.html" class="tsd-kind-class">PerfHistogram</a> reference a hot-path caller can cache once
 and call <code>.record()</code> on directly — the ideal shape for a per-request/per-broadcast
 call site, since it skips the map lookup that <code>record(name, ms)</code> pays every time.</p>
-</div></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L162">packages/core/src/perf-telemetry.ts:162</a></li></ul></aside>
+</div></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -53,9 +51,7 @@ call site, since it skips the map lookup that <code>record(name, ms)</code> pays
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><code class="tsd-tag">Optional</code><span class="tsd-kind-parameter">options</span>: <a href="../interfaces/_openmixer_core..PerfRegistryOptions.html" class="tsd-signature-type tsd-kind-interface">PerfRegistryOptions</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">PerfRegistry</a></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L166">packages/core/src/perf-telemetry.ts:166</a></li></ul></aside></div></li></ul></section></section></details>
+<h4 class="tsd-returns-title">Returns <a href="" class="tsd-signature-type tsd-kind-class">PerfRegistry</a></h4></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Accessors"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="accessors-1">Accessors<a href="#accessors-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -67,9 +63,7 @@ call site, since it skips the map lookup that <code>record(name, ms)</code> pays
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Whether recording is active. A disabled registry's <code>record()</code> is a single branch.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L171">packages/core/src/perf-telemetry.ts:171</a></li></ul></aside></div></li>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4></div></li>
 <li>
 <div class="tsd-signature" id="enabledenabled-1"><span class="tsd-signature-keyword">set</span> <span class="tsd-kind-set-signature">enabled</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">void</span></div>
 <div class="tsd-description">
@@ -77,9 +71,7 @@ call site, since it skips the map lookup that <code>record(name, ms)</code> pays
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">boolean</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L175">packages/core/src/perf-telemetry.ts:175</a></li></ul></aside></div></li></ul></section></section></details>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -98,9 +90,7 @@ allocation.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">op</span>: <span class="tsd-signature-type">string</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..PerfHistogram.html" class="tsd-signature-type tsd-kind-class">PerfHistogram</a></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L185">packages/core/src/perf-telemetry.ts:185</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..PerfHistogram.html" class="tsd-signature-type tsd-kind-class">PerfHistogram</a></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="record"><span>record</span><a href="#record" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -114,9 +104,7 @@ allocation.</p>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">op</span>: <span class="tsd-signature-type">string</span></span></li>
 <li><span><span class="tsd-kind-parameter">ms</span>: <span class="tsd-signature-type">number</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L195">packages/core/src/perf-telemetry.ts:195</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="reset"><span>reset</span><a href="#reset" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -125,9 +113,7 @@ allocation.</p>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Zero every histogram in place (keeps the registered op set).</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L209">packages/core/src/perf-telemetry.ts:209</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="snapshot"><span>snapshot</span><a href="#snapshot" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -136,9 +122,7 @@ allocation.</p>
 <div class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>A snapshot of every op recorded so far, sorted by name. Allocates — a reporting-path call.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <a href="../interfaces/_openmixer_core..PerfOpSnapshot.html" class="tsd-signature-type tsd-kind-interface">PerfOpSnapshot</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/perf-telemetry.ts#L201">packages/core/src/perf-telemetry.ts:201</a></li></ul></aside></div></li></ul></section></section></details></div>
+<h4 class="tsd-returns-title">Returns <a href="../interfaces/_openmixer_core..PerfOpSnapshot.html" class="tsd-signature-type tsd-kind-interface">PerfOpSnapshot</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

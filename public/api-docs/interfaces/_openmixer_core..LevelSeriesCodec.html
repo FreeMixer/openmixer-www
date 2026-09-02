@@ -22,9 +22,7 @@ client, and both halves live here so neither can drift from the declared quantum
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="_openmixer_core..FieldCodec.html" class="tsd-signature-type tsd-kind-interface">FieldCodec</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">LevelSeriesCodec</span></li></ul></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/level-series-codec.ts#L38">packages/core/src/level-series-codec.ts:38</a></li></ul></aside>
+<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">LevelSeriesCodec</span></li></ul></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -47,9 +45,7 @@ client, and both halves live here so neither can drift from the declared quantum
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="examples"><code class="tsd-tag">Readonly</code><span>examples</span><a href="#examples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">examples</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{</span> <span class="tsd-kind-property">invalid</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span> <span class="tsd-kind-property">valid</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">[]</span> <span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#examples">examples</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-components.ts#L65">packages/core/src/resource-components.ts:65</a></li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#examples">examples</a></p></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="limit"><code class="tsd-tag">Readonly</code><span>limit</span><a href="#limit" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">limit</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ControlLimit.html" class="tsd-signature-type tsd-kind-interface">ControlLimit</a></div>
@@ -61,9 +57,7 @@ clamp that actually applies. Absent on codecs with no numeric travel (a bool, a 
 enum) and on the ones whose legal span is per-instance — a device travel is the other
 cardinality and comes from the field's own <code>limit</code>.</p>
 </div><aside class="tsd-sources">
-<p>Overrides <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#limit">limit</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/level-series-codec.ts#L39">packages/core/src/level-series-codec.ts:39</a></li></ul></aside></section>
+<p>Overrides <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#limit">limit</a></p></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="values"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>values</span><a href="#values" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">values</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> (<span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span>)<span class="tsd-signature-symbol">[]</span></div>
@@ -78,9 +72,7 @@ two values are its TYPE, not a desk decision). A client renders the menu it is g
 never one it composed: an option the desk would refuse must be unofferable, and an option the
 desk added must appear without shipping a new client.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#values">values</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-components.ts#L64">packages/core/src/resource-components.ts:64</a></li></ul></aside></section></section></details>
+<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#values">values</a></p></aside></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -95,9 +87,7 @@ desk added must appear without shipping a new client.</p>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">raw</span>: <span class="tsd-signature-type">unknown</span></span></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="../types/_openmixer_core..Decoded.html" class="tsd-signature-type tsd-kind-type-alias">Decoded</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#decode">decode</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource-components.ts#L38">packages/core/src/resource-components.ts:38</a></li></ul></aside></div></li></ul></section>
+<p>Inherited from <a href="_openmixer_core..FieldCodec.html">FieldCodec</a>.<a href="_openmixer_core..FieldCodec.html#decode">decode</a></p></aside></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="encode"><span>encode</span><a href="#encode" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -110,9 +100,7 @@ desk added must appear without shipping a new client.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">values</span>: <span class="tsd-signature-type">ArrayLike</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/level-series-codec.ts#L41">packages/core/src/level-series-codec.ts:41</a></li></ul></aside></div></li></ul></section></section></details></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

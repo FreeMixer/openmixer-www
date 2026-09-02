@@ -33,9 +33,7 @@ it in would make the capability's range a second stored owner of a fact the devi
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="_openmixer_core..HeadAmp.html" class="tsd-signature-type tsd-kind-interface">HeadAmp</a>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">HeadAmpRow</span></li></ul></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L149">packages/core/src/source.ts:149</a></li></ul></aside>
+<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">HeadAmpRow</span></li></ul></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -57,9 +55,7 @@ it in would make the capability's range a second stored owner of a fact the devi
 <div class="tsd-signature"><span class="tsd-kind-property">gainDb</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The preamp's GAIN, in dB — the box's, not the console's digital stage. Pad-independent.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#gaindb">gainDb</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L125">packages/core/src/source.ts:125</a></li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#gaindb">gainDb</a></p></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="gaindefaultdb"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>gain<wbr/>Default<wbr/>Db</span><a href="#gaindefaultdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">gainDefaultDb</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -70,9 +66,7 @@ the client made up. Clients render from what the wire sent; none of them imports
 constant.</p>
 <p>Present iff this preamp's travel can hold it (import('./head-amp.js').headAmpGainDefaultOf) — an RME line input's 0..18 declares none.
 OBSERVED and derived on every read, exactly like <a href="#gainrange" class="tsd-kind-property">gainRange</a>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L172">packages/core/src/source.ts:172</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="gainrange"><code class="tsd-tag">Readonly</code><span>gain<wbr/>Range</span><a href="#gainrange" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">gainRange</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..HeadAmpGainRange.html" class="tsd-signature-type tsd-kind-interface">HeadAmpGainRange</a></div>
@@ -83,25 +77,19 @@ two. A value and its range in different units have no testable relationship, whi
 why the divergence went unnoticed for as long as it did.</p>
 <p>OBSERVED, not set: nobody writes this — the device reports it — so OPTIONS marks it
 <code>writable: false</code> and it rides GET like the values it bounds.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L160">packages/core/src/source.ts:160</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="pad"><code class="tsd-tag">Readonly</code><span>pad</span><a href="#pad" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">pad</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>−20 dB analog pad — an actuator ahead of the gain, not a change of its travel.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#pad">pad</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L127">packages/core/src/source.ts:127</a></li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#pad">pad</a></p></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="phantom"><code class="tsd-tag">Readonly</code><span>phantom</span><a href="#phantom" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">phantom</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>+48 V phantom.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#phantom">phantom</a></p>
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/source.ts#L129">packages/core/src/source.ts:129</a></li></ul></aside></section></section></details></div>
+<p>Inherited from <a href="_openmixer_core..HeadAmp.html">HeadAmp</a>.<a href="_openmixer_core..HeadAmp.html#phantom">phantom</a></p></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

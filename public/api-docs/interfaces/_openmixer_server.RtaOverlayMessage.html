@@ -22,9 +22,7 @@ same shape and bar count — present only for a watched strip (the MAIN bus has 
 A/B). The client's Pre / Post / Both switch picks which to draw; when <code>binsPost</code> is
 absent it degrades to the single (pre) trace, the pre-#96 behaviour.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RtaOverlayMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#bins">bins</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#binspost">binsPost</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#strip">strip</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;rta&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L947">packages/server/src/protocol.ts:947</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">RtaOverlayMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#bins">bins</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#binspost">binsPost</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#strip">strip</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;rta&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -42,24 +40,16 @@ absent it degrades to the single (pre) trace, the pre-#96 behaviour.</p>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="bins"><code class="tsd-tag">Readonly</code><span>bins</span><a href="#bins" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">bins</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L950">packages/server/src/protocol.ts:950</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">bins</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="binspost"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>bins<wbr/>Post</span><a href="#binspost" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">binsPost</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L951">packages/server/src/protocol.ts:951</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">binsPost</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="strip"><code class="tsd-tag">Readonly</code><span>strip</span><a href="#strip" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">strip</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L949">packages/server/src/protocol.ts:949</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">strip</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="type"><code class="tsd-tag">Readonly</code><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;rta&quot;</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L948">packages/server/src/protocol.ts:948</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;rta&quot;</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

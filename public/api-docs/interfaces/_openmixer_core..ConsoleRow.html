@@ -24,9 +24,7 @@ consumer of the SSE stream index their world identically.</p>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">ConsoleRow</span>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><a href="_openmixer_core.console-client.ConsoleFrame.html" class="tsd-signature-type tsd-kind-interface">ConsoleFrame</a></li></ul></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L31">packages/core/src/console-row-feed.ts:31</a></li></ul></aside>
+<li class="tsd-hierarchy-item"><a href="_openmixer_core.console-client.ConsoleFrame.html" class="tsd-signature-type tsd-kind-interface">ConsoleFrame</a></li></ul></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -45,37 +43,27 @@ consumer of the SSE stream index their world identically.</p>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="id"><code class="tsd-tag">Readonly</code><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L33">packages/core/src/console-row-feed.ts:33</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="known"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>known</span><a href="#known" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">known</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Which of the state's fields the row actually KNOWS, where it distinguishes them from a floor
 it is merely displaying (the head-amp's phantom/pad/SENS). Absent where the row makes no
 such distinction — never a claim that nothing is known.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L40">packages/core/src/console-row-feed.ts:40</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Readonly</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L32">packages/core/src/console-row-feed.ts:32</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="rev"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>rev</span><a href="#rev" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">rev</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The console revision as of when the row was produced — the stamp the root stream's events
 carry, so a consumer running a <a href="../classes/_openmixer_core..ConvergenceClient.html" class="tsd-kind-class">ConvergenceClient</a> accounts for what it received
 exactly as a browser tab does. Absent only on a console wired without the instrument.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L46">packages/core/src/console-row-feed.ts:46</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="state"><code class="tsd-tag">Readonly</code><span>state</span><a href="#state" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">state</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-row-feed.ts#L34">packages/core/src/console-row-feed.ts:34</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">state</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -19,9 +19,7 @@ fills it from the catalog descriptor; core never imports the catalog.</p>
 the extension seam. <code>lv2Class</code> / <code>audioInputs</code> / <code>audioOutputs</code> are already carried for
 the semantic-fit and port-topology dimensions even though no check reads them yet.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">InsertChainEntry</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audioinputs">audioInputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#audiooutputs">audioOutputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypassed">bypassed</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#latency">latency</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core.insert-suitability.MsSpan.html" class="tsd-signature-type tsd-kind-interface">MsSpan</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lv2class">lv2Class</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#uri">uri</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L116">packages/core/src/insert-suitability.ts:116</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">InsertChainEntry</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#audioinputs">audioInputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#audiooutputs">audioOutputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#bypassed">bypassed</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#latency">latency</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core.insert-suitability.MsSpan.html" class="tsd-signature-type tsd-kind-interface">MsSpan</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lv2class">lv2Class</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#uri">uri</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -44,21 +42,15 @@ the semantic-fit and port-topology dimensions even though no check reads them ye
 <h3 class="tsd-anchor-link" id="audioinputs"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>audio<wbr/>Inputs</span><a href="#audioinputs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">audioInputs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Audio port counts — for the port-topology check (a wedge is mono, an IEM stereo).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L134">packages/core/src/insert-suitability.ts:134</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="audiooutputs"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>audio<wbr/>Outputs</span><a href="#audiooutputs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">audioOutputs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L135">packages/core/src/insert-suitability.ts:135</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">audioOutputs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="bypassed"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>bypassed</span><a href="#bypassed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">bypassed</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
 <div class="tsd-comment tsd-typography"><p>Bypassed slots are in the rack but not in the signal path, so they cost nothing.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L122">packages/core/src/insert-suitability.ts:122</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="latency"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>latency</span><a href="#latency" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">latency</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core.insert-suitability.MsSpan.html" class="tsd-signature-type tsd-kind-interface">MsSpan</a></div>
@@ -67,30 +59,22 @@ could not be resolved (never measured, <code>unmeasurable</code>, or <code>nonco
 may be projected to this rate) — an honest unknown, never a silent zero. A span wider
 than a point means the figure is parameter-dependent and the operator has moved a
 latency-bearing control, so only the ENDS are known (see the sweep in PR #336).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L130">packages/core/src/insert-suitability.ts:130</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lv2class"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>lv2<wbr/>Class</span><a href="#lv2class" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lv2Class</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">null</span></div>
 <div class="tsd-comment tsd-typography"><p>LV2 class label (&quot;Reverb Plugin&quot;, &quot;Limiter Plugin&quot;) — for the semantic-fit check.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L132">packages/core/src/insert-suitability.ts:132</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Display name — a product name, never translated, safe to interpolate.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L120">packages/core/src/insert-suitability.ts:120</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="uri"><code class="tsd-tag">Readonly</code><span>uri</span><a href="#uri" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">uri</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The plugin URI (stable id; also the <code>plugin</code> param of a refusal).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/insert-suitability.ts#L118">packages/core/src/insert-suitability.ts:118</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

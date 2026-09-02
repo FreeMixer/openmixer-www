@@ -26,9 +26,7 @@ fields being the PRE-EQ tap — the client draws pre / post / both. Both optiona
 additive: an older server build (single-tap, single-tier) still parses on either end;
 the client falls back to HIGH-tier-only / PRE-only when they're absent.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">SpectrumMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channel">channel</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fftsize">fftSize</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#low">low</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTier.html" class="tsd-signature-type tsd-kind-interface">SpectrumTier</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mags">mags</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#muted">muted</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#post">post</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTap.html" class="tsd-signature-type tsd-kind-interface">SpectrumTap</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#samplerate">sampleRate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;spectrum&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L917">packages/server/src/protocol.ts:917</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">SpectrumMessage</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channel">channel</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fftsize">fftSize</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#low">low</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTier.html" class="tsd-signature-type tsd-kind-interface">SpectrumTier</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mags">mags</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#muted">muted</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#post">post</a><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTap.html" class="tsd-signature-type tsd-kind-interface">SpectrumTap</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#samplerate">sampleRate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#type">type</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;spectrum&quot;</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -50,24 +48,16 @@ the client falls back to HIGH-tier-only / PRE-only when they're absent.</p>
 <section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="channel"><code class="tsd-tag">Readonly</code><span>channel</span><a href="#channel" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">channel</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L919">packages/server/src/protocol.ts:919</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">channel</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_server.ChannelRef.html" class="tsd-signature-type tsd-kind-interface">ChannelRef</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="fftsize"><code class="tsd-tag">Readonly</code><span>fft<wbr/>Size</span><a href="#fftsize" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">fftSize</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L922">packages/server/src/protocol.ts:922</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">fftSize</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="low"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>low</span><a href="#low" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">low</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTier.html" class="tsd-signature-type tsd-kind-interface">SpectrumTier</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L923">packages/server/src/protocol.ts:923</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">low</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTier.html" class="tsd-signature-type tsd-kind-interface">SpectrumTier</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mags"><code class="tsd-tag">Readonly</code><span>mags</span><a href="#mags" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">mags</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L920">packages/server/src/protocol.ts:920</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">mags</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="muted"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>muted</span><a href="#muted" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">muted</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -76,24 +66,16 @@ truth, in-band with the frame — so the analyzer's MUTED indicator is authorita
 arrives WITH the (already-floored) trace on the very first frame after a (re)connect,
 never derived separately or dependent on a <code>state:mute</code> toggle. Absent (falsy) = not
 muted; an older server build omits it and the client simply shows no indicator.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L932">packages/server/src/protocol.ts:932</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="post"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>post</span><a href="#post" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">post</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTap.html" class="tsd-signature-type tsd-kind-interface">SpectrumTap</a></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L924">packages/server/src/protocol.ts:924</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">post</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_server.SpectrumTap.html" class="tsd-signature-type tsd-kind-interface">SpectrumTap</a></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="samplerate"><code class="tsd-tag">Readonly</code><span>sample<wbr/>Rate</span><a href="#samplerate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">sampleRate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L921">packages/server/src/protocol.ts:921</a></li></ul></aside></section>
+<div class="tsd-signature"><span class="tsd-kind-property">sampleRate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="type"><code class="tsd-tag">Readonly</code><span>type</span><a href="#type" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;spectrum&quot;</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L918">packages/server/src/protocol.ts:918</a></li></ul></aside></section></section></details></div>
+<div class="tsd-signature"><span class="tsd-kind-property">type</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">&quot;spectrum&quot;</span></div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

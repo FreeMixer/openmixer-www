@@ -15,9 +15,7 @@
 <section class="tsd-panel tsd-comment">
 <div class="tsd-comment tsd-typography"><p>One adapter's declaration of how its capture ports map to physical inputs.</p>
 </div></section>
-<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PhysicalInputPortMap</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#adapter">adapter</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxinputs">maxInputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#node">node</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#origin">origin</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#port">port</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L39">packages/core/src/physical-input-map.ts:39</a></li></ul></aside>
+<div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">PhysicalInputPortMap</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#adapter">adapter</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#maxinputs">maxInputs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#node">node</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#origin">origin</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">1</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#port">port</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -38,37 +36,27 @@
 <h3 class="tsd-anchor-link" id="adapter"><code class="tsd-tag">Readonly</code><span>adapter</span><a href="#adapter" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">adapter</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Adapter kind this row governs — <code>reac</code>, <code>rme</code>, and whatever comes next.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L41">packages/core/src/physical-input-map.ts:41</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="maxinputs"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>max<wbr/>Inputs</span><a href="#maxinputs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">maxInputs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Highest physical input this adapter can address, when it is fixed (RME: 2 mic pres).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L49">packages/core/src/physical-input-map.ts:49</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="node"><code class="tsd-tag">Readonly</code><span>node</span><a href="#node" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">node</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 <div class="tsd-comment tsd-typography"><p>The <code>node.name</code> this row applies to.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L43">packages/core/src/physical-input-map.ts:43</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="origin"><code class="tsd-tag">Readonly</code><span>origin</span><a href="#origin" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">origin</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">0</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">1</span></div>
 <div class="tsd-comment tsd-typography"><p>What that ordinal counts from — <code>capture_01</code> is 1-based, <code>capture_AUX0</code> is 0-based.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L47">packages/core/src/physical-input-map.ts:47</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="port"><code class="tsd-tag">Readonly</code><span>port</span><a href="#port" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">port</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">RegExp</span></div>
 <div class="tsd-comment tsd-typography"><p>The capture port's local name; capture group 1 is the ordinal the name carries.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/physical-input-map.ts#L45">packages/core/src/physical-input-map.ts:45</a></li></ul></aside></section></section></details></div>
+</div></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

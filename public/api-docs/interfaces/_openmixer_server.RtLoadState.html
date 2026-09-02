@@ -24,9 +24,7 @@ disagrees with) the add-band guard's decision.</p>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="_openmixer_core..RtLoadReading.html" class="tsd-signature-type tsd-kind-interface">RtLoadReading</a>
 <ul class="tsd-hierarchy">
-<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">RtLoadState</span></li></ul></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L863">packages/server/src/protocol.ts:863</a></li></ul></aside>
+<li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">RtLoadState</span></li></ul></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -50,55 +48,41 @@ disagrees with) the add-band guard's decision.</p>
 <div class="tsd-signature"><span class="tsd-kind-property">busyEma</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Smoothed busy/budget ratio (one-pole EMA, advanced once per RT cycle).</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#busyema">busyEma</a></p>
-<ul>
-<li>Defined in packages/core/dist/rt-load.d.ts:30</li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#busyema">busyEma</a></p></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="busypeak"><code class="tsd-tag">Readonly</code><span>busy<wbr/>Peak</span><a href="#busypeak" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">busyPeak</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Peak busy/budget ratio since the previous reading (read + cleared at the engine).</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#busypeak">busyPeak</a></p>
-<ul>
-<li>Defined in packages/core/dist/rt-load.d.ts:32</li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#busypeak">busyPeak</a></p></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="coded"><code class="tsd-tag">Readonly</code><span>coded</span><a href="#coded" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">coded</span><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..CodedMessage.html" class="tsd-signature-type tsd-kind-interface">CodedMessage</a><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">&quot;rt.budget&quot;</span><span class="tsd-signature-symbol">&gt;</span></div>
 <div class="tsd-comment tsd-typography"><p>The operator-facing message as a translatable code + parameters — what the UI renders.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L868">packages/server/src/protocol.ts:868</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="cycles"><code class="tsd-tag">Readonly</code><span>cycles</span><a href="#cycles" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">cycles</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Cumulative count of measured cycles.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#cycles">cycles</a></p>
-<ul>
-<li>Defined in packages/core/dist/rt-load.d.ts:36</li></ul></aside></section>
+<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#cycles">cycles</a></p></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="level"><code class="tsd-tag">Readonly</code><span>level</span><a href="#level" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">level</span><span class="tsd-signature-symbol">:</span> <a href="../types/_openmixer_core..RtHeadroomLevel.html" class="tsd-signature-type tsd-kind-type-alias">RtHeadroomLevel</a></div>
 <div class="tsd-comment tsd-typography"><p>The headroom verdict: <code>ok</code> | <code>warn</code> (above the warn threshold) | <code>refuse</code> (above
 the refuse threshold — non-essential DSP adds are being declined).</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L866">packages/server/src/protocol.ts:866</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="message"><code class="tsd-tag">Readonly</code><span>message</span><a href="#message" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">message</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The English log/debug rendering of <a href="#coded" class="tsd-kind-property">coded</a>: <code>engine at N% of its real-time budget</code>.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L870">packages/server/src/protocol.ts:870</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="overruns"><code class="tsd-tag">Readonly</code><span>overruns</span><a href="#overruns" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">overruns</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Cumulative count of cycles whose busy time reached the whole budget.</p>
 </div><aside class="tsd-sources">
-<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#overruns">overruns</a></p>
-<ul>
-<li>Defined in packages/core/dist/rt-load.d.ts:34</li></ul></aside></section></section></details></div>
+<p>Inherited from <a href="_openmixer_core..RtLoadReading.html">RtLoadReading</a>.<a href="_openmixer_core..RtLoadReading.html#overruns">overruns</a></p></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

@@ -24,9 +24,7 @@
 <li><a href="../classes/_openmixer_core..CollectionResource.html" class="tsd-signature-type tsd-kind-class">CollectionResource</a></li>
 <li><a href="../classes/_openmixer_core..DerivedResource.html" class="tsd-signature-type tsd-kind-class">DerivedResource</a></li>
 <li><a href="../classes/_openmixer_core..OperationResource.html" class="tsd-signature-type tsd-kind-class">OperationResource</a></li>
-<li><a href="../classes/_openmixer_core..ScalarRecordResource.html" class="tsd-signature-type tsd-kind-class">ScalarRecordResource</a></li></ul></section><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L855">packages/core/src/resource.ts:855</a></li></ul></aside>
+<li><a href="../classes/_openmixer_core..ScalarRecordResource.html" class="tsd-signature-type tsd-kind-class">ScalarRecordResource</a></li></ul></section>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -67,9 +65,7 @@
 <code>carried-series.ts</code>. Declared by the mold's config, read by the registry (<code>carrierOf</code>), the
 router (OPTIONS <code>carries</code>/<code>index</code>) and the stream hub (a subscriber that demands a carried
 instance is owed the collection, projected). Absent on every other row.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L976">packages/core/src/resource.ts:976</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lifecycle"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>lifecycle</span><a href="#lifecycle" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lifecycle</span><span class="tsd-signature-symbol">?:</span> <a href="_openmixer_core..ResourceLifecycle.html" class="tsd-signature-type tsd-kind-interface">ResourceLifecycle</a></div>
@@ -79,26 +75,20 @@ more than a read-only view of somebody else's store.</p>
 the transport answers 405 rather than pretending a removal was refused by the desk. The
 doors write the SAME one store the fields read; the mold builds this from the row's
 declaration and no row implements it by hand.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L1035">packages/core/src/resource.ts:1035</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="path"><code class="tsd-tag">Readonly</code><span>path</span><a href="#path" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">path</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The path template, e.g. <code>/channel/{kind}/{index}/headAmp</code>. Braced segments become
 <a href="../types/_openmixer_core..ResourceId.html" class="tsd-kind-type-alias">ResourceId</a> keys. One template per entity type; instances differ only by id.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L860">packages/core/src/resource.ts:860</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="policy"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>policy</span><a href="#policy" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">policy</span><span class="tsd-signature-symbol">?:</span> <a href="../types/_openmixer_core..ResourcePolicy.html" class="tsd-signature-type tsd-kind-type-alias">ResourcePolicy</a></div>
 <div class="tsd-comment tsd-typography"><p>What a committed write here means for the session's dirtiness and the operator's history.
 Absent means <a href="../variables/_openmixer_core..DEFAULT_RESOURCE_POLICY.html" class="tsd-kind-variable">DEFAULT_RESOURCE_POLICY</a> — the write dirties the session, is not
 undoable and is not a barrier.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L1042">packages/core/src/resource.ts:1042</a></li></ul></aside></section>
+</div></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="transient"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>transient</span><a href="#transient" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">transient</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -109,9 +99,7 @@ commit completeness: a run's story belongs to the caller that fired it (who poll
 awaits the landing), not to the whole-console equality every surface must hold. Declared
 by the MOLD (<a href="../classes/_openmixer_core..OperationResource.html" class="tsd-kind-class">OperationResource</a>), never per row — the classification is what the
 shape means, not a per-instance opinion.</p>
-</div><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L968">packages/core/src/resource.ts:968</a></li></ul></aside></section></section></details>
+</div></section></section></details>
 <details class="tsd-panel-group tsd-member-group tsd-accordion" open><summary class="tsd-accordion-summary" data-key="section-Methods"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
 <h2 class="tsd-anchor-link" id="methods-1">Methods<a href="#methods-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h2></summary>
 <section>
@@ -133,9 +121,7 @@ answer; one that answers <code>undefined</code> for an id gets it too.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L957">packages/core/src/resource.ts:957</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..Refusal.html" class="tsd-signature-type tsd-kind-interface">Refusal</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="addresses"><code class="tsd-tag">Optional</code><span>addresses</span><a href="#addresses" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -159,9 +145,7 @@ this is read as &quot;addressable&quot; — the conservative half, <code>NO_INST
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L945">packages/core/src/resource.ts:945</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">boolean</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="canonicalid"><code class="tsd-tag">Optional</code><span>canonical<wbr/>Id</span><a href="#canonicalid" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -176,9 +160,7 @@ omits this broadcasts the caller's id verbatim.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L927">packages/core/src/resource.ts:927</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="capabilities"><span>capabilities</span><a href="#capabilities" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -192,9 +174,7 @@ Omitted fields are treated as neither readable nor writable.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_openmixer_core..FieldCapability.html" class="tsd-signature-type tsd-kind-interface">FieldCapability</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L873">packages/core/src/resource.ts:873</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlyMap</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <a href="_openmixer_core..FieldCapability.html" class="tsd-signature-type tsd-kind-interface">FieldCapability</a><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="freshstate"><code class="tsd-tag">Optional</code><span>fresh<wbr/>State</span><a href="#freshstate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -216,9 +196,7 @@ door starts from, so this publishes an existing declaration rather than adding a
 vary BY instance. A row whose default depends on the device behind it declares none here,
 and absence reads as &quot;this row has no desk-wide starting point&quot;, never as &quot;it starts empty&quot;.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L901">packages/core/src/resource.ts:901</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="instances"><code class="tsd-tag">Optional</code><span>instances</span><a href="#instances" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -237,9 +215,7 @@ once, which is exactly what a singleton address parses and every other codec ref
 </ul>
 <p>Pure, like <a href="#read" class="tsd-kind-method">read</a>: enumerating may not bind, seed or persist anything.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L1024">packages/core/src/resource.ts:1024</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Iterable</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Readonly</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Record</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">string</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inversesteps"><code class="tsd-tag">Optional</code><span>inverse<wbr/>Steps</span><a href="#inversesteps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -261,9 +237,7 @@ gesture could not.</p>
 <li><span><span class="tsd-kind-parameter">before</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
 <li><span><span class="tsd-kind-parameter">after</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
 <li><span><span class="tsd-kind-parameter">delta</span>: <a href="../types/_openmixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L1054">packages/core/src/resource.ts:1054</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..ResourceInverseSteps.html" class="tsd-signature-type tsd-kind-interface">ResourceInverseSteps</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="knownfields"><code class="tsd-tag">Optional</code><span>known<wbr/>Fields</span><a href="#knownfields" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -284,9 +258,7 @@ be WRITTEN; <a href="#capabilities" class="tsd-kind-method">capabilities</a> sti
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlySet</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L1008">packages/core/src/resource.ts:1008</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">ReadonlySet</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="patch"><span>patch</span><a href="#patch" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -301,9 +273,7 @@ be WRITTEN; <a href="#capabilities" class="tsd-kind-method">capabilities</a> sti
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
 <li><span><span class="tsd-kind-parameter">delta</span>: <a href="../types/_openmixer_core..WireDelta.html" class="tsd-signature-type tsd-kind-type-alias">WireDelta</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="../types/_openmixer_core..PatchOutcome.html" class="tsd-signature-type tsd-kind-type-alias">PatchOutcome</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L907">packages/core/src/resource.ts:907</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="../types/_openmixer_core..PatchOutcome.html" class="tsd-signature-type tsd-kind-type-alias">PatchOutcome</a><span class="tsd-signature-symbol">&lt;</span><a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a><span class="tsd-signature-symbol">&gt;</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="project"><span>project</span><a href="#project" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -323,9 +293,7 @@ instance via <code>ResourceRegistry.reproject</code>.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L920">packages/core/src/resource.ts:920</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a href="_openmixer_core..ProjectionResult.html" class="tsd-signature-type tsd-kind-interface">ProjectionResult</a></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="read"><span>read</span><a href="#read" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -340,9 +308,7 @@ Pure: a read may not bind, seed, or persist anything.</p>
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L867">packages/core/src/resource.ts:867</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="ripples"><code class="tsd-tag">Optional</code><span>ripples</span><a href="#ripples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -358,9 +324,7 @@ The registry re-projects and re-broadcasts each after the primary commit.</p>
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
 <li><span><span class="tsd-kind-parameter">before</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li>
 <li><span><span class="tsd-kind-parameter">after</span>: <a class="tsd-signature-type tsd-kind-type-parameter" href="#s">S</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L994">packages/core/src/resource.ts:994</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..RippleTarget.html" class="tsd-signature-type tsd-kind-interface">RippleTarget</a><span class="tsd-signature-symbol">[]</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="served"><code class="tsd-tag">Optional</code><span>served</span><a href="#served" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -381,9 +345,7 @@ stands. Runs per frame per subscriber, so the unchanged case must stay cheap.</p
 <ul class="tsd-parameter-list">
 <li><span><span class="tsd-kind-parameter">id</span>: <a href="../types/_openmixer_core..ResourceId.html" class="tsd-signature-type tsd-kind-type-alias">ResourceId</a></span></li>
 <li><span><span class="tsd-kind-parameter">view</span>: <a href="_openmixer_core..ReadView.html" class="tsd-signature-type tsd-kind-interface">ReadView</a></span></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L988">packages/core/src/resource.ts:988</a></li></ul></aside></div></li></ul></section>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">object</span> <span class="tsd-signature-symbol">|</span> <span class="tsd-signature-type">undefined</span></h4></div></li></ul></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="travels"><code class="tsd-tag">Optional</code><span>travels</span><a href="#travels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
@@ -394,9 +356,7 @@ stands. Runs per frame per subscriber, so the unchanged case must stay cheap.</p
 draw before it has drawn one. Optional: a row with no numeric travel to declare simply has
 none, and absence here reads as &quot;ask the instance&quot;, never as &quot;there is no limit&quot;.</p>
 </div>
-<h4 class="tsd-returns-title">Returns <a href="../types/_openmixer_core..ResourceTravels.html" class="tsd-signature-type tsd-kind-type-alias">ResourceTravels</a></h4><aside class="tsd-sources">
-<ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/resource.ts#L880">packages/core/src/resource.ts:880</a></li></ul></aside></div></li></ul></section></section></details></div>
+<h4 class="tsd-returns-title">Returns <a href="../types/_openmixer_core..ResourceTravels.html" class="tsd-signature-type tsd-kind-type-alias">ResourceTravels</a></h4></div></li></ul></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
