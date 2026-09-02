@@ -167,10 +167,10 @@ const notCarried = [
           <li class="flex gap-3 border-l-2 border-edge-strong pl-4">
             <StatusTag state="building" />
             <span>
-              The preview on surfaces that have no dialog. The console publishes the warning as
-              protocol — which row to read and which setting governs it — so an OSC surface or a
-              control surface can ask the same question. None of them reads it before its write
-              today, so an apply from one of those lands without a preview.
+              The preview on every surface. The console publishes the warning as protocol — which
+              row to read and which setting governs it — so a surface with no dialog of its own can
+              ask the same question before it writes. Adoption is per surface, and one that has not
+              adopted it applies without a preview.
             </span>
           </li>
         </ul>
