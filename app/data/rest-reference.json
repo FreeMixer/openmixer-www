@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T06:19:23.273Z",
-    "sourceRowCount": 186,
+    "generatedAt": "2026-09-02T10:02:39.996Z",
+    "sourceRowCount": 188,
     "sourceTravelCount": 44
   },
   "families": [
@@ -1720,6 +1720,13 @@
                   "perInstance": false
                 },
                 {
+                  "name": "bySip",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
                   "name": "individual",
                   "writable": true,
                   "limit": null,
@@ -1731,6 +1738,7 @@
                 "audibleMute": false,
                 "byGroup": false,
                 "byPanic": false,
+                "bySip": false,
                 "individual": false
               }
             }
@@ -3995,14 +4003,12 @@
               ],
               "sample": {
                 "quantum": 1024,
-                "rate": 192000,
+                "rate": 48000,
                 "supportedRates": [
                   44100,
                   48000,
                   88200,
-                  96000,
-                  176400,
-                  192000
+                  96000
                 ]
               }
             }
@@ -4390,6 +4396,13 @@
               "instances": 1,
               "fields": [
                 {
+                  "name": "override",
+                  "writable": true,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
                   "name": "params",
                   "writable": false,
                   "limit": null,
@@ -4443,6 +4456,13 @@
               "demand": false,
               "instances": 1,
               "fields": [
+                {
+                  "name": "override",
+                  "writable": true,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
                 {
                   "name": "params",
                   "writable": false,
@@ -5234,18 +5254,18 @@
                 "cost": {
                   "local": 0,
                   "localProbeFailures": 0,
-                  "shipped": 802,
-                  "unresolved": 156
+                  "shipped": 1,
+                  "unresolved": 2
                 },
                 "latency": {
                   "local": 0,
                   "localProbeFailures": 0,
-                  "shipped": 770,
-                  "unresolved": 188
+                  "shipped": 1,
+                  "unresolved": 2
                 },
                 "localOnly": 0,
                 "localState": "none",
-                "plugins": 958
+                "plugins": 3
               }
             }
           ]
@@ -5321,27 +5341,21 @@
                     44100,
                     48000,
                     88200,
-                    96000,
-                    176400,
-                    192000
+                    96000
                   ],
                   "latency": [
                     44100,
                     48000,
                     88200,
-                    96000,
-                    176400,
-                    192000
+                    96000
                   ]
                 },
-                "pluginCount": 958,
+                "pluginCount": 3,
                 "rates": [
                   44100,
                   48000,
                   88200,
-                  96000,
-                  176400,
-                  192000
+                  96000
                 ]
               }
             }
@@ -5517,7 +5531,7 @@
                 "governor": "performance",
                 "host": "msi",
                 "measuredAt": "2026-07-28T18:03:03+0200",
-                "plugins": 958,
+                "plugins": 3,
                 "rates": [
                   44100,
                   48000,
@@ -6155,6 +6169,13 @@
               "demand": false,
               "instances": 0,
               "fields": [
+                {
+                  "name": "confirm",
+                  "writable": true,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
                 {
                   "name": "params",
                   "writable": false,
@@ -6916,25 +6937,9 @@
                   {
                     "bus": "other",
                     "carrier": true,
-                    "mac": "00:14:5c:9b:28:2d",
-                    "name": "enp128s20f0u2",
-                    "speedMbps": 100,
-                    "up": true
-                  },
-                  {
-                    "bus": "other",
-                    "carrier": true,
-                    "mac": "34:5a:60:9f:9e:be",
-                    "name": "enp131s0",
-                    "speedMbps": 100,
-                    "up": true
-                  },
-                  {
-                    "bus": "other",
-                    "carrier": true,
-                    "mac": "36:ae:1a:ac:76:a1",
-                    "name": "wlp128s20f3",
-                    "speedMbps": null,
+                    "mac": "00:00:00:00:00:00",
+                    "name": "probe0",
+                    "speedMbps": 1000,
                     "up": true
                   }
                 ]
@@ -7587,6 +7592,177 @@
               ],
               "sample": {
                 "running": false
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "plugins",
+      "root": "/plugins",
+      "count": 2,
+      "groups": [
+        {
+          "label": "(plugins itself)",
+          "rows": [
+            {
+              "path": "/plugins",
+              "example": "/plugins",
+              "writable": false,
+              "demand": false,
+              "instances": 1,
+              "fields": [
+                {
+                  "name": "plugins",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                }
+              ],
+              "sample": {
+                "plugins": [
+                  "http://lsp-plug.in/plugins/lv2/para_equalizer_x16_stereo",
+                  "http://lsp-plug.in/plugins/lv2/filter_mono",
+                  "http://calf.sourceforge.net/plugins/Compressor"
+                ]
+              }
+            },
+            {
+              "path": "/plugins/{uri}",
+              "example": "/plugins/http://lsp-plug.in/plugins/lv2/para_equalizer_x16_stereo",
+              "writable": false,
+              "demand": false,
+              "instances": 3,
+              "fields": [
+                {
+                  "name": "audioInputs",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "audioOutputs",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "family",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "hasMidiIn",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "label",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "latencyClass",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "lv2Class",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "name",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "notForLive",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "params",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "points",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "role",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                },
+                {
+                  "name": "uri",
+                  "writable": false,
+                  "limit": null,
+                  "values": null,
+                  "perInstance": false
+                }
+              ],
+              "sample": {
+                "audioInputs": 2,
+                "audioOutputs": 2,
+                "family": "lsp",
+                "hasMidiIn": false,
+                "label": "LSP Parametric EQ x16",
+                "latencyClass": "zero",
+                "lv2Class": "Parametric Plugin",
+                "name": "LSP Parametric Equalizer x16 Stereo",
+                "notForLive": false,
+                "params": [
+                  {
+                    "default": 1,
+                    "isEnumeration": false,
+                    "isInteger": false,
+                    "isLogarithmic": true,
+                    "isToggle": false,
+                    "isTrigger": false,
+                    "kind": "control",
+                    "max": 10,
+                    "min": 0,
+                    "name": "Input gain",
+                    "symbol": "g_in",
+                    "unit": null
+                  }
+                ],
+                "points": [
+                  "Top-Of-Ch",
+                  "Post-Trim",
+                  "Pre-EQ",
+                  "Post-EQ",
+                  "Pre-Fader"
+                ],
+                "role": "eq",
+                "uri": "http://lsp-plug.in/plugins/lv2/para_equalizer_x16_stereo"
               }
             }
           ]

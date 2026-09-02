@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T06:19:28.381Z",
-    "generatedCount": 1347,
-    "documentedCount": 1283
+    "generatedAt": "2026-09-02T10:02:45.486Z",
+    "generatedCount": 1354,
+    "documentedCount": 1290
   },
   "curated": [
     {
@@ -686,6 +686,13 @@
         },
         {
           "kind": "Function",
+          "name": "canonicalChainFor",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "The CANONICAL arrangement for a strip kind -- what a freshly built strip of that kind carries: defaultBusChain for a bus master, defaultChannelChain otherwise."
+        },
+        {
+          "kind": "Function",
           "name": "capAllocation",
           "package": "@openmixer/core",
           "file": "",
@@ -704,6 +711,13 @@
           "package": "@openmixer/core",
           "file": "",
           "summary": "One instance's values out of the collection's state — each declared series the state carries, decoded through its own window into a plain number and keyed by the series' field name."
+        },
+        {
+          "kind": "Function",
+          "name": "carriedLookupOf",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "Every instance's values out of the collection's state, decoded ONCE: each declared series the state carries is decoded through its own window one time, and the lookup answers an id by position."
         },
         {
           "kind": "Function",
@@ -760,6 +774,13 @@
           "package": "@openmixer/core",
           "file": "",
           "summary": "True when the apply moves nothing the channel holds — the surface applies without asking."
+        },
+        {
+          "kind": "Function",
+          "name": "channelConfigMovesOf",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "The moves a preview state lists, narrowed entry by entry — what `applyMoves` answers, or what rides a `CONFIRM_REQUIRED` refusal as `preview`."
         },
         {
           "kind": "Function",
@@ -1971,6 +1992,13 @@
           "package": "@openmixer/core",
           "file": "",
           "summary": "A bin passes the instantaneous multi-criteria test (before persistence confirms it)."
+        },
+        {
+          "kind": "Function",
+          "name": "isChannelConfigMove",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "Whether an unknown wire value is one ChannelConfigMove — a fact this contract names, a snapshot field a config carries, and scalar sides when present."
         },
         {
           "kind": "Function",
@@ -3395,6 +3423,13 @@
         },
         {
           "kind": "Function",
+          "name": "sameArrangement",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "Whether two chains are the SAME ARRANGEMENT -- the same nodes in the same order, each carrying the same persisted fields."
+        },
+        {
+          "kind": "Function",
           "name": "sameOutputEndpoint",
           "package": "@openmixer/core",
           "file": "",
@@ -3483,6 +3518,13 @@
           "package": "@openmixer/core",
           "file": "",
           "summary": "The ONE lane rule a family of facts shares — laneRuleOf over each, REFUSING at load if any two disagree."
+        },
+        {
+          "kind": "Function",
+          "name": "sipSilenced",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "The strip-level SIP predicate — the wire's half of `mixer_rt.c`'s `(cue_mode == OMX_CUE_SIP) && any_solo && !solo && !solo_safe`."
         },
         {
           "kind": "Function",
@@ -6568,6 +6610,13 @@
           "package": "@openmixer/core",
           "file": "",
           "summary": "One live SINK node as the resolver needs it: its node name and its playback ports **in canonical role order** — `ports[0]` is the L leg, `ports[1]` the R (the order `parsePwDump` already emits, FL/FR first, then the r…"
+        },
+        {
+          "kind": "Interface",
+          "name": "SipCondition",
+          "package": "@openmixer/core",
+          "file": "",
+          "summary": "The two console-wide facts that decide whether solo-in-place is silencing anything at all."
         },
         {
           "kind": "Interface",
