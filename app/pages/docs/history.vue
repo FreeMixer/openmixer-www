@@ -150,18 +150,26 @@ const never = [
             An entry can be minutes old, and in that time somebody else — or a later gesture of
             your own — may have moved the same control. Taking the entry back would then jump
             the field from a value nobody expects to another value nobody asked for, so the
-            console asks first, in the entry’s own row:
+            console asks first:
           </p>
           <blockquote class="border-l-2 border-accent/60 pl-4 text-ink">
             This has changed since — db reads −3.0 now, not the −12.0 this step left (changed
             by entry 47).
           </blockquote>
           <p>
-            <span class="text-ink">Go back anyway</span> makes the write and records in the new
-            entry that it went over the later one, so the list says a jump-back happened and
-            what it jumped over. <span class="text-ink">Leave it</span> does nothing. The offer
-            is drawn in space the row already reserves, so nothing under your finger moves when
-            it appears.
+            <span class="text-ink">Go back anyway</span> makes the write.
+            <span class="text-ink">Leave it</span> does nothing. Both the header’s buttons and
+            the list’s rows draw the offer in space they already reserve, so nothing under your
+            finger moves when it appears. A jump-back taken from a row in the list records in
+            its new entry that it went over the later one, so the list says a jump-back happened
+            and what it jumped over.
+          </p>
+          <p>
+            Ctrl+Z asks the same question. The top of the list is compared before it is
+            replayed, exactly as a row in the list is compared when you click it, and redo
+            compares the value its own undo left standing. One question, three doors: if the
+            field still reads what the step left, the walk goes through without a word; if it
+            does not, you get the offer and nothing is written until you answer it.
           </p>
           <p>
             The console never takes that decision for you and never retries behind your back.
@@ -223,8 +231,14 @@ const never = [
           The list itself is
           <code class="font-mono text-xs text-ink">/history</code>, the cursor is
           <code class="font-mono text-xs text-ink">/history/cursor</code>, and a single entry is
-          taken back at <code class="font-mono text-xs text-ink">/history/entries/{id}/revert</code> —
-          fields, ranges and the refusals each can send back are in the
+          taken back at <code class="font-mono text-xs text-ink">/history/entries/{id}/revert</code>.
+          All three doors — that one and
+          <code class="font-mono text-xs text-ink">/history/cursor/undo</code> and
+          <code class="font-mono text-xs text-ink">/history/cursor/redo</code> — take the same
+          <code class="font-mono text-xs text-ink">override</code> argument, and every fire spells
+          it out: a client that has to write <code class="font-mono text-xs text-ink">false</code>
+          cannot mean <code class="font-mono text-xs text-ink">true</code> by accident. Fields,
+          ranges and the refusals each can send back are in the
           <NuxtLink to="/docs/rest/history" class="text-accent hover:underline">REST reference</NuxtLink>
           and the
           <NuxtLink to="/docs/rest/refusal-codes" class="text-accent hover:underline">refusal and undo-label codes</NuxtLink>.
