@@ -256,6 +256,12 @@ const alignRows = [
               apart and saved as a layout.
             </p>
             <p>
+              The banks roll under the mouse wheel, anywhere over the rail that is not
+              itself a control: one notch is one bank, the same wrapping step the ◀ ▶
+              buttons make, and a trackpad swipe moves one bank rather than a dozen. A
+              wheel over a fader still trims that fader.
+            </p>
+            <p>
               English, Catalan and Spanish. Dark, light and a high-contrast theme, on
               an axis independent of the console personality.
             </p>
