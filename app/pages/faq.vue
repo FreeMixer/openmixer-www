@@ -52,6 +52,14 @@ const groups: readonly Group[] = [
         ],
       },
       {
+        q: 'A channel has gone quiet and its mute button is not lit — what is holding it?',
+        a: [
+          'Most likely solo in place. When the cue mode is SIP and something is soloed, every channel that is neither soloed nor solo-safe is silenced — that is what solo in place means, and it is the mode that silences the house rather than only the headphones.',
+          'The channel says so rather than leaving you to work it out: the mute state carries a separate flag for it, and the strip gets its own badge and dims like anything else that is not being heard — without the mute button pretending somebody pressed it. The way back is to clear the solo, or to make the strip solo-safe.',
+          'The other two holds read the same way: a mute group holding the channel, and a panic. Each is its own flag, owned by whatever set it.',
+        ],
+      },
+      {
         q: 'What does it need to run?',
         a: [
           'Linux with PipeWire, Node 22 or newer, and pnpm to build. Audio comes from anything PipeWire can see, which includes a plain USB interface, so a stagebox is not required to try it.',
@@ -194,7 +202,7 @@ const groups: readonly Group[] = [
         q: '“the destination cannot afford this insert chain”',
         a: [
           'The plugins on that rack add more delay than the place the signal is going can carry. The budget belongs to the destination, not to the plugin: a monitor destination is held to 5 ms and refuses; a program destination has 100 ms and an effects destination 60 ms, and those two let the edit through and warn instead.',
-          'The reason underneath names the plugin and the numbers — “ZaMaximX2 puts this chain at 7.4 ms — over the 5.0 ms budget for a monitor destination at 48 kHz. On a monitor send the performer hears themself that late.”',
+          'The reason underneath names the plugin and the numbers — “ZaMaximX2 puts this chain at 7.4 ms — over the 5.0 ms budget for a monitor destination at 48000 Hz. On a monitor send the performer hears themself that late.”',
           'Take out the plugin it names, replace it with a lower-latency one, or rack it somewhere the delay does not matter. Bypassing does not help: a bypassed plugin still costs its delay.',
         ],
       },
@@ -204,6 +212,7 @@ const groups: readonly Group[] = [
           'You racked a stereo plugin on a mono strip. The sentence names both ways out because both are real: most plugin families ship a mono build of the same processor, and a strip fed a stereo source can be made stereo.',
           'It refuses rather than folding the plugin down because folding would be silent and wrong. Both output legs land in the strip’s one input port and are summed there — a measured 6.02 dB lift on the main mix from a stereo EQ sitting at unity, doing nothing. The mono twin of the same plugin moves the mix by 0.00 dB.',
           'Nothing is written when it fires, and the whole rack is refused rather than quietly trimmed. Only the first plugin that does not fit is named.',
+          'You will meet it less often than you used to: the strip’s own rack door publishes what fits that strip, so the picker greys a plugin too wide for it instead of offering it. The refusal is still there for everything that does not go through the picker, and for a strip that changes width under a rack it already holds.',
         ],
       },
       {
@@ -256,10 +265,19 @@ const groups: readonly Group[] = [
         ],
       },
       {
+        q: '“applying this would move 5 of what the channel holds (gain, trim, pan, eq, inserts) — confirm to go ahead”',
+        a: [
+          'A channel config is a whole statement about a channel, so applying one to a channel that already holds something moves what is there. The console works out exactly which fields would move, refuses the apply, and hands the list back with the refusal — nothing is written.',
+          'Send it again saying confirm, and it applies. The list is the same list the dialog shows you, because the dialog is drawn from this refusal rather than from a preview the surface fetched for itself; a browser, an OSC surface and an MCP client all meet it and answer it the same way.',
+          'An apply that would move nothing is never held — applying the same config twice does not ask twice. And if you would rather not be asked at all, the sign-off is a console setting of its own, read afresh on every attempt. It is deliberately not the switch that arms destructive actions: an apply removes nothing.',
+        ],
+      },
+      {
         q: '“db reads −3.0 now, not the −12.0 this step left (changed by entry 41)”',
         a: [
-          'You asked to take back one change out of the middle of the history, and the field has moved since — by another operator, by a control surface, or by a later gesture of your own. Writing the old value now would jump the fader from a value nobody expects to one nobody asked for.',
-          'The console asks instead of choosing: go back anyway, and the new entry records that it went over the later one, so the list says a jump-back happened; or leave it. It never retries behind your back, and if the desk moves again while the question is on screen the offer is dropped rather than answered against a stale value.',
+          'The change you asked to take back has moved since — by another operator, by a control surface, or by a later gesture of your own. Writing the old value now would jump the fader from a value nobody expects to one nobody asked for.',
+          'Ctrl+Z gets the same sentence as the Undo this button in the list, and so does redo: the console compares the step against what the field reads now before it replays anything, and asks one question at all three doors rather than being careful in the list and blunt at the top of it. Nothing is written while the question stands.',
+          'The console asks instead of choosing: go back anyway, or leave it. A jump-back taken from a row in the list records in its new entry that it went over the later one, so the list says a jump-back happened. It never retries behind your back, and if the desk moves again while the question is on screen the offer is dropped rather than answered against a stale value.',
         ],
       },
       {
