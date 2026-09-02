@@ -14,7 +14,6 @@ const arriving = [
   'A FLAC print. The export writes 24-bit WAV, which is the right depth and the wrong container for a deliverable that has to travel.',
   'A button that fires the print. The export is served and it works; no surface offers it yet, so today it is fired over the API.',
   'A tap picker on the channel. Which taps a channel records is a field the console serves and answers on, but no control writes it, so today a channel records its default set unless something drives it over the API.',
-  'A take library that prints the empty and unmeasured counts it already carries. The facts are on the take; the picker does not show them yet.',
 ];
 </script>
 
@@ -39,6 +38,27 @@ const arriving = [
             derivation without changing what you asked for: patch something
             into it later and it arms again, with no extra step. Aux and
             matrix channels are not armed unless you ask for them.
+          </p>
+          <p>
+            Patched means the signal actually arrives, not that the patch
+            list says it should. The console asks the audio graph whether a
+            link runs from the source into that strip’s input, and a strip
+            whose patch has not been made — a stagebox that has not turned
+            up, a device the graph has not offered yet — is left out of the
+            take even though the desk shows it patched. That distinction was
+            bought the hard way: a take of eighty-four tracks in which one
+            channel’s two files were 94-byte headers, found the next morning.
+          </p>
+          <p>
+            So the console says what it is not recording, once, at the moment
+            the take starts and the arm set becomes unchangeable: the channels
+            it left out are named in the console’s log, with the reason —
+            a declared source with no link into the strip’s input. They are
+            also missing from the armed count you can read while the take
+            runs, and the take itself carries no track for them. A running
+            take reports the omissions it started with and does not re-derive
+            them, so linking a strip mid-show never makes it look as though a
+            take could have carried it.
           </p>
           <p>
             Each armed channel is captured at two points by default — its
@@ -192,6 +212,18 @@ const arriving = [
             switched to silence, and the console names which channels those
             were. If that leaves nothing at all engaged, play refuses rather
             than running a transport no channel is listening to.
+          </p>
+          <p>
+            Both counts are on the take where you choose it. A take with
+            known-empty tracks is tagged in record red with how many —
+            <span class="font-mono text-sm text-ink">2 EMPTY</span> — because
+            that is the one that costs you a soundcheck, and a take whose
+            tracks were never measured carries a dashed
+            <span class="font-mono text-sm text-ink">UNMEASURED</span> instead,
+            in a neutral colour: it is a take written before the console
+            measured this, and painting it red would make every old take look
+            broken. Dropped frames are a third tag again, and none of the
+            three implies another.
           </p>
           <p>
             Hiding an empty track would be worse than carrying an honest
