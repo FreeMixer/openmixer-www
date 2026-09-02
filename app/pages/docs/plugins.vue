@@ -76,6 +76,25 @@ const findings = [
             adding it back.
           </p>
           <p>
+            Removing a plugin bypasses it, unlinks it and retires its slot: the strip is fed
+            straight through before anything else happens, and the console never hands that
+            instance out again. What it does not do is give the instance back to the plugin
+            host — the host cannot free one without falling over, so an un-racked plugin sits
+            on the graph, silent and unlinked, until the host next starts. The host has 9991
+            instance slots and they are never recycled inside one run, so this is an accounting
+            fact rather than a daily one; if you ever do reach the end of them, the console says
+            exactly that and names how many un-racked plugins are holding the rest:
+          </p>
+          <blockquote class="border-l-2 border-accent/60 pl-4 text-ink">
+            the plugin host has no instance slot left (9991 in all, 9803 of them held by
+            un-racked plugins it cannot free) — restart the plugin host to reclaim them
+          </blockquote>
+          <p>
+            The rack itself is one list, and every edit is that list rewritten: adding,
+            removing, reordering and swapping a slot for another plugin all go through the same
+            door, so there is one place a rack can be judged and one place it can be refused.
+          </p>
+          <p>
             Each slot shows the plugin’s measured latency in milliseconds, and the rack shows
             the total at the foot, with the console’s own verdict on it underneath. A verdict
             that has not arrived yet shows nothing under the total, never a false <em>fine</em>.
@@ -104,6 +123,15 @@ const findings = [
             measured — and a plugin that is not for live use says so regardless of its figure.
             The other is how its family stands: the plugin sets behave differently enough that
             the family is worth knowing before you commit a channel to one.
+          </p>
+          <p>
+            The list is not the same on every strip. The strip’s own rack door publishes what it
+            will accept here, narrowed by the same width test the refusal below uses, and the
+            picker greys everything that is not on that list rather than letting you pick it and
+            then reading the refusal. The narrowing is worked out each time you ask, from the
+            strip’s width as it is at that moment, so making a strip stereo makes the stereo
+            plugins pickable with no reload. A plugin whose leg count the catalog does not know
+            is offered rather than hidden — the desk does not refuse on a fact it does not have.
           </p>
         </div>
       </div>
@@ -201,6 +229,15 @@ const findings = [
             toggle, so A/B is one press, and an EQ-role plugin also gets a response curve.
           </p>
           <p>
+            The ranges, defaults, units and named steps those controls bind come from the
+            console, not from the browser: the desk serves the descriptor it scanned on its own
+            machine for the plugin in the open slot, and the panel is drawn from that. It matters
+            because the same plugin identifier can be a different build on a different rig, and a
+            knob drawn at another machine’s range would send values this one never accepts. The
+            copy shipped with the interface is used only where no desk has answered — offline, in
+            the mock, in the first moment before the row lands.
+          </p>
+          <p>
             A plugin the console has not been told to change shows the plugin’s own default,
             which is a fact about the plugin and not a reading from it. The host cannot be asked
             what a control is at this instant, so what the desk shows is what it commanded; a
@@ -221,15 +258,6 @@ const findings = [
           <li class="flex gap-3 border-l-2 border-edge-strong pl-4">
             <StatusTag state="building" />
             <span>
-              A picker that greys a plugin too wide for the strip. Today it offers every plugin in
-              the palette and the door refuses the ones that will not fit — you get the sentence
-              rather than a control that was never offered. What is not at risk is the audio: the
-              refusal is at the door, so the 6 dB never happens.
-            </span>
-          </li>
-          <li class="flex gap-3 border-l-2 border-edge-strong pl-4">
-            <StatusTag state="building" />
-            <span>
               Post-Fader as a working insert point on the chain. When it carries audio, it joins
               the list the refusal above prints and both stop firing, with no change to anything
               that talks to the console.
@@ -238,9 +266,12 @@ const findings = [
         </ul>
         <p class="mt-8 text-sm leading-relaxed text-ink-faint">
           The rack is <code class="font-mono text-xs text-ink">/channel/{kind}/{index}/inserts</code>,
-          a slot’s controls are under <code class="font-mono text-xs text-ink">…/inserts/{slot}/params</code>
-          and <code class="font-mono text-xs text-ink">…/properties</code>, and the verdict is
-          <code class="font-mono text-xs text-ink">…/inserts/suitability</code> — all in the
+          a slot’s controls are one row each at
+          <code class="font-mono text-xs text-ink">…/inserts/{slot}/params/{symbol}</code>
+          and <code class="font-mono text-xs text-ink">…/inserts/{slot}/properties/{property}</code>,
+          the verdict is <code class="font-mono text-xs text-ink">…/inserts/suitability</code>,
+          and a plugin’s served descriptor is
+          <code class="font-mono text-xs text-ink">/plugins/{uri}</code> — all in the
           <NuxtLink to="/docs/rest/channel" class="text-accent hover:underline">REST reference</NuxtLink>,
           with the refusals in the
           <NuxtLink to="/docs/rest/refusal-codes" class="text-accent hover:underline">refusal and undo-label codes</NuxtLink>.
