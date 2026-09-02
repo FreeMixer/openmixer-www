@@ -71,7 +71,10 @@ scripts/           the docs pipeline: gen-rest-reference.mjs and gen-typedoc.mjs
                    public/openapi.json — wired as predev/prebuild/pregenerate, so they run
                    before dev, build and generate and the site never carries stale reference
                    pages. Never hand-edit the generated files; the checked-in one is the
-                   curated half typedoc cannot read (Vue components, C headers).
+                   curated half typedoc cannot read (Vue components, C headers). openmixer's
+                   typedoc.json carries `disableSources: true` — the repo is private, so a
+                   "Defined in" link to github.com/FreeMixer/openmixer would 404 for every
+                   reader; turn it back on once the repo opens.
 ```
 
 Styling is Tailwind utilities and Nuxt UI components. There are no hand-written CSS rules
