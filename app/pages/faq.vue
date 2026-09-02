@@ -169,7 +169,8 @@ const groups: readonly Group[] = [
       {
         q: 'Can I run a virtual soundcheck at a different sample rate than the take was recorded at?',
         a: [
-          'No, and this is deliberate. There is no resampler on the playback path, so a take recorded at one rate refuses to play back at another rather than running at the wrong pitch and the wrong length. Match the graph’s rate to the take’s, or re-record.',
+          'Yes. The live playback path still has no resampler, deliberately, so loading a take at another rate converts the tracks it will replay, offline, on disk, before the transport exists — the graph only ever opens files already at its own rate. The conversion is cached in the take, so a second load costs one file check.',
+          'A mismatch only refuses when conversion cannot happen: no converter built in, or a conversion that could not finish. That refusal still names both rates.',
         ],
       },
       {
@@ -222,7 +223,7 @@ const groups: readonly Group[] = [
       {
         q: '“the take was recorded at 48000 Hz and the desk is running at 96000 Hz — match the clock or record it again”',
         a: [
-          'There is no resampler on the playback path, deliberately. A take plays at the rate it was recorded at or it does not play, rather than playing at the wrong pitch and the wrong length while everyone tries to work out what is odd about the monitors.',
+          'A mismatched take is usually converted for you: loading it resamples the tracks it will replay, offline, before you press engage, so play runs at the graph’s own rate. This refusal is what is left over — no converter built into this install, or a conversion that could not finish — and it still means the take cannot play here as it stands.',
           'Set the graph to the take’s rate, or record a new take at the rate you are running.',
         ],
       },
