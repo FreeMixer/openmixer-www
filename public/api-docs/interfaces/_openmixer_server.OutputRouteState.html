@@ -18,14 +18,14 @@ absent ⇒ unity / un-muted / no delay / default fold. A stereo route carries bo
 mono-leg route only its own role, so the crosspoint lights the exact routed port per leg (#183).</p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">OutputRouteState</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#deferred">deferred</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#delayms">delayMs</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#fold">fold</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#l">L</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#monofolddb">monoFoldDb</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#mute">mute</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#r">R</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#trimdb">trimDb</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div>
-<section class="tsd-panel tsd-hierarchy" data-refl="21096">
+<section class="tsd-panel tsd-hierarchy" data-refl="21121">
 <h4>Hierarchy (<a href="../hierarchy.html#@openmixer/server.OutputRouteState">View Summary</a>)</h4>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><a href="../types/_openmixer_core..OutputEndpoint.html" class="tsd-signature-type tsd-kind-type-alias">OutputEndpoint</a>
 <ul class="tsd-hierarchy">
 <li class="tsd-hierarchy-item"><span class="tsd-hierarchy-target">OutputRouteState</span></li></ul></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L764">packages/server/src/protocol.ts:764</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L764">packages/server/src/protocol.ts:764</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -54,14 +54,14 @@ Surfaces ghost the cell instead of showing it identical to a live route. Sourced
 #168 deferral ledger; absent (never <code>false</code>) for a live route.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L789">packages/server/src/protocol.ts:789</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L789">packages/server/src/protocol.ts:789</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="delayms"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>delay<wbr/>Ms</span><a href="#delayms" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">delayMs</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Per-destination DELAY (ms) applied AFTER the trim/fold — the time-alignment control.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L768">packages/server/src/protocol.ts:768</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L768">packages/server/src/protocol.ts:768</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="fold"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>fold</span><a href="#fold" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">fold</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">true</span></div>
@@ -76,7 +76,7 @@ console must never quietly do something other than what it shows. Absent (never 
 an ordinary leg / stereo route.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L782">packages/server/src/protocol.ts:782</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L782">packages/server/src/protocol.ts:782</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="l"><code class="tsd-tag">Optional</code><span>L</span><a href="#l" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">L</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
@@ -85,12 +85,12 @@ an ordinary leg / stereo route.</p>
 <h3 class="tsd-anchor-link" id="monofolddb"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>mono<wbr/>Fold<wbr/>Db</span><a href="#monofolddb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">monoFoldDb</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L769">packages/server/src/protocol.ts:769</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L769">packages/server/src/protocol.ts:769</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="mute"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>mute</span><a href="#mute" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mute</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">boolean</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L766">packages/server/src/protocol.ts:766</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L766">packages/server/src/protocol.ts:766</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-is-inherited">
 <h3 class="tsd-anchor-link" id="r"><code class="tsd-tag">Optional</code><span>R</span><a href="#r" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">R</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div><aside class="tsd-sources">
@@ -99,7 +99,7 @@ an ordinary leg / stereo route.</p>
 <h3 class="tsd-anchor-link" id="trimdb"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>trim<wbr/>Db</span><a href="#trimdb" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">trimDb</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/server/src/protocol.ts#L765">packages/server/src/protocol.ts:765</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/server/src/protocol.ts#L765">packages/server/src/protocol.ts:765</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

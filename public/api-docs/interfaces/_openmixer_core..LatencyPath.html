@@ -17,7 +17,7 @@
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">LatencyPath</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#channel">channel</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..ChannelId.html" class="tsd-signature-type tsd-kind-interface">ChannelId</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#effecthops">effectHops</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#steps">steps</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..LatencyStep.html" class="tsd-signature-type tsd-kind-interface">LatencyStep</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#totalms">totalMs</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/model.ts#L649">packages/core/src/model.ts:649</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L649">packages/core/src/model.ts:649</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -39,7 +39,7 @@
 <div class="tsd-comment tsd-typography"><p>The input channel this path originates from.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/model.ts#L651">packages/core/src/model.ts:651</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L651">packages/core/src/model.ts:651</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="effecthops"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>effect<wbr/>Hops</span><a href="#effecthops" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">effectHops</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">number</span></div>
@@ -51,21 +51,21 @@ mod-host round-trip; each in-path insert adds one. Set by <a href="../functions/
 optional so a hand-built path (a test fixture / a legacy source) need not carry it.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/model.ts#L664">packages/core/src/model.ts:664</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L664">packages/core/src/model.ts:664</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="steps"><code class="tsd-tag">Readonly</code><span>steps</span><a href="#steps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">steps</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <a href="_openmixer_core..LatencyStep.html" class="tsd-signature-type tsd-kind-interface">LatencyStep</a><span class="tsd-signature-symbol">[]</span></div>
 <div class="tsd-comment tsd-typography"><p>Per-element breakdown in audio order.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/model.ts#L655">packages/core/src/model.ts:655</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L655">packages/core/src/model.ts:655</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="totalms"><code class="tsd-tag">Readonly</code><span>total<wbr/>Ms</span><a href="#totalms" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">totalMs</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Sum of every step's <code>latencyMs</code>, in milliseconds.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/model.ts#L653">packages/core/src/model.ts:653</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/model.ts#L653">packages/core/src/model.ts:653</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

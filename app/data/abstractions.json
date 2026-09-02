@@ -1,8 +1,8 @@
 {
   "meta": {
-    "generatedAt": "2026-09-02T05:26:22.101Z",
-    "generatedCount": 1345,
-    "documentedCount": 1281
+    "generatedAt": "2026-09-02T05:32:37.408Z",
+    "generatedCount": 1347,
+    "documentedCount": 1283
   },
   "curated": [
     {
@@ -2522,7 +2522,7 @@
           "kind": "Function",
           "name": "nativeAttempt",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:642",
+          "file": "packages/core/src/resource.ts:674",
           "summary": "Run ONE native actuation and report what the audio did — the boolean→refusal narrowing, written once."
         },
         {
@@ -2599,7 +2599,7 @@
           "kind": "Function",
           "name": "notProjected",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:613",
+          "file": "packages/core/src/resource.ts:645",
           "summary": "Did not reach the audio."
         },
         {
@@ -3215,7 +3215,7 @@
           "kind": "Function",
           "name": "refused",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:580",
+          "file": "packages/core/src/resource.ts:612",
           "summary": "The refused arm of a PatchOutcome — `accepted: false` plus its code, spelled once."
         },
         {
@@ -3271,7 +3271,7 @@
           "kind": "Function",
           "name": "resolveResourcePolicy",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:747",
+          "file": "packages/core/src/resource.ts:779",
           "summary": "Fill a row's declared policy in with the defaults."
         },
         {
@@ -4174,7 +4174,7 @@
           "kind": "Function",
           "name": "createServer",
           "package": "@openmixer/server",
-          "file": "packages/server/src/server.ts:8449",
+          "file": "packages/server/src/server.ts:8462",
           "summary": "Convenience factory mirroring the MixerServer constructor."
         },
         {
@@ -5003,6 +5003,13 @@
         },
         {
           "kind": "Interface",
+          "name": "ConfirmGate",
+          "package": "@openmixer/core",
+          "file": "packages/core/src/resource.ts:554",
+          "summary": "One operation row's confirm gate — read before honouring its fire, keyed by the operation row's own path template (`2026-08-22-osc-surface.md` §\"Confirm-gated operations\")."
+        },
+        {
+          "kind": "Interface",
           "name": "ConsoleAllocation",
           "package": "@openmixer/core",
           "file": "packages/core/src/console-allocation.ts:183",
@@ -5012,7 +5019,7 @@
           "kind": "Interface",
           "name": "ConsoleClientConfig",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:133",
+          "file": "packages/core/src/console-client.ts:142",
           "summary": "Configuration for ConsoleClient."
         },
         {
@@ -5026,7 +5033,7 @@
           "kind": "Interface",
           "name": "ConsoleDeclaration",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:89",
+          "file": "packages/core/src/console-client.ts:98",
           "summary": "One instance's declaration, as `OPTIONS <base><instance>` answers it."
         },
         {
@@ -5047,7 +5054,7 @@
           "kind": "Interface",
           "name": "ConsoleFrame",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:100",
+          "file": "packages/core/src/console-client.ts:109",
           "summary": "A stream event: a row, plus the console revision as of the read."
         },
         {
@@ -5068,7 +5075,7 @@
           "kind": "Interface",
           "name": "ConsoleResource",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:823",
+          "file": "packages/core/src/resource.ts:855",
           "summary": ""
         },
         {
@@ -5103,7 +5110,7 @@
           "kind": "Interface",
           "name": "ConsoleWatchHandlers",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:117",
+          "file": "packages/core/src/console-client.ts:126",
           "summary": "How a watcher learns the stream's own state, apart from the rows it carries."
         },
         {
@@ -6244,7 +6251,7 @@
           "kind": "Interface",
           "name": "ProjectionResult",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:588",
+          "file": "packages/core/src/resource.ts:620",
           "summary": "The outcome of projecting state onto the audio."
         },
         {
@@ -6265,7 +6272,7 @@
           "kind": "Interface",
           "name": "ReadView",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:803",
+          "file": "packages/core/src/resource.ts:835",
           "summary": "What one READER of a row is: its resolution and its demand — the two things a served body may be narrowed by."
         },
         {
@@ -6335,7 +6342,7 @@
           "kind": "Interface",
           "name": "ResolvedResourcePolicy",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:730",
+          "file": "packages/core/src/resource.ts:762",
           "summary": "ResourcePolicy with every default filled in — what the registry acts on."
         },
         {
@@ -6377,7 +6384,7 @@
           "kind": "Interface",
           "name": "ResourceInverseSteps",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:782",
+          "file": "packages/core/src/resource.ts:814",
           "summary": "A row's own answer to \"what puts the console back?\", when the generic inverse cannot answer."
         },
         {
@@ -6412,7 +6419,7 @@
           "kind": "Interface",
           "name": "ResourcePatchStep",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:769",
+          "file": "packages/core/src/resource.ts:801",
           "summary": "One PATCH on one instance, as a replayable step — what a row-declared inverse is made of."
         },
         {
@@ -6440,7 +6447,7 @@
           "kind": "Interface",
           "name": "RippleTarget",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:663",
+          "file": "packages/core/src/resource.ts:695",
           "summary": "A cross-entity consequence of a write: after this instance commits, the registry re-projects and re-broadcasts the named instance."
         },
         {
@@ -7546,70 +7553,70 @@
           "kind": "Interface",
           "name": "RestCreateBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:287",
+          "file": "packages/server/src/rest-router.ts:298",
           "summary": "A successful `POST`: `item` is the id the store minted, which is the whole reason this door cannot be a `PATCH` — until the store answered, there was no address to write to."
         },
         {
           "kind": "Interface",
           "name": "RestErrorBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:259",
+          "file": "packages/server/src/rest-router.ts:270",
           "summary": "Anything that did not succeed."
         },
         {
           "kind": "Interface",
           "name": "RestIndexBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:153",
+          "file": "packages/server/src/rest-router.ts:155",
           "summary": "The resource index at the router's root — how a client discovers what this desk declares."
         },
         {
           "kind": "Interface",
           "name": "RestOptionsBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:227",
+          "file": "packages/server/src/rest-router.ts:238",
           "summary": "A successful `OPTIONS`: the methods, and what each field can do ON THIS INSTANCE."
         },
         {
           "kind": "Interface",
           "name": "RestPatchBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:222",
+          "file": "packages/server/src/rest-router.ts:233",
           "summary": "A successful `PATCH`: the state after the write, plus what reaching the audio actually did."
         },
         {
           "kind": "Interface",
           "name": "RestRemoveBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:274",
+          "file": "packages/server/src/rest-router.ts:285",
           "summary": "A successful `DELETE`: the item is gone."
         },
         {
           "kind": "Interface",
           "name": "RestRequest",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:133",
+          "file": "packages/server/src/rest-router.ts:135",
           "summary": "One HTTP request, reduced to what the router needs."
         },
         {
           "kind": "Interface",
           "name": "RestResponse",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:305",
+          "file": "packages/server/src/rest-router.ts:316",
           "summary": "What the host should write back."
         },
         {
           "kind": "Interface",
           "name": "RestRouterOptions",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:312",
+          "file": "packages/server/src/rest-router.ts:323",
           "summary": "Wiring for RestRouter."
         },
         {
           "kind": "Interface",
           "name": "RestStateBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:191",
+          "file": "packages/server/src/rest-router.ts:202",
           "summary": "A successful `GET`: the ONE state, as the entity's owner holds it."
         },
         {
@@ -7623,7 +7630,7 @@
           "kind": "Interface",
           "name": "RouteMatch",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:333",
+          "file": "packages/server/src/rest-router.ts:350",
           "summary": "What a concrete request path resolved to."
         },
         {
@@ -8144,6 +8151,13 @@
         },
         {
           "kind": "Type",
+          "name": "ConfirmSheet",
+          "package": "@openmixer/core",
+          "file": "packages/core/src/resource.ts:573",
+          "summary": "Every confirm-gated operation this console declares, keyed by the operation row's path."
+        },
+        {
+          "kind": "Type",
           "name": "ConsoleFact",
           "package": "@openmixer/core",
           "file": "packages/core/src/console-contract.ts:45",
@@ -8174,7 +8188,7 @@
           "kind": "Type",
           "name": "ConsoleWriteOutcome",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:111",
+          "file": "packages/core/src/console-client.ts:120",
           "summary": "What a write did, in the three answers that are genuinely different."
         },
         {
@@ -8748,7 +8762,7 @@
           "kind": "Type",
           "name": "PatchOutcome",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:575",
+          "file": "packages/core/src/resource.ts:607",
           "summary": "The outcome of applying a patch to the one state: it either happened, with the state after, or it was refused, with the code."
         },
         {
@@ -8958,7 +8972,7 @@
           "kind": "Type",
           "name": "ResourcePolicy",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:704",
+          "file": "packages/core/src/resource.ts:736",
           "summary": "What a COMMITTED write to this entity means for the console's bookkeeping — the session's dirtiness and the operator's history — declared once beside ConsoleResource.path, ConsoleResource.ripples and ConsoleResource.l…"
         },
         {
@@ -9049,7 +9063,7 @@
           "kind": "Type",
           "name": "Settlement",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:565",
+          "file": "packages/core/src/resource.ts:597",
           "summary": "What a write left IN FLIGHT — `undefined` when the store committed within the call, the landing's promise when it did not."
         },
         {
@@ -9259,7 +9273,7 @@
           "kind": "Type",
           "name": "UndoCoalesce",
           "package": "@openmixer/core",
-          "file": "packages/core/src/resource.ts:673",
+          "file": "packages/core/src/resource.ts:705",
           "summary": "How a same-scope undo record folds into its predecessor: `continuous` for a value that streams during a drag (a fader, a knob) so one gesture is one entry; `discrete` for a single deliberate action, which never folds."
         },
         {
@@ -9434,14 +9448,14 @@
           "kind": "Type",
           "name": "RestBody",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:295",
+          "file": "packages/server/src/rest-router.ts:306",
           "summary": ""
         },
         {
           "kind": "Type",
           "name": "RestFault",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:126",
+          "file": "packages/server/src/rest-router.ts:128",
           "summary": "Faults this layer can add to ResourceFault."
         },
         {
@@ -9544,7 +9558,7 @@
           "kind": "Class",
           "name": "ConsoleClient",
           "package": "@openmixer/core",
-          "file": "packages/core/src/console-client.ts:150",
+          "file": "packages/core/src/console-client.ts:159",
           "summary": "A remote console, addressed the way it declares itself."
         },
         {
@@ -9768,7 +9782,7 @@
           "kind": "Class",
           "name": "RestRouter",
           "package": "@openmixer/server",
-          "file": "packages/server/src/rest-router.ts:351",
+          "file": "packages/server/src/rest-router.ts:368",
           "summary": "Maps HTTP onto a ResourceRegistry, and does nothing else."
         },
         {

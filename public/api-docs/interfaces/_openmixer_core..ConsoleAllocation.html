@@ -19,7 +19,7 @@ declared up front and fixed for the show. <code>inputChannels</code> should equa
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">ConsoleAllocation</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#buses">buses</a><span class="tsd-signature-symbol">:</span> <a href="_openmixer_core..BusAllocation.html" class="tsd-signature-type tsd-kind-interface">BusAllocation</a><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputchannels">inputChannels</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#inputwidths">inputWidths</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_openmixer_core..ChannelWidth.html" class="tsd-signature-type tsd-kind-type-alias">ChannelWidth</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L183">packages/core/src/console-allocation.ts:183</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L183">packages/core/src/console-allocation.ts:183</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -41,14 +41,14 @@ declared up front and fixed for the show. <code>inputChannels</code> should equa
 <div class="tsd-comment tsd-typography"><p>The per-bus-type counts.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L189">packages/core/src/console-allocation.ts:189</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L189">packages/core/src/console-allocation.ts:189</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inputchannels"><code class="tsd-tag">Readonly</code><span>input<wbr/>Channels</span><a href="#inputchannels" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">inputChannels</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>The fixed input-channel count N (= the configured source count for the gig).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L187">packages/core/src/console-allocation.ts:187</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L187">packages/core/src/console-allocation.ts:187</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="inputwidths"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>input<wbr/>Widths</span><a href="#inputwidths" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">inputWidths</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-keyword">readonly</span> <a href="../types/_openmixer_core..ChannelWidth.html" class="tsd-signature-type tsd-kind-type-alias">ChannelWidth</a><span class="tsd-signature-symbol">[]</span></div>
@@ -57,14 +57,14 @@ channel is one strip carrying an L/R pair (created native with <code>channels=2<
 short ⇒ the missing entries default to <code>mono</code>. See <a href="../functions/_openmixer_core..inputWidthOf.html" class="tsd-kind-function">inputWidthOf</a>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L195">packages/core/src/console-allocation.ts:195</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L195">packages/core/src/console-allocation.ts:195</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Optional</code> <code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>Optional human label for the gig/scene this allocation belongs to.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L185">packages/core/src/console-allocation.ts:185</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L185">packages/core/src/console-allocation.ts:185</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

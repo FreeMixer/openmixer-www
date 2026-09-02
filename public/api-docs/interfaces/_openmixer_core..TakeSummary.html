@@ -30,7 +30,7 @@ carried, neither has a reader, and a column with no reader is a comment.</p>
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">TakeSummary</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#emptytrackcount">emptyTrackCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#id">id</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#lengthframes">lengthFrames</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#name">name</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#rate">rate</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#recordedat">recordedAt</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#taps">taps</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#trackcount">trackCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#unmeasuredtrackcount">unmeasuredTrackCount</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#xrun">xrun</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L225">packages/core/src/take.ts:225</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L225">packages/core/src/take.ts:225</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -62,28 +62,28 @@ honestly <code>false</code> because nothing was ever lost. Emptiness and xrun ar
 implies the other, so the library reports both or reports a take it cannot describe.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L266">packages/core/src/take.ts:266</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L266">packages/core/src/take.ts:266</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="id"><code class="tsd-tag">Readonly</code><span>id</span><a href="#id" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">id</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The take's id — the folder's name, the row's address, and what <code>/vsc</code>'s <code>takeId</code> is set to.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L227">packages/core/src/take.ts:227</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L227">packages/core/src/take.ts:227</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="lengthframes"><code class="tsd-tag">Readonly</code><span>length<wbr/>Frames</span><a href="#lengthframes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">lengthFrames</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Frames per track at <a href="#rate" class="tsd-kind-property">rate</a>. With it, the take's duration.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L239">packages/core/src/take.ts:239</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L239">packages/core/src/take.ts:239</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="name"><code class="tsd-tag">Readonly</code><span>name</span><a href="#name" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">name</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 <div class="tsd-comment tsd-typography"><p>The operator's label. What a picker shows and what a rename moves.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L229">packages/core/src/take.ts:229</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L229">packages/core/src/take.ts:229</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="rate"><code class="tsd-tag">Readonly</code><span>rate</span><a href="#rate" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">rate</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -92,14 +92,14 @@ path has no resampler by design), so a picker that could not show it would offer
 desk is about to turn down with no way for the operator to see why beforehand.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L237">packages/core/src/take.ts:237</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L237">packages/core/src/take.ts:237</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="recordedat"><code class="tsd-tag">Readonly</code><span>recorded<wbr/>At</span><a href="#recordedat" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">recordedAt</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Epoch milliseconds at the start of capture — the library's order, newest first.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L231">packages/core/src/take.ts:231</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L231">packages/core/src/take.ts:231</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="taps"><code class="tsd-tag">Readonly</code><span>taps</span><a href="#taps" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">taps</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-keyword">readonly</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span></div>
@@ -111,14 +111,14 @@ import('./session.js').RECORD_TAP_POINTS, so the order is the catalogue's and ne
 string sort — <code>tap-points.ts</code> refuses any other order for a reason that holds here too.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L251">packages/core/src/take.ts:251</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L251">packages/core/src/take.ts:251</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="trackcount"><code class="tsd-tag">Readonly</code><span>track<wbr/>Count</span><a href="#trackcount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">trackCount</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>How many track files the take holds — <code>tracks.length</code>, derived, never a stored count.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L241">packages/core/src/take.ts:241</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L241">packages/core/src/take.ts:241</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="unmeasuredtrackcount"><code class="tsd-tag">Readonly</code><span>unmeasured<wbr/>Track<wbr/>Count</span><a href="#unmeasuredtrackcount" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">unmeasuredTrackCount</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
@@ -130,7 +130,7 @@ predates the measurement&quot;, which is a different sentence and earns differen
 picker. Anything that must know for certain measures the file.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L276">packages/core/src/take.ts:276</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L276">packages/core/src/take.ts:276</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="xrun"><code class="tsd-tag">Readonly</code><span>xrun</span><a href="#xrun" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">xrun</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span></div>
@@ -139,7 +139,7 @@ recording is sacrificed before the live audio ever is (§5) — so the flaw belo
 take is CHOSEN, not only where it is opened.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/take.ts#L257">packages/core/src/take.ts:257</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/take.ts#L257">packages/core/src/take.ts:257</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">

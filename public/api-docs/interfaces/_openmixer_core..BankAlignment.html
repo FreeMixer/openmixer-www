@@ -17,7 +17,7 @@
 </div></section>
 <div class="tsd-signature"><span class="tsd-signature-keyword">interface</span> <span class="tsd-kind-interface">BankAlignment</span> <span class="tsd-signature-symbol">{</span><br/>    <a class="tsd-kind-property" href="#aligned">aligned</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#banks">banks</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#emptyfaders">emptyFaders</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/>    <a class="tsd-kind-property" href="#strips">strips</a><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">;</span><br/><span class="tsd-signature-symbol">}</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L529">packages/core/src/console-allocation.ts:529</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L529">packages/core/src/console-allocation.ts:529</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-accordion" open><summary class="tsd-accordion-summary tsd-index-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg>
@@ -39,28 +39,28 @@
 <div class="tsd-comment tsd-typography"><p>Whether the strips exactly fill their banks (<code>emptyFaders === 0</code>).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L537">packages/core/src/console-allocation.ts:537</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L537">packages/core/src/console-allocation.ts:537</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="banks"><code class="tsd-tag">Readonly</code><span>banks</span><a href="#banks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">banks</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Banks needed to show them, <code>ceil(strips / SURFACE_BANK_WIDTH)</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L533">packages/core/src/console-allocation.ts:533</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L533">packages/core/src/console-allocation.ts:533</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="emptyfaders"><code class="tsd-tag">Readonly</code><span>empty<wbr/>Faders</span><a href="#emptyfaders" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">emptyFaders</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Faders left empty in the last bank — <code>banks * SURFACE_BANK_WIDTH - strips</code>.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L535">packages/core/src/console-allocation.ts:535</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L535">packages/core/src/console-allocation.ts:535</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member">
 <h3 class="tsd-anchor-link" id="strips"><code class="tsd-tag">Readonly</code><span>strips</span><a href="#strips" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">strips</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span></div>
 <div class="tsd-comment tsd-typography"><p>Total banked strips — every banked tier summed. Excludes <code>main</code> (its own master fader).</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/90a4773598503ae4555242bb8fe37ae9fdb7920e/packages/core/src/console-allocation.ts#L531">packages/core/src/console-allocation.ts:531</a></li></ul></aside></section></section></details></div>
+<li>Defined in <a href="https://github.com/FreeMixer/openmixer/blob/63794dbf2f6af6bc4efe8f1a970d11e15f3bbf73/packages/core/src/console-allocation.ts#L531">packages/core/src/console-allocation.ts:531</a></li></ul></aside></section></section></details></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
