@@ -9,7 +9,7 @@
   "scripts": {
     "docs:rest": "node scripts/gen-rest-reference.mjs",
     "docs:api": "node scripts/gen-typedoc.mjs && node scripts/gen-abstractions.mjs",
-    "docs:gen": "npm run docs:rest && npm run docs:api",
+    "docs:gen": "npm run docs:rest && npm run docs:api && npm run docs:mcp",
     "docs:links": "node scripts/check-links.mjs",
     "predev": "npm run docs:gen",
     "prebuild": "npm run docs:gen",
@@ -18,7 +18,8 @@
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "docs:mcp": "node scripts/gen-mcp-tools.mjs"
   },
   "dependencies": {
     "@nuxt/ui": "^4.10.0",
