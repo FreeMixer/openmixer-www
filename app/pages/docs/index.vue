@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import restReference from '~/data/rest-reference.json';
 import abstractions from '~/data/abstractions.json';
+import mcpTools from '~/data/mcp-tools.json';
 
 useSeoMeta({
   title: 'Documentation — openmixer',
@@ -17,7 +18,16 @@ const manualDesk = [
   { title: 'Head-amp control', blurb: 'Phantom power, pad, sensitivity and polarity, including on a REAC stagebox.' },
   { title: 'EQ and dynamics', blurb: 'The interactive EQ curve, the gate and the compressor.' },
   { title: 'Feedback suppression', blurb: 'Ring-out and live modes, sensitivity, notch width, and the roster of planted notches.' },
-  { title: 'Plugins, the rack and skins', blurb: 'Inserts, the picker, the generated editor, ordering and skins.' },
+  {
+    title: 'Plugins and the insert rack',
+    blurb: 'Racking a plugin on a channel or a bus output, the picker, the generated editor, mono against stereo, and the latency budget the destination sets.',
+    to: '/docs/plugins',
+  },
+  {
+    title: 'Channel templates',
+    blurb: 'Saving a channel’s processing for reuse, the factory instrument templates that state only the chain, and the preview of what an apply would move.',
+    to: '/docs/templates',
+  },
 ];
 const manualMix = [
   { title: 'Sends, buses, groups and DCAs', blurb: 'Aux sends, sends-on-faders, bus masters, subgroups, DCAs and mute groups.' },
@@ -35,6 +45,11 @@ const manualShow = [
   },
   { title: 'Scenes, snapshots and saving your work', blurb: 'Sessions, scenes, recall safe, and what a save actually captures.' },
   { title: 'Console profiles, personalities and themes', blurb: 'Console appliances, the visual personality axis, and the dark, light and high-contrast themes.' },
+  {
+    title: 'Undo and the history',
+    blurb: 'One journal for the whole desk, undo and redo, taking back one change out of the middle, and what the journal deliberately never holds.',
+    to: '/docs/history',
+  },
   { title: 'Keyboard reference', blurb: 'Every shortcut the surface answers to.' },
 ];
 const install = [
@@ -49,6 +64,11 @@ const install = [
 ];
 const hardware = [
   { title: 'REAC stageboxes', blurb: 'Roland S-series boxes: what is supported, how they are patched, and how head-amp control behaves.' },
+  {
+    title: 'The REAC segment role',
+    blurb: 'Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role.',
+    to: '/docs/reac-role',
+  },
   { title: 'Clocking and sample rate', blurb: 'Who owns the clock, what a rate change does, and which rates are proven.' },
   { title: 'Wiring and the network interface', blurb: 'The segment a stagebox needs and the mistakes that quietly cost you a show.' },
 ];
@@ -72,7 +92,8 @@ const admin = [
 ];
 
 const faqGroups = [
-  'What it is', 'Running it', 'Building on it', 'Recording and the virtual soundcheck', 'Whether to trust it',
+  'What it is', 'Running it', 'Building on it', 'Recording and the virtual soundcheck',
+  'When the desk refuses', 'Whether to trust it',
 ];
 </script>
 
@@ -93,7 +114,7 @@ const faqGroups = [
             not actually serve.
           </p>
         </SectionHead>
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <LinkCard title="API reference" href="/api-docs/" label="/api-docs/">
             <p>TSDoc for @openmixer/core and the server's public surface, generated with typedoc.</p>
           </LinkCard>
@@ -105,6 +126,9 @@ const faqGroups = [
           </LinkCard>
           <LinkCard title="Abstractions catalog" href="/docs/abstractions" label="/docs/abstractions">
             <p>{{ abstractions.meta.generatedCount }} reusable elements — types, composables, components, C libraries — one line each.</p>
+          </LinkCard>
+          <LinkCard title="The MCP server" href="/docs/mcp" label="/docs/mcp">
+            <p>{{ mcpTools.meta.toolCount }} tools over stdio for reading a running console and the tree's own design, and the process skills the repository keeps.</p>
           </LinkCard>
         </div>
         <DocList
