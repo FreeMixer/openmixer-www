@@ -72,9 +72,14 @@ scripts/           the docs pipeline: gen-rest-reference.mjs and gen-typedoc.mjs
                    before dev, build and generate and the site never carries stale reference
                    pages. Never hand-edit the generated files; the checked-in one is the
                    curated half typedoc cannot read (Vue components, C headers). openmixer's
-                   typedoc.json carries `disableSources: true` — the repo is private, so a
-                   "Defined in" link to github.com/FreeMixer/openmixer would 404 for every
-                   reader; turn it back on once the repo opens.
+                   typedoc.json carries `packageOptions: { disableSources: true }` — the repo
+                   is private, so a "Defined in" link to github.com/FreeMixer/openmixer would
+                   404 for every reader. It has to sit under `packageOptions`, not at the top
+                   level: `entryPointStrategy: "packages"` re-reads options per package and a
+                   root-level `disableSources` never reaches that re-read, so the flag silently
+                   did nothing and every generated page still linked the private repo until this
+                   was caught. Turn it back on (move it back to the top level, or drop it) once
+                   the repo opens.
 ```
 
 Styling is Tailwind utilities and Nuxt UI components. There are no hand-written CSS rules
