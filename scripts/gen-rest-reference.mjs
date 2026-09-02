@@ -327,9 +327,11 @@ function main() {
   const rest = buildRestReference(travelSheet, rowsDoc);
   const refusals = parseMessageCode(messageCodeText);
 
+  // No checkoutPath in meta: it is the generating machine's local absolute path,
+  // never a fact this site's reader needs, and published content carries no trace
+  // of the operator's own filesystem.
   const meta = {
     generatedAt: new Date().toISOString(),
-    checkoutPath: src,
     sourceRowCount: rowsDoc.rows.length,
     sourceTravelCount: Object.keys(travelSheet.travels).length,
   };

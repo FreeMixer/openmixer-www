@@ -27,6 +27,20 @@ const outPath = resolve(wwwRoot, 'app/data/abstractions.json');
 const KIND_NAME = { 128: 'Class', 256: 'Interface', 2097152: 'Type', 64: 'Function', 8: 'Enum' };
 const CATALOG_KINDS = new Set([128, 256, 2097152, 64, 8]);
 
+// Source TSDoc comments cite their governing spec by path (house convention: the
+// design gate reads `docs/design/specs/…` back out of the code). That citation is
+// exactly the internal-notes content the publish ruling excludes — never link or
+// reproduce docs/design/*, plans, ledgers or findings files. Strip a citation's path
+// down to a neutral phrase rather than the summary's whole clause, so the sentence
+// a reader sees still parses.
+function redactInternalRefs(text) {
+  return text
+    .replace(/`docs\/design\/[^`]*`/g, '`an internal spec`')
+    .replace(/`~\/Devel\/[^`]*`/g, '`an internal checkout`')
+    .replace(/(?<!`)docs\/design\/\S+/g, 'an internal spec')
+    .replace(/(?<!`)~\/Devel\/\S+/g, 'an internal checkout');
+}
+
 function firstSentence(comment) {
   if (!comment || !comment.summary) return '';
   const text = comment.summary
@@ -36,7 +50,7 @@ function firstSentence(comment) {
     .trim();
   if (!text) return '';
   const m = /^(.*?[.!?])(\s|$)/.exec(text);
-  const sentence = m ? m[1] : text;
+  const sentence = redactInternalRefs(m ? m[1] : text);
   return sentence.length > 220 ? sentence.slice(0, 217) + '…' : sentence;
 }
 function commentOf(node) {
