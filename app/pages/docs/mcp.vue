@@ -168,12 +168,18 @@ const skills = [
             the console decides, and what comes back is what it decided.
           </p>
           <p>
-            A write that targets an operation the console’s own <code class="font-mono text-sm text-ink">confirms</code>
-            sheet marks destructive — a channel-config apply that would move gain, trim or pan is
-            the example — is withheld rather than sent when the preview lists moves and the
-            operator’s sign-off setting is on: nothing reaches the desk, and the answer carries
-            the preview in its place. Calling again with <code class="font-mono text-sm text-ink">confirm: true</code>
-            applies it, because the agent has now been shown what it is agreeing to.
+            The tool holds nothing back on its own account. A write that fires an operation the
+            console’s own <code class="font-mono text-sm text-ink">confirms</code> sheet gates —
+            a channel-config apply that would move gain, trim or pan is the example — is sent,
+            and the console refuses it with
+            <code class="font-mono text-sm text-ink">CONFIRM_REQUIRED</code> while the preview
+            lists moves and the operator’s sign-off is on. The refusal comes back with the
+            preview in the body, like any other answer. Calling again with
+            <code class="font-mono text-sm text-ink">confirm: true</code> — which rides the delta
+            as the row’s own confirm argument — applies it, because the agent has now been shown
+            what it is agreeing to. The gate is the desk’s, so an agent, a browser and an OSC
+            surface are refused identically and answer identically; there is no client-side
+            policy to keep in step.
           </p>
           <p>
             The metered row is the one place a read is not simply a GET. A pump-fed row measures
