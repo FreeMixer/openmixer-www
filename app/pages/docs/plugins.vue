@@ -9,22 +9,22 @@ useSeoMeta({
 const findings = [
   {
     code: 'within budget',
-    text: 'This chain uses 2.1 ms of the 5.0 ms budget at 48 kHz (2.9 ms left).',
+    text: 'This chain uses 2.1 ms of the 5.0 ms budget at 48000 Hz (2.9 ms left).',
     note: 'Carried so the rack can show headroom, not only trouble.',
   },
   {
     code: 'over budget',
-    text: 'ZaMaximX2 puts this chain at 7.4 ms — over the 5.0 ms budget for a monitor destination at 48 kHz. On a monitor send the performer hears themself that late.',
+    text: 'ZaMaximX2 puts this chain at 7.4 ms — over the 5.0 ms budget for a monitor destination at 48000 Hz. On a monitor send the performer hears themself that late.',
     note: 'On a monitor destination this refuses the edit; nothing is applied.',
   },
   {
     code: 'may exceed',
-    text: 'Calf Limiter has parameter-dependent latency: this chain is now between 3.0 and 12.0 ms against a 5.0 ms budget at 48 kHz. Check the look-ahead before the show.',
+    text: 'Calf Limiter has parameter-dependent latency: this chain is now between 3.0 and 12.0 ms against a 5.0 ms budget at 48000 Hz. Check the look-ahead before the show.',
     note: 'A look-ahead you can turn up past the limit later in the day.',
   },
   {
     code: 'unknown at this rate',
-    text: 'Dragonfly Hall has no measured latency at 96 kHz, so this chain’s total is unknown — the 1.8 ms shown counts only what could be resolved.',
+    text: 'Dragonfly Hall has no measured latency at 96000 Hz, so this chain’s total is unknown — the 1.8 ms shown counts only what could be resolved.',
     note: 'Never counted as zero, and never quietly a pass.',
   },
 ];
