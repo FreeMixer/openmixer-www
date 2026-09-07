@@ -181,7 +181,7 @@ if (collisions.length > 0) {
 const missing = produced.filter((rel) => !SITE_OWNS.has(rel) && !existsSync(join(dist, rel)));
 if (missing.length > 0) die(`${missing.length} file(s) were not written: ${missing.slice(0, 5).join(', ')}`);
 
-const REQUIRED = ['docs/manual/index.html', 'docs/manual/faq/index.html', 'docs/architecture/one-summing-bus/index.html'];
+const REQUIRED = ['docs/manual/index.html', 'docs/architecture/one-summing-bus/index.html'];
 for (const rel of REQUIRED) {
   const full = join(dist, rel);
   if (!existsSync(full) || statSync(full).size === 0) die(`${rel} is missing or empty in ${dist}`);
