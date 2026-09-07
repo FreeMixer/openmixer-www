@@ -2,14 +2,34 @@
 #
 # Build the site and publish it to GitHub Pages.
 #
-# INERT UNTIL THE REPOSITORY IS PUSHED AND PAGES IS ENABLED. Nothing here runs
-# locally, and nothing runs on a fork until its owner turns Pages on with
-# "GitHub Actions" as the source (Settings -> Pages -> Build and deployment).
-#
 # BASE URL. A prerendered page names its assets absolutely, so a site built for
 # "/" and served under "/openmixer-www/" has every asset 404 one level above the
-# mount. NUXT_APP_BASE_URL below is what makes a project page work. Serving from
-# a domain root instead? Set it to "/" — or drop the line.
+# mount. NUXT_APP_BASE_URL below is what makes a project page work, and
+# `npm run docs:links` fails the build on any site-absolute link that misses it.
+# Serving from a domain root instead? Set it to "/" — or drop the line.
+#
+# THE DOCUMENTATION TREE IS BUILT, NOT COPIED. The operator manual, the FAQ and the
+# architecture pages live in FreeMixer/openmixer (docs/**/*.md) and are rendered by
+# that repo's own `packages/website` build, which is also what a console serves
+# offline at /help. `npm run docs:site` checks that build out, runs it with this
+# site's prefix and publishes its /docs/** tree here — one source, one renderer, and
+# nothing of the prose committed twice. See scripts/build-docs-tree.mjs.
+#
+# THE TOKEN. FreeMixer/openmixer is private, so the checkout below needs a
+# credential with read access to it (Settings -> Secrets -> Actions:
+# OPENMIXER_DOCS_TOKEN, a fine-grained PAT with Contents: read on that repository).
+# Without it this workflow FAILS rather than publishing a site whose manual 404s —
+# a site that quietly lost a third of its pages looks exactly like a site that never
+# had them. Pages keeps serving the previous deployment while a run is red.
+#
+# TRIGGER. Push to main plus dispatch, unchanged. openmixer's dispatch-only law
+# (docs/design/specs/2026-09-02-delivery-pipeline.md §0) binds the workflows that
+# publish PACKAGES and IMAGES, and its own gate names the static-site workflow as
+# the single exception — "publishes a static site to Pages on push to main. It
+# touches no package, no repo tree and no image ... and retriggering it is not a
+# publish anyone has to decide about" (packages/server/src/workflow-trigger-
+# conformance.test.ts, NAMED_EXCEPTIONS). This is that workflow, in the site's own
+# repository.
 name: pages
 
 on:
@@ -29,26 +49,61 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: openmixer-www
     steps:
       - uses: actions/checkout@v4
+        with:
+          path: openmixer-www
+
+      # NOT checked out as "openmixer": the REST/API generators (scripts/gen-*.mjs)
+      # read a sibling ../openmixer as "regenerate from source", which needs a full
+      # workspace build this runner does not do. With no sibling by that name they
+      # publish the committed snapshots, which is what they are committed for. The
+      # docs tree is given its path explicitly, below.
+      - uses: actions/checkout@v4
+        with:
+          repository: FreeMixer/openmixer
+          ref: main
+          token: ${{ secrets.OPENMIXER_DOCS_TOKEN }}
+          path: openmixer-src
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+          cache-dependency-path: openmixer-www/package-lock.json
+
       - run: npm ci
+
       - run: npm run generate
         env:
           NUXT_APP_BASE_URL: /openmixer-www/
+
+      - run: npm run docs:site
+        env:
+          NUXT_APP_BASE_URL: /openmixer-www/
+          OPENMIXER_SRC: ${{ github.workspace }}/openmixer-src
+
+      # After the docs tree is in place, so the manual's cross-links are checked
+      # with everything else rather than in a tree it is not part of.
       - run: npm run docs:links
         env:
           NUXT_APP_BASE_URL: /openmixer-www/
+
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .output/public
+          path: openmixer-www/.output/public
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

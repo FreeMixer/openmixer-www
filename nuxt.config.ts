@@ -14,6 +14,32 @@ const familyRoutes: string[] = existsSync(restReferencePath)
   ? (JSON.parse(readFileSync(restReferencePath, 'utf8')).families as { slug: string }[]).map((f) => `/docs/rest/${f.slug}`)
   : [];
 
+/** The prefix this build is served under, with a trailing slash. Same input Nuxt reads. */
+const baseURL = process.env.NUXT_APP_BASE_URL ?? '/';
+
+/**
+ * The `/docs/<section>` trees published by `scripts/build-docs-tree.mjs` from the openmixer
+ * repo, not rendered by this app. Must match DOC_SECTIONS in that repo's
+ * `packages/website/app/utils/docs.ts`; a section it grows and this list misses fails this
+ * build loudly the moment anything links to it, which is the intended way to find out.
+ */
+const DOCS_TREE_SECTIONS = ['install', 'manual', 'hardware', 'admin', 'troubleshooting', 'architecture'];
+
+/**
+ * A route rule is matched against the path the prerenderer REQUESTS, and under a base
+ * prefix that path is `/openmixer-www/docs/manual`, not `/docs/manual`. So every rule is
+ * written twice — bare, and mounted — because a rule that silently fails to match reads
+ * exactly like a route that renders.
+ */
+const NOT_OURS = ['/api-docs/**', '/openapi.json', ...DOCS_TREE_SECTIONS.flatMap((s) => [`/docs/${s}`, `/docs/${s}/**`])];
+const mount = baseURL.replace(/\/+$/, '');
+const notOursRules = Object.fromEntries(
+  NOT_OURS.flatMap((path) => [
+    [path, { prerender: false }],
+    [`${mount}${path}`, { prerender: false }],
+  ]),
+);
+
 export default defineNuxtConfig({
   // A brochure site: prerender every route to plain files so it can be served from
   // GitHub Pages, an nginx root, or the cluster, with nothing running behind it.
@@ -24,7 +50,13 @@ export default defineNuxtConfig({
   // openapi.json are plain files, not Vue routes — the prerender crawler otherwise
   // tries to resolve a linked /api-docs/ through the app router, gets a 404 (nothing
   // registers that path as a page) and fails the whole generate under failOnError.
-  routeRules: { '/api-docs/**': { prerender: false } },
+  //
+  // The documentation tree (/docs/manual, /docs/install, …) is not this app's either:
+  // `npm run docs:site` publishes it after this build, rendered from the openmixer
+  // repo's markdown by that repo's own site build. The hub links into it, so the
+  // crawler would follow those links and fail the generate on routes that arrive one
+  // step later. Declared here rather than left to a link nobody dares write.
+  routeRules: notOursRules,
 
   // Nuxt UI v4 owns the Tailwind v4 pipeline itself (it registers @tailwindcss/vite),
   // so there is no separate Tailwind module and no tailwind.config.
@@ -46,7 +78,9 @@ export default defineNuxtConfig({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { name: 'theme-color', content: '#0b0e11' },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/img/openmixer-mark.svg' }],
+      // The prefix is a BUILD input: a leading-slash href here points above the mount on a
+      // project page, which is how the favicon 404'd on the live site until 2026-09-07.
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: `${baseURL}img/openmixer-mark.svg` }],
     },
   },
 
