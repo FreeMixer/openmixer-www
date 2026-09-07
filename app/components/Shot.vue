@@ -4,12 +4,14 @@
  * A screenshot. Every image on this site is a real capture of the running console
  * on the rig it was photographed from — no mockups, no renders.
  */
-defineProps<{ src: string; alt: string; caption: string }>();
+const props = defineProps<{ src: string; alt: string; caption: string }>();
+/** `src` is a path under public/; mount it, or it 404s one level above the site. */
+const url = computed(() => withSiteBase(useRuntimeConfig().app.baseURL, props.src));
 </script>
 
 <template>
   <figure class="overflow-hidden rounded border border-edge bg-surface">
-    <img :src="src" :alt="alt" class="block w-full" loading="lazy" decoding="async">
+    <img :src="url" :alt="alt" class="block w-full" loading="lazy" decoding="async">
     <figcaption class="border-t border-edge px-4 py-3 font-mono text-xs text-ink-faint">
       {{ caption }}
     </figcaption>
