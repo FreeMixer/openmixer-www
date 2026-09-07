@@ -6,7 +6,12 @@ useSeoMeta({
     'Straight answers about what openmixer is, what it needs, what it can carry today, and what it cannot.',
 });
 
-interface Qa { readonly q: string; readonly a: readonly string[] }
+interface Qa {
+  readonly q: string;
+  readonly a: readonly string[];
+  /** Where the full explanation lives, when the answer is the short version of one. */
+  readonly link?: { readonly href: string; readonly label: string };
+}
 interface Group { readonly heading: string; readonly items: readonly Qa[] }
 
 const groups: readonly Group[] = [
@@ -42,6 +47,38 @@ const groups: readonly Group[] = [
     ],
   },
   {
+    heading: 'Sound and levels',
+    items: [
+      {
+        q: 'Why does the mono fold have no level control?',
+        a: [
+          'Because there is only one correct number, and it is not a matter of taste. A stereo pair carrying centred mono content is the same signal on both legs, and summing two identical legs to one socket makes the result twice as loud in amplitude — six decibels hotter — than either leg on its own.',
+          'The fold applies a fixed −6 dB to undo exactly that doubling, so a centred mix lands at the same level folded as it was in stereo. A dial there would only let someone turn the correct answer into a wrong one.',
+        ],
+        link: {
+          href: '/docs/architecture/one-summing-bus#why-the-mono-fold-and-the-pan-law-are-fixed-numbers-not-settings',
+          label: 'Why the mono fold and the pan law are fixed numbers, not settings',
+        },
+      },
+      {
+        q: 'How many dB is twice as loud?',
+        a: [
+          'It depends what is doubling. Two identical signals summed together double in amplitude, which is +6 dB. Two unrelated signals summed together double in power, which is +3 dB. Perceived loudness — what a listener actually hears — is a slower, more approximate curve: it takes roughly +10 dB before most people agree something sounds twice as loud.',
+          'All three are real and none of them is wrong; they answer different questions.',
+        ],
+        link: { href: '/docs/architecture/one-summing-bus#the-three-doublings', label: 'The three doublings' },
+      },
+      {
+        q: 'What is the difference between power, amplitude and loudness?',
+        a: [
+          'Amplitude is the size of the waveform itself — the voltage, the sample value — and it is what a fader multiplies. Power is proportional to amplitude squared, and it is what a meter of energy reads. Loudness is what a listener perceives, and it grows more slowly than either.',
+          'The decibel is the common ratio between all three: 20·log10 of a ratio for amplitude, 10·log10 for power, so a doubling of amplitude and a quadrupling of power both read as the same six decibels.',
+        ],
+        link: { href: '/docs/architecture/one-summing-bus#power-amplitude-and-loudness', label: 'Power, amplitude and loudness' },
+      },
+    ],
+  },
+  {
     heading: 'Running it',
     items: [
       {
@@ -65,6 +102,14 @@ const groups: readonly Group[] = [
           'Linux with PipeWire, Node 22 or newer, and pnpm to build. Audio comes from anything PipeWire can see, which includes a plain USB interface, so a stagebox is not required to try it.',
           'The reference rig is a Roland REAC stagebox with an RME Babyface Pro as the clock master, on Fedora.',
         ],
+      },
+      {
+        q: 'Why does the rig need a PLL clock?',
+        a: [
+          'Because openmixer’s own timing comes from whatever hardware drives the audio graph, and it hands that timing to every stagebox as the REAC master. A professional interface with a phase-locked loop, the RME on the reference rig, keeps a steady clock and filters jitter; a free-running crystal drifts and a software timer jitters with the machine.',
+          'The REAC clock panel shows each segment’s pace source: phc or graph-ref means the rig is locked, free-run means it is not.',
+        ],
+        link: { href: '/docs/hardware/clocking-and-sample-rate', label: 'Clocking and sample rate' },
       },
       {
         q: 'Which sample rates work?',
@@ -343,6 +388,9 @@ const groups: readonly Group[] = [
               <dt class="font-display text-lg font-semibold tracking-tight text-ink">{{ qa.q }}</dt>
               <dd class="mt-3 space-y-3 text-base leading-relaxed text-ink-dim">
                 <p v-for="(para, i) in qa.a" :key="i">{{ para }}</p>
+                <p v-if="qa.link">
+                  <NuxtLink :to="qa.link.href" class="text-accent hover:underline">{{ qa.link.label }}</NuxtLink>
+                </p>
               </dd>
             </div>
           </dl>
