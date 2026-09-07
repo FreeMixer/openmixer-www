@@ -13,13 +13,15 @@ const links = [
   { to: '/links', label: 'Links' },
 ] as const;
 const open = ref(false);
+/** public/ is served from the site's mount, so the mark's path carries the prefix. */
+const mark = computed(() => withSiteBase(useRuntimeConfig().app.baseURL, '/img/openmixer-mark.svg'));
 </script>
 
 <template>
   <header class="sticky top-0 z-50 border-b border-edge bg-field/85 backdrop-blur-md">
     <div class="mx-auto flex max-w-6xl items-center gap-6 px-6 py-4">
       <NuxtLink to="/" class="group flex items-center gap-3" aria-label="openmixer home">
-        <img src="/img/openmixer-mark.svg" alt="" class="h-8 w-8" width="32" height="32">
+        <img :src="mark" alt="" class="h-8 w-8" width="32" height="32">
         <span class="font-display text-xl font-semibold tracking-tight">
           <span class="text-ink">open</span><span class="text-accent">mixer</span>
         </span>

@@ -1,11 +1,17 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
-defineProps<{ title: string; href: string; label: string }>();
+/**
+ * A card that is one link. `href` is written as a site-absolute path (`/docs/rest`) or a
+ * full URL; a site-absolute one is mounted on the site's base prefix here, because this is
+ * a raw anchor and nothing else would do it (see `utils/site`).
+ */
+const props = defineProps<{ title: string; href: string; label: string }>();
+const to = computed(() => withSiteBase(useRuntimeConfig().app.baseURL, props.href));
 </script>
 
 <template>
   <a
-    :href="href"
+    :href="to"
     class="group block rounded border border-edge bg-surface/60 p-6 transition-colors hover:border-accent/60"
     rel="noopener"
   >
