@@ -1,5 +1,14 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
+/**
+ * The documentation hub: one page to find every document from.
+ *
+ * It LINKS the operator manual, it does not restate it. Until 2026-09-07 this page carried
+ * the manual's whole table of contents — the chapter titles and the blurb sentences out of
+ * `docs/manual/index.md`, retyped — and linked almost none of it, because the manual was
+ * not published here. It is now, rendered from that same file by the openmixer repo's own
+ * site build, so the table of contents lives in one place and this page points at it.
+ */
 import restReference from '~/data/rest-reference.json';
 import abstractions from '~/data/abstractions.json';
 import mcpTools from '~/data/mcp-tools.json';
@@ -12,83 +21,42 @@ useSeoMeta({
 
 const totalRestRows = restReference.families.reduce((n: number, f: { count: number }) => n + f.count, 0);
 
-const manualDesk = [
-  { title: 'The surface', blurb: 'The header, the layout chips, the fader bay, and where to find things that are not where you would first look.' },
-  { title: 'The channel strip', blurb: 'Signal order, trim, the tile controls, selecting and naming.' },
-  { title: 'Head-amp control', blurb: 'Phantom power, pad, sensitivity and polarity, including on a REAC stagebox.' },
-  { title: 'EQ and dynamics', blurb: 'The interactive EQ curve, the gate and the compressor.' },
-  { title: 'Feedback suppression', blurb: 'Ring-out and live modes, sensitivity, notch width, and the roster of planted notches.' },
+/**
+ * Chapters written for this site rather than for the manual tree. They cover subjects the
+ * manual does not carry yet; which tree should own each of them is an open question, not a
+ * settled split, so the distinction is stated rather than hidden.
+ */
+const siteChapters = [
   {
-    title: 'Plugins and the insert rack',
-    blurb: 'Racking a plugin on a channel or a bus output, the picker, the generated editor, mono against stereo, and the latency budget the destination sets.',
-    to: '/docs/plugins',
+    title: 'Getting started',
+    blurb: 'From a built checkout to one channel audible in the main mix — start the console, patch an input, hear it.',
+    to: '/docs/getting-started',
+  },
+  {
+    title: 'Recording and the virtual soundcheck',
+    blurb: 'Arming channels, what a take captures, the take library, and running a soundcheck: load, engage, play, eject.',
+    to: '/docs/recording',
+  },
+  {
+    title: 'Undo and the history',
+    blurb: 'One journal for the whole desk, undo and redo, taking back one change out of the middle, and what the journal deliberately never holds.',
+    to: '/docs/history',
   },
   {
     title: 'Channel templates',
     blurb: 'Saving a channel’s processing for reuse, the factory instrument templates that state only the chain, and the preview of what an apply would move.',
     to: '/docs/templates',
   },
-];
-const manualMix = [
-  { title: 'Sends, buses, groups and DCAs', blurb: 'Aux sends, sends-on-faders, bus masters, subgroups, DCAs and mute groups.' },
-  { title: 'The matrix and outputs', blurb: 'Matrix outputs and per-output processing.' },
-  { title: 'Cue, solo and the monitor', blurb: 'PFL, AFL, solo-in-place, the monitor output, level and dim.' },
-  { title: 'The patchbay and the graph', blurb: 'Crosspoint patching, multi-source channels, and reading the live graph.' },
-  { title: 'Metering and latency', blurb: 'What the meters are measuring, where they tap, and the latency report.' },
-  { title: 'Talkback and test signals', blurb: 'Talkback routing and the built-in generators.' },
-];
-const manualShow = [
   {
-    title: 'Recording and the virtual soundcheck',
-    blurb: 'Arming channels, what a take captures, the take library, and running a soundcheck: load, engage, play, eject.',
-    to: '/docs/recording',
+    title: 'Plugins and the insert rack',
+    blurb: 'Racking a plugin on a channel or a bus output, the picker, the generated editor, mono against stereo, and the latency budget the destination sets.',
+    to: '/docs/plugins',
   },
-  { title: 'Scenes, snapshots and saving your work', blurb: 'Sessions, scenes, recall safe, and what a save actually captures.' },
-  { title: 'Console profiles, personalities and themes', blurb: 'Console appliances, the visual personality axis, and the dark, light and high-contrast themes.' },
-  {
-    title: 'Undo and the history',
-    blurb: 'One journal for the whole desk, undo and redo, taking back one change out of the middle, and what the journal deliberately never holds.',
-    to: '/docs/history',
-  },
-  { title: 'Keyboard reference', blurb: 'Every shortcut the surface answers to.' },
-];
-const install = [
-  {
-    title: 'Getting started',
-    blurb: 'From a built checkout to one channel audible in the main mix — start the console, patch an input, hear it.',
-    to: '/docs/getting-started',
-  },
-  { title: 'Installing', blurb: 'What the packages are and what each one puts on the machine.' },
-  { title: 'Services', blurb: 'The units that run, what starts what, and in which order.' },
-  { title: 'Upgrading', blurb: 'What survives an upgrade and what to check afterwards.' },
-];
-const hardware = [
-  { title: 'REAC stageboxes', blurb: 'Roland S-series boxes: what is supported, how they are patched, and how head-amp control behaves.' },
   {
     title: 'The REAC segment role',
     blurb: 'Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role.',
     to: '/docs/reac-role',
   },
-  { title: 'Clocking and sample rate', blurb: 'Who owns the clock, what a rate change does, and which rates are proven.' },
-  { title: 'Wiring and the network interface', blurb: 'The segment a stagebox needs and the mistakes that quietly cost you a show.' },
-];
-const trouble = [
-  { title: 'The web surface cannot reach the server', blurb: 'Including why a full console that moves nothing is a deliberate offline mode, not an error.' },
-  { title: 'The main output is silent', blurb: 'The moving main meter is the important detail; it narrows the fault to the way out of the desk.' },
-  { title: 'A stagebox will not establish', blurb: 'What to check on the box, the segment and the console, in order.' },
-  { title: 'Granulated audio', blurb: 'What granular or stuttering audio points at, and which of them you can fix during a changeover.' },
-  { title: 'Dropouts and driver election', blurb: 'Underruns caused by which device is driving the graph.' },
-  { title: 'The plugin catalog is empty', blurb: 'Usually nothing is wrong with the desk — the machine simply has no plugins installed.' },
-  { title: 'A session that will not load', blurb: 'Recovering from a saved state that brings the console up wrong.' },
-];
-const admin = [
-  { title: 'Configuration files', blurb: 'Which file owns which setting, and the order the layers override each other in.' },
-  { title: 'Environment variables', blurb: 'The full reference, with the layer each one sits in.' },
-  { title: 'Ports', blurb: 'What listens where, and what to open on a network you do not control.' },
-  { title: 'State and sessions', blurb: 'Where console state is kept and what it contains.' },
-  { title: 'Backup', blurb: 'What is worth copying off the machine before a show and what can be rebuilt.' },
-  { title: 'Logs', blurb: 'Where to look, and what the console tells you when it refuses.' },
-  { title: 'REAC configuration', blurb: 'Segment, interface and stagebox settings on a packaged install.' },
 ];
 
 const faqGroups = [
@@ -130,50 +98,59 @@ const faqGroups = [
           <LinkCard title="The MCP server" href="/docs/mcp" label="/docs/mcp">
             <p>{{ mcpTools.meta.toolCount }} tools over stdio for reading a running console and the tree's own design, and the process skills the repository keeps.</p>
           </LinkCard>
+          <LinkCard title="Architecture" href="/docs/architecture" label="/docs/architecture">
+            <p>How the console is built and why: the one summing bus, the row grammar, native DSP against hosted inserts, and the decision records.</p>
+          </LinkCard>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge bg-surface/40">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="The manual" title="Driving the desk.">
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
+            The operator manual is published here from the same source the console
+            serves offline, so the pages read online and the pages a desk gives an
+            engineer in a hall with no internet are one document. Its table of
+            contents is its own — follow it into the chapters rather than reading a
+            second copy of it here.
+          </p>
+        </SectionHead>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <LinkCard title="Operator manual" href="/docs/manual" label="/docs/manual">
+            <p>Every chapter, grouped the way the surface is: the desk, the mix, and running a show — from the fader bay to the keyboard reference.</p>
+          </LinkCard>
+          <LinkCard title="Manual FAQ" href="/docs/manual/faq" label="/docs/manual/faq">
+            <p>The short answers with the arithmetic behind them: why the mono fold has no level control, and how many dB twice as loud is.</p>
+          </LinkCard>
+          <LinkCard title="Installing" href="/docs/install" label="/docs/install">
+            <p>What the packages are, what each one puts on the machine, the services that run, and what survives an upgrade.</p>
+          </LinkCard>
+          <LinkCard title="Troubleshooting" href="/docs/troubleshooting" label="/docs/troubleshooting">
+            <p>Written from the symptom you can observe — a silent main, granulated audio, a box that will not establish — because that is what you have when you need it.</p>
+          </LinkCard>
+          <LinkCard title="Hardware" href="/docs/hardware" label="/docs/hardware">
+            <p>REAC stageboxes, clocking and sample rate, and the wiring and network-interface mistakes that quietly cost a show.</p>
+          </LinkCard>
+          <LinkCard title="Administration" href="/docs/admin" label="/docs/admin">
+            <p>Which file owns which setting, the environment variables, the ports, where state lives, what to back up, and where the logs are.</p>
+          </LinkCard>
         </div>
         <DocList
-          title="Architecture and administration"
-          note="The architecture page covers the design; these two chapters are the concise reference for running one."
-          :items="[...hardware, ...admin]"
+          title="Also written for this site"
+          note="Chapters authored here rather than in the manual tree. They cover subjects the manual does not carry yet; which of the two should own each is an open question."
+          :items="siteChapters"
         />
       </div>
     </section>
 
-    <section class="border-b border-edge bg-surface/40">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Manuals" title="Driving the desk.">
-          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
-            Task-oriented chapters for operating a running console, grouped the
-            way the surface itself is: the desk, the mix, and the show.
-          </p>
-        </SectionHead>
-        <DocList title="The desk" :items="manualDesk" />
-        <DocList title="The mix" :items="manualMix" />
-        <DocList title="The show" :items="manualShow" />
-      </div>
-    </section>
-
     <section class="border-b border-edge">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="User docs" title="Getting it running, and what to do when it is not.">
-          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
-            Getting started takes a built checkout to a channel audible in
-            the mix; troubleshooting is written from the symptom you can
-            observe, because at the point you need one of these pages you
-            know what you can hear and not what is broken.
-          </p>
-        </SectionHead>
-        <DocList title="Getting started" :items="install" />
-        <DocList title="Troubleshooting, by symptom" :items="trouble" />
-      </div>
-    </section>
-
-    <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-3xl px-6 py-16">
         <SectionHead eyebrow="FAQ" title="Questions with straight answers." />
         <p class="mb-6 text-base leading-relaxed text-ink-dim">
           Including the ones where the answer is no.
-          {{ faqGroups.join(' · ') }}.
+          {{ faqGroups.join(' · ') }}. The manual keeps a second, shorter FAQ of its
+          own for the arithmetic questions; this one is about the product.
         </p>
         <UButton to="/faq" color="primary" trailing-icon="i-lucide-arrow-right">Read the FAQ</UButton>
       </div>
@@ -197,6 +174,10 @@ const faqGroups = [
               <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">A deployment guide beyond a single machine.</span>
                 One console on one box is documented. Anything larger is not.
+              </li>
+              <li class="border-l-2 border-edge-strong pl-4">
+                <span class="text-ink">Screenshots.</span> The manual explains the
+                controls in words; pictures of the surface it names are being captured.
               </li>
             </ul>
           </div>
