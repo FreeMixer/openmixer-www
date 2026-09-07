@@ -14,6 +14,17 @@ const familyRoutes: string[] = existsSync(restReferencePath)
   ? (JSON.parse(readFileSync(restReferencePath, 'utf8')).families as { slug: string }[]).map((f) => `/docs/rest/${f.slug}`)
   : [];
 
+// The FAQ links into `/docs/architecture/**` and `/docs/hardware/**`, published into this
+// site's output by a later build step (the openmixer checkout's own `packages/website`
+// render, copied in — see `docs/design/specs/2026-09-07-online-manual.md` R2) rather than by
+// a page in this app. Under the crawler those paths 404 today because nothing here renders
+// them yet, so they are excluded from this build's prerender the same way `/api-docs/**` is
+// below; a route rule is matched against the path the prerenderer requests, which under a
+// base prefix is the MOUNTED path, so each is listed bare and mounted.
+const baseURL = process.env.NUXT_APP_BASE_URL ?? '/';
+const mount = baseURL.replace(/\/+$/, '');
+const DOCS_TREE_NOT_OURS = ['/docs/architecture/**', '/docs/hardware/**'];
+
 export default defineNuxtConfig({
   // A brochure site: prerender every route to plain files so it can be served from
   // GitHub Pages, an nginx root, or the cluster, with nothing running behind it.
@@ -24,7 +35,15 @@ export default defineNuxtConfig({
   // openapi.json are plain files, not Vue routes — the prerender crawler otherwise
   // tries to resolve a linked /api-docs/ through the app router, gets a 404 (nothing
   // registers that path as a page) and fails the whole generate under failOnError.
-  routeRules: { '/api-docs/**': { prerender: false } },
+  routeRules: {
+    '/api-docs/**': { prerender: false },
+    ...Object.fromEntries(
+      DOCS_TREE_NOT_OURS.flatMap((path) => [
+        [path, { prerender: false }],
+        [`${mount}${path}`, { prerender: false }],
+      ]),
+    ),
+  },
 
   // Nuxt UI v4 owns the Tailwind v4 pipeline itself (it registers @tailwindcss/vite),
   // so there is no separate Tailwind module and no tailwind.config.
