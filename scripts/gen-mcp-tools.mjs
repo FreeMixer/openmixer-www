@@ -59,7 +59,10 @@ function redactInternalPaths(text) {
     // that reads them. The site describes what they hold, not what they are called.
     .replace(/\.claude\/spec-map\.txt/g, 'the design gate’s spec map')
     .replace(/the tree's local CLAUDE\.md/g, 'the tree’s own working notes')
-    .replace(/\.claude\/[A-Za-z0-9_./*-]+/g, 'the tree’s discipline documents');
+    // `<project>` in a documented path is a literal placeholder, not a value the
+    // regex should stop at — widened so a phrase like `.claude/projects/<project>/memory/*.md`
+    // (README's OPENMIXER_MEMORY_DIR row) redacts whole, not up to the `<`.
+    .replace(/\.claude\/[A-Za-z0-9_./*<>-]+/g, 'the tree’s discipline documents');
 }
 
 const rows = [];
@@ -104,7 +107,10 @@ if (envSection) {
       /https?:\/\/[^\s)]*\.(?:lan|local|internal)(?:[:/][^\s)]*)?/g,
       'a site-local address',
     );
-    env.push({ name: plain(cells[0]), meaning: plain(cells[1]), default: fallback });
+    // The `meaning` column is prose about what the variable does, same source as the
+    // tools table's `answers` column and the same leak risk (OPENMIXER_MEMORY_DIR's row
+    // names a `~/.claude/projects/<project>/...` path) — same redaction, not a special case.
+    env.push({ name: plain(cells[0]), meaning: redactInternalPaths(plain(cells[1])), default: fallback });
   }
 }
 
