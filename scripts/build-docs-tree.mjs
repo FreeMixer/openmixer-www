@@ -117,7 +117,23 @@ console.log(`[build-docs-tree] openmixer checkout ${src} at ${revision}, base ${
 const run = (command, args, env) =>
   execFileSync(command, args, { cwd: src, stdio: 'inherit', env: { ...process.env, ...env } });
 
-run('pnpm', ['install', '--frozen-lockfile', '--filter', '@freemixer/website...']);
+// `website` sits at stratum S0 and reads `core` (S1) and `catalog` (S2) by a plain relative
+// filesystem path into their BUILT dist, never a package.json dependency — that edge would
+// violate the strata (`2026-08-26-dependency-model.md`), and `docs:check` / `feature-manifest.mjs`
+// say so in their own comments. That means `--filter '@freemixer/website...'` selects `website`
+// ALONE (verified: `pnpm -r --filter '@freemixer/website...' list --depth -1` prints one line) —
+// pnpm's `...` closure follows package.json edges, and there is deliberately none here. So the
+// two packages `pregenerate` actually reaches into (`catalog`, and `core` beneath it) are named
+// explicitly; multiple `--filter` flags UNION (verified empirically), so this installs and builds
+// website + catalog + core + declarations + ratchet — no native package (`pipewire-native`, which
+// needs libpipewire headers the runner does not have) is anywhere in that closure.
+const CLOSURE_FILTERS = ['--filter', '@freemixer/website...', '--filter', '@freemixer/catalog...'];
+run('pnpm', ['install', '--frozen-lockfile', ...CLOSURE_FILTERS]);
+// Build catalog's own closure (core, declarations) so `docs:check`'s `../dist/*.js` reads and
+// `feature-manifest.mjs`'s `../../core/dist/index.js` read land on real files, not a stale or
+// absent dist (`2026-08-04` dist law) — `website` itself has no `build` step of its own to run
+// here; `generate` below is what actually builds it, with the site's own base URL and assets dir.
+run('pnpm', ['-r', '--filter', '@freemixer/catalog...', 'build']);
 run('pnpm', ['--filter', '@freemixer/website', 'generate'], {
   NUXT_APP_BASE_URL: baseURL,
   NUXT_APP_BUILD_ASSETS_DIR: DOCS_ASSETS_DIR,
