@@ -87,18 +87,10 @@ function walkHtml(dir) {
   }
 }
 
-// JOB_LEDGER_PATH's page carries `docs/design/job-proofs.md` twice, both inside
-// `tsd-signature-type` — the constant's actual, real, publicly-relevant VALUE, not
-// a prose citation of an internal document. Redacting a literal value would falsify
-// the reference rather than protect anything, so this one page is a reviewed,
-// named exception to the gate below, not a silent hole in it.
-const KNOWN_LITERAL_VALUE_EXCEPTION = 'variables/_openmixer_core..JOB_LEDGER_PATH.html';
-
 function grepFileCount() {
   try {
     return execFileSync('grep', ['-rlI', '-e', 'docs/design', '-e', '~/Devel', outDir], { encoding: 'utf8' })
       .trim().split('\n').filter(Boolean)
-      .filter((f) => !f.endsWith(KNOWN_LITERAL_VALUE_EXCEPTION))
       .length;
   } catch {
     return 0; // grep exits 1 when nothing matches
