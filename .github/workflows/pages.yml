@@ -17,7 +17,7 @@
 #
 # THE TOKEN. FreeMixer/openmixer is private, so the checkout below needs a
 # credential with read access to it (Settings -> Secrets -> Actions:
-# OPENMIXER_DOCS_TOKEN, a fine-grained PAT with Contents: read on that repository).
+# OPENMIXER_DOCS_KEY, the private half of a read-only deploy key registered on that repository).
 # Without it this workflow FAILS rather than publishing a site whose manual 404s —
 # a site that quietly lost a third of its pages looks exactly like a site that never
 # had them. Pages keeps serving the previous deployment while a run is red.
@@ -67,7 +67,7 @@ jobs:
         with:
           repository: FreeMixer/openmixer
           ref: main
-          token: ${{ secrets.OPENMIXER_DOCS_TOKEN }}
+          ssh-key: ${{ secrets.OPENMIXER_DOCS_KEY }}
           path: openmixer-src
 
       - uses: pnpm/action-setup@v4
