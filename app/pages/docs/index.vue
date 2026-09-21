@@ -120,9 +120,6 @@ const faqGroups = [
           <LinkCard title="Operator manual" href="/docs/manual" label="/docs/manual">
             <p>Every chapter, grouped the way the surface is: the desk, the mix, and running a show — from the fader bay to the keyboard reference.</p>
           </LinkCard>
-          <LinkCard title="Manual FAQ" href="/docs/manual/faq" label="/docs/manual/faq">
-            <p>The short answers with the arithmetic behind them: why the mono fold has no level control, and how many dB twice as loud is.</p>
-          </LinkCard>
           <LinkCard title="Installing" href="/docs/install" label="/docs/install">
             <p>What the packages are, what each one puts on the machine, the services that run, and what survives an upgrade.</p>
           </LinkCard>
@@ -178,6 +175,12 @@ const faqGroups = [
               <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">Screenshots.</span> The manual explains the
                 controls in words; pictures of the surface it names are being captured.
+              </li>
+              <li class="border-l-2 border-edge-strong pl-4">
+                <span class="text-ink">The manual's own arithmetic FAQ.</span> The
+                product FAQ above is written; the manual's shorter one for the
+                arithmetic questions (mono fold, how many dB twice as loud is) is not
+                a chapter yet.
               </li>
             </ul>
           </div>
