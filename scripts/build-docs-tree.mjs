@@ -117,8 +117,8 @@ console.log(`[build-docs-tree] openmixer checkout ${src} at ${revision}, base ${
 const run = (command, args, env) =>
   execFileSync(command, args, { cwd: src, stdio: 'inherit', env: { ...process.env, ...env } });
 
-run('pnpm', ['install', '--frozen-lockfile', '--filter', '@openmixer/website...']);
-run('pnpm', ['--filter', '@openmixer/website', 'generate'], {
+run('pnpm', ['install', '--frozen-lockfile', '--filter', '@freemixer/website...']);
+run('pnpm', ['--filter', '@freemixer/website', 'generate'], {
   NUXT_APP_BASE_URL: baseURL,
   NUXT_APP_BUILD_ASSETS_DIR: DOCS_ASSETS_DIR,
 });
