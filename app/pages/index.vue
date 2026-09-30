@@ -7,6 +7,38 @@ const facts = [
   { label: 'Licence', value: 'GPL-3.0-or-later', note: 'Free software, every package.' },
 ] as const;
 
+const native = [
+  {
+    title: 'Tone and dynamics',
+    items: [
+      ['Interactive EQ', 'Parametric bands drawn over the channel\'s live curve, dragged by hand.'],
+      ['Gate', 'With keyed detection from any source.'],
+      ['Compressor', 'Threshold, ratio, knee, attack, release and make-up, with its transfer curve.'],
+      ['Expander, limiter, ducker', 'Each a type either dynamics stage can take.'],
+      ['De-esser', 'Tames sibilance on a voice.'],
+      ['Multiband compressor', 'Dynamics per frequency band.'],
+    ],
+  },
+  {
+    title: 'Colour and space',
+    items: [
+      ['Drive', 'A saturator with four curves (soft, tape, tube, exciter), a band choice and auto gain, so it changes colour and not loudness.'],
+      ['Delay', 'The channel\'s own delay effect.'],
+      ['Reverb', 'The channel\'s own reverb effect.'],
+      ['Chorus and flanger', 'Modulation effects on the same Native FX chip.'],
+    ],
+  },
+  {
+    title: 'Listening tools',
+    items: [
+      ['FBS, feedback suppression', 'Finds a ring and cuts a narrow notch at its frequency, per channel, off until you arm it. Ring-out mode for soundcheck keeps its notches; live mode lifts them once the frequency stays clean.'],
+      ['HRP, harmonic resonance processor', 'Follows the note being played, finds the harmonic that is too loud for that instrument, and cuts it as it moves.'],
+      ['Align', 'Two microphones on one source, such as kick in and out, made to arrive together.'],
+      ['RTA', 'A real-time analyser tapped straight from the engine.'],
+    ],
+  },
+] as const;
+
 useSeoMeta({
   title: 'openmixer — a software mixing console for Linux',
   description:
@@ -38,8 +70,8 @@ useSeoMeta({
           <UButton to="/architecture" size="lg" color="primary" trailing-icon="i-lucide-arrow-right">
             How it is built
           </UButton>
-          <UButton to="/get-it" size="lg" color="neutral" variant="outline">
-            Get it
+          <UButton to="#install" size="lg" color="neutral" variant="outline">
+            Install
           </UButton>
         </div>
 
@@ -104,12 +136,95 @@ useSeoMeta({
               group. Not a stack of loopback subprocesses.
             </p>
             <p>
-              LV2 plugin inserts sit on top of that, hosted by
-              <code class="font-mono text-ink">mod-host</code> and wired per strip and
-              per output.
+              LV2 and CLAP plugin inserts sit on top of that, in supervised processes,
+              wired per strip and per output.
             </p>
           </Slab>
         </div>
+      </div>
+    </section>
+
+    <!-- Native processing -->
+    <section class="border-t border-edge">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="Built into the engine" title="The processing a show lives on, written for the console itself." />
+        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
+          These run inside the real-time mix node: no plugin host, no process boundary, no
+          added latency. Every stage never outputs a non-finite sample, never stalls the
+          audio thread on denormals, and when bypassed its output is its input.
+        </p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <Slab v-for="g in native" :key="g.title" :title="g.title">
+            <dl class="space-y-3">
+              <div v-for="[name, what] in g.items" :key="name">
+                <dt class="font-display text-ink">{{ name }}</dt>
+                <dd>{{ what }}</dd>
+              </div>
+            </dl>
+          </Slab>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plugin hosting -->
+    <section class="border-t border-edge">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="Plugins" title="Any plugin you want, never at the cost of the show." />
+        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
+          A live console cannot go quiet because a plugin crashed. So processing comes in
+          layers: the console's own code inside the engine, and outside plugins in
+          supervised processes that can fail without touching anything else.
+        </p>
+        <div class="grid gap-5 md:grid-cols-3">
+          <Slab title="openmixer native" tag="inside the engine">
+            <p>
+              Everything above runs in the same real-time node as the mix. Added latency:
+              none.
+            </p>
+          </Slab>
+          <Slab title="LV2 and CLAP" tag="mod-host · omx-clap-host">
+            <p>
+              LV2 plugins run in mod-host, the host behind MOD Audio's devices. CLAP plugins
+              run in omx-clap-host, which speaks mod-host's protocol, so the console drives
+              both the same way. Controls come from each plugin's own metadata, and a
+              catalog ranks plugins by measured latency. Added latency: one buffer.
+            </p>
+          </Slab>
+          <Slab title="plugin-hostd" tag="the safety net">
+            <p>
+              A supervisor between the console and its plugin hosts. When a plugin crashes,
+              it restarts only that worker and restores its plugins and every setting. That
+              strip passes dry audio meanwhile; every other channel carries on.
+            </p>
+          </Slab>
+        </div>
+        <div class="mt-8 rounded border border-edge bg-field p-6 text-sm leading-relaxed text-ink-dim">
+          <p>
+            We crashed a plugin on purpose on a running console and measured every strip
+            through it (30 September 2026). The mix through plugin-hostd was bit-identical to
+            the mix without it, every other strip moved by 0.000 dB, and only the worker
+            holding the faulty plugin restarted.
+          </p>
+          <p class="mt-3">
+            omx-clap-host and plugin-hostd are standalone projects: any host that speaks
+            mod-host's protocol can use them.
+            <a href="https://github.com/FreeMixer/omx-clap-host" class="text-accent hover:underline">omx-clap-host</a>,
+            <a href="https://github.com/FreeMixer/plugin-hostd" class="text-accent hover:underline">plugin-hostd</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Install -->
+    <section id="install" class="border-t border-edge bg-surface/40">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="Install" title="Signed packages for x86_64 and ARM64." />
+        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
+          The plugin hosts are packaged for Fedora and Debian, including Raspberry Pi OS and
+          Zynthian. Each package is built from a release tag, signed, and published at
+          freemixer.github.io.
+        </p>
+        <InstallSteps />
       </div>
     </section>
 
@@ -135,8 +250,8 @@ useSeoMeta({
             </p>
             <p>
               The feature pages label each item by how far it has actually been proven,
-              and the known limitations are listed rather than omitted. There is no
-              packaged download yet; building from source is the way in.
+              and the known limitations are listed rather than omitted. The plugin hosts
+              are packaged today; the console itself is not published yet.
             </p>
           </div>
           <div class="rounded border border-edge bg-field p-6">

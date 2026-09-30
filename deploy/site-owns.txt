@@ -1,0 +1,25 @@
+# The top-level paths of https://freemixer.github.io/ that this site owns. The deploy
+# (scripts/deploy-root.sh) replaces exactly these in FreeMixer/freemixer.github.io and
+# nothing else; the package workflows own rpm/, deb/, the keys and .nojekyll.
+# A build that produces a top-level path missing here fails the deploy: add it here, on
+# purpose, in a reviewed change.
+index.html
+200.html
+404.html
+_payload.json
+_nuxt
+_fonts
+_docs_nuxt
+favicon.svg
+headings.json
+img
+api-docs
+openapi.json
+docs
+manual
+faq
+features
+get-it
+architecture
+links
+openmixer-www
