@@ -24,8 +24,19 @@
   --color-accent: #28c8e6;
   --color-accent-ink: #04161c;
   --color-meter: #34d17b;
+  --color-warn: #f2b632;
+  --color-clip: #ff4d45;
+  --color-release: #c9b6ff;
+  --color-well: #0d1115;
   --color-edge: #2a323b;
   --color-edge-strong: #3a444f;
+
+  /* The home page's fader-wall meters. Each meter sets its own animation-duration. */
+  --animate-level: level 1.6s ease-in-out infinite alternate;
+  @keyframes level {
+    from { transform: scaleY(0.72); }
+    to { transform: scaleY(1); }
+  }
 
   /* Families are named here and nowhere else. @nuxt/fonts (shipped with Nuxt UI)
      reads them off this file, downloads them AT BUILD TIME and emits self-hosted
