@@ -18,25 +18,57 @@ const tryIt = [
   '# drives mod-host drives it. It prints "plugin-hostd ready!" once it listens.',
   'plugin-hostd -n -p 5555 -f 5556',
 ];
+const tabs = [
+  { label: 'Fedora', value: 'fedora', slot: 'fedora' as const },
+  { label: 'Debian · Raspberry Pi OS · Zynthian', value: 'debian', slot: 'debian' as const },
+];
+const packages = [
+  ['omx-clap-host', 'The CLAP host and omx-clap-scan, with the omx-clap-core library.'],
+  ['plugin-hostd', 'The plugin supervisor and its manual page.'],
+  ['-devel · -dev', 'Headers and pkg-config files, to build your own host against the same libraries.'],
+] as const;
+
+/** Open on the reader's own family when the browser says which one it is. */
+const distro = ref('fedora');
+onMounted(() => {
+  if (/Debian|Raspbian|Ubuntu/i.test(navigator.userAgent)) distro.value = 'debian';
+});
 </script>
 
 <template>
   <div>
-    <div class="grid gap-8 lg:grid-cols-2">
-      <div class="min-w-0">
-        <h3 class="mb-3 font-display text-lg text-ink">Fedora 44</h3>
-        <CodeBlock :lines="fedora" />
-      </div>
-      <div class="min-w-0">
-        <h3 class="mb-3 font-display text-lg text-ink">Debian bookworm or trixie, Raspberry Pi OS, Zynthian</h3>
-        <CodeBlock :lines="debian" />
+    <div class="overflow-hidden rounded-lg border border-edge bg-surface">
+      <UTabs
+        v-model="distro"
+        :items="tabs"
+        variant="link"
+        color="primary"
+        :ui="{ list: 'border-b border-edge px-2 overflow-x-auto', trigger: 'flex-none py-3', content: 'p-5' }"
+      >
+        <template #fedora>
+          <p class="mb-4 text-sm text-ink-dim">Fedora 44, x86_64 or aarch64.</p>
+          <CodeBlock :lines="fedora" />
+        </template>
+        <template #debian>
+          <p class="mb-4 text-sm text-ink-dim">
+            Debian bookworm or trixie, amd64 or arm64. The same packages install on Raspberry
+            Pi OS and Zynthian.
+          </p>
+          <CodeBlock :lines="debian" />
+        </template>
+      </UTabs>
+    </div>
+
+    <div class="mt-5 grid gap-3 md:grid-cols-3">
+      <div v-for="[name, what] in packages" :key="name" class="rounded-lg border border-edge bg-surface p-4">
+        <p class="font-mono text-sm text-ink">{{ name }}</p>
+        <p class="mt-1 text-sm text-ink-dim">{{ what }}</p>
       </div>
     </div>
-    <p class="mt-6 text-sm leading-relaxed text-ink-faint">
+    <p class="mt-4 text-sm leading-relaxed text-ink-faint">
       The repositories and every package are signed with one key:
       <a href="https://freemixer.github.io/rpm/RPM-GPG-KEY-freemixer" class="text-accent hover:underline">RPM-GPG-KEY-freemixer</a>,
       <a href="https://freemixer.github.io/deb/freemixer.asc" class="text-accent hover:underline">freemixer.asc</a>.
-      The -devel and -dev packages carry the headers to build your own host against them.
     </p>
 
     <div class="mt-14">
