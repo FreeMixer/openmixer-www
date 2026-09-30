@@ -371,8 +371,8 @@ const alignRows = [
                 has recorded a show through them.
               </li>
               <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">There is no packaged download.</span> Building
-                from source is the way in today.
+                <span class="text-ink">The console is not packaged yet.</span> The
+                plugin hosts are: <NuxtLink to="/get-it" class="text-accent hover:underline">install them from our packages</NuxtLink>.
               </li>
             </ul>
             <p class="text-sm text-ink-faint">
