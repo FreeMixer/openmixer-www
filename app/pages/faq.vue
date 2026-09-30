@@ -84,9 +84,10 @@ const groups: readonly Group[] = [
       {
         q: 'Is there a package I can install?',
         a: [
-          'Not from a published repository yet. There is a complete RPM specification and a one-command build that produces the packages locally, and that is the honest state of it: you can build packages, and there is nothing to point a package manager at.',
-          'Today the way in is to clone the repository and build from source.',
+          'For the plugin hosts, yes: omx-clap-host and plugin-hostd are signed packages for Fedora and for Debian, Raspberry Pi OS and Zynthian, on x86_64 and ARM64.',
+          'The console itself is not published yet.',
         ],
+        link: { href: '/get-it', label: 'Install from our packages' },
       },
       {
         q: 'A channel has gone quiet and its mute button is not lit — what is holding it?',
