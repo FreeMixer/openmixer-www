@@ -1,12 +1,27 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
-# Build the site and publish it to GitHub Pages.
+# Build the site and publish it at https://freemixer.github.io/, the root of the
+# organisation's Pages site.
 #
-# BASE URL. A prerendered page names its assets absolutely, so a site built for
-# "/" and served under "/openmixer-www/" has every asset 404 one level above the
-# mount. NUXT_APP_BASE_URL below is what makes a project page work, and
-# `npm run docs:links` fails the build on any site-absolute link that misses it.
-# Serving from a domain root instead? Set it to "/" — or drop the line.
+# WHERE IT GOES. The root is served from FreeMixer/freemixer.github.io, which also
+# holds the package repositories (rpm/, deb/, the keys), written by the release
+# workflows of FreeMixer/.github. So this workflow does not deploy a Pages artifact:
+# it checks that repository out with PAGES_TOKEN and scripts/deploy-root.sh replaces
+# only the top-level paths listed in deploy/site-owns.txt, refuses a change that
+# reaches anything else (rpm/, deb/, .nojekyll, README.md above all), and commits
+# and pushes to its main. A pull request runs the same steps as a dry run.
+#
+# THE COMMIT IS SIGNED with SITE_GPG_KEY, a signing key whose public half is on the
+# committer's GitHub account, so GitHub shows it verified. Without that secret the
+# publish step refuses to push; the dry run does not need it.
+#
+# THE OLD ADDRESS. The site used to be served at /openmixer-www/. Every page now has
+# a redirect page at its old address (scripts/redirect-stubs.mjs), published under
+# /openmixer-www/ of the root site. They answer once this repository's own Pages site
+# is switched off; until then that site keeps serving the old copy there.
+#
+# BASE URL is "/": the site sits at the domain root. `npm run docs:links` still fails
+# the build on any internal link that does not resolve.
 #
 # THE DOCUMENTATION TREE IS BUILT, NOT COPIED. The operator manual, the FAQ and the
 # architecture pages live in FreeMixer/openmixer (docs/**/*.md) and are rendered by
@@ -20,36 +35,40 @@
 # OPENMIXER_DOCS_KEY, the private half of a read-only deploy key registered on that repository).
 # Without it this workflow FAILS rather than publishing a site whose manual 404s —
 # a site that quietly lost a third of its pages looks exactly like a site that never
-# had them. Pages keeps serving the previous deployment while a run is red.
+# had them. The root keeps serving the previous commit while a run is red.
 #
-# TRIGGER. Push to main plus dispatch, unchanged. openmixer's dispatch-only law
+# TRIGGER. Push to main plus dispatch; a pull request runs as a dry run. openmixer's dispatch-only law
 # (docs/design/specs/2026-09-02-delivery-pipeline.md §0) binds the workflows that
 # publish PACKAGES and IMAGES, and its own gate names the static-site workflow as
 # the single exception — "publishes a static site to Pages on push to main. It
 # touches no package, no repo tree and no image ... and retriggering it is not a
 # publish anyone has to decide about" (packages/server/src/workflow-trigger-
 # conformance.test.ts, NAMED_EXCEPTIONS). This is that workflow, in the site's own
-# repository.
+# repository. It now commits into the Pages repository that also carries the
+# package trees, and the guard in scripts/deploy-root.sh is what keeps it from
+# touching them.
 name: pages
 
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: pages-${{ github.event_name == 'pull_request' && github.ref || 'publish' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      NUXT_APP_BASE_URL: /
+      PUBLISH: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
     defaults:
       run:
         working-directory: openmixer-www
@@ -82,31 +101,45 @@ jobs:
       - run: npm ci
 
       - run: npm run generate
-        env:
-          NUXT_APP_BASE_URL: /openmixer-www/
 
       - run: npm run docs:site
         env:
-          NUXT_APP_BASE_URL: /openmixer-www/
           OPENMIXER_SRC: ${{ github.workspace }}/openmixer-src
 
-      # After the docs tree is in place, so the manual's cross-links are checked
-      # with everything else rather than in a tree it is not part of.
+      - run: node scripts/redirect-stubs.mjs
+
+      # After the docs tree and the redirect pages are in place, so every link is
+      # checked in the tree that is published.
       - run: npm run docs:links
-        env:
-          NUXT_APP_BASE_URL: /openmixer-www/
 
-      - uses: actions/upload-pages-artifact@v3
+      # The root site, with the package repositories in it. The token is only needed to
+      # push; a pull request reads the public repository without it.
+      - uses: actions/checkout@v4
         with:
-          path: openmixer-www/.output/public
+          repository: FreeMixer/freemixer.github.io
+          ref: main
+          path: pages
+          token: ${{ env.PUBLISH == 'true' && secrets.PAGES_TOKEN || github.token }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Import the signing key
+        if: env.PUBLISH == 'true'
+        working-directory: pages
+        env:
+          SITE_GPG_KEY: ${{ secrets.SITE_GPG_KEY }}
+        run: |
+          [ -n "$SITE_GPG_KEY" ] || { echo "::error::SITE_GPG_KEY is not set; the site is not published unsigned"; exit 1; }
+          fpr=$(printf '%s\n' "$SITE_GPG_KEY" | gpg --batch --import --import-options show-only --with-colons 2>/dev/null | awk -F: '$1=="fpr"{print $10; exit}')
+          printf '%s\n' "$SITE_GPG_KEY" | gpg --batch --import
+          git config user.name "Pau Aliagas"
+          git config user.email linuxnow@gmail.com
+          git config user.signingkey "$fpr"
+          git config commit.gpgsign true
+
+      - name: Deploy into freemixer.github.io (dry run on a pull request)
+        run: |
+          export SITE_REVISION=${GITHUB_SHA::9}
+          if [ "$PUBLISH" = true ]; then
+            scripts/deploy-root.sh .output/public ../pages --publish
+          else
+            scripts/deploy-root.sh .output/public ../pages
+          fi
