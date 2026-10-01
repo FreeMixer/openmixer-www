@@ -100,6 +100,9 @@ jobs:
 
       - run: npm ci
 
+      # Every page in English and Catalan, key for key; a missing translation fails here.
+      - run: npm run check:i18n
+
       - run: npm run generate
 
       - run: npm run docs:site

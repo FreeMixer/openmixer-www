@@ -1,0 +1,64 @@
+{
+  "common": {
+    "nav": {
+      "architecture": "Architecture",
+      "features": "Features",
+      "docs": "Docs",
+      "faq": "FAQ",
+      "get-it": "Get it",
+      "links": "Links"
+    },
+    "header": {
+      "home": "OpenMixer home",
+      "theme": "Switch between light and dark",
+      "menu": "Menu",
+      "main": "Main"
+    },
+    "footer": {
+      "tagline": "A software mixing console for Linux. The desk is the software; the browser is the surface.",
+      "pages": "Pages",
+      "page": {
+        "architecture": "Architecture",
+        "features": "Features",
+        "docs": "Documentation",
+        "faq": "FAQ",
+        "get-it": "Get it",
+        "links": "Links"
+      },
+      "licence": "Licence",
+      "licenceText": "OpenMixer is free software under the <span class=\"font-mono text-ink\">GPL-3.0-or-later</span>. Every package in the workspace carries the same licence.",
+      "trademarks": "Roland, Midas, Behringer, RME and the product names used here belong to their respective owners. OpenMixer is an independent project and is not affiliated with any of them."
+    },
+    "status": {
+      "live": "Proven on the rig",
+      "measured": "Built and measured",
+      "building": "In development"
+    },
+    "code": {
+      "copy": "Copy",
+      "copied": "Copied"
+    },
+    "rest": {
+      "onDemand": "on demand",
+      "example": "e.g. {path}",
+      "writable": "writable",
+      "readOnly": "read-only",
+      "step": ", step {step}",
+      "perInstance": "range depends on the instance",
+      "noFields": "No fields observed on the reference rig.",
+      "exampleResponse": "Example response"
+    },
+    "install": {
+      "fedora": "Fedora 44, x86_64 or aarch64.",
+      "debian": "Debian bookworm or trixie, amd64 or arm64. The same packages install on Raspberry Pi OS and Zynthian.",
+      "pkgClapHost": "The CLAP host and omx-clap-scan, with the omx-clap-core library.",
+      "pkgHostd": "The plugin supervisor and its manual page.",
+      "pkgDevel": "Headers and pkg-config files, to build your own host against the same libraries.",
+      "signed": "The repositories and every package are signed with one key:",
+      "tryEyebrow": "Try it",
+      "tryTitle": "Two commands after the install.",
+      "tryScan": "Every CLAP plugin on this machine, with its parameters and ports.",
+      "tryHostd": "The plugin supervisor. It speaks mod-host's protocol, so anything that\ndrives mod-host drives it. It prints \"plugin-hostd ready!\" once it listens."
+    }
+  }
+}
