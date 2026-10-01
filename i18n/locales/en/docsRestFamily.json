@@ -1,0 +1,14 @@
+{
+  "docsRestFamily": {
+    "notFound": "No such REST family",
+    "seo": {
+      "title": "{root} — REST reference — OpenMixer",
+      "description": "Every address under {root}: fields, ranges and an example response, generated from the server's own contract."
+    },
+    "eyebrow": "REST reference",
+    "count": "{count} address under {root}. | {count} addresses under {root}.",
+    "allFamilies": "All families",
+    "refusalCodes": "Refusal codes",
+    "root": "Root"
+  }
+}

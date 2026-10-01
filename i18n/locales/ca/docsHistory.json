@@ -1,0 +1,74 @@
+{
+  "docsHistory": {
+    "seo": {
+      "title": "Desfer i l'historial — OpenMixer",
+      "description": "El diari de la taula de mescles: una sola llista de canvis per a tota la taula, desfer i refer, desfer un canvi del mig de la llista i la pregunta que us fa quan el camp s'ha mogut després."
+    },
+    "hero": {
+      "eyebrow": "Manual — desfer i historial",
+      "title": "Una sola llista del que ha canviat, per a tota la taula.",
+      "lede": "La taula de mescles porta un diari dels canvis que s'hi fan: una entrada per gest, en frases planeres, amb qui l'ha fet i quan. Ctrl+Z hi recula pas a pas. A més, qualsevol entrada es pot desfer tota sola sense tocar les que l'han seguida. El que el diari no guarda, expressament, és tan important com el que guarda."
+    },
+    "sentences": {
+      "fader": { "line": "fader de CH3 −6.0 → −12.0", "note": "Un moviment de fader. Un arrossegament és una entrada, no quaranta." },
+      "phantom": { "line": "alimentació phantom de CH1 desactivat → activat", "note": "Un canvi discret: els dos valors són les paraules que fa servir el control." },
+      "send": { "line": "send CH3 → Aux1 −20.0 → −14.0", "note": "Un send anomena els dos extrems, perquè «send» tot sol no diria quin és." },
+      "paste": { "line": "Enganxa a 8 canals", "note": "Un sol gest que ha tocat vuit canals és una sola entrada que es desfà d'una vegada." },
+      "order": { "line": "Ordre de canals", "note": "Una reordenació no té un abans i un després que valgui la pena mostrar, així que no en mostra cap." }
+    },
+    "never": {
+      "mute": "El mute, el solo i el solo-safe.",
+      "cue": "El cue, el monitor, el talkback i el dim.",
+      "spare": "La retenció d'un recanvi.",
+      "recall": "El recall safe."
+    },
+    "s1": {
+      "title": "Una taula, un diari.",
+      "p1": "El diari és de la taula, no de la vostra pantalla. Totes les superfícies que escriuen a la taula de mescles (el portàtil del control de sala, la tauleta del lateral de l'escenari, una superfície de control, un script) afegeixen entrades a la mateixa llista, de manera que el vostre Ctrl+Z pot desfer el canvi que algú altre acaba de fer.",
+      "p2": "Això no és un perill sinó la gràcia de tot plegat. El que ho fa segur és la llista: cada entrada diu d'on ve abans que premeu res. Una entrada feta des d'una superfície porta el nom de la superfície, una feta per un client REST porta l'adreça del client. Una entrada que és ella mateixa un desfer també ho diu.",
+      "p3": "Guarda els darrers 512 canvis i el peu del tauler ho indica. El límit és un nombre d'entrades i no un interval de temps, perquè un passatge tranquil no us ha de fer perdre l'historial del passatge mogut que l'ha precedit.",
+      "p4": "El diari no es desa. Viu mentre la taula de mescles està en marxa i, en reiniciar-la, en comença un de nou: una entrada recorda què marcava un camp fa un moment. Això només ho pot afirmar amb honestedat el procés que està en marxa."
+    },
+    "s2": {
+      "title": "Què diu una entrada.",
+      "p1": "Una entrada és una frase: què s'ha canviat, què marcava abans i què marca ara. Els canals s'anomenen com els anomena la resta de la taula (<span class=\"text-ink\">CH3</span>, <span class=\"text-ink\">Aux2</span>, <span class=\"text-ink\">Main</span>), els nivells porten un decimal i un interruptor diu <span class=\"text-ink\">activat</span> o <span class=\"text-ink\">desactivat</span>.",
+      "p2": "Un arrossegament és una entrada. Mentre moveu un fader, la taula de mescles va incorporant el moviment a l'entrada que ja ha obert, conserva el valor des del qual heu començat i el valor on sou ara. La tanca mig segon després que pareu. Dos tocs separats per un segon són dues entrades. El fader de CH3 no s'ajunta mai amb el de CH4.",
+      "p3": "La frase es construeix a la vostra pantalla, en la vostra llengua, a partir d'un canvi que la taula de mescles descriu i no d'un text que ella escriu. Per això la mateixa entrada es llegeix en català, en castellà o en anglès segons qui la miri."
+    },
+    "s3": {
+      "title": "Desfer, refer i on és el cursor.",
+      "p1": "Els botons de desfer i refer són a la capçalera. Cadascun diu sobre què actuarà abans que el premeu: <span class=\"text-ink\">Desfés: fader de CH3</span> en lloc d'una fletxa sense objecte. Les tecles són Ctrl+Z, Ctrl+Maj+Z i Ctrl+Y. No fan res mentre escriviu en un camp.",
+      "p2": "Desfer i refer mouen un cursor per la llista única; no hi afegeixen res. Les entrades per sota del cursor són les que la taula fa sonar ara mateix; les de sobre estan desfetes i es queden a la llista, atenuades i ratllades, perquè refer-les és a una pulsació. El peu del tauler compta quantes n'hi ha en aquest estat.",
+      "p3": "Si feu un canvi nou des d'una posició desfeta, les entrades desfetes es descarten. És la regla de sempre i és per això que el tauler les mostra ratllades en lloc d'amagar-les: veieu què esteu a punt de perdre."
+    },
+    "s4": {
+      "title": "Desfer un sol canvi del mig de la llista.",
+      "p1": "Cada entrada de la llista té un botó <span class=\"text-ink\">Desfés això</span>. Escriu exactament un camp (el que tocava aquella entrada) i el torna al valor des del qual va començar l'entrada. No es mou res més. Moveu un fader, feu mute a un altre canal, canvieu el pan d'un tercer i després desfeu el fader: el fader torna enrere i el mute i el pan es queden com estaven.",
+      "p2": "Desfer una entrada és un canvi com qualsevol altre, així que afegeix la seva pròpia entrada, marcada com a provinent de l'historial i no d'una superfície. La llista creix en una entrada; mai no es reescriu.",
+      "p3": "No hi ha cap entrada de la llista que no pugueu desfer. Tot allò que no s'ha de reproduir mai no ha arribat mai a ser una entrada. D'això tracta la secció següent."
+    },
+    "s5": {
+      "title": "Quan el camp s'ha mogut després.",
+      "p1": "Una entrada pot tenir uns quants minuts. Mentrestant, algú altre (o un gest vostre posterior) pot haver mogut el mateix control. Desfer l'entrada faria saltar el camp d'un valor que ningú no espera a un altre que ningú no ha demanat, així que la taula de mescles pregunta primer:",
+      "quote": "Això ha canviat des de llavors: db marca −3.0 ara, no el −12.0 que va deixar aquest pas (canviat per l'entrada 47).",
+      "p2": "<span class=\"text-ink\">Torna-hi igualment</span> fa l'escriptura. <span class=\"text-ink\">Deixa-ho estar</span> no fa res. Tant els botons de la capçalera com les files de la llista mostren la pregunta en un espai que ja tenen reservat, de manera que res no es mou sota el vostre dit quan apareix. Un retorn fet des d'una fila de la llista deixa constància a la seva entrada nova que ha passat per sobre de la posterior, de manera que la llista diu que hi ha hagut un retorn i per sobre de què ha passat.",
+      "p3": "Ctrl+Z fa la mateixa pregunta. L'entrada de dalt de tot de la llista es compara abans de reproduir-la, igual que es compara una fila de la llista quan hi feu clic. Refer, per la seva banda, compara el valor que va deixar el seu propi desfer. Una pregunta, tres portes: si el camp encara marca el que va deixar el pas, l'acció passa sense dir res; si no, apareix la pregunta i no s'escriu res fins que la respongueu.",
+      "p4": "La taula de mescles no pren mai aquesta decisió per vosaltres ni torna a provar-ho d'amagat. Si la taula torna a canviar mentre la pregunta és a la pantalla, la pregunta es retira en lloc de respondre-la contra un valor que ja ha quedat antic."
+    },
+    "s6": {
+      "title": "El que el diari no guarda mai.",
+      "p1": "Els controls de seguretat de l'actuació no són a la llista de cap manera. Ni entrada, ni adreça, ni refús: la llista simplement no els esmenta mai:",
+      "p2": "Una llista que permet desfer cada entrada per separat és més perillosa que un sol Ctrl+Z: pot arribar més enllà de tot el que ha passat després. Desfer el canvi a un recanvi torna a posar un micròfon mort en un canal; desfer un mute obre un canal que havíeu tancat per algun motiu. Aquests controls s'activen amb una pulsació i es desactiven amb una altra. Aquesta és tota la recuperació que necessiten.",
+      "p3": "Tampoc no hi són els canvis que la taula de mescles fa pel seu compte: recuperar una escena, carregar una sessió, refer una ruta, una superfície de control que es torna a sincronitzar. La llista és el que la gent ha fet a la taula.",
+      "p4": "Els vúmetres, l'RTA i la telemetria no hi surten mai: són mesures, no ajustos."
+    },
+    "s7": {
+      "title": "Què el buida.",
+      "p1": "Carregar una actuació buida el diari, igual que qualsevol altra acció que redefineixi la taula sencera: recuperar una escena, carregar una sessió o un patch, aplicar una configuració de canal, desar-ne o esborrar-ne una i canviar la mida de la taula de mescles. Després d'una d'aquestes accions la llista torna a començar buida.",
+      "p2": "És expressament així. Aquestes accions reescriuen centenars de dades alhora. Una llista que oferís desfer-ne una del mig oferiria una cosa que no pot fer honestament. Per tornar enrere d'una càrrega hi ha la còpia automàtica que la taula de mescles desa just abans, que és un mecanisme a banda.",
+      "foot": "La llista és {history}, el cursor és {cursor} i una entrada sola es desfà a {revert}. Les tres portes (aquesta més {undo} i {redo}) accepten el mateix argument {override}. Cada crida l'ha d'escriure explícitament: un client que ha d'escriure {false} no pot voler dir {true} per accident. Els camps, els rangs i els refusos que pot retornar cadascuna són a la {rest} i als {codes}.",
+      "rest": "referència REST",
+      "codes": "codis de refús i d'etiquetes de desfer"
+    }
+  }
+}
