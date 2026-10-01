@@ -1,248 +1,138 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
+const { t } = useI18n();
+const sitePath = useSitePath();
+
 useSeoMeta({
-  title: 'Undo and the history — openmixer',
-  description:
-    'The console’s journal: one list of changes for the whole desk, undo and redo, reverting one change out of the middle, and the offer you get when the field has moved since.',
+  title: () => t('docsHistory.seo.title'),
+  description: () => t('docsHistory.seo.description'),
 });
 
 /** What the list reads like. The label comes from the change, the two values from the entry. */
-const sentences = [
-  { line: 'CH3 fader −6.0 → −12.0', note: 'A fader move. One drag is one entry, not forty.' },
-  { line: 'CH1 phantom power off → on', note: 'A discrete change: the two values are the words the control uses.' },
-  { line: 'CH3 → Aux1 send −20.0 → −14.0', note: 'A send names both ends, because “send” alone would not say which.' },
-  { line: 'Paste onto 8 channels', note: 'One gesture that touched eight strips is one entry, and reverts as one.' },
-  { line: 'Strip order', note: 'A reorder has no before-and-after worth printing, so it prints neither.' },
-];
+const sentences = computed(() =>
+  (['fader', 'phantom', 'send', 'paste', 'order'] as const).map((k) => ({
+    line: t(`docsHistory.sentences.${k}.line`),
+    note: t(`docsHistory.sentences.${k}.note`),
+  })),
+);
 
-const never = [
-  'Mute, solo and solo-safe.',
-  'Cue, the monitor, talkback and dim.',
-  'A spare’s hold.',
-  'Recall safe.',
-];
+const never = computed(() =>
+  (['mute', 'cue', 'spare', 'recall'] as const).map((k) => t(`docsHistory.never.${k}`)),
+);
 </script>
 
 <template>
   <div>
     <PageHero
-      eyebrow="Manual — undo &amp; history"
-      title="One list of what changed, for the whole desk."
-      lede="The console keeps a journal of the changes made to it: one entry per gesture, in plain sentences, with who made it and when. Ctrl+Z walks back through it, and any single entry can be taken back on its own without disturbing the ones after it. What the journal deliberately does not hold is as important as what it does."
+      :eyebrow="t('docsHistory.hero.eyebrow')"
+      :title="t('docsHistory.hero.title')"
+      :lede="t('docsHistory.hero.lede')"
     />
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="01" title="One console, one journal." />
+        <SectionHead eyebrow="01" :title="t('docsHistory.s1.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            The journal belongs to the desk, not to your screen. Every surface writing to
-            the console — the laptop at front of house, the tablet on the wing, a control
-            surface, a script — appends to the same list, so your Ctrl+Z can walk back the
-            change somebody else just made.
-          </p>
-          <p>
-            That is the point rather than a hazard, and the list is what makes it safe: each
-            entry says where it came from before you press anything. An entry made on a
-            surface names the surface, one made by a REST client names the client’s address,
-            and an entry that is itself an undo says that too.
-          </p>
-          <p>
-            It holds the last 512 changes and the panel says so at the foot of the list. The
-            bound is a count and not a span of time, because a quiet passage should not cost
-            you the history of the noisy one before it.
-          </p>
-          <p>
-            The journal is not saved. It lives for as long as the console is running, and a
-            restart starts a fresh one — an entry remembers what a field read a moment ago,
-            which is a claim only the running process can make honestly.
-          </p>
+          <p>{{ t('docsHistory.s1.p1') }}</p>
+          <p>{{ t('docsHistory.s1.p2') }}</p>
+          <p>{{ t('docsHistory.s1.p3') }}</p>
+          <p>{{ t('docsHistory.s1.p4') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="02" title="What an entry says." />
+        <SectionHead eyebrow="02" :title="t('docsHistory.s2.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            An entry is one sentence: what was changed, then what it read before and what it
-            reads now. Channels are named the way the rest of the desk names them —
-            <span class="text-ink">CH3</span>, <span class="text-ink">Aux2</span>,
-            <span class="text-ink">Main</span> — levels carry one decimal, and a switch reads
-            <span class="text-ink">on</span> or <span class="text-ink">off</span>.
-          </p>
+          <p v-html="t('docsHistory.s2.p1')" />
           <ul class="space-y-3">
             <li v-for="s in sentences" :key="s.line" class="border-l-2 border-edge-strong pl-4">
               <p class="font-mono text-sm text-ink">{{ s.line }}</p>
               <p class="mt-1 text-sm">{{ s.note }}</p>
             </li>
           </ul>
-          <p>
-            A drag is one entry. While you are moving a fader the console keeps folding the
-            movement into the entry it already opened, keeping the value you started from and
-            the value you are at now, and seals it half a second after you stop. Two separate
-            nudges a second apart are two entries, and CH3’s fader never folds into CH4’s.
-          </p>
-          <p>
-            The sentence is built on your screen, in your language, from a change the console
-            describes rather than a phrase it writes — so the same entry reads as a sentence
-            in Catalan, Spanish or English depending on who is looking at it.
-          </p>
+          <p>{{ t('docsHistory.s2.p2') }}</p>
+          <p>{{ t('docsHistory.s2.p3') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="03" title="Undo, redo, and where the cursor sits." />
+        <SectionHead eyebrow="03" :title="t('docsHistory.s3.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            The undo and redo buttons live in the header, and each one names what it would
-            hit before you press it — <span class="text-ink">Undo: CH3 fader</span> rather
-            than an arrow with no object. The keys are Ctrl+Z, Ctrl+Shift+Z and Ctrl+Y, and
-            they do nothing while you are typing in a field.
-          </p>
-          <p>
-            Undo and redo move a cursor through the one list; they do not add to it. Entries
-            below the cursor are the ones the desk is currently sounding; entries above it are
-            undone and stay in the list, dimmed and struck through, because redo is one press
-            away. The foot of the panel counts how many are in that state.
-          </p>
-          <p>
-            Making any new change from an undone position drops the undone entries — the
-            ordinary rule, and the reason the panel shows them struck through rather than
-            hiding them: you can see what you are about to lose.
-          </p>
+          <p v-html="t('docsHistory.s3.p1')" />
+          <p>{{ t('docsHistory.s3.p2') }}</p>
+          <p>{{ t('docsHistory.s3.p3') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="04" title="Taking back one change out of the middle." />
+        <SectionHead eyebrow="04" :title="t('docsHistory.s4.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            Every entry in the list carries an <span class="text-ink">Undo this</span> button.
-            It writes exactly one field — the one that entry addressed — back to the value the
-            entry started from. Nothing else moves. Move a fader, mute another channel, pan a
-            third, then take back the fader: the fader returns and the mute and the pan stay
-            where they are.
-          </p>
-          <p>
-            A revert is a change like any other, so it appends its own entry, marked as having
-            come from the history rather than from a surface. The list grows by one; it never
-            rewrites itself.
-          </p>
-          <p>
-            There is no entry in the list you cannot take back. Anything that must never be
-            replayed never became an entry in the first place — which is the next section.
-          </p>
+          <p v-html="t('docsHistory.s4.p1')" />
+          <p>{{ t('docsHistory.s4.p2') }}</p>
+          <p>{{ t('docsHistory.s4.p3') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="05" title="When the field has moved since." />
+        <SectionHead eyebrow="05" :title="t('docsHistory.s5.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            An entry can be minutes old, and in that time somebody else — or a later gesture of
-            your own — may have moved the same control. Taking the entry back would then jump
-            the field from a value nobody expects to another value nobody asked for, so the
-            console asks first:
-          </p>
+          <p>{{ t('docsHistory.s5.p1') }}</p>
           <blockquote class="border-l-2 border-accent/60 pl-4 text-ink">
-            This has changed since — db reads −3.0 now, not the −12.0 this step left (changed
-            by entry 47).
+            {{ t('docsHistory.s5.quote') }}
           </blockquote>
-          <p>
-            <span class="text-ink">Go back anyway</span> makes the write.
-            <span class="text-ink">Leave it</span> does nothing. Both the header’s buttons and
-            the list’s rows draw the offer in space they already reserve, so nothing under your
-            finger moves when it appears. A jump-back taken from a row in the list records in
-            its new entry that it went over the later one, so the list says a jump-back happened
-            and what it jumped over.
-          </p>
-          <p>
-            Ctrl+Z asks the same question. The top of the list is compared before it is
-            replayed, exactly as a row in the list is compared when you click it, and redo
-            compares the value its own undo left standing. One question, three doors: if the
-            field still reads what the step left, the walk goes through without a word; if it
-            does not, you get the offer and nothing is written until you answer it.
-          </p>
-          <p>
-            The console never takes that decision for you and never retries behind your back.
-            If the desk moves again while the question is on screen, the offer is dropped
-            rather than answered against a value that has gone stale.
-          </p>
+          <p v-html="t('docsHistory.s5.p2')" />
+          <p>{{ t('docsHistory.s5.p3') }}</p>
+          <p>{{ t('docsHistory.s5.p4') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="06" title="What the journal never holds." />
+        <SectionHead eyebrow="06" :title="t('docsHistory.s6.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            The gig-safety controls are not in the list at all. No entry, no address, no
-            refusal — the list simply never mentions them:
-          </p>
+          <p>{{ t('docsHistory.s6.p1') }}</p>
           <ul class="space-y-2">
             <li v-for="n in never" :key="n" class="border-l-2 border-edge-strong pl-4 text-ink">{{ n }}</li>
           </ul>
-          <p>
-            A list with a per-entry revert is a more dangerous thing than a single Ctrl+Z:
-            it can reach back past everything that happened since. Undoing a spare swap puts
-            a dead microphone back on a channel; undoing a mute opens one you closed for a
-            reason. These controls are one press to set and one press to clear, and that is
-            the whole recovery they need.
-          </p>
-          <p>
-            Changes the console makes on its own account are also absent — recalling a scene,
-            loading a session, healing a route, a control surface re-driving itself. The list
-            is what people did to the desk.
-          </p>
-          <p>
-            Meters, RTA and telemetry never appear: they are measurements, not settings.
-          </p>
+          <p>{{ t('docsHistory.s6.p2') }}</p>
+          <p>{{ t('docsHistory.s6.p3') }}</p>
+          <p>{{ t('docsHistory.s6.p4') }}</p>
         </div>
       </div>
     </section>
 
     <section>
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="07" title="What empties it." />
+        <SectionHead eyebrow="07" :title="t('docsHistory.s7.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            Loading a show empties the journal, and so does anything else that restates the
-            desk wholesale: recalling a scene, loading a session or a patch, applying a channel
-            config, saving or deleting one, and resizing the console. After one of those the
-            list starts again from empty.
-          </p>
-          <p>
-            That is deliberate. Those actions rewrite hundreds of facts at once, and a list
-            that offered to take one of them back out of the middle would be offering something
-            it cannot honestly do. The way back from a load is the autosave the console takes
-            before it, which is its own mechanism.
-          </p>
+          <p>{{ t('docsHistory.s7.p1') }}</p>
+          <p>{{ t('docsHistory.s7.p2') }}</p>
         </div>
-        <p class="mt-8 text-sm leading-relaxed text-ink-faint">
-          The list itself is
-          <code class="font-mono text-xs text-ink">/history</code>, the cursor is
-          <code class="font-mono text-xs text-ink">/history/cursor</code>, and a single entry is
-          taken back at <code class="font-mono text-xs text-ink">/history/entries/{id}/revert</code>.
-          All three doors — that one and
-          <code class="font-mono text-xs text-ink">/history/cursor/undo</code> and
-          <code class="font-mono text-xs text-ink">/history/cursor/redo</code> — take the same
-          <code class="font-mono text-xs text-ink">override</code> argument, and every fire spells
-          it out: a client that has to write <code class="font-mono text-xs text-ink">false</code>
-          cannot mean <code class="font-mono text-xs text-ink">true</code> by accident. Fields,
-          ranges and the refusals each can send back are in the
-          <NuxtLink to="/docs/rest/history" class="text-accent hover:underline">REST reference</NuxtLink>
-          and the
-          <NuxtLink to="/docs/rest/refusal-codes" class="text-accent hover:underline">refusal and undo-label codes</NuxtLink>.
-        </p>
+        <i18n-t keypath="docsHistory.s7.foot" tag="p" scope="global" class="mt-8 text-sm leading-relaxed text-ink-faint">
+          <template #history><code class="font-mono text-xs text-ink">/history</code></template>
+          <template #cursor><code class="font-mono text-xs text-ink">/history/cursor</code></template>
+          <template #revert><code class="font-mono text-xs text-ink">/history/entries/{id}/revert</code></template>
+          <template #undo><code class="font-mono text-xs text-ink">/history/cursor/undo</code></template>
+          <template #redo><code class="font-mono text-xs text-ink">/history/cursor/redo</code></template>
+          <template #override><code class="font-mono text-xs text-ink">override</code></template>
+          <template #false><code class="font-mono text-xs text-ink">false</code></template>
+          <template #true><code class="font-mono text-xs text-ink">true</code></template>
+          <template #rest>
+            <NuxtLink :to="sitePath('/docs/rest/history')" class="text-accent hover:underline">{{ t('docsHistory.s7.rest') }}</NuxtLink>
+          </template>
+          <template #codes>
+            <NuxtLink :to="sitePath('/docs/rest/refusal-codes')" class="text-accent hover:underline">{{ t('docsHistory.s7.codes') }}</NuxtLink>
+          </template>
+        </i18n-t>
       </div>
     </section>
   </div>

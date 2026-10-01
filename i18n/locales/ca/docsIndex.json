@@ -1,0 +1,119 @@
+{
+  "docsIndex": {
+    "seo": {
+      "title": "Documentació — OpenMixer",
+      "description": "Documentació tècnica, el manual de l'operador, documentació d'usuari i preguntes freqüents: tot el que s'ha publicat sobre OpenMixer, generat allà on la taula ho pot generar i escrit a mà allà on cal una persona."
+    },
+    "hero": {
+      "eyebrow": "Documentació",
+      "title": "Quatre tipus de document, una sola pàgina per trobar-los.",
+      "lede": "Documentació tècnica per desenvolupar contra la taula, un manual de l'operador per fer-la anar, documentació d'usuari per posar-la en marxa i unes preguntes freqüents amb respostes directes. La documentació tècnica es genera a partir del contracte en execució sempre que la taula la pot generar; la resta l'escriu una persona, que avisa quan un capítol encara no hi és. A més, tot s'instal·la amb la taula: una instal·lació amb paquets serveix tot el conjunt en local, de manera que una taula sense internet continua tenint el seu manual."
+    },
+    "chapters": {
+      "gettingStarted": {
+        "title": "Primers passos",
+        "blurb": "D'una còpia del codi compilada a un canal que se sent al mix principal: engegueu la taula, connecteu una entrada i escolteu-la."
+      },
+      "recording": {
+        "title": "L'enregistrament i la prova de so virtual",
+        "blurb": "Armar canals, què captura una presa, la biblioteca de preses i com es fa una prova de so: carregar, activar, reproduir, expulsar."
+      },
+      "history": {
+        "title": "Desfer i l'historial",
+        "blurb": "Un sol registre de canvis per a tota la taula, desfer i refer, revertir un sol canvi del mig de la llista i què no guarda mai el registre, expressament."
+      },
+      "templates": {
+        "title": "Plantilles de canal",
+        "blurb": "Desar el processament d'un canal per reutilitzar-lo, les plantilles d'instrument de fàbrica que només fixen la cadena i la vista prèvia del que canviaria si l'apliquéssiu."
+      },
+      "plugins": {
+        "title": "Els plugins i el rack d'inserts",
+        "blurb": "Muntar un plugin en un canal o en una sortida de bus, el selector, l'editor generat, mono enfront d'estèreo i el pressupost de latència que fixa la destinació."
+      },
+      "reacRole": {
+        "title": "El paper al segment REAC",
+        "blurb": "Quin extrem d'un cable REAC fa la taula (taula de mescles, enregistrador o automàtic), en què es basa el mode automàtic per decidir i les frases que dona quan no accepta un paper."
+      }
+    },
+    "faqGroups": {
+      "what": "Què és",
+      "running": "Fer-lo funcionar",
+      "building": "Construir-hi a sobre",
+      "recording": "L'enregistrament i la prova de so virtual",
+      "refuses": "Quan la taula s'hi nega",
+      "trust": "Si us en podeu fiar"
+    },
+    "tech": {
+      "eyebrow": "Documentació tècnica",
+      "title": "Referència per a desenvolupadors i integradors.",
+      "intro": "Generada a partir del contracte de la mateixa taula en execució, no escrita a mà: cada document porta la seva data i no pot descriure cap control que el servidor no serveixi de debò.",
+      "api": {
+        "title": "Referència de l'API",
+        "body": "TSDoc de {'@'}openmixer/core i de la interfície pública del servidor, generat amb typedoc."
+      },
+      "rest": {
+        "title": "Referència REST",
+        "body": "{count} files adreçables, amb els seus camps, rangs i codis de rebuig."
+      },
+      "openapi": {
+        "title": "Document OpenAPI 3.1",
+        "body": "El mateix espai d'adreces en un sol document estàndard, llegible per les eines."
+      },
+      "abstractions": {
+        "title": "Catàleg d'abstraccions",
+        "body": "{count} elements reutilitzables (tipus, composables, components, biblioteques C), cadascun en una línia."
+      },
+      "mcp": {
+        "title": "El servidor MCP",
+        "body": "{count} eines per stdio per llegir una taula en execució i el disseny del mateix arbre de codi, a més de les habilitats de procés que guarda el repositori."
+      },
+      "architecture": {
+        "title": "Arquitectura",
+        "body": "Com està construïda la taula i per què: el bus de suma únic, la gramàtica de les files, el DSP natiu enfront dels inserts allotjats i els registres de decisions."
+      }
+    },
+    "manual": {
+      "eyebrow": "El manual",
+      "title": "Fer anar la taula.",
+      "intro": "El manual de l'operador es publica aquí des de la mateixa font que la taula serveix sense connexió, de manera que les pàgines que es llegeixen en línia i les que una taula ofereix a un tècnic en una sala sense internet són un sol document. Té el seu propi índex: seguiu-lo fins als capítols en lloc de llegir-ne aquí una segona còpia.",
+      "operator": {
+        "title": "Manual de l'operador",
+        "body": "Tots els capítols, agrupats com la superfície: la taula, el mix i com es porta una actuació, des de la zona de faders fins a la referència del teclat."
+      },
+      "install": {
+        "title": "Instal·lació",
+        "body": "Què són els paquets, què posa cadascun a la màquina, quins serveis s'executen i què sobreviu a una actualització."
+      },
+      "troubleshooting": {
+        "title": "Resolució de problemes",
+        "body": "Escrit a partir del símptoma que podeu observar — un MAIN en silenci, un àudio granulat, una caixa que no estableix l'enllaç — perquè és el que teniu quan el necessiteu."
+      },
+      "hardware": {
+        "title": "Maquinari",
+        "body": "Els stagebox REAC, el rellotge i la freqüència de mostratge, a més dels errors de cablatge i d'interfície de xarxa que, sense fer soroll, us poden fer perdre una actuació."
+      },
+      "admin": {
+        "title": "Administració",
+        "body": "Quin fitxer mana sobre cada paràmetre, les variables d'entorn, els ports, on es desa l'estat, de què cal fer còpia de seguretat i on són els registres."
+      },
+      "siteTitle": "Escrits també per a aquest web",
+      "siteNote": "Capítols redactats aquí i no a l'arbre del manual. Tracten temes que el manual encara no inclou; a quin dels dos hauria de pertànyer cadascun és una qüestió oberta."
+    },
+    "faq": {
+      "eyebrow": "Preguntes freqüents",
+      "title": "Preguntes amb respostes directes.",
+      "body": "També aquelles en què la resposta és no. {groups}. El manual té unes altres preguntes freqüents, més curtes, per a les qüestions d'aritmètica; aquestes tracten del producte.",
+      "button": "Llegiu les preguntes freqüents"
+    },
+    "gaps": {
+      "eyebrow": "Encara en preparació",
+      "title": "El que la documentació encara no cobreix.",
+      "intro": "Un manual escrit és una afirmació com qualsevol altra, així que aquesta pàgina diu on són els buits en lloc de deixar que els trobeu vosaltres.",
+      "surfaces": "<span class=\"text-ink\">Superfícies de control.</span> Encara no hi ha cap capítol per a l'operador sobre la X-Touch, perquè no s'ha fet funcionar res amb maquinari real a partir del qual escriure'l.",
+      "deployment": "<span class=\"text-ink\">Una guia de desplegament més enllà d'una sola màquina.</span> Una taula en una sola màquina està documentada. Res més gran no ho està.",
+      "screenshots": "<span class=\"text-ink\">Captures de pantalla.</span> El manual explica els controls amb paraules; s'estan fent les imatges de la superfície que descriu.",
+      "arithmetic": "<span class=\"text-ink\">Les preguntes d'aritmètica del manual.</span> Les preguntes freqüents del producte, aquí dalt, ja estan escrites; les del manual, més curtes, per a les qüestions d'aritmètica (la suma a mono, quants dB fan el doble de volum), encara no són un capítol.",
+      "notPublished": "Les notes de desenvolupament, els registres de disseny i el material de treball no formen part del conjunt publicat i no s'enllacen aquí. El que es publica és documentació escrita per ser llegida o generada directament del mateix contracte amb què respon la taula."
+    }
+  }
+}

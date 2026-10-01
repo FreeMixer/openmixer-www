@@ -1,0 +1,77 @@
+{
+  "docsRecording": {
+    "seo": {
+      "title": "Enregistrament i prova de so virtual — OpenMixer",
+      "description": "Com s'armen els canals, quins punts de captura enregistra cada canal, la biblioteca de preses, com s'exporta el print del mix principal i com es fa una prova de so virtual: carregar, activar, reproduir, expulsar."
+    },
+    "hero": {
+      "eyebrow": "Manual — Enregistrament i prova de so virtual",
+      "title": "Enregistreu una actuació i torneu-la a mesclar sense la banda.",
+      "lede": "L'enregistrament multipista i la prova de so virtual ja han fet la primera presa real a l'equip —vuitanta-quatre pistes— però encara no han cobert cap actuació. Consulteu les limitacions conegudes abans de confiar-hi res que no us pugueu permetre perdre. El que es descriu a continuació és el que la taula fa avui; el que encara s'està construint s'indica com a tal al final del capítol."
+    },
+    "captures": {
+      "title": "Què captura una presa.",
+      "default": "No cal omplir cap selector de canals abans d'enregistrar. Totes les entrades connectades i MAIN estan armades per defecte: el que feu és <span class=\"text-ink\">excloure</span> un canal, no pas incloure'n. Un canal que no té res connectat no enregistraria res que valgués la pena, així que la taula el deixa fora del conjunt calculat sense canviar el que heu demanat: si més endavant hi connecteu alguna cosa, torna a quedar armat sense cap pas més. Els canals aux i matrix no s'armen si no ho demaneu.",
+      "patched": "Connectat vol dir que el senyal arriba de debò, no que la llista de patch digui que hauria d'arribar. La taula pregunta al graf d'àudio si hi ha un enllaç des de la font fins a l'entrada del canal. Un canal amb el patch encara per fer —una stagebox que no ha aparegut, un dispositiu que el graf encara no ofereix— queda fora de la presa encara que la taula el mostri connectat. Aquesta distinció es va aprendre per les males: una presa de vuitanta-quatre pistes en què els dos fitxers d'un canal eren capçaleres de 94 bytes, descoberta l'endemà al matí.",
+      "omissions": "Per això la taula diu què no enregistra, una sola vegada, en el moment que comença la presa i el conjunt de canals armats queda fixat: els canals que ha deixat fora apareixen al registre de la taula amb el motiu, que és una font declarada sense cap enllaç a l'entrada del canal. Tampoc no compten en el nombre de canals armats que podeu consultar mentre la presa avança; la presa no porta cap pista per a ells. Una presa en curs informa de les omissions amb què va començar i no les torna a calcular, de manera que connectar un canal a mitja actuació no fa mai semblar que la presa l'hauria pogut enregistrar.",
+      "taps": "Per defecte, cada canal armat es captura en dos punts: l'entrada en brut (just després del trim) i el senyal post-fader. Així, una remescla posterior té tant la font intacta com el que realment vau enviar a la sala aquella nit. Als canals d'entrada se'ls ofereix un tercer punt, pre-fader. Els tres formen un conjunt i no una elecció: un canal pot enregistrar pre-fader i post-fader alhora. Als màsters de bus se'ls ofereix un sol punt, post-fader: és una característica declarada dels busos, no un descuit.",
+      "tapsFixed": "Els punts de captura que enregistra un canal es decideixen quan comença la presa. Canviar-los mentre una presa està en marxa no mou res ni costa res: és una decisió sobre els fitxers que obrirà la presa següent.",
+      "setFixed": "El conjunt de canals és fix durant tota la presa. Armar o desarmar un canal mentre una presa està en marxa no afecta aquella presa: el conjunt es va decidir expressament en el moment que va començar. Una captura que pogués guanyar una pista a mitja actuació és una captura en què ningú no pot dir després què contenien realment els deu primers minuts."
+    },
+    "recording": {
+      "title": "Enregistrar una presa.",
+      "transport": "Cada canal porta un control d'enregistrament que mostra si està armat. L'enregistrament en si és un transport de tota la taula, no de cada canal: quan l'engegueu, tots els canals armats en aquell moment comencen alhora; quan l'atureu, la presa passa a formar part de la biblioteca.",
+      "refuses": "En engegar, la taula prefereix rebutjar que començar a mitges: si no hi ha res armat, si ja hi ha una presa en marxa o si l'espai de disc és inferior al que la presa necessita per obrir-se amb seguretat, ho diu abans de la primera mostra en lloc de deixar-vos una carpeta per netejar. El rebuig dona les xifres —quant espai necessitava i quant n'hi havia— perquè amb «no hi ha prou espai» no podeu fer res i amb «necessita 14 GB i n'hi ha 3» sí."
+    },
+    "library": {
+      "title": "La biblioteca de preses.",
+      "listed": "Totes les preses que s'han acabat d'enregistrar hi apareixen, de la més nova a la més antiga, amb l'hora d'inici i la durada. No es poden pujar ni importar preses —l'única manera que una presa entri a la biblioteca és enregistrar-la— i, expressament, encara no es poden esborrar: esborrar una presa multipista amb seguretat, mentre un render o una prova de so la poden tenir oberta, és una feina real que la taula encara no ha fet. Un botó d'esborrar que no és segur és pitjor que no tenir-ne cap.",
+      "files": "Els fitxers són WAV normals (RF64 quan una pista passa de 4 GB i RIFF WAV ordinari per sota; qualsevol lector els tracta igual): un fitxer mono de coma flotant de 32 bits per pista, a la freqüència de mostratge a què funcionava el graf quan es va enregistrar la presa.",
+      "legs": "Un fitxer per pista vol dir un fitxer per via, de manera que un canal estèreo n'aporta dos, que comparteixen canal i punt de captura. Cadascun indica el seu costat, esquerre o dret, al registre de la presa, perquè res del que ve després hagi de deduir un parell estèreo de l'ordre en què surten llistats els fitxers. Els noms de fitxer continuen sent el número de pista i el punt de captura —<code class=\"font-mono text-sm text-ink\">ch09.post-fader.wav</code>— perquè això és el que evita que un DAW posi el punt de captura equivocat sota la veu; el costat consta al registre que els acompanya. Les preses enregistrades abans que s'anotés el costat no el porten."
+    },
+    "print": {
+      "title": "El print del mix principal.",
+      "armed": "MAIN s'arma com qualsevol altre canal, així que la presa ja conté el mix que vau fer aquella nit: el print. Exportar-lo escriu aquesta única captura en un WAV de 24 bits, al costat dels stems i mai al damunt; els stems queden tal com són.",
+      "notSummed": "Per obtenir-lo no se suma res. Una suma fora de línia dels stems respondria una altra pregunta: els stems es capturen abans del processament, de manera que la seva suma són les entrades de la taula i no l'actuació. El print és l'actuació.",
+      "clipping": "El clipping es comunica en lloc d'amagar-se. Una mostra que passa del topall s'hi retalla i es compta. El recompte i el pic real (true peak), mesurat abans del topall, queden anotats a la presa: sabreu que l'actuació va saturar per l'exportació i no perquè algú ho senti més endavant.",
+      "render": "No és la mateixa acció que un render. Un render és la passada de millora fora de línia sobre les pistes que seleccioneu i n'escriu una còpia millor de cadascuna; l'exportació llegeix un fitxer i n'escriu un. Per això, també, una prova de so en reproducció no bloqueja una exportació però sí un render: negar-vos el print perquè hi ha alguna cosa sonant seria una norma sense cap cost real que la justifiqués.",
+      "refuses": "Una exportació prefereix rebutjar abans que produir un fitxer que no sigui el print: quan la presa no porta cap captura de MAIN, quan aquesta captura no conté cap mostra, quan no es pot llegir com a fitxer d'àudio, quan no hi ha prou espai de disc i quan ja n'hi ha una en marxa. Cada rebuig diu de quin d'aquests casos es tracta."
+    },
+    "empty": {
+      "title": "Pistes que la presa no ha pogut omplir.",
+      "header": "Un canal que estava armat però que no ha rebut mai cap buffer enregistra un fitxer amb capçalera i res més. La presa no es rebutja per això i la pista no desapareix en silenci: la presa compta quantes de les seves pistes se sap que són buides i, a part, de quantes no pot dir res, perquè una presa feta abans que la taula mesurés això no porta cap resposta en lloc d'un zero.",
+      "drops": "Una pista buida no és el mateix que una presa que ha perdut mostres. El fil d'àudio se salta del tot un canal sense cap camí de senyal connectat, de manera que no s'ha perdut res i la presa informa honestament que no hi ha pèrdues. Són dos fets i cap dels dos implica l'altre.",
+      "soundcheck": "La conseqüència us la trobareu a la prova de so: un canal amb la pista buida a la presa es queda a la seva entrada en directe en lloc de passar a silenci; la taula indica quins canals són. Si això fa que no quedi cap canal activat, la reproducció es rebutja en lloc de fer anar un transport que cap canal no escolta.",
+      "tags": "Tots dos recomptes apareixen a la presa, allà on la trieu. Una presa amb pistes que se sap que són buides porta una etiqueta del vermell d'enregistrament amb quantes en són —<span class=\"font-mono text-sm text-ink\">2 BUIDES</span>— perquè és la que us costarà una prova de so. Una presa amb pistes que no es van mesurar mai porta en canvi una etiqueta discontínua <span class=\"font-mono text-sm text-ink\">SENSE MESURAR</span>, en un color neutre: és una presa escrita abans que la taula mesurés això; pintar-la de vermell faria semblar espatllades totes les preses antigues. Les mostres perdudes són encara una tercera etiqueta; cap de les tres n'implica cap altra.",
+      "honest": "Amagar una pista buida seria pitjor que mostrar-la tal com és. És així com us assabenteu des de la biblioteca que un canal no ha enregistrat res, en lloc de descobrir-ho per un canal en silenci a la prova de so següent."
+    },
+    "vsc": {
+      "title": "Fer una prova de so virtual.",
+      "intro": "Una prova de so virtual reprodueix una presa a través de la taula en directe com si la banda tornés a ser a l'escenari, perquè pugueu ajustar monitors, provar una cadena de plugins nova o formar un operador sense que ningú toqui ni una nota. Són quatre passos, en aquest ordre.",
+      "load": "<span class=\"text-ink\">Carregar.</span> Trieu una presa de la biblioteca. A la taula encara no canvia res.",
+      "engage": "<span class=\"text-ink\">Activar.</span> Aquest és el pas que arriba realment als canals: cada canal que té una pista corresponent a la presa deixa d'escoltar la seva entrada en directe i passa a escoltar aquella pista. Un canal per al qual la presa no té res queda com estava, a la seva entrada en directe: una prova de so no substitueix mai per silenci un micròfon que funciona.",
+      "play": "<span class=\"text-ink\">Reproduir.</span> Mou el transport de la presa. Reproduir vol dir sentir-la, de manera que prémer-lo sense res activat es rebutja en lloc d'obeir-se: <span class=\"text-ink\">cap canal no escolta la presa, així que sonaria sense que ningú la sentís — activeu primer un canal o comproveu que la presa pot alimentar aquests canals</span>. Un transport que avançava cap a una sala buida mentre el número de posició pujava és la mena de control que funciona i que us fa perdre una prova de so.",
+      "eject": "<span class=\"text-ink\">Expulsar.</span> Una sola acció: atura la reproducció, torna cada canal activat a la seva entrada en directe i descarrega la presa. No hi ha expulsió parcial.",
+      "rate": "El camí de reproducció en directe continua sense remostrejador i no en tindrà mai: una pista que s'entrega al graf ja ha d'estar a la freqüència de mostratge del graf. Però una presa enregistrada a una altra freqüència no es rebutja per això: en carregar-la, es converteixen les pistes que es reproduiran, fora de línia i al disc, abans que existeixi cap transport; després el node obre fitxers normals a la seva pròpia freqüència. La conversió queda desada a la carpeta de la mateixa presa, de manera que una segona càrrega només costa una comprovació de fitxer. Només es rebutja allò que la conversió no pot resoldre —no hi ha cap convertidor integrat o la conversió no s'ha pogut acabar— i aquest rebuig indica totes dues freqüències.",
+      "exclusive": "L'enregistrament i la prova de so virtual no poden funcionar alhora: tots dos fan servir l'únic graf d'àudio. Engegar-ne un mentre l'altre l'ocupa es rebutja en lloc de quedar en cua en silenci."
+    },
+    "arriving": {
+      "eyebrow": "Properament",
+      "title": "El que aquest capítol encara no descriu, perquè encara no està fet.",
+      "items": {
+        "wall": "Un mode mosaic per armar: toqueu cada quadre de canal per armar-lo o desarmar-lo, amb opcions per seleccionar-ho tot o res, el mateix gest que ja fa servir sends-on-fader. Avui, els canals s'armen d'un en un.",
+        "transport": "Un botó de reproduir/pausa i un ajust fi de ±1 segon al transport de la prova de so virtual, al costat del control de desplaçament. Avui, la reproducció només està activada o aturada i la posició s'estableix directament.",
+        "topBar": "Un botó d'enregistrament a la barra superior i un LED d'enregistrament visible des de qualsevol pàgina. Avui, el control d'enregistrament és al canal.",
+        "metadata": "Que els fitxers de la presa portin metadades BWF i iXML (nom del canal, font del patch, punt de captura) perquè un DAW mostri els noms sense que ningú els hagi de tornar a escriure. Avui, aquesta informació només és al fitxer annex de la mateixa presa.",
+        "flac": "Un print en FLAC. L'exportació escriu WAV de 24 bits, que és la profunditat correcta però el contenidor equivocat per a un lliurament que ha de viatjar.",
+        "button": "Un botó que llanci el print. L'exportació està disponible i funciona, però encara no l'ofereix cap superfície; avui es llança per l'API.",
+        "tapPicker": "Un selector de punts de captura al canal. Els punts que enregistra un canal són un camp que la taula serveix i accepta, però cap control no l'escriu; per això avui un canal enregistra el seu conjunt per defecte, tret que alguna cosa el controli per l'API."
+      }
+    },
+    "reference": {
+      "text": "Els camps exactes de cada pas anterior —{record}, {vsc}, {takes}, {export}, {channel}— són a la {rest}, inclòs el rebuig que pot retornar cada camp i què vol dir, als {refusals}.",
+      "rest": "referència REST",
+      "refusals": "codis de rebuig i d'etiquetes de desfer"
+    }
+  }
+}
