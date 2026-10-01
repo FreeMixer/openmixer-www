@@ -1,0 +1,25 @@
+{
+  "docsAbstractions": {
+    "seo": {
+      "title": "Abstractions catalog — OpenMixer",
+      "description": "Every reusable element in the codebase — types, components, widgets, libraries and modules — one line each, so a change composes an existing element before it writes a new one."
+    },
+    "hero": {
+      "eyebrow": "Tech docs — Abstractions catalog",
+      "title": "Every reusable element, in one place.",
+      "lede": "Two kinds of code exist here: a reusable element, or configuration composing one. This page is the inventory of the first kind — types, components, widgets, libraries and modules — so a change reaches for what already exists before it writes something new."
+    },
+    "intro": "The web-ui and native-C halves below are curated by hand, because typedoc reads TSDoc, not Vue single-file components or C headers. The <code class=\"font-mono text-xs text-ink\">{'@'}openmixer/core</code> and <code class=\"font-mono text-xs text-ink\">{'@'}openmixer/server</code> halves are generated straight from their TSDoc comments — {generated} exported symbols, {documented} of them with a summary.",
+    "col": {
+      "name": "Name",
+      "package": "Package",
+      "summary": "Summary"
+    },
+    "generated": {
+      "eyebrow": "Generated — core + server",
+      "title": "The TypeScript public surface.",
+      "filter": "Filter by name, package or summary…",
+      "none": "No symbol matches \"{filter}\"."
+    }
+  }
+}
