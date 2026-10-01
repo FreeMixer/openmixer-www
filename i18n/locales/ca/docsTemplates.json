@@ -19,7 +19,7 @@
         "dynamics": "L'EQ, el gate i el compressor.",
         "inserts": "El rack d'inserts i l'ordre en què s'executa el processament.",
         "gain": "El guany digital, el trim i el pan.",
-        "headAmp": "L'alimentació phantom, el pad i el guany del previ.",
+        "headAmp": "El Phantom 48V, el pad i el guany del previ.",
         "polarity": "La polaritat i el retard d'alineació, amb la referència respecte a la qual s'alinea."
       },
       "notCarried": {
