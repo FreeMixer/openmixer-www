@@ -1,0 +1,18 @@
+{
+  "docsRefusalCodes": {
+    "seo": {
+      "title": "Refusal and undo-label codes — OpenMixer",
+      "description": "Every refusal, warning and undo-entry code the server can send, with the parameters each one carries — generated from the code’s own message registry."
+    },
+    "col": {
+      "code": "Code",
+      "params": "Parameters",
+      "doc": "What it means"
+    },
+    "eyebrow": "REST reference",
+    "title": "Refusal and undo-label codes",
+    "lede": "Nothing below the surface ever emits display prose. A refusal, a warning or an undo-entry label travels as a stable code plus a small record of named parameters, and the client renders it in the operator's own locale. {count} codes, generated from the registry that also gates the server's own build.",
+    "allFamilies": "All families",
+    "see": "See {type}."
+  }
+}

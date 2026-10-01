@@ -1,0 +1,62 @@
+{
+  "docsGettingStarted": {
+    "seo": {
+      "title": "Primers passos — OpenMixer",
+      "description": "D'una còpia del codi compilada a un canal que se sent al mix principal: engegueu el servidor i la superfície, connecteu una entrada i escolteu-la."
+    },
+    "hero": {
+      "eyebrow": "Documentació d'usuari — Primers passos",
+      "title": "De no res a un canal al mix.",
+      "lede": "Tot el que segueix dona per fet que teniu una còpia del codi compilada; vegeu Instal·lar si encara no en teniu cap. Aquest capítol fa una sola feina: engegar la taula, connectar-hi una entrada real i sentir-la a MAIN. Quan això funcioni, la resta del manual tracta de tot el que OpenMixer pot fer més enllà d'això."
+    },
+    "code": {
+      "fromTop": "Des de l'arrel d'una còpia del codi compilada; vegeu Instal·lar si encara no en teniu cap.",
+      "secondTerminal": "En un segon terminal, la superfície:",
+      "thirdTerminal": "Des d'un tercer terminal, en qualsevol moment: això és el que vol dir «al mix» al protocol."
+    },
+    "s1": {
+      "title": "Engegueu la taula i la superfície.",
+      "p1": "Dos processos, dos terminals. El servidor és la taula: és el propietari del mix i no necessita cap fitxer de configuració per arrencar. La superfície és una pàgina web normal; no té cap privilegi respecte a qualsevol altre client que més endavant es connecti al mateix servidor.",
+      "p2": "El servidor de desenvolupament mostra l'adreça que cal obrir, normalment <code class=\"font-mono text-ink-dim\">http://localhost:3000</code>. La superfície no porta l'adreça de la taula escrita al codi: descobreix el punt d'accés a partir de l'origen que l'ha servida, de manera que la mateixa compilació funciona des d'un mòbil a la mateixa xarxa sense haver de tornar-la a compilar."
+    },
+    "s2": {
+      "title": "Mireu la capçalera abans de tocar cap fader.",
+      "p1": "Obriu la pàgina. L'indicador de connexió de la capçalera diu si esteu veient la taula en directe o la simulació fora de línia: una taula simulada que la superfície mostra pel seu compte quan no respon cap servidor, precisament perquè es puguin aprendre els controls sense res al darrere. Si esperàveu una taula en directe i moure un fader no fa res, gairebé sempre és per això: mireu l'indicador abans de suposar que hi ha cap altra cosa espatllada."
+    },
+    "s3": {
+      "title": "Connecteu una entrada real al canal 1.",
+      "p1": "La llista de canals ja existeix: el nombre de canals d'una taula es fixa en arrencar i el canal 1 hi és tant si rep senyal com si no. El que escolta és una altra qüestió: obriu el patchbay i connecteu una font real (n'hi ha prou amb la primera entrada d'una interfície USB senzilla; no cal cap stagebox) a l'entrada del canal 1. No cal crear res abans."
+    },
+    "s4": {
+      "title": "Pugeu el canal i envieu-lo a MAIN.",
+      "p1": "Al canal 1, comproveu que no estigui en mute i pugeu el fader cap a la unitat. Tots els canals sumen a MAIN per defecte, així que no hi ha cap pas d'encaminament a part: el vúmetre del canal 1 i el de MAIN s'haurien de moure junts tan bon punt hi hagi senyal a l'entrada connectada. Si MAIN es mou però no sentiu res, el problema és després de la taula: el patch de sortida de MAIN o allò on estigui connectat MAIN."
+    },
+    "s5": {
+      "title": "Comproveu-ho sense fer servir les orelles, si en voleu estar segurs.",
+      "p1": "La taula es pot adreçar a mà, expressament. Això llegeix exactament el fader que acabeu de moure, directament del servidor:",
+      "p2": "{position} és el valor de 0 a 1 on és el capçal del fader; {db} és el guany que correspon a aquesta posició. Afegiu-hi {watch} per seguir-lo en directe en lloc de llegir-lo un sol cop; tot l'espai d'adreces és a la {link}.",
+      "link": "referència REST"
+    },
+    "next": {
+      "eyebrow": "I ara què",
+      "title": "Un canal funciona. Setze funcionen igual.",
+      "listTitle": "Continueu amb el manual",
+      "surface": {
+        "title": "La superfície",
+        "blurb": "La capçalera, els xips de disposició, la zona de faders i on són les coses que no trobareu on les buscaríeu primer."
+      },
+      "strip": {
+        "title": "El canal",
+        "blurb": "L'ordre del senyal, el trim, els controls de la cel·la, seleccionar i posar nom: tot el que acabeu de fer al canal 1, en detall."
+      },
+      "patchbay": {
+        "title": "El patchbay i el graf",
+        "blurb": "Connexions en matriu de punts de creuament i canals amb diverses fonts, més enllà de l'única entrada que acabeu de connectar."
+      },
+      "sends": {
+        "title": "Sends, busos, grups i DCA",
+        "blurb": "Un cop hi ha un canal al mix, així és com s'hi afegeix un segon sense prendre-li marge dinàmic al primer."
+      }
+    }
+  }
+}

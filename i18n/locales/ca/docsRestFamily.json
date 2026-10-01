@@ -1,0 +1,14 @@
+{
+  "docsRestFamily": {
+    "notFound": "No hi ha cap família REST amb aquest nom",
+    "seo": {
+      "title": "{root} — referència REST — OpenMixer",
+      "description": "Totes les adreces que pengen de {root}: camps, rangs i una resposta d'exemple, generats a partir del contracte del mateix servidor."
+    },
+    "eyebrow": "Referència REST",
+    "count": "{count} adreça sota {root}. | {count} adreces sota {root}.",
+    "allFamilies": "Totes les famílies",
+    "refusalCodes": "Codis de refús",
+    "root": "Arrel"
+  }
+}

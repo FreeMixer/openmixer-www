@@ -5,6 +5,7 @@
  * copies the commands only, comments and blank lines left out.
  */
 const props = defineProps<{ lines: readonly string[] }>();
+const { t } = useI18n();
 const copied = ref(false);
 async function copy() {
   const text = props.lines.filter((l) => l && !l.startsWith('#')).join('\n');
@@ -28,7 +29,7 @@ async function copy() {
       size="xs"
       color="neutral"
       variant="outline"
-      :label="copied ? 'Copied' : 'Copy'"
+      :label="copied ? t('common.code.copied') : t('common.code.copy')"
       @click="copy"
     />
   </div>
