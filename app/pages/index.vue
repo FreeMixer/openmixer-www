@@ -48,7 +48,7 @@ const cards = [
   {
     icon: 'i-lucide-server',
     title: 'Stagebox in, PA out',
-    text: '40 channels at 96 kHz over native REAC, with no AES67 conversion. Roland S-4000S, S-1608 and S-4000H stageboxes join sample-synchronous.',
+    text: '40 channels at 96 kHz over native REAC. Roland S-4000S, S-1608 and S-4000H stageboxes join sample-synchronous.',
     status: 'In progress',
     tone: 'prog',
   },
