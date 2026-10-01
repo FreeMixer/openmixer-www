@@ -30,6 +30,14 @@
 # site's prefix and publishes its /docs/** tree here — one source, one renderer, and
 # nothing of the prose committed twice. See scripts/build-docs-tree.mjs.
 #
+# ONLY LISTED PAGES. That build runs on a sparse copy of the checkout holding only the
+# pages named in deploy/public-docs.txt: run on the whole checkout it bundled every
+# private design note into one JS chunk (2026-10-01). Then scripts/check-public.mjs reads
+# every text file of the finished site and fails the run on a home path, the agent notes,
+# an internal host name or a private address. The workflow was disabled after that leak;
+# re-enable it (Actions -> pages -> Enable workflow, or `gh workflow enable pages`) only
+# once these two steps are on main.
+#
 # THE TOKEN. FreeMixer/openmixer is private, so the checkout below needs a
 # credential with read access to it (Settings -> Secrets -> Actions:
 # OPENMIXER_DOCS_KEY, the private half of a read-only deploy key registered on that repository).
@@ -111,6 +119,11 @@ jobs:
       # After the docs tree and the redirect pages are in place, so every link is
       # checked in the tree that is published.
       - run: npm run docs:links
+
+      # Nothing private leaves this runner: the guard's own tests, then the guard over the
+      # whole published tree. A hit fails the run before anything is pushed.
+      - run: node --test scripts/*.test.mjs
+      - run: npm run check:public
 
       # The root site, with the package repositories in it. The token is only needed to
       # push; a pull request reads the public repository without it.
