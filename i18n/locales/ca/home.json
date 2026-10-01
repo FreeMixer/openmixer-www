@@ -31,7 +31,7 @@
       "lede": "La majoria d'aplicacions de mescla són comandaments a distància d'una taula física. Amb OpenMixer l'àudio passa pel programari: al mig hi ha un model de taula que no correspon a cap taula concreta; el motor, les superfícies i les entrades i sortides s'hi connecten. {link}.",
       "ledeLink": "Com està construït",
       "pathLabel": "El camí del senyal d'un canal",
-      "shotAlt": "La superfície d'OpenMixer: un canal amb guany, trim, pan, alimentació phantom i la corba d'EQ, a sobre d'un banc de setze faders i el canal principal.",
+      "shotAlt": "La superfície d'OpenMixer: un canal amb guany, trim, pan, Phantom 48V i la corba d'EQ, a sobre d'un banc de setze faders i el canal principal.",
       "shotCaption": "La taula en funcionament. El canal 9 seleccionat al seu rack de processament; a sota, setze canals d'entrada i el MAIN.",
       "featuresLabel": "Què fa avui la taula"
     },
@@ -74,7 +74,7 @@
     "stands": {
       "eyebrow": "On som",
       "lead": "El motor natiu mescla actuacions reals des del juliol del 2026.",
-      "rig": "Funciona en un equip real, amb un stagebox Roland i una RME Babyface Pro. L'alimentació phantom s'ha comprovat als pins de l'XLR, dos stageboxes han funcionat alhora i la freqüència de mostratge s'ha canviat entre 48 i 96 kHz amb el sistema en marxa.",
+      "rig": "Funciona en un equip real, amb un stagebox Roland i una RME Babyface Pro. El Phantom 48V s'ha comprovat als pins de l'XLR, dos stageboxes han funcionat alhora i la freqüència de mostratge s'ha canviat entre 48 i 96 kHz amb el sistema en marxa.",
       "missing": "Algunes parts encara no hi són. L'enregistrament no ha capturat mai cap actuació, el suport per a X-Touch no s'ha provat mai amb maquinari real i la matrix no porta àudio. Els amfitrions de plugins ja estan empaquetats; la taula en si encara no s'ha publicat.",
       "features": "{link} indica fins on s'ha provat cada element i enumera les limitacions conegudes.",
       "featuresLink": "La pàgina de funcions"
@@ -82,7 +82,7 @@
     "finished": {
       "eyebrow": "Quan donem una cosa per acabada",
       "quote": "Si un control diu que afecta l'àudio, mesureu l'àudio.",
-      "text": "Un control pot retornar el seu valor perfectament i no arribar enlloc. Per això el processament es contrasta amb valors calculats sobre el paper, els canvis es comproven al graf d'àudio en marxa i, per afirmar que hi ha alimentació phantom, cal una persona al connector, mai un llum en una pantalla."
+      "text": "Un control pot retornar el seu valor perfectament i no arribar enlloc. Per això el processament es contrasta amb valors calculats sobre el paper, els canvis es comproven al graf d'àudio en marxa i, per afirmar que hi ha Phantom 48V, cal una persona al connector, mai un llum en una pantalla."
     },
     "native": {
       "eyebrow": "Integrat al motor",

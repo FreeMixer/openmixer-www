@@ -30,7 +30,7 @@ EQ, pan, xrun. Latency is latència.
 | desk | taula | escriptori |
 | channel, channel strip | canal | tira de canal |
 | head-amp, preamp | previ | preamplificador de capçal |
-| phantom power | alimentació phantom | poder fantasma |
+| phantom power | Phantom 48V | alimentació fantasma, alimentació phantom, poder fantasma |
 | track | pista | |
 | recording | enregistrament | gravació |
 | sample rate | freqüència de mostratge | taxa de mostra |

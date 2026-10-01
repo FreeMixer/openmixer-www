@@ -11,7 +11,7 @@
     },
     "sentences": {
       "fader": { "line": "fader de CH3 −6.0 → −12.0", "note": "Un moviment de fader. Un arrossegament és una entrada, no quaranta." },
-      "phantom": { "line": "alimentació phantom de CH1 desactivat → activat", "note": "Un canvi discret: els dos valors són les paraules que fa servir el control." },
+      "phantom": { "line": "Phantom 48V de CH1 desactivat → activat", "note": "Un canvi discret: els dos valors són les paraules que fa servir el control." },
       "send": { "line": "send CH3 → Aux1 −20.0 → −14.0", "note": "Un send anomena els dos extrems, perquè «send» tot sol no diria quin és." },
       "paste": { "line": "Enganxa a 8 canals", "note": "Un sol gest que ha tocat vuit canals és una sola entrada que es desfà d'una vegada." },
       "order": { "line": "Ordre de canals", "note": "Una reordenació no té un abans i un després que valgui la pena mostrar, així que no en mostra cap." }

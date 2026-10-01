@@ -349,13 +349,13 @@
             "q": "Com sabeu que un control arriba de debò a l'àudio?",
             "a": [
               "Mesurant l'àudio. Un control pot retornar el valor perfectament sense arribar enlloc. Una prova que només pregunta al model si ha canviat sempre li donarà la raó.",
-              "Per això el processament de senyal es comprova amb valors calculats sobre el paper i no capturats d'una execució, els canvis al graf es verifiquen sobre el graf en directe i no sobre un model. Una afirmació sobre l'alimentació phantom necessita una persona al connector, no un indicador a la pantalla."
+              "Per això el processament de senyal es comprova amb valors calculats sobre el paper i no capturats d'una execució, els canvis al graf es verifiquen sobre el graf en directe i no sobre un model. Una afirmació sobre el Phantom 48V necessita una persona al connector, no un indicador a la pantalla."
             ]
           },
           "roland": {
             "q": "Quins stageboxes Roland són compatibles?",
             "a": [
-              "Les caixes de la sèrie S per REAC, inclòs el control del previ (alimentació phantom, pad i sensibilitat), que és el que fa que una caixa sigui un stagebox i no només un flux d'àudio. A l'equip s'han establert dues caixes alhora.",
+              "Les caixes de la sèrie S per REAC, inclòs el control del previ (Phantom 48V, pad i sensibilitat), que és el que fa que una caixa sigui un stagebox i no només un flux d'àudio. A l'equip s'han establert dues caixes alhora.",
               "El transport REAC en si és un projecte a part, FreeREAC. El seu propi web explica què se sap del protocol i amb quines caixes s'ha treballat."
             ]
           }
