@@ -1,0 +1,30 @@
+{
+  "links": {
+    "seo": {
+      "title": "Links — OpenMixer",
+      "description": "The OpenMixer source repository, the sibling FreeREAC interoperability project, and the upstream projects OpenMixer is built on."
+    },
+    "hero": {
+      "eyebrow": "Links",
+      "title": "Where the code is, and what it stands on."
+    },
+    "project": {
+      "eyebrow": "The project",
+      "title": "Source."
+    },
+    "openmixer": {
+      "notPublic": "not public yet",
+      "what": "The whole console: the model, the server, the surface, the native PipeWire engine and its C signal processing, the plugin catalog, the adapters and the documentation set. A pnpm workspace, GPL-3.0-or-later.",
+      "noLink": "The repository is not open to the public at the moment, so there is no link here. When that changes this card gets one."
+    },
+    "freereac": "The sibling project: open documentation and tools for Roland's REAC, the audio-over-Ethernet protocol the stageboxes speak. OpenMixer holds the control path for a stagebox; FreeREAC is where the protocol work lives.",
+    "upstream": {
+      "eyebrow": "Upstream",
+      "title": "What OpenMixer is built on.",
+      "text": "None of these are ours. They are the projects the console would not exist without, and the ones to read if you want to understand the layer underneath it.",
+      "pipewire": "The audio graph the console lives in. OpenMixer's engine is a native PipeWire client and its signal processing is a filter node in that graph.",
+      "lv2": "The plugin standard the insert chains use. Anything that ships an LV2 can be racked into a strip or an output.",
+      "modHost": "The LV2 host the insert chains are built on, from MOD Devices."
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "getIt": {
+    "seo": {
+      "title": "Get it — OpenMixer",
+      "description": "Install the OpenMixer plugin hosts from signed packages for Fedora, Debian, Raspberry Pi OS and Zynthian, and try them."
+    },
+    "hero": {
+      "eyebrow": "Get it",
+      "title": "Install from our packages.",
+      "lede": "omx-clap-host and plugin-hostd, the plugin hosts OpenMixer runs on, are signed packages for Fedora and Debian, on x86_64 and ARM64. The console itself is not published yet."
+    },
+    "install": {
+      "eyebrow": "Install",
+      "title": "Add the repository, install the packages."
+    },
+    "before": {
+      "eyebrow": "Before a show",
+      "title": "Read these two things first."
+    },
+    "gettingStarted": {
+      "title": "Getting started",
+      "tag": "documentation",
+      "text": "It takes a fresh install from silence to one channel audible in the main mix. Everything else in the manual assumes you have done it once.",
+      "link": "Read it before you open the surface."
+    },
+    "limitations": {
+      "title": "The known limitations",
+      "tag": "honesty",
+      "text": "The matrix does not carry audio yet, a show load is not a reset, delay alignment is not saved, and no control surface has been verified on hardware.",
+      "link": "The full list is on the features page."
+    }
+  }
+}
