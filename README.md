@@ -48,13 +48,20 @@ committing a copy of it:
 npm run generate                                    # this site
 OPENMIXER_SRC=../openmixer npm run docs:site        # the docs tree, built and published into it
 npm run docs:links                                  # every link in the merged tree
+npm run check:public                                # nothing private in the output
 ```
+
+Only the pages named in `deploy/public-docs.txt` are published. The docs build bundles
+every markdown file it can see, so it runs on a sparse copy of the checkout that holds
+only those pages; a new page in the openmixer repo stays private until it is added to the
+list. `scripts/check-public.mjs` then reads every text file of the built site and fails on
+a home path, agent notes, an internal host name or a private address.
 
 `scripts/build-docs-tree.mjs` does the second step. It refuses rather than delivering less
 than it claims: no checkout, no publish (there is deliberately no snapshot to fall back on);
 any file that would overwrite one of this site's own is a failure, not a last-writer-wins;
-and afterwards it checks, on the published tree, that every manual chapter in the source
-tree has a page. It leaves `_docs_nuxt/source.json` naming the openmixer revision the tree
+and afterwards it checks, on the published tree, that every listed page is there and no
+unlisted one is. It leaves `_docs_nuxt/source.json` naming the openmixer revision the tree
 came from.
 
 The docs build gets its own `NUXT_APP_BUILD_ASSETS_DIR` (`/_docs_nuxt/`), because two Nuxt
