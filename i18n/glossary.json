@@ -40,7 +40,7 @@
     { "en": "channel", "ca": "canal", "refuse": [] },
     { "en": "channel strip", "ca": "canal", "refuse": ["tira de canal"] },
     { "en": "head-amp, preamp", "ca": "previ", "refuse": ["preamplificador de capçal"] },
-    { "en": "phantom power", "ca": "alimentació phantom", "refuse": ["poder fantasma", "alimentació fantasma"] },
+    { "en": "phantom power", "ca": "Phantom 48V", "refuse": ["alimentació fantasma", "alimentació phantom", "poder fantasma"] },
     { "en": "track", "ca": "pista", "refuse": [] },
     { "en": "recording", "ca": "enregistrament", "refuse": ["gravació"] },
     { "en": "sample rate", "ca": "freqüència de mostratge", "refuse": ["taxa de mostra"] },

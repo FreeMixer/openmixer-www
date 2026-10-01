@@ -11,7 +11,7 @@
     },
     "desk": {
       "title": "La taula",
-      "p1": "Canals d'entrada amb guany del previ, trim, pan, polaritat, alimentació phantom i pad; un rack de processament complet a cada canal; busos, sends auxiliars amb punt de presa pre i post, DCA, una matrix, mix-minus, enllaç estèreo de canals i inserts de sortida.",
+      "p1": "Canals d'entrada amb guany del previ, trim, pan, polaritat, Phantom 48V i pad; un rack de processament complet a cada canal; busos, sends auxiliars amb punt de presa pre i post, DCA, una matrix, mix-minus, enllaç estèreo de canals i inserts de sortida.",
       "p2": "Les sessions es conserven i es tornen a carregar en arrencar. Les escenes es poden recuperar. Grups de mute, solo (PFL, AFL i solo-in-place amb un pas d'armat), un dim i dos botons de pànic: un per a les sortides principals i un altre per a tota la taula.",
       "p3": "El mix-minus és un tipus de ple dret amb les seves pròpies adreces, no un pedaç basat en desplaçaments d'índex. Els busos i el MAIN són canals com qualsevol altre: no hi ha mecanismes exclusius del màster amagats darrere d'un camí de codi diferent.",
       "p4": "Dues excepcions, dites clarament, que convé conèixer abans de planificar-hi una actuació. La primera: s'ha mesurat que la matrix és digitalment muda amb un punt de creuament obert. La segona: carregar una actuació no deixa la taula neta; si carregueu l'actuació B sobre l'A, les corbes, les dinàmiques i les cues de l'A continuen actives a tots els canals que B no esmenta. Totes dues estan obertes i figuren més avall, a les limitacions conegudes."
@@ -55,7 +55,7 @@
     "reac": {
       "title": "Stageboxes REAC",
       "p1": "Els stageboxes Roland de la sèrie S es detecten, s'enruten i es controlen, inclòs el control del previ, que és el que en fa un stagebox i no només un flux d'àudio. A l'equip s'han establert dos stageboxes alhora amb els 128 enllaços intactes després d'una revinculació. També s'ha fet un canvi de cadència en directe de 48 a 96 kHz amb el PA de sala en marxa.",
-      "p2": "L'alimentació phantom s'ha confirmat físicament als pins de l'XLR en dues entrades, amb la taula indicant el mateix de manera independent. Tres fonts, una sola resposta: és l'única mena de confirmació que pot tenir una afirmació sobre l'alimentació phantom.",
+      "p2": "El Phantom 48V s'ha confirmat físicament als pins de l'XLR en dues entrades, amb la taula indicant el mateix de manera independent. Tres fonts, una sola resposta: és l'única mena de confirmació que pot tenir una afirmació sobre el Phantom 48V.",
       "p3": "El transport és als projectes germans FreeREAC, no en aquest. OpenMixer s'encarrega del camí de control: la detecció, el previ, el patch i la banda de l'adaptador.",
       "p4": "Obert i datat: a l'S-1608, el patch d'àudio i l'adreçament del previ fan servir dos desplaçaments diferents dins d'una mateixa caixa; el conjunt de capacitats de previ conegudes que s'informa en declara més de les reals, de manera que no prova que un canvi de previ hagi arribat; el banc superior d'un stagebox de 16 entrades es pot quedar al soroll de fons del convertidor quan no està donat d'alta; i la cadència a 44,1 kHz no s'ha provat mai, perquè cal una taula real que funcioni a 44,1.",
       "shotAlt": "El patchbay: una graella de punts de creuament de fonts i canals, amb els stageboxes detectats agrupats a la vora esquerra.",
