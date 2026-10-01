@@ -198,7 +198,7 @@ useSeoMeta({
     <header id="top" class="relative overflow-hidden pt-14 pb-20 sm:pt-24 sm:pb-28">
       <div
         aria-hidden="true"
-        class="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_78%_20%,rgba(40,200,230,.10),transparent_60%),linear-gradient(rgba(255,255,255,.035)_1px,transparent_1px)] bg-[size:auto,100%_48px] [mask-image:linear-gradient(180deg,#000_40%,transparent)]"
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_78%_20%,rgba(40,200,230,.10),transparent_60%),linear-gradient(rgba(128,140,150,.09)_1px,transparent_1px)] bg-[size:auto,100%_48px] [mask-image:linear-gradient(180deg,#000_40%,transparent)]"
       />
       <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
         <div>
@@ -233,7 +233,7 @@ useSeoMeta({
         <div
           role="img"
           aria-label="An illustration of the openmixer fader wall: seven channel strips and the main bus, each with a gain knob, a level meter and a fader."
-          class="rounded-[22px] border border-edge bg-linear-to-b from-surface-2 to-surface px-3 pt-5 pb-4 shadow-[0_30px_80px_rgba(0,0,0,.55),inset_0_1px_0_rgba(255,255,255,.04)] sm:px-5"
+          class="rounded-[22px] border border-edge bg-linear-to-b from-surface-2 to-surface px-3 pt-5 pb-4 shadow-[0_24px_60px_rgba(20,40,50,.14)] dark:shadow-[0_30px_80px_rgba(0,0,0,.55),inset_0_1px_0_rgba(255,255,255,.04)] sm:px-5"
         >
           <div class="mb-4 flex items-center justify-between font-mono text-[11px] leading-none uppercase tracking-[0.1em] text-ink-faint">
             <span>Inputs · Main</span>
@@ -245,7 +245,7 @@ useSeoMeta({
             <div
               v-for="(s, i) in strips"
               :key="s.name"
-              class="min-w-0 flex-col items-center gap-2 rounded-[10px] border border-[#1a2027] bg-well pt-2.5 pb-2"
+              class="min-w-0 flex-col items-center gap-2 rounded-[10px] border border-track bg-well pt-2.5 pb-2"
               :class="i >= 4 ? 'hidden sm:flex' : 'flex'"
             >
               <div
@@ -255,40 +255,40 @@ useSeoMeta({
                 <div class="absolute inset-1 rounded-full bg-surface-2" />
               </div>
               <div class="flex h-[140px] w-full justify-center gap-[5px] sm:h-[170px]">
-                <div class="relative h-full w-1 overflow-hidden rounded-sm bg-[#1a2027]">
+                <div class="relative h-full w-1 overflow-hidden rounded-sm bg-track">
                   <i
                     class="absolute inset-x-0 bottom-0 origin-bottom rounded-sm bg-[linear-gradient(0deg,var(--color-meter)_0_62%,var(--color-warn)_62%_84%,var(--color-clip)_84%)] motion-safe:animate-level"
                     :style="{ height: `${s.m}%`, animationDuration: `${s.d}s` }"
                   />
                 </div>
-                <div class="relative h-full w-1.5 rounded-[3px] bg-[#1a2027]">
+                <div class="relative h-full w-1.5 rounded-[3px] bg-track">
                   <div
                     class="absolute left-1/2 -ml-[13px] h-3.5 w-[26px] rounded bg-linear-to-b from-[#dfe7ec] to-[#aab6be] shadow-[0_3px_6px_rgba(0,0,0,.6)]"
                     :style="{ top: `${s.f}%` }"
                   >
-                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-field" />
+                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-[#0b0e11]" />
                   </div>
                 </div>
               </div>
               <div class="font-mono text-[10px] leading-none tracking-[0.05em] text-ink-dim">{{ s.name }}</div>
             </div>
-            <div class="flex min-w-0 flex-col items-center gap-2 rounded-[10px] border border-[#15424d] bg-[#0b1a1f] pt-2.5 pb-2">
+            <div class="flex min-w-0 flex-col items-center gap-2 rounded-[10px] border border-accent/35 bg-accent/6 pt-2.5 pb-2">
               <div class="relative size-[22px] rounded-full bg-[conic-gradient(var(--color-accent)_0_50%,var(--color-surface-3)_0)]">
                 <div class="absolute inset-1 rounded-full bg-surface-2" />
               </div>
               <div class="flex h-[140px] w-full justify-center gap-[5px] sm:h-[170px]">
-                <div v-for="(mm, j) in mainMeters" :key="j" class="relative h-full w-1 overflow-hidden rounded-sm bg-[#1a2027]">
+                <div v-for="(mm, j) in mainMeters" :key="j" class="relative h-full w-1 overflow-hidden rounded-sm bg-track">
                   <i
                     class="absolute inset-x-0 bottom-0 origin-bottom rounded-sm bg-[linear-gradient(0deg,var(--color-meter)_0_62%,var(--color-warn)_62%_84%,var(--color-clip)_84%)] motion-safe:animate-level"
                     :style="{ height: `${mm.m}%`, animationDuration: `${mm.d}s` }"
                   />
                 </div>
-                <div class="relative h-full w-1.5 rounded-[3px] bg-[#1a2027]">
+                <div class="relative h-full w-1.5 rounded-[3px] bg-track">
                   <div
                     class="absolute left-1/2 -ml-[13px] h-3.5 w-[26px] rounded bg-linear-to-b from-omx-300 to-accent shadow-[0_3px_6px_rgba(0,0,0,.6)]"
                     style="top: 31%"
                   >
-                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-field" />
+                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-[#0b0e11]" />
                   </div>
                 </div>
               </div>
@@ -415,7 +415,7 @@ useSeoMeta({
             v-for="g in native"
             :key="g.title"
             class="rounded-[14px] border p-6"
-            :class="g.featured ? 'border-[#15424d] bg-linear-to-b from-[#0f1c21] to-surface to-60% md:col-span-2 lg:col-span-1' : 'border-edge bg-surface'"
+            :class="g.featured ? 'border-accent/35 bg-linear-to-b from-accent/8 to-surface to-60% md:col-span-2 lg:col-span-1' : 'border-edge bg-surface'"
           >
             <h3 class="border-b border-edge pb-3.5 font-display text-lg font-semibold tracking-tight text-ink">{{ g.title }}</h3>
             <ul>
@@ -452,7 +452,7 @@ useSeoMeta({
             :key="t.title"
             class="flex flex-col gap-3 rounded-[14px] border p-7"
             :class="t.featured
-              ? 'border-[#15424d] bg-linear-to-b from-[#0f1c21] to-surface to-55% shadow-[0_0_0_1px_rgba(40,200,230,.12),0_24px_60px_rgba(0,0,0,.4)]'
+              ? 'border-accent/35 bg-linear-to-b from-accent/8 to-surface to-55% shadow-[0_0_0_1px_rgba(40,200,230,.12),0_20px_50px_rgba(20,40,50,.10)] dark:shadow-[0_0_0_1px_rgba(40,200,230,.12),0_24px_60px_rgba(0,0,0,.4)]'
               : 'border-edge bg-surface'"
           >
             <p class="font-mono text-[11px] font-semibold leading-none uppercase tracking-[0.14em] text-ink-faint">{{ t.n }}</p>
