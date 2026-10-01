@@ -1,0 +1,62 @@
+{
+  "docsGettingStarted": {
+    "seo": {
+      "title": "Getting started — OpenMixer",
+      "description": "From a built checkout to one channel audible in the main mix: start the server and the surface, patch an input, and hear it."
+    },
+    "hero": {
+      "eyebrow": "User docs — Getting started",
+      "title": "From nothing to one channel in the mix.",
+      "lede": "Everything below assumes a built checkout — see Get it if you have not built one yet. This chapter does one job: start the console, patch one real input, and hear it at MAIN. Once that works, the rest of the manual is about everything OpenMixer can do beyond it."
+    },
+    "code": {
+      "fromTop": "From the top of a built checkout — see Get it if you have not built one yet.",
+      "secondTerminal": "In a second terminal, the surface:",
+      "thirdTerminal": "From a third terminal, at any point — this is what \"in the mix\" means on the wire."
+    },
+    "s1": {
+      "title": "Start the console and the surface.",
+      "p1": "Two processes, two terminals. The server is the console — it owns the mix and needs no configuration file to come up. The surface is a plain web page; nothing about it is privileged over any other client that will later connect to the same server.",
+      "p2": "The dev server prints the address to open — typically <code class=\"font-mono text-ink-dim\">http://localhost:3000</code>. The surface does not hardcode the console's address: it discovers the endpoint from the origin that served it, so the same build works from a phone on the same network without being rebuilt for it."
+    },
+    "s2": {
+      "title": "Check the header before you touch a fader.",
+      "p1": "Open the page. The connection indicator in the header says whether you are looking at the live console or the offline fallback — a simulated board the surface shows itself when no server answers, precisely so the controls can be learned with nothing behind them. If you expected a live desk and moving a fader does nothing, this is almost always the reason: check the indicator before assuming anything else is broken."
+    },
+    "s3": {
+      "title": "Patch a real input onto channel 1.",
+      "p1": "The channel roster already exists — a console's strip count is fixed at boot, and channel 1 is there whether or not anything feeds it. What it hears is a separate fact: open the patchbay and connect a real source — the first input of a plain USB interface is enough, a stagebox is not required — to channel 1's input. Nothing else needs creating first."
+    },
+    "s4": {
+      "title": "Bring the channel up and send it to MAIN.",
+      "p1": "On channel 1: make sure it is not muted, and bring the fader up towards unity. Every channel sums into MAIN by default, so there is no separate routing step for this — the meter on channel 1 and the meter on MAIN should move together as soon as there is signal on the patched input. If MAIN moves but you hear nothing, the fault is downstream of the console — MAIN's own output patch, or whatever MAIN is patched to."
+    },
+    "s5": {
+      "title": "Verify it without your ears, if you want to be sure.",
+      "p1": "The console is addressable by hand, on purpose. This reads the exact fader you just moved, straight from the server:",
+      "p2": "{position} is the 0–1 value the fader cap sits at; {db} is what that position means in gain. Add {watch} to follow it live instead of reading it once — the full address space is in the {link}.",
+      "link": "REST reference"
+    },
+    "next": {
+      "eyebrow": "What's next",
+      "title": "One channel works. Sixteen do the same thing.",
+      "listTitle": "Keep going in the manual",
+      "surface": {
+        "title": "The surface",
+        "blurb": "The header, the layout chips, the fader bay, and where to find things that are not where you would first look."
+      },
+      "strip": {
+        "title": "The channel strip",
+        "blurb": "Signal order, trim, the tile controls, selecting and naming — everything you just did on channel 1, in full."
+      },
+      "patchbay": {
+        "title": "The patchbay and the graph",
+        "blurb": "Crosspoint patching and multi-source channels, beyond the one input you just wired."
+      },
+      "sends": {
+        "title": "Sends, buses, groups and DCAs",
+        "blurb": "Once one channel is in the mix, this is how a second one joins it without fighting the first for headroom."
+      }
+    }
+  }
+}

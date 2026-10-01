@@ -1,0 +1,119 @@
+{
+  "docsIndex": {
+    "seo": {
+      "title": "Documentation — OpenMixer",
+      "description": "Tech docs, the operator manual, user docs and the FAQ: everything published about OpenMixer, generated where the console can generate it and authored where a person has to."
+    },
+    "hero": {
+      "eyebrow": "Documentation",
+      "title": "Four kinds of document, one page to find them from.",
+      "lede": "Tech docs for building against the console, an operator manual for driving it, user docs for getting it running, and an FAQ for the straight answer. Tech docs are generated from the running contract wherever the console can generate them; the rest is written by a person and says so when a chapter is not there yet. It all ships with the console, too — a packaged install serves the whole set locally, so a desk with no internet still has its manual."
+    },
+    "chapters": {
+      "gettingStarted": {
+        "title": "Getting started",
+        "blurb": "From a built checkout to one channel audible in the main mix — start the console, patch an input, hear it."
+      },
+      "recording": {
+        "title": "Recording and the virtual soundcheck",
+        "blurb": "Arming channels, what a take captures, the take library, and running a soundcheck: load, engage, play, eject."
+      },
+      "history": {
+        "title": "Undo and the history",
+        "blurb": "One journal for the whole desk, undo and redo, taking back one change out of the middle, and what the journal deliberately never holds."
+      },
+      "templates": {
+        "title": "Channel templates",
+        "blurb": "Saving a channel’s processing for reuse, the factory instrument templates that state only the chain, and the preview of what an apply would move."
+      },
+      "plugins": {
+        "title": "Plugins and the insert rack",
+        "blurb": "Racking a plugin on a channel or a bus output, the picker, the generated editor, mono against stereo, and the latency budget the destination sets."
+      },
+      "reacRole": {
+        "title": "The REAC segment role",
+        "blurb": "Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role."
+      }
+    },
+    "faqGroups": {
+      "what": "What it is",
+      "running": "Running it",
+      "building": "Building on it",
+      "recording": "Recording and the virtual soundcheck",
+      "refuses": "When the desk refuses",
+      "trust": "Whether to trust it"
+    },
+    "tech": {
+      "eyebrow": "Tech docs",
+      "title": "Reference for developers and integrators.",
+      "intro": "Generated from the running console's own contract, not hand-written — each one dates itself and cannot describe a control the server does not actually serve.",
+      "api": {
+        "title": "API reference",
+        "body": "TSDoc for {'@'}openmixer/core and the server's public surface, generated with typedoc."
+      },
+      "rest": {
+        "title": "REST reference",
+        "body": "{count} addressable rows, their fields, ranges and refusal codes."
+      },
+      "openapi": {
+        "title": "OpenAPI 3.1 document",
+        "body": "The same address space as one standard, tool-readable document."
+      },
+      "abstractions": {
+        "title": "Abstractions catalog",
+        "body": "{count} reusable elements — types, composables, components, C libraries — one line each."
+      },
+      "mcp": {
+        "title": "The MCP server",
+        "body": "{count} tools over stdio for reading a running console and the tree's own design, and the process skills the repository keeps."
+      },
+      "architecture": {
+        "title": "Architecture",
+        "body": "How the console is built and why: the one summing bus, the row grammar, native DSP against hosted inserts, and the decision records."
+      }
+    },
+    "manual": {
+      "eyebrow": "The manual",
+      "title": "Driving the desk.",
+      "intro": "The operator manual is published here from the same source the console serves offline, so the pages read online and the pages a desk gives an engineer in a hall with no internet are one document. Its table of contents is its own — follow it into the chapters rather than reading a second copy of it here.",
+      "operator": {
+        "title": "Operator manual",
+        "body": "Every chapter, grouped the way the surface is: the desk, the mix, and running a show — from the fader bay to the keyboard reference."
+      },
+      "install": {
+        "title": "Installing",
+        "body": "What the packages are, what each one puts on the machine, the services that run, and what survives an upgrade."
+      },
+      "troubleshooting": {
+        "title": "Troubleshooting",
+        "body": "Written from the symptom you can observe — a silent main, granulated audio, a box that will not establish — because that is what you have when you need it."
+      },
+      "hardware": {
+        "title": "Hardware",
+        "body": "REAC stageboxes, clocking and sample rate, and the wiring and network-interface mistakes that quietly cost a show."
+      },
+      "admin": {
+        "title": "Administration",
+        "body": "Which file owns which setting, the environment variables, the ports, where state lives, what to back up, and where the logs are."
+      },
+      "siteTitle": "Also written for this site",
+      "siteNote": "Chapters authored here rather than in the manual tree. They cover subjects the manual does not carry yet; which of the two should own each is an open question."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions with straight answers.",
+      "body": "Including the ones where the answer is no. {groups}. The manual keeps a second, shorter FAQ of its own for the arithmetic questions; this one is about the product.",
+      "button": "Read the FAQ"
+    },
+    "gaps": {
+      "eyebrow": "Still being written",
+      "title": "What the documentation set does not cover yet.",
+      "intro": "A written manual is a claim like any other, so this page names the gaps rather than leaving you to find them.",
+      "surfaces": "<span class=\"text-ink\">Control surfaces.</span> There is no operator chapter for the X-Touch yet, because nothing has been driven on real hardware to write one from.",
+      "deployment": "<span class=\"text-ink\">A deployment guide beyond a single machine.</span> One console on one box is documented. Anything larger is not.",
+      "screenshots": "<span class=\"text-ink\">Screenshots.</span> The manual explains the controls in words; pictures of the surface it names are being captured.",
+      "arithmetic": "<span class=\"text-ink\">The manual's own arithmetic FAQ.</span> The product FAQ above is written; the manual's shorter one for the arithmetic questions (mono fold, how many dB twice as loud is) is not a chapter yet.",
+      "notPublished": "Development notes, design records and working material are not part of the published set and are not linked here. What publishes is documentation written to be read, or generated straight from the same contract the console itself answers on."
+    }
+  }
+}
