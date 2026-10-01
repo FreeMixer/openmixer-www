@@ -5529,7 +5529,7 @@
                   "cost"
                 ],
                 "governor": "performance",
-                "host": "msi",
+                "host": "desk",
                 "measuredAt": "2026-07-28T18:03:03+0200",
                 "plugins": 3,
                 "rates": [
@@ -5539,7 +5539,7 @@
                   192000
                 ],
                 "relativeRankingOnly": true,
-                "runId": "shipped-msi-2026-07-28T18:03:03+0200"
+                "runId": "shipped-desk-2026-07-28T18:03:03+0200"
               }
             }
           ]
