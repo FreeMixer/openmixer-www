@@ -37,6 +37,16 @@
   --color-edge: #2a323b;
   --color-edge-strong: #3a444f;
 
+  /* Channel-strip colours, the way a console colours its strips: one set, declared
+     here, read by every drawn strip. `strip-ink` is the label text on any of them
+     (7:1 or better dark, 5.5:1 or better light). */
+  --color-strip-red: #ff6b63;
+  --color-strip-yellow: #f2b632;
+  --color-strip-green: #34d17b;
+  --color-strip-blue: #5aa9ff;
+  --color-strip-magenta: #f070d8;
+  --color-strip-ink: #0b0e11;
+
   /* The home page's fader-wall meters. Each meter sets its own animation-duration. */
   --animate-level: level 1.6s ease-in-out infinite alternate;
   @keyframes level {
@@ -94,6 +104,12 @@ html.light {
   --color-track: #d3dae0;
   --color-edge: #d5dce2;
   --color-edge-strong: #b3bec8;
+  --color-strip-red: #b3261e;
+  --color-strip-yellow: #8a5a00;
+  --color-strip-green: #17673a;
+  --color-strip-blue: #1f5fb8;
+  --color-strip-magenta: #a0268a;
+  --color-strip-ink: #ffffff;
   /* Nuxt UI's solid primary carries white text in light mode; the dark-mode cyan is too pale for it. */
   --ui-primary: var(--color-accent);
 }
