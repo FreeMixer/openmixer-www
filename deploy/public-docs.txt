@@ -1,0 +1,133 @@
+# The documentation pages the public site publishes from the openmixer repo, by path
+# under its docs/. Read by scripts/build-docs-tree.mjs.
+#
+# This is an ALLOWLIST. A page that is not named here is not published, and is not in
+# the docs bundle either: the build runs on a copy of the repo whose docs/ holds only
+# these files. A new page in the repo stays private until someone adds it here.
+# Never list docs/design, docs/audits, docs/operations, docs/research or anything
+# outside the six sections below.
+#
+# Line forms:
+#   <path>.md                          publish this page
+#   <dir>/                             publish the files of this directory (images only)
+#   <path>.md drop-section "<heading>" remove that "## " section before publishing
+#   <path>.md replace "<from>" "<to>"  replace text before publishing
+# An edit that changes nothing fails the build: the source moved and this file must follow.
+
+index.md
+
+# install
+install/first-boot.md
+install/first-session.md
+install/image.md
+install/index.md
+install/packages.md
+install/services.md
+install/trust-the-console.md
+install/upgrading.md
+
+# manual
+manual/alignment.md
+manual/channel-strip.md
+manual/cue-solo.md
+manual/eq-dynamics.md
+manual/fbs.md
+manual/head-amp.md
+manual/hrp.md
+manual/index.md
+manual/keyboard.md
+manual/layouts.md
+manual/lcr.md
+manual/matrix-outputs.md
+manual/menus.md
+manual/metering-latency.md
+manual/patchbay.md
+manual/personalities-themes.md
+manual/plugin-catalog/analysis.md
+manual/plugin-catalog/delay.md
+manual/plugin-catalog/dynamics.md
+manual/plugin-catalog/equalisers.md
+manual/plugin-catalog/filters.md
+manual/plugin-catalog/index.md
+manual/plugin-catalog/instruments.md
+manual/plugin-catalog/midi.md
+manual/plugin-catalog/modulation.md
+manual/plugin-catalog/pitch-and-spectral.md
+manual/plugin-catalog/recommendations.md
+manual/plugin-catalog/reverb.md
+manual/plugin-catalog/saturation-and-amps.md
+manual/plugin-catalog/spatial.md
+manual/plugin-catalog/uncategorised.md
+manual/plugin-catalog/utility.md
+manual/plugins.md
+manual/reac-clock.md
+manual/recording.md
+manual/room.md
+manual/rta.md
+manual/scenes-sessions.md
+manual/sends-buses-dcas.md
+manual/setup.md
+manual/surface.md
+manual/talkback.md
+manual/images/
+
+# hardware
+hardware/clocking-and-sample-rate.md
+hardware/index.md
+hardware/reac-boxes.md
+hardware/wiring-and-nic.md
+
+# admin
+admin/backup.md
+admin/config-files.md
+admin/env-vars.md
+admin/index.md
+admin/logs.md
+admin/ports.md
+admin/reac-configuration.md
+admin/services.md
+admin/state-and-sessions.md
+
+# troubleshooting
+troubleshooting/box-not-establishing.md
+troubleshooting/granulated-audio.md
+troubleshooting/index.md
+troubleshooting/plugin-catalog-empty.md
+troubleshooting/poisoned-autosave.md
+troubleshooting/silent-main.md
+troubleshooting/web-ui-cannot-reach-server.md
+troubleshooting/xrun-driver-election.md
+
+# architecture
+architecture/decisions/0001-native-reac-not-aes67.md
+architecture/decisions/0002-pipewire-native-summing-mod-host-inserts-only.md
+architecture/decisions/0003-server-single-source-of-truth.md
+architecture/decisions/0004-canonical-model-and-adapters.md
+architecture/decisions/0005-declarative-desired-graph-reconcile.md
+architecture/decisions/0006-ordered-processor-channel-strip.md
+architecture/decisions/0007-persist-routing-by-name-not-id.md
+architecture/decisions/0008-dca-as-control-domain-gain-coupling.md
+architecture/decisions/0009-c-for-hot-paths-pipewire-node-boundary.md
+architecture/decisions/0010-metadata-driven-plugin-editor.md
+architecture/decisions/0011-fader-position-and-db-with-per-adapter-scale.md
+architecture/decisions/0012-adapter-manager-menus-and-files.md
+architecture/decisions/0013-telemetry-measured-in-the-engine.md
+architecture/decisions/0014-multi-modal-input.md
+architecture/decisions/0015-modular-multi-window-web-ui.md
+architecture/decisions/0016-gpl3-no-agpl-code-copied.md
+architecture/decisions/0017-per-destination-output-trim-floor.md
+architecture/decisions/0018-clock-force-rate-live-lever-hardware-probe.md
+architecture/decisions/0019-cue-solo-monitor-bus-never-the-mains.md
+architecture/decisions/0020-plugin-tiers-fixed-by-measured-latency.md
+architecture/decisions/0021-fx-send-return-channels-native-delay-reverb.md
+architecture/decisions/README.md
+architecture/index.md
+architecture/native-dsp-vs-modhost-inserts.md
+architecture/one-summing-bus.md
+architecture/overview.md
+architecture/row-grammar-and-conformance.md
+architecture/technical-manual.md
+
+# Edits
+admin/env-vars.md drop-section "The MCP server's variables"
+install/trust-the-console.md replace "`msi.lan`" "`console.lan`"
