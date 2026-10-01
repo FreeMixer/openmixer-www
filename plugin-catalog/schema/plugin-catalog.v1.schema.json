@@ -1,0 +1,169 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:freemixer:plugin-catalog:v1",
+  "title": "openmixer plugin catalog run, version 1",
+  "description": "One qualification run: what openmixer measured about each audio plugin, on which package version, at which rate and quantum. A projection of the qualifier's hosting verdict (openmixer packages/plugin-qualify, classifyPluginHosting) and the console's /api/plugins rows. See plugin-catalog/README.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "run", "plugins"],
+  "properties": {
+    "schemaVersion": {
+      "description": "The contract version. A reader refuses a file whose major version it does not know.",
+      "const": 1
+    },
+    "run": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["date", "source", "producer", "rig", "policy"],
+      "properties": {
+        "date": { "description": "When the run's verdicts were read, ISO 8601 UTC.", "type": "string", "format": "date-time" },
+        "source": {
+          "description": "qualify: the qualify job measured every plugin in this file. console: the verdicts were read from a running console's /api/plugins.",
+          "enum": ["qualify", "console"]
+        },
+        "producer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "revision"],
+          "properties": {
+            "name": { "type": "string", "minLength": 1 },
+            "revision": { "description": "The producer's source revision (git), or null when not known.", "type": ["string", "null"] }
+          }
+        },
+        "rig": {
+          "description": "The reference pace the verdicts were judged at.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["rate", "quantum"],
+          "properties": {
+            "rate": { "description": "Sample rate, Hz.", "type": "integer", "minimum": 1 },
+            "quantum": { "description": "Block size, frames.", "type": "integer", "minimum": 1 }
+          }
+        },
+        "policy": {
+          "description": "The thresholds a dimension had to meet, as the qualifier applied them.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["cycleFloor", "soakSeconds", "coreFractionCeiling"],
+          "properties": {
+            "cycleFloor": { "description": "Load/run/unload cycles required before stability counts as measured.", "type": "integer", "minimum": 0 },
+            "soakSeconds": { "description": "Soak length required before stability counts as measured.", "type": "number", "minimum": 0 },
+            "coreFractionCeiling": { "description": "Per-instance CPU limit, as a fraction of one core at the 95th percentile.", "type": "number", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "plugins": { "type": "array", "items": { "$ref": "#/$defs/plugin" } }
+  },
+  "$defs": {
+    "rating": { "enum": ["suitable", "conditional", "unknown", "unsuitable"] },
+    "plugin": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "uri", "name", "vendor", "format", "kind", "declaredClass", "package", "pluginVersion",
+        "verdict", "rating", "path", "deciding", "reasons", "io", "latency", "cost", "incidents"
+      ],
+      "properties": {
+        "uri": { "description": "LV2 plugin URI, or urn:clap:<id> for a CLAP plugin.", "type": "string", "minLength": 1 },
+        "name": { "description": "The plugin's own declared name.", "type": "string", "minLength": 1 },
+        "vendor": { "description": "The plugin's declared author (LV2 doap author or maintainer) or CLAP vendor.", "type": ["string", "null"] },
+        "format": { "enum": ["lv2", "clap"] },
+        "kind": {
+          "description": "From the plugin's own declared class. LV2: lv2:InstrumentPlugin is instrument; generator and utility classes are other; every processing class is effect. CLAP: feature instrument is instrument, else audio-effect is effect, else other.",
+          "enum": ["effect", "instrument", "other"]
+        },
+        "declaredClass": {
+          "description": "What kind was derived from: the LV2 class label(s), or the CLAP feature list.",
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "package": {
+          "description": "The installed package the measured binary came from, or null when no package owns it.",
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["manager", "name", "nevr", "version", "release", "arch"],
+              "properties": {
+                "manager": { "enum": ["rpm", "deb"] },
+                "name": { "type": "string", "minLength": 1 },
+                "nevr": { "description": "name-epoch:version-release, exactly as tested.", "type": "string", "pattern": "^.+-[0-9]+:.+-.+$" },
+                "version": { "type": "string", "minLength": 1 },
+                "release": { "type": "string", "minLength": 1 },
+                "arch": { "type": "string", "minLength": 1 }
+              }
+            }
+          ]
+        },
+        "pluginVersion": { "description": "The version the plugin declares itself (CLAP descriptor version), or null.", "type": ["string", "null"] },
+        "verdict": {
+          "description": "in-process: rated suitable on every dimension. isolated: rated conditional or unsuitable; runs in its own process. unknown: at least one dimension unmeasured; runs isolated. refused: the qualifier could not load or run it at all.",
+          "enum": ["in-process", "isolated", "refused", "unknown"]
+        },
+        "rating": { "$ref": "#/$defs/rating", "description": "The qualifier's worst-dimension rating, unchanged." },
+        "path": { "description": "The qualifier's hosting path, unchanged.", "enum": ["in-process", "isolated"] },
+        "deciding": { "description": "The code of the reason that decided a rating below suitable; null when suitable.", "type": ["string", "null"] },
+        "reasons": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["dimension", "rating", "code", "params", "text"],
+            "properties": {
+              "dimension": { "enum": ["stability", "rtSafety", "features", "cost", "latency", "topology"] },
+              "rating": { "$ref": "#/$defs/rating" },
+              "code": { "description": "Stable code; never renamed within a schema version.", "type": "string", "pattern": "^hosting\\.[a-z0-9.-]+$" },
+              "params": { "type": "object", "additionalProperties": { "type": ["string", "number"] } },
+              "text": { "description": "English rendering of code and params (schema/reason-texts.en.json).", "type": "string", "minLength": 1 }
+            }
+          }
+        },
+        "io": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["audioInputs", "audioOutputs", "midiIn"],
+          "properties": {
+            "audioInputs": { "type": "integer", "minimum": 0 },
+            "audioOutputs": { "type": "integer", "minimum": 0 },
+            "midiIn": { "type": "boolean" }
+          }
+        },
+        "latency": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["class", "hostingQuanta", "hostingMs"],
+          "properties": {
+            "class": { "description": "The plugin's own latency class.", "enum": ["zero", "low", "high", null] },
+            "hostingQuanta": { "description": "Latency the hosting path adds, in quanta.", "type": ["integer", "null"], "minimum": 0 },
+            "hostingMs": { "description": "The same, in milliseconds at the run's rate and quantum.", "type": ["number", "null"], "minimum": 0 }
+          }
+        },
+        "cost": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["coreFractionP95", "ceiling"],
+          "properties": {
+            "coreFractionP95": { "description": "CPU per instance, fraction of one core, 95th percentile; null when unmeasured.", "type": ["number", "null"], "minimum": 0 },
+            "ceiling": { "type": ["number", "null"], "minimum": 0 }
+          }
+        },
+        "incidents": {
+          "description": "Crashes, timeouts and load refusals observed during the run.",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "code", "text"],
+            "properties": {
+              "kind": { "enum": ["crash", "timeout", "load-refused"] },
+              "code": { "type": ["string", "null"] },
+              "text": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    }
+  }
+}
