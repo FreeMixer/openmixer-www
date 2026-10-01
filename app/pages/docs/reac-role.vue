@@ -1,154 +1,72 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
+const { t } = useI18n();
+const sitePath = useSitePath();
+
 useSeoMeta({
-  title: 'The REAC segment role — openmixer',
-  description:
-    'Which end of a REAC wire the console presents as: mixer, recorder, or automatic — what each one does, what automatic decides from, and the four sentences the console gives you when it will not take a role.',
+  title: () => t('docsReacRole.seo.title'),
+  description: () => t('docsReacRole.seo.description'),
 });
 
-const refusals = [
-  {
-    when: 'You asked to be the mixer, and a desk already masters the wire',
-    text: 'You asked to be the mixer, but a desk is already mastering this segment. One master per segment is REAC law, so the console is holding and has asserted nothing on the wire.',
-    doing: 'The panel offers one button: switch this segment to recorder.',
-  },
-  {
-    when: 'A stagebox on the segment has its Mode switch on M',
-    text: 'A stagebox on this segment has its REAC Mode switch on M (master), so the console will not take a role beside it. Set the switch to S (slave) and power-cycle the box.',
-    doing: 'There is no button, because the remedy is a switch on the box. Inventing a control the console cannot honour would be the other half of the same lie.',
-  },
-  {
-    when: 'Something is mastering the wire and the console cannot tell what',
-    text: 'Something is mastering this segment and the console cannot tell what it is, so it will not take a role beside it. Check what else is on this wire.',
-    doing: 'Also no button. Find out what is on the segment first.',
-  },
-  {
-    when: 'You asked to record, and nothing is mastering the wire',
-    text: 'You asked to record, but nothing is mastering this segment. The role has been asserted and the console is hunting for a desk; until one appears there is nothing to record from.',
-    doing: 'This one has already gone to the wire — you chose it. The panel offers a switch back to mixer.',
-  },
-];
+const refusals = computed(() =>
+  (['deskMasters', 'rivalBox', 'rivalUnknown', 'noMaster'] as const).map((k) => ({
+    when: t(`docsReacRole.refusals.${k}.when`),
+    text: t(`docsReacRole.refusals.${k}.text`),
+    doing: t(`docsReacRole.refusals.${k}.doing`),
+  })),
+);
 </script>
 
 <template>
   <div>
     <PageHero
-      eyebrow="Manual — REAC segments"
-      title="Which end of the wire the console is."
-      lede="A REAC segment has exactly one master. Either this console masters it and drives the stageboxes, or another desk does and the console joins as the box end. That choice is the segment’s role, and it is one of two things you set per segment in Setup → Clock — the other being the rate. The default leaves the choice to the console, which observes the wire before it asserts anything."
+      :eyebrow="t('docsReacRole.hero.eyebrow')"
+      :title="t('docsReacRole.hero.title')"
+      :lede="t('docsReacRole.hero.lede')"
     />
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="01" title="Segments, and the two things you set on one." />
+        <SectionHead eyebrow="01" :title="t('docsReacRole.segments.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            A segment is one REAC wire — REAC A, REAC B and so on, listed with the patch name
-            of what is on it. Everything else the card shows is observation: what is mastering
-            it, at what pace, which link is up, which box model and firmware answered, whether
-            there is a conflict. Two fields are yours: the
-            <span class="text-ink">rate</span> and the <span class="text-ink">role</span>.
-          </p>
-          <p>
-            A field you never set stays unset, and an unset field leaves the daemon’s own best
-            default standing — which is not the same as choosing it. The one exception is the
-            role, which behaves as automatic until you say otherwise.
-          </p>
-          <p>
-            Both picks are staged rather than sent as you scroll. You choose, then confirm, and
-            the confirmation says what it will cost: changing a role re-establishes the segment
-            on the wire, a few seconds of interruption. Changing the rate is worse — about six
-            seconds while the box re-locks, and on a box carrying the PA return that is the
-            whole rig.
-          </p>
+          <p v-html="t('docsReacRole.segments.p1')" />
+          <p>{{ t('docsReacRole.segments.p2') }}</p>
+          <p>{{ t('docsReacRole.segments.p3') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="02" title="Mixer, recorder, automatic." />
+        <SectionHead eyebrow="02" :title="t('docsReacRole.roles.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            <span class="text-ink">Mixer.</span> The console is the desk end of the pairing. It
-            masters the segment, drives the stageboxes on it, and owns the wire’s pace — which
-            is why the rate is only yours to set in this role.
-          </p>
-          <p>
-            <span class="text-ink">Recorder.</span> The console presents as the box end and
-            joins a wire another desk is mastering, to take a feed off it. It asserts no pace of
-            its own and follows the foreign desk physically.
-          </p>
-          <p>
-            <span class="text-ink">Automatic.</span> The default. The console reads the segment
-            first and then takes whichever end is open: a wire with nothing mastering it, or one
-            it is already mastering, it takes as the mixer; a wire a foreign desk is mastering,
-            it joins as the recorder. Unplugging a desk and having the console pick the boxes up
-            is automatic doing its job.
-          </p>
-          <p>
-            Automatic never asserts against a foreign master. A desk is joined, not fought — one
-            master per segment is REAC’s law, not a policy of this console’s. If a stagebox is
-            mastering the wire, or if the console cannot tell what is, it asserts nothing at all
-            and tells you why.
-          </p>
-          <p class="text-sm text-ink-faint">
-            The word recorder does double duty on this desk, and the labels keep the two apart.
-            The control in Setup is called <span class="text-ink">REAC role</span>, and its
-            three settings are Mixer, Recorder and Automatic — that recorder is the end of a
-            REAC pairing the console presents as. Everywhere the desk means the multitrack
-            recorder that writes takes to disk it says
-            <span class="text-ink">recorder (takes)</span> instead, so a sentence like “this
-            console has no recorder (takes)” is never about the wire.
-          </p>
+          <p v-html="t('docsReacRole.roles.mixer')" />
+          <p v-html="t('docsReacRole.roles.recorder')" />
+          <p v-html="t('docsReacRole.roles.automatic')" />
+          <p>{{ t('docsReacRole.roles.never') }}</p>
+          <p class="text-sm text-ink-faint" v-html="t('docsReacRole.roles.note')" />
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="03" title="What automatic is watching, and when it decides." />
+        <SectionHead eyebrow="03" :title="t('docsReacRole.watching.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            Two facts, both published by the wire: whether the segment has a master and whether
-            it is ours, and — when it is not ours — whether the thing mastering it is a desk, a
-            stagebox, or something the console cannot identify. That is the whole input.
-          </p>
-          <p>
-            It is not a timer. Every segment resolves when it announces itself, so a decision
-            follows the wire rather than a clock: a desk that arrives after the console has
-            taken a segment is seen on its next announce and automatic re-resolves against it.
-            A slow desk costs one re-resolution and never a fight.
-          </p>
-          <p>
-            Automatic runs on every segment the console can see, including ones you have never
-            touched — a fresh console does not sit inert on a wire waiting to be told once.
-          </p>
-          <p>
-            The console re-asserts what you asked for, never what it worked out. Leaving a
-            segment on automatic keeps it on automatic: an observation that changes cannot
-            quietly write a fixed role into your show.
-          </p>
-          <p>
-            The card shows the daemon’s own answer beside the role you picked —
-            <span class="text-ink">Applied</span>,
-            <span class="text-ink">Re-establishing…</span>, or
-            <span class="text-ink">Hunting for a desk…</span>. A recorder waiting on a desk that
-            is not there reads as hunting and never as applied, which is the honest answer.
-          </p>
+          <p>{{ t('docsReacRole.watching.p1') }}</p>
+          <p>{{ t('docsReacRole.watching.p2') }}</p>
+          <p>{{ t('docsReacRole.watching.p3') }}</p>
+          <p>{{ t('docsReacRole.watching.p4') }}</p>
+          <p v-html="t('docsReacRole.watching.p5')" />
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="04" title="When the console will not take the role you asked for." />
+        <SectionHead eyebrow="04" :title="t('docsReacRole.refusals.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            It says which of four things happened, on the segment’s own card, and where there is
-            a single gesture that resolves it, that gesture is a button beside the sentence —
-            never a config file and never a restart.
-          </p>
+          <p>{{ t('docsReacRole.refusals.intro') }}</p>
           <ul class="space-y-5">
             <li v-for="r in refusals" :key="r.when" class="border-l-2 border-edge-strong pl-4">
               <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-accent">{{ r.when }}</p>
@@ -162,84 +80,43 @@ const refusals = [
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="05" title="The rate belongs to whoever masters the wire." />
+        <SectionHead eyebrow="05" :title="t('docsReacRole.rate.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            A segment following a foreign desk has no rate to set: it follows that desk’s pace,
-            physically. The console refuses a rate write on such a segment rather than accepting
-            one it cannot honour, and the panel says so —
-            <span class="text-ink">a slave segment has no rate to set — it follows the foreign
-            master’s pace</span>.
-          </p>
-          <p>
-            The gate is on what the segment is running now, not on what you intend it to become.
-            Promoting a segment to mixer and setting its rate is therefore two confirmations,
-            not one: take the wire first, then set the pace on it.
-          </p>
-          <p>
-            A rate the segment does not publish as drivable is refused too, naming the rates it
-            will take. It is never quietly rounded to the nearest one it likes.
-          </p>
+          <p v-html="t('docsReacRole.rate.p1')" />
+          <p>{{ t('docsReacRole.rate.p2') }}</p>
+          <p>{{ t('docsReacRole.rate.p3') }}</p>
         </div>
       </div>
     </section>
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="06" title="The file the console writes." />
+        <SectionHead eyebrow="06" :title="t('docsReacRole.file.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
-          <p>
-            The REAC daemon is configured by a small environment file at
-            <code class="font-mono text-sm text-ink">~/.config/openmixer/reac.env</code>, and the
-            console generates it: setting the role in Setup is what puts
-            <code class="font-mono text-sm text-ink">REAC_ROLE</code> on disk, so the choice
-            survives a restart of the daemon and of the machine. The write is atomic — a new
-            file is put in place whole — so an interrupted save never leaves a half-written
-            configuration behind.
-          </p>
-          <p>
-            The file says what the console <em>is</em> on the wire, and holds nothing else: the
-            role, the two interfaces, the mixer family and the wire’s rate, plus the box model
-            where the rig still carries an expectation of one. Which stagebox is actually out
-            there is learned from the wire and is deliberately not written down here.
-          </p>
-          <p>
-            Because the console regenerates the file rather than editing it in place, it is the
-            console’s file and not a shared one: a comment or a variable of your own added by
-            hand is dropped the next time the console writes it. Keep anything you need for
-            yourself somewhere else.
-          </p>
-          <p>
-            The console is conservative about writing at all. A role change writes only when the
-            file actually says something different, and if there is no file, or the file does not
-            parse, nothing is written — an unconfigured host stays unconfigured rather than
-            acquiring a binding nobody chose.
-          </p>
+          <p v-html="t('docsReacRole.file.p1')" />
+          <p v-html="t('docsReacRole.file.p2')" />
+          <p>{{ t('docsReacRole.file.p3') }}</p>
+          <p>{{ t('docsReacRole.file.p4') }}</p>
         </div>
       </div>
     </section>
 
     <section>
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="Arriving" title="What this chapter does not describe yet." />
+        <SectionHead :eyebrow="t('docsReacRole.arriving.eyebrow')" :title="t('docsReacRole.arriving.title')" />
         <ul class="space-y-4 text-base leading-relaxed text-ink-dim">
           <li class="flex gap-3 border-l-2 border-edge-strong pl-4">
             <StatusTag state="building" />
-            <span>
-              A rate control that hides itself on a following segment. The panel decides whether
-              to offer it from the role you asked for rather than from the role the segment is
-              running, so on a segment left on automatic that has joined a foreign desk the
-              control can still be there. The write is refused honestly if you use it, with the
-              sentence above — nothing is set behind your back.
-            </span>
+            <span>{{ t('docsReacRole.arriving.rateControl') }}</span>
           </li>
         </ul>
-        <p class="mt-8 text-sm leading-relaxed text-ink-faint">
-          The segments are <code class="font-mono text-xs text-ink">/reac/segment</code> and each one
-          is <code class="font-mono text-xs text-ink">/reac/segment/{name}</code>, with the two
-          writable fields and everything the wire reports about it, in the
-          <NuxtLink to="/docs/rest/reac" class="text-accent hover:underline">REST reference</NuxtLink>.
-        </p>
+        <i18n-t keypath="docsReacRole.rest.text" tag="p" scope="global" class="mt-8 text-sm leading-relaxed text-ink-faint">
+          <template #list><code class="font-mono text-xs text-ink">/reac/segment</code></template>
+          <template #one><code class="font-mono text-xs text-ink">/reac/segment/{name}</code></template>
+          <template #link>
+            <NuxtLink :to="sitePath('/docs/rest/reac')" class="text-accent hover:underline">{{ t('docsReacRole.rest.link') }}</NuxtLink>
+          </template>
+        </i18n-t>
       </div>
     </section>
   </div>

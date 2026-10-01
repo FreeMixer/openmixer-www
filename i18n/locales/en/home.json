@@ -1,0 +1,182 @@
+{
+  "home": {
+    "seo": {
+      "title": "OpenMixer — a mixing console, built in software",
+      "description": "OpenMixer is a live mixer for Linux: its own real-time engine inside PipeWire, stagebox in, PA out, any browser as its surface, and every plugin without betting the show on it."
+    },
+    "status": {
+      "live": "Live",
+      "liveLv2": "Live · LV2",
+      "progress": "In progress",
+      "landing": "Landing in the console",
+      "released": "Released · 0.1.0",
+      "proposed": "Proposed upstream"
+    },
+    "hero": {
+      "eyebrow": "open · professional · software mixer",
+      "title": "A mixing console, built from scratch <span class=\"text-accent\">in software.</span>",
+      "lede": "OpenMixer is a live mixer for Linux. Audio comes in from a stagebox, is mixed by OpenMixer's own real-time engine inside PipeWire, and goes back out to the PA. There is no hardware console in the signal path: the console <strong class=\"font-medium text-ink\">is</strong> the software, and every browser on the network is its surface.",
+      "explore": "Explore OpenMixer",
+      "howPlugins": "How it hosts plugins",
+      "builtOn": "Built on",
+      "chipEngine": "native C engine",
+      "chipStageboxes": "REAC stageboxes",
+      "wallLabel": "An illustration of the OpenMixer fader wall: seven channel strips and the main bus, each with a gain knob, a level meter and a fader.",
+      "wallInputs": "Inputs · Main",
+      "wallLive": "Live"
+    },
+    "console": {
+      "eyebrow": "The console",
+      "title": "Not a remote for someone else's desk. The mixer itself.",
+      "lede": "Most mixer apps are remote controls for a hardware console. With OpenMixer the audio runs through the software: one console model that fits no particular desk sits in the middle, and the engine, the surfaces and the I/O all plug into it. {link}.",
+      "ledeLink": "How it is built",
+      "pathLabel": "One channel's signal path",
+      "shotAlt": "The OpenMixer surface: a channel strip with gain, trim, pan, phantom and the EQ curve above a wall of sixteen faders and the main strip.",
+      "shotCaption": "The running console. Channel 9 selected on its processing rack; sixteen input strips and MAIN below.",
+      "featuresLabel": "What the mixer does today"
+    },
+    "path": {
+      "in": { "at": "In", "title": "Stagebox", "what": "Native REAC, or any PipeWire device" },
+      "strip": { "at": "OpenMixer engine", "title": "The channel strip", "what": "Head gain, EQ, gate, compressor, pan, fader" },
+      "inserts": { "at": "Inserts", "title": "Plugins", "what": "Per strip and per output, in the order you set" },
+      "buses": { "at": "OpenMixer engine", "title": "Buses", "what": "Sends, DCAs, mix-minus, delay, reverb" },
+      "out": { "at": "Out", "title": "PA and monitors", "what": "Back out through the stagebox" }
+    },
+    "cards": {
+      "engine": {
+        "title": "Its own real-time engine",
+        "text": "Gain, fader, pan and summing, the EQ bank, gate and compressor, delay, reverb and an analyser tap run in one native C node inside PipeWire, not a pile of loopback processes."
+      },
+      "stagebox": {
+        "title": "Stagebox in, PA out",
+        "text": "40 channels at 96 kHz over native REAC. Roland S-4000S, S-1608 and S-4000H stageboxes join sample-synchronous."
+      },
+      "surface": {
+        "title": "Every device is a surface",
+        "text": "One console, any number of browsers at once: a laptop at front of house, a tablet on stage, a phone on the floor. Touch, keyboard and mouse all work."
+      },
+      "xtouch": {
+        "title": "Real faders under your hands",
+        "text": "Behringer X-Touch units drive the same fader map the console owns: motor faders, encoders, scribble strips and meters, each unit its own client."
+      }
+    },
+    "features": {
+      "f1": "Aux and group buses, sends with pre and post taps",
+      "f2": "DCA groups",
+      "f3": "Mix-minus for every return",
+      "f4": "Stereo linking and per-channel head gain",
+      "f5": "Plugin delay compensation",
+      "f6": "Peak-hold meters and EBU R128 loudness on the mains",
+      "f7": "The real latency of every step and plugin, live",
+      "f8": "Sessions and scenes, with recall-safe",
+      "f9": "Adapters for Midas, X32/M32 and Roland consoles"
+    },
+    "stands": {
+      "eyebrow": "Where it stands",
+      "lead": "The native engine has mixed real shows since July 2026.",
+      "rig": "It runs on a real rig, a Roland stagebox and an RME Babyface Pro. Phantom power was confirmed at the XLR pins, two stageboxes have run at once, and the rate has been switched between 48 and 96 kHz with the house up.",
+      "missing": "Some parts are not there yet. Recording has never captured a show, the X-Touch support has never been driven on real hardware, and the matrix does not carry audio. The plugin hosts are packaged today; the console itself is not published yet.",
+      "features": "{link} marks each item by how far it has been proven and lists the known limitations.",
+      "featuresLink": "The features page"
+    },
+    "finished": {
+      "eyebrow": "How anything here gets called finished",
+      "quote": "If a control claims to affect audio, measure audio.",
+      "text": "A control can read back perfectly and reach nothing at all. So the processing is checked against values worked out on paper, changes are checked on the running audio graph, and a phantom power claim needs a person at the connector, never a light on a screen."
+    },
+    "native": {
+      "eyebrow": "Built into the engine",
+      "title": "The processing a show lives on, written for the console itself.",
+      "lede": "OpenMixer's own processors run inside the real-time mix node: no plugin host, no process boundary, no added latency. Every stage keeps the same promises. It never outputs a broken sample, it never stalls the audio thread, and when bypassed its output is exactly its input. {link} shows how to use each one.",
+      "ledeLink": "The operator manual",
+      "tone": {
+        "title": "Tone and dynamics",
+        "eq": { "name": "Interactive EQ", "what": "Parametric bands drawn over the channel's live curve, dragged by hand." },
+        "gate": { "name": "Gate", "what": "With keyed detection from any source." },
+        "comp": { "name": "Compressor", "what": "Threshold, ratio, knee, attack, release and make-up, with its transfer curve." },
+        "expander": { "name": "Expander · limiter · ducker", "what": "Each a type either dynamics stage can take." },
+        "deesser": { "name": "De-esser", "what": "Tames sibilance on a voice." },
+        "multiband": { "name": "Multiband compressor", "what": "Dynamics per frequency band." }
+      },
+      "colour": {
+        "title": "Colour and space",
+        "drive": { "name": "Drive", "what": "A saturator with four curves (soft, tape, tube and exciter), a character control from hard odd harmonics to warm even ones, full, low, high or tilt bands, and auto gain so it changes colour, not loudness." },
+        "delay": { "name": "Delay", "what": "The channel's own delay effect." },
+        "reverb": { "name": "Reverb", "what": "The channel's own reverb effect." },
+        "chorus": { "name": "Chorus · flanger", "what": "Modulation effects on the same Native FX chip." }
+      },
+      "listening": {
+        "title": "Listening tools",
+        "fbs": { "name": "FBS, feedback suppression", "what": "Hears a ring and cuts a narrow notch at its frequency, per channel, off until you arm it. Ring-out mode, for soundcheck, keeps its notches: they are a fact about the room. Live mode, for the show, lifts each cut back to 0 dB once the frequency stays clean." },
+        "hrp": { "name": "HRP, harmonic resonance processor", "what": "Follows the note being played, finds the harmonic that is louder than it should be on that instrument, and cuts it as it moves. Monitor shows the cut it would make; Adaptive makes safe cuts by itself." },
+        "align": { "name": "Align", "what": "Two microphones on one source, such as kick in and out or snare top and bottom, made to arrive together." },
+        "rta": { "name": "RTA", "what": "A real-time analyser tapped straight from the engine." }
+      }
+    },
+    "plugins": {
+      "eyebrow": "Plugins",
+      "title": "Every plugin you want. Never at the cost of the show.",
+      "lede": "A live console cannot go silent because a plugin crashed. So OpenMixer loads processing in layers: its own code inside the engine, and outside plugins in supervised processes that can fail without touching anything else. {link}.",
+      "ledeLink": "Plugins in the manual"
+    },
+    "tiers": {
+      "seeNative": "See the native processing.",
+      "native": {
+        "n": "01 · Inside the engine",
+        "title": "OpenMixer native",
+        "text": "Everything above, from the EQ and the whole dynamics family to FBS, HRP and Align, runs in the same real-time node as the mix, so it never crosses a process boundary.",
+        "costLabel": "Added latency",
+        "cost": "none"
+      },
+      "open": {
+        "n": "02 · The open plugin world",
+        "title": "LV2 and CLAP",
+        "text": "LV2 plugins run in mod-host, the host behind MOD Audio's devices. CLAP plugins run in omx-clap-host, which speaks mod-host's own protocol, so the console drives both the same way. Each plugin's controls come from its own metadata, and a catalog ranks plugins by measured latency so the live-safe choice comes first.",
+        "costLabel": "Added latency",
+        "cost": "one buffer"
+      },
+      "hostd": {
+        "n": "03 · The safety net",
+        "title": "plugin-hostd",
+        "text": "A supervisor between the console and its plugin hosts, each host running as a worker process. When a plugin crashes, plugin-hostd restarts only that worker and restores its plugins and every setting. That strip passes dry audio meanwhile, and every other channel carries on.",
+        "costLabel": "A crash costs",
+        "cost": "one strip, briefly dry"
+      }
+    },
+    "crash": {
+      "eyebrow": "What a crash looks like",
+      "title": "A plugin dies mid-show. The mix does not notice.",
+      "intro": "We crash a plugin on purpose, on a running console, and measure every strip through it. This is what the console hears, in order:",
+      "timeline": {
+        "worker_died": "The worker holding the faulty plugin exits. Its strip passes dry.",
+        "worker_backoff": "plugin-hostd waits, so a plugin that keeps crashing cannot flood the machine.",
+        "worker_respawned": "A fresh worker starts.",
+        "instance_restored": "The plugin is loaded again, with every parameter as you left it."
+      },
+      "bitIdentical": "bit-identical",
+      "bitIdenticalText": "The mix through plugin-hostd against the mix through today's host: not one sample differs.",
+      "dbText": "How far every other strip moved while one plugin crashed and came back.",
+      "workerUnit": "worker",
+      "workerText": "Only the worker holding the faulty plugin restarted, and only that plugin was loaded again.",
+      "measured": "Measured on the OpenMixer development console, 30 September 2026."
+    },
+    "open": {
+      "eyebrow": "Open components",
+      "title": "Built in the open, for everyone who hosts plugins.",
+      "lede": "The pieces OpenMixer uses to load outside plugins are projects of their own, packaged for Fedora and Debian, including Raspberry Pi OS and Zynthian. Any host that already speaks mod-host's protocol can use them.",
+      "repos": {
+        "clapHost": "A CLAP plugin host for JACK, driven over mod-host's socket protocol. It hosts effects and instruments with MIDI in, runs on its own the way jalv does for LV2, and ships omx-clap-scan to list what a CLAP bundle holds.",
+        "hostd": "The plugin supervisor. It speaks mod-host's protocol to its clients and runs mod-host for LV2 and omx-clap-host for CLAP as workers, with crash isolation, restart with back-off and state replay.",
+        "protocol": "mod-host's socket protocol as a shared library, so a second host can speak it without carrying a copy. Proposed to mod-host and packaged for Fedora; both hosts above link it."
+      }
+    },
+    "install": {
+      "eyebrow": "Install",
+      "title": "Signed packages for x86_64 and ARM64.",
+      "lede": "Every package is built from a release tag, signed, and published here, for Fedora, Debian, Raspberry Pi OS and Zynthian. Add the repository, install, and run.",
+      "more": "More on {getIt}, and answers to common questions in the {faq}.",
+      "getItLink": "getting it",
+      "faqLink": "FAQ"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "docsRest": {
+    "seo": {
+      "title": "Referència REST — OpenMixer",
+      "description": "Totes les entitats adreçables de la taula de mescles, generades a partir del contracte del mateix servidor: les files, els seus camps, els límits dels camps i els codis de refús."
+    },
+    "hero": {
+      "eyebrow": "Documentació tècnica — referència REST",
+      "title": "Totes les entitats, directament del contracte.",
+      "lede": "Aquesta referència es genera, no s'escriu: surt del mateix espai d'adreces, dels mateixos límits de camp i del mateix catàleg de refusos que el servidor en marxa publica per OPTIONS. No pot descriure un control que el servidor no serveixi de debò, ni tampoc se'n pot deixar cap."
+    },
+    "rules": {
+      "eyebrow": "Abans de llegir una fila",
+      "title": "Tres coses certes de totes les entitats d'aquí.",
+      "verbsTag": "totes les files",
+      "verbs": "Totes les adreces responen a <code class=\"font-mono text-xs text-ink\">GET</code>. Les que accepten una escriptura, indicades a continuació, també responen a <code class=\"font-mono text-xs text-ink\">PATCH</code>. <code class=\"font-mono text-xs text-ink\">OPTIONS</code> sempre publica el contracte viu (els camps modificables, els rangs i les opcions enumerades) segons el que sigui cert al servidor amb què parleu.",
+      "watchTitle": "{'?'}watch=1 a qualsevol adreça",
+      "watchTag": "flux",
+      "watch": "Afegiu-lo a un <code class=\"font-mono text-xs text-ink\">GET</code> i es converteix en un flux d'esdeveniments enviats pel servidor que emet exactament el que retorna aquell <code class=\"font-mono text-xs text-ink\">GET</code>, primer amb una instantània. Unes quantes files, marcades més avall amb <span class=\"text-ink\">a demanda</span>, només es calculen mentre almenys un client les observa.",
+      "genTitle": "Generada, de manera que porta la seva data",
+      "genTag": "procedència",
+      "gen": "Construïda a partir de <code class=\"font-mono text-xs text-ink\">travel-sheet.json</code>, <code class=\"font-mono text-xs text-ink\">engine-ui-rows.json</code> i <code class=\"font-mono text-xs text-ink\">message-code.ts</code> d'una còpia d'OpenMixer: {rows} files en {families} famílies, generada el {date}."
+    },
+    "family": {
+      "eyebrow": "Per família",
+      "title": "Trieu un recurs."
+    },
+    "codes": {
+      "title": "Codis de refús i d'etiquetes de desfer",
+      "body": "Tots els refusos, avisos i etiquetes d'entrades de desfer que pot enviar el servidor, amb els paràmetres que porta cadascun. Res per sota de la superfície no genera directament text per mostrar: pel cable viatja un codi amb els seus paràmetres i és la llengua del client la que aporta la frase."
+    },
+    "openapi": {
+      "title": "Document OpenAPI 3.1",
+      "body": "Les mateixes {rows} files i el catàleg de refusos en un sol document estàndard que poden llegir les eines: camins, esquemes JSON de petició i de resposta i els codis de refús com a components reutilitzables. Generat, no escrit a mà, com tota la resta d'aquesta pàgina."
+    }
+  }
+}
