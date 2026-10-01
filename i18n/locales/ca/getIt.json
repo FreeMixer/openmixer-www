@@ -1,0 +1,33 @@
+{
+  "getIt": {
+    "seo": {
+      "title": "Instal·lar — OpenMixer",
+      "description": "Instal·leu i proveu els amfitrions de plugins d'OpenMixer amb els paquets signats per a Fedora, Debian, Raspberry Pi OS i Zynthian."
+    },
+    "hero": {
+      "eyebrow": "Instal·lar",
+      "title": "Instal·leu-lo amb els nostres paquets.",
+      "lede": "omx-clap-host i plugin-hostd, els amfitrions de plugins sobre els quals funciona OpenMixer, es distribueixen com a paquets signats per a Fedora i Debian, en x86_64 i ARM64. La taula de mescles en si encara no s'ha publicat."
+    },
+    "install": {
+      "eyebrow": "Instal·lació",
+      "title": "Afegiu el repositori i instal·leu els paquets."
+    },
+    "before": {
+      "eyebrow": "Abans d'una actuació",
+      "title": "Llegiu primer aquests dos textos."
+    },
+    "gettingStarted": {
+      "title": "Primers passos",
+      "tag": "documentació",
+      "text": "Porta una instal·lació nova des del silenci fins a sentir un canal al mix principal. Tota la resta del manual dona per fet que ja ho heu fet una vegada.",
+      "link": "Llegiu-lo abans d'obrir la superfície."
+    },
+    "limitations": {
+      "title": "Les limitacions conegudes",
+      "tag": "honestedat",
+      "text": "La matrix encara no porta àudio, carregar una actuació no equival a reiniciar la taula, l'alineació de delay no es desa i cap superfície de control no s'ha verificat en maquinari.",
+      "link": "La llista completa és a la pàgina de funcions."
+    }
+  }
+}

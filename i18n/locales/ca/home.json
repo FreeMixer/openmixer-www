@@ -1,0 +1,182 @@
+{
+  "home": {
+    "seo": {
+      "title": "OpenMixer — una taula de mescles feta amb programari",
+      "description": "OpenMixer és una taula de mescles de directe per a Linux: té el seu propi motor de temps real dins de PipeWire, l'àudio entra per un stagebox i surt cap al PA, qualsevol navegador n'és la superfície i admet tots els plugins sense posar en perill l'actuació."
+    },
+    "status": {
+      "live": "Operatiu",
+      "liveLv2": "Operatiu · LV2",
+      "progress": "En curs",
+      "landing": "S'està integrant a la taula",
+      "released": "Publicat · 0.1.0",
+      "proposed": "Proposat al projecte original"
+    },
+    "hero": {
+      "eyebrow": "oberta · professional · taula de mescles de programari",
+      "title": "Una taula de mescles feta des de zero <span class=\"text-accent\">amb programari.</span>",
+      "lede": "OpenMixer és una taula de mescles de directe per a Linux. L'àudio entra per un stagebox, el mescla el motor de temps real propi d'OpenMixer dins de PipeWire i torna a sortir cap al PA. No hi ha cap taula física al camí del senyal: la taula <strong class=\"font-medium text-ink\">és</strong> el programari i tots els navegadors de la xarxa en són la superfície.",
+      "explore": "Descobriu OpenMixer",
+      "howPlugins": "Com allotja els plugins",
+      "builtOn": "Construït sobre",
+      "chipEngine": "motor natiu en C",
+      "chipStageboxes": "stageboxes REAC",
+      "wallLabel": "Il·lustració del banc de faders d'OpenMixer: set canals i el bus principal, cadascun amb un potenciòmetre de guany, un vúmetre i un fader.",
+      "wallInputs": "Entrades · Principal",
+      "wallLive": "En directe"
+    },
+    "console": {
+      "eyebrow": "La taula",
+      "title": "No és el comandament a distància d'una altra taula. És la taula mateixa.",
+      "lede": "La majoria d'aplicacions de mescla són comandaments a distància d'una taula física. Amb OpenMixer l'àudio passa pel programari: al mig hi ha un model de taula que no correspon a cap taula concreta; el motor, les superfícies i les entrades i sortides s'hi connecten. {link}.",
+      "ledeLink": "Com està construït",
+      "pathLabel": "El camí del senyal d'un canal",
+      "shotAlt": "La superfície d'OpenMixer: un canal amb guany, trim, pan, alimentació phantom i la corba d'EQ, a sobre d'un banc de setze faders i el canal principal.",
+      "shotCaption": "La taula en funcionament. El canal 9 seleccionat al seu rack de processament; a sota, setze canals d'entrada i el MAIN.",
+      "featuresLabel": "Què fa avui la taula"
+    },
+    "path": {
+      "in": { "at": "Entrada", "title": "Stagebox", "what": "REAC natiu o qualsevol dispositiu de PipeWire" },
+      "strip": { "at": "Motor d'OpenMixer", "title": "El canal", "what": "Guany del previ, EQ, gate, compressor, pan, fader" },
+      "inserts": { "at": "Inserts", "title": "Plugins", "what": "Per canal i per sortida, en l'ordre que trieu" },
+      "buses": { "at": "Motor d'OpenMixer", "title": "Busos", "what": "Sends, DCA, mix-minus, delay, reverb" },
+      "out": { "at": "Sortida", "title": "PA i monitors", "what": "Torna a sortir pel stagebox" }
+    },
+    "cards": {
+      "engine": {
+        "title": "Un motor de temps real propi",
+        "text": "El guany, el fader, el pan i la suma, el banc d'EQ, el gate i el compressor, el delay, la reverb i una presa per a l'analitzador funcionen en un sol node natiu en C dins de PipeWire, no en una pila de processos loopback."
+      },
+      "stagebox": {
+        "title": "Entrada pel stagebox, sortida al PA",
+        "text": "40 canals a 96 kHz per REAC natiu. Els stageboxes Roland S-4000S, S-1608 i S-4000H s'hi connecten sincronitzats a nivell de mostra."
+      },
+      "surface": {
+        "title": "Cada dispositiu és una superfície",
+        "text": "Una sola taula i tants navegadors alhora com vulgueu: un portàtil al control de sala, una tauleta a l'escenari, un mòbil a peu de sala. Funciona amb el tacte, el teclat i el ratolí."
+      },
+      "xtouch": {
+        "title": "Faders de debò sota les mans",
+        "text": "Les unitats Behringer X-Touch controlen el mateix mapa de faders que té la taula: faders motoritzats, encoders, pantalletes de nom i vúmetres; cada unitat és un client independent."
+      }
+    },
+    "features": {
+      "f1": "Busos auxiliars i de grup, sends amb presa pre i post",
+      "f2": "Grups DCA",
+      "f3": "Mix-minus per a cada retorn",
+      "f4": "Enllaç estèreo i guany del previ per canal",
+      "f5": "Compensació de la latència dels plugins",
+      "f6": "Vúmetres amb retenció de pic i sonoritat EBU R128 a les sortides principals",
+      "f7": "La latència real de cada etapa i de cada plugin, en directe",
+      "f8": "Sessions i escenes, amb protecció de recuperació (recall-safe)",
+      "f9": "Adaptadors per a taules Midas, X32/M32 i Roland"
+    },
+    "stands": {
+      "eyebrow": "On som",
+      "lead": "El motor natiu mescla actuacions reals des del juliol del 2026.",
+      "rig": "Funciona en un equip real, amb un stagebox Roland i una RME Babyface Pro. L'alimentació phantom s'ha comprovat als pins de l'XLR, dos stageboxes han funcionat alhora i la freqüència de mostratge s'ha canviat entre 48 i 96 kHz amb el sistema en marxa.",
+      "missing": "Algunes parts encara no hi són. L'enregistrament no ha capturat mai cap actuació, el suport per a X-Touch no s'ha provat mai amb maquinari real i la matrix no porta àudio. Els amfitrions de plugins ja estan empaquetats; la taula en si encara no s'ha publicat.",
+      "features": "{link} indica fins on s'ha provat cada element i enumera les limitacions conegudes.",
+      "featuresLink": "La pàgina de funcions"
+    },
+    "finished": {
+      "eyebrow": "Quan donem una cosa per acabada",
+      "quote": "Si un control diu que afecta l'àudio, mesureu l'àudio.",
+      "text": "Un control pot retornar el seu valor perfectament i no arribar enlloc. Per això el processament es contrasta amb valors calculats sobre el paper, els canvis es comproven al graf d'àudio en marxa i, per afirmar que hi ha alimentació phantom, cal una persona al connector, mai un llum en una pantalla."
+    },
+    "native": {
+      "eyebrow": "Integrat al motor",
+      "title": "El processament del qual depèn una actuació, escrit per a la mateixa taula.",
+      "lede": "Els processadors propis d'OpenMixer funcionen dins del node de mescla de temps real: sense amfitrió de plugins, sense frontera entre processos i sense latència afegida. Totes les etapes compleixen les mateixes garanties: no treuen mai una mostra corrupta, no bloquegen mai el fil d'àudio i, en bypass, la sortida és exactament l'entrada. {link} explica com fer servir cadascuna.",
+      "ledeLink": "El manual de l'operador",
+      "tone": {
+        "title": "To i dinàmica",
+        "eq": { "name": "EQ interactiu", "what": "Bandes paramètriques dibuixades sobre la corba del canal en directe, que es mouen arrossegant-les amb la mà." },
+        "gate": { "name": "Gate", "what": "Amb detecció per key des de qualsevol font." },
+        "comp": { "name": "Compressor", "what": "Llindar, ràtio, knee, atac, release i make-up, amb la seva corba de transferència." },
+        "expander": { "name": "Expansor · limiter · ducker", "what": "Cadascun és un tipus que pot adoptar qualsevol de les dues etapes de dinàmica." },
+        "deesser": { "name": "De-esser", "what": "Controla la sibilància d'una veu." },
+        "multiband": { "name": "Compressor multibanda", "what": "Dinàmica per bandes de freqüència." }
+      },
+      "colour": {
+        "title": "Color i espai",
+        "drive": { "name": "Drive", "what": "Un saturador amb quatre corbes (suau, cinta, vàlvula i excitador), un control de caràcter que va dels harmònics senars durs als parells càlids, bandes de treball (completa, greus, aguts o tilt) i guany automàtic perquè canviï el color i no el volum." },
+        "delay": { "name": "Delay", "what": "L'efecte de delay propi del canal." },
+        "reverb": { "name": "Reverb", "what": "L'efecte de reverb propi del canal." },
+        "chorus": { "name": "Chorus · flanger", "what": "Efectes de modulació al mateix xip Native FX." }
+      },
+      "listening": {
+        "title": "Eines d'escolta",
+        "fbs": { "name": "FBS, supressió d'acoblaments", "what": "Detecta un acoblament i hi aplica un filtre notch estret a la seva freqüència, a cada canal; està desactivat fins que l'armeu. El mode Ring-out, per a la prova de so, conserva els filtres: són una característica de la sala. El mode Live, per a l'actuació, torna cada tall a 0 dB quan la freqüència es manté neta." },
+        "hrp": { "name": "HRP, processador de ressonàncies harmòniques", "what": "Segueix la nota que s'està tocant, troba l'harmònic que sona més fort del que hauria de sonar en aquell instrument i el retalla a mesura que es mou. El mode Monitor mostra el tall que faria; el mode Adaptive fa talls segurs pel seu compte." },
+        "align": { "name": "Align", "what": "Dos micròfons en una mateixa font, com el bombo per dins i per fora o la caixa per dalt i per baix, alineats perquè arribin alhora." },
+        "rta": { "name": "RTA", "what": "Un analitzador en temps real que pren el senyal directament del motor." }
+      }
+    },
+    "plugins": {
+      "eyebrow": "Plugins",
+      "title": "Tots els plugins que vulgueu. Mai a costa de l'actuació.",
+      "lede": "Una taula de directe no pot quedar en silenci perquè un plugin ha fallat. Per això OpenMixer carrega el processament per capes: el seu propi codi dins del motor i els plugins externs en processos supervisats que poden fallar sense afectar res més. {link}.",
+      "ledeLink": "Els plugins al manual"
+    },
+    "tiers": {
+      "seeNative": "Vegeu el processament natiu.",
+      "native": {
+        "n": "01 · Dins del motor",
+        "title": "OpenMixer natiu",
+        "text": "Tot el que hi ha més amunt, des de l'EQ i tota la família de dinàmica fins a FBS, HRP i Align, funciona al mateix node de temps real que la mescla i, per tant, no travessa mai cap frontera entre processos.",
+        "costLabel": "Latència afegida",
+        "cost": "cap"
+      },
+      "open": {
+        "n": "02 · El món dels plugins oberts",
+        "title": "LV2 i CLAP",
+        "text": "Els plugins LV2 funcionen a mod-host, l'amfitrió que hi ha darrere dels dispositius de MOD Audio. Els plugins CLAP funcionen a omx-clap-host, que parla el mateix protocol que mod-host, de manera que la taula els controla tots dos igual. Els controls de cada plugin surten de les seves pròpies metadades i un catàleg ordena els plugins per la latència mesurada perquè l'opció segura per al directe surti primer.",
+        "costLabel": "Latència afegida",
+        "cost": "un buffer"
+      },
+      "hostd": {
+        "n": "03 · La xarxa de seguretat",
+        "title": "plugin-hostd",
+        "text": "Un supervisor entre la taula i els seus amfitrions de plugins, cadascun dels quals funciona com un procés worker. Quan un plugin falla, plugin-hostd reinicia només aquell worker i en restaura els plugins i tots els ajustos. Mentrestant, aquell canal deixa passar l'àudio sec i tots els altres canals continuen funcionant.",
+        "costLabel": "Una fallada costa",
+        "cost": "un canal, sec uns instants"
+      }
+    },
+    "crash": {
+      "eyebrow": "Com és una fallada",
+      "title": "Un plugin cau enmig de l'actuació. La mescla no se n'adona.",
+      "intro": "Fem fallar un plugin a propòsit en una taula en marxa i mesurem tots els canals mentre passa. Això és el que rep la taula, per ordre:",
+      "timeline": {
+        "worker_died": "El worker que té el plugin defectuós s'atura. El seu canal passa sec.",
+        "worker_backoff": "plugin-hostd espera, perquè un plugin que falla una vegada i una altra no pugui saturar la màquina.",
+        "worker_respawned": "S'engega un worker nou.",
+        "instance_restored": "El plugin es torna a carregar amb tots els paràmetres com els havíeu deixat."
+      },
+      "bitIdentical": "idèntic bit a bit",
+      "bitIdenticalText": "La mescla a través de plugin-hostd comparada amb la mescla a través de l'amfitrió actual: no hi difereix ni una mostra.",
+      "dbText": "Quant s'han mogut tots els altres canals mentre un plugin queia i tornava.",
+      "workerUnit": "worker",
+      "workerText": "Només s'ha reiniciat el worker que tenia el plugin defectuós i només s'ha tornat a carregar aquell plugin.",
+      "measured": "Mesurat a la taula de desenvolupament d'OpenMixer el 30 de setembre de 2026."
+    },
+    "open": {
+      "eyebrow": "Components oberts",
+      "title": "Fets en obert, per a tothom que allotgi plugins.",
+      "lede": "Les peces que fa servir OpenMixer per carregar plugins externs són projectes independents, empaquetats per a Fedora i Debian, inclosos Raspberry Pi OS i Zynthian. Qualsevol amfitrió que ja parli el protocol de mod-host les pot fer servir.",
+      "repos": {
+        "clapHost": "Un amfitrió de plugins CLAP per a JACK, controlat amb el protocol de sòcol de mod-host. Allotja efectes i instruments amb entrada MIDI, funciona de manera autònoma com ho fa jalv per a LV2 i inclou omx-clap-scan per llistar el contingut d'un paquet CLAP.",
+        "hostd": "El supervisor de plugins. Parla el protocol de mod-host amb els seus clients i executa mod-host per a LV2 i omx-clap-host per a CLAP com a workers, amb aïllament de fallades, reinici amb espera progressiva (back-off) i restitució de l'estat.",
+        "protocol": "El protocol de sòcol de mod-host com a biblioteca compartida, perquè un segon amfitrió el pugui parlar sense dur-ne una còpia. S'ha proposat a mod-host i està empaquetat per a Fedora; els dos amfitrions anteriors s'hi enllacen."
+      }
+    },
+    "install": {
+      "eyebrow": "Instal·lació",
+      "title": "Paquets signats per a x86_64 i ARM64.",
+      "lede": "Cada paquet es compila a partir d'una etiqueta de versió, se signa i es publica aquí, per a Fedora, Debian, Raspberry Pi OS i Zynthian. Afegiu el repositori, instal·leu i executeu.",
+      "more": "Més informació a {getIt} i respostes a les preguntes habituals a les {faq}.",
+      "getItLink": "la pàgina d'instal·lació",
+      "faqLink": "preguntes freqüents"
+    }
+  }
+}
