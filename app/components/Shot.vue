@@ -11,7 +11,11 @@ const url = computed(() => withSiteBase(useRuntimeConfig().app.baseURL, props.sr
 
 <template>
   <figure class="overflow-hidden rounded border border-edge bg-surface">
-    <img :src="url" :alt="alt" class="block w-full" loading="lazy" decoding="async">
+    <!-- The capture is a dark console; on the light theme a dark bezel keeps it framed
+         rather than altered. -->
+    <div class="bg-[#0b0e11] p-1.5 sm:p-2">
+      <img :src="url" :alt="alt" class="block w-full rounded-sm" loading="lazy" decoding="async">
+    </div>
     <figcaption class="border-t border-edge px-4 py-3 font-mono text-xs text-ink-faint">
       {{ caption }}
     </figcaption>

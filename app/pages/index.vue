@@ -1,278 +1,557 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
-const facts = [
-  { label: 'Signal path', value: 'One native node', note: 'C signal processing inside the PipeWire graph.' },
-  { label: 'The wire', value: 'REST + SSE', note: 'One door per fact, one stream for all of them.' },
-  { label: 'Surfaces', value: 'Any number', note: 'Every client is a remote client.' },
-  { label: 'Licence', value: 'GPL-3.0-or-later', note: 'Free software, every package.' },
+/**
+ * The front page: the console, its own processing, how it hosts plugins, the open
+ * components, and the install. Links into the manual go through `site()` because the
+ * /docs/<section> trees are published beside this app, not routed by it.
+ */
+const base = useRuntimeConfig().app.baseURL;
+const site = (path: string) => withSiteBase(base, path);
+
+type Tone = 'live' | 'prog' | 'land' | 'rel';
+const TONE: Record<Tone, string> = {
+  live: 'text-meter border-meter/35 bg-meter/7',
+  prog: 'text-warn border-warn/35 bg-warn/7',
+  land: 'text-accent border-accent/35 bg-accent/7',
+  rel: 'text-release border-release/35 bg-release/7',
+};
+const pill = 'inline-flex self-start rounded-full border px-2.5 py-1.5 font-mono text-[10.5px] leading-none uppercase tracking-[0.1em]';
+
+/** The fader wall in the hero: an illustration, not a capture. */
+const strips = [
+  { name: 'KICK', k: 55, m: 58, d: 1.3, f: 34 },
+  { name: 'SNR', k: 42, m: 46, d: 0.9, f: 40 },
+  { name: 'BASS', k: 35, m: 38, d: 1.7, f: 46 },
+  { name: 'GTR', k: 60, m: 64, d: 1.1, f: 30 },
+  { name: 'KEYS', k: 48, m: 52, d: 1.5, f: 37 },
+  { name: 'VOX', k: 66, m: 70, d: 1.25, f: 27 },
+  { name: 'AMB', k: 30, m: 30, d: 2, f: 52 },
+] as const;
+const mainMeters = [{ m: 66, d: 1.4 }, { m: 62, d: 1.45 }] as const;
+
+const path = [
+  { at: 'In', title: 'Stagebox', what: 'Native REAC, or any PipeWire device', core: false },
+  { at: 'openmixer engine', title: 'The channel strip', what: 'Head gain, EQ, gate, compressor, pan, fader', core: true },
+  { at: 'Inserts', title: 'Plugins', what: 'Per strip and per output, in the order you set', core: false },
+  { at: 'openmixer engine', title: 'Buses', what: 'Sends, DCAs, mix-minus, delay, reverb', core: true },
+  { at: 'Out', title: 'PA and monitors', what: 'Back out through the stagebox', core: false },
+] as const;
+
+const cards = [
+  {
+    icon: 'i-lucide-activity',
+    title: 'Its own real-time engine',
+    text: 'Gain, fader, pan and summing, the EQ bank, gate and compressor, delay, reverb and an analyser tap run in one native C node inside PipeWire, not a pile of loopback processes.',
+    status: 'Live',
+    tone: 'live',
+  },
+  {
+    icon: 'i-lucide-server',
+    title: 'Stagebox in, PA out',
+    text: '40 channels at 96 kHz over native REAC, with no AES67 conversion. Roland S-4000S, S-1608 and S-4000H stageboxes join sample-synchronous.',
+    status: 'In progress',
+    tone: 'prog',
+  },
+  {
+    icon: 'i-lucide-monitor-smartphone',
+    title: 'Every device is a surface',
+    text: 'One console, any number of browsers at once: a laptop at front of house, a tablet on stage, a phone on the floor. Touch, keyboard and mouse all work.',
+    status: 'Live',
+    tone: 'live',
+  },
+  {
+    icon: 'i-lucide-sliders-vertical',
+    title: 'Real faders under your hands',
+    text: 'Behringer X-Touch units drive the same fader map the console owns: motor faders, encoders, scribble strips and meters, each unit its own client.',
+    status: 'In progress',
+    tone: 'prog',
+  },
+] as const satisfies readonly { tone: Tone }[];
+
+const features = [
+  'Aux and group buses, sends with pre and post taps',
+  'DCA groups',
+  'Mix-minus for every return',
+  'Stereo linking and per-channel head gain',
+  'Plugin delay compensation',
+  'Peak-hold meters and EBU R128 loudness on the mains',
+  'The real latency of every step and plugin, live',
+  'Sessions and scenes, with recall-safe',
+  'Adapters for Midas, X32/M32 and Roland consoles',
 ] as const;
 
 const native = [
   {
     title: 'Tone and dynamics',
+    featured: false,
     items: [
       ['Interactive EQ', 'Parametric bands drawn over the channel\'s live curve, dragged by hand.'],
       ['Gate', 'With keyed detection from any source.'],
       ['Compressor', 'Threshold, ratio, knee, attack, release and make-up, with its transfer curve.'],
-      ['Expander, limiter, ducker', 'Each a type either dynamics stage can take.'],
+      ['Expander · limiter · ducker', 'Each a type either dynamics stage can take.'],
       ['De-esser', 'Tames sibilance on a voice.'],
       ['Multiband compressor', 'Dynamics per frequency band.'],
     ],
   },
   {
     title: 'Colour and space',
+    featured: false,
     items: [
-      ['Drive', 'A saturator with four curves (soft, tape, tube, exciter), a band choice and auto gain, so it changes colour and not loudness.'],
+      ['Drive', 'A saturator with four curves (soft, tape, tube and exciter), a character control from hard odd harmonics to warm even ones, full, low, high or tilt bands, and auto gain so it changes colour, not loudness.'],
       ['Delay', 'The channel\'s own delay effect.'],
       ['Reverb', 'The channel\'s own reverb effect.'],
-      ['Chorus and flanger', 'Modulation effects on the same Native FX chip.'],
+      ['Chorus · flanger', 'Modulation effects on the same Native FX chip.'],
     ],
   },
   {
     title: 'Listening tools',
+    featured: true,
     items: [
-      ['FBS, feedback suppression', 'Finds a ring and cuts a narrow notch at its frequency, per channel, off until you arm it. Ring-out mode for soundcheck keeps its notches; live mode lifts them once the frequency stays clean.'],
-      ['HRP, harmonic resonance processor', 'Follows the note being played, finds the harmonic that is too loud for that instrument, and cuts it as it moves.'],
-      ['Align', 'Two microphones on one source, such as kick in and out, made to arrive together.'],
+      ['FBS, feedback suppression', 'Hears a ring and cuts a narrow notch at its frequency, per channel, off until you arm it. Ring-out mode, for soundcheck, keeps its notches: they are a fact about the room. Live mode, for the show, lifts each cut back to 0 dB once the frequency stays clean.'],
+      ['HRP, harmonic resonance processor', 'Follows the note being played, finds the harmonic that is louder than it should be on that instrument, and cuts it as it moves. Monitor shows the cut it would make; Adaptive makes safe cuts by itself.'],
+      ['Align', 'Two microphones on one source, such as kick in and out or snare top and bottom, made to arrive together.'],
       ['RTA', 'A real-time analyser tapped straight from the engine.'],
     ],
   },
 ] as const;
 
+const tiers = [
+  {
+    n: '01 · Inside the engine',
+    title: 'openmixer native',
+    text: 'Everything above, from the EQ and the whole dynamics family to FBS, HRP and Align, runs in the same real-time node as the mix, so it never crosses a process boundary.',
+    formats: [],
+    status: 'Live',
+    tone: 'live',
+    costLabel: 'Added latency',
+    cost: 'none',
+    featured: false,
+  },
+  {
+    n: '02 · The open plugin world',
+    title: 'LV2 and CLAP',
+    text: 'LV2 plugins run in mod-host, the host behind MOD Audio\'s devices. CLAP plugins run in omx-clap-host, which speaks mod-host\'s own protocol, so the console drives both the same way. Each plugin\'s controls come from its own metadata, and a catalog ranks plugins by measured latency so the live-safe choice comes first.',
+    formats: ['LV2 · mod-host', 'CLAP · omx-clap-host'],
+    status: 'Live · LV2',
+    tone: 'live',
+    costLabel: 'Added latency',
+    cost: 'one buffer',
+    featured: false,
+  },
+  {
+    n: '03 · The safety net',
+    title: 'plugin-hostd',
+    text: 'A supervisor between the console and its plugin hosts, each host running as a worker process. When a plugin crashes, plugin-hostd restarts only that worker and restores its plugins and every setting. That strip passes dry audio meanwhile, and every other channel carries on.',
+    formats: [],
+    status: 'Landing in the console',
+    tone: 'land',
+    costLabel: 'A crash costs',
+    cost: 'one strip, briefly dry',
+    featured: true,
+  },
+] as const satisfies readonly { tone: Tone }[];
+
+const timeline = [
+  ['worker_died', 'The worker holding the faulty plugin exits. Its strip passes dry.'],
+  ['worker_backoff', 'plugin-hostd waits, so a plugin that keeps crashing cannot flood the machine.'],
+  ['worker_respawned', 'A fresh worker starts.'],
+  ['instance_restored', 'The plugin is loaded again, with every parameter as you left it.'],
+] as const;
+
+const repos = [
+  {
+    name: 'omx-clap-host',
+    href: 'https://github.com/FreeMixer/omx-clap-host',
+    go: 'github.com/FreeMixer/omx-clap-host',
+    status: 'Released · 0.1.0',
+    tone: 'rel',
+    text: 'A CLAP plugin host for JACK, driven over mod-host\'s socket protocol. It hosts effects and instruments with MIDI in, runs on its own the way jalv does for LV2, and ships omx-clap-scan to list what a CLAP bundle holds.',
+  },
+  {
+    name: 'plugin-hostd',
+    href: 'https://github.com/FreeMixer/plugin-hostd',
+    go: 'github.com/FreeMixer/plugin-hostd',
+    status: 'Released · 0.1.0',
+    tone: 'rel',
+    text: 'The plugin supervisor. It speaks mod-host\'s protocol to its clients and runs mod-host for LV2 and omx-clap-host for CLAP as workers, with crash isolation, restart with back-off and state replay.',
+  },
+  {
+    name: 'libmod-host-protocol',
+    href: 'https://github.com/mod-audio/mod-host/pull/103',
+    go: 'mod-audio/mod-host#103',
+    status: 'Proposed upstream',
+    tone: 'land',
+    text: 'mod-host\'s socket protocol as a shared library, so a second host can speak it without carrying a copy. Proposed to mod-host and packaged for Fedora; both hosts above link it.',
+  },
+] as const satisfies readonly { tone: Tone }[];
+
 useSeoMeta({
-  title: 'openmixer — a software mixing console for Linux',
+  title: 'openmixer — a mixing console, built in software',
   description:
-    'openmixer takes audio in from a stagebox, mixes it inside a PipeWire graph, and sends the finished mix to the PA. The surface is a web page any number of devices can share.',
+    'openmixer is a live mixer for Linux: its own real-time engine inside PipeWire, stagebox in, PA out, any browser as its surface, and every plugin without betting the show on it.',
 });
 </script>
 
 <template>
   <div>
     <!-- Hero -->
-    <section class="border-b border-edge">
-      <div class="mx-auto max-w-6xl px-6 pt-20 pb-16 sm:pt-28">
-        <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">
-          Live mixing console · Linux · GPL-3.0-or-later
-        </p>
-        <h1 class="mt-6 max-w-4xl font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink sm:text-6xl">
-          The console is the software.
-        </h1>
-        <p class="mt-8 max-w-2xl text-lg leading-relaxed text-ink-dim">
-          openmixer takes audio in from a stagebox, mixes it — faders, buses, sends,
-          DCAs, a matrix, mix-minus and plugin inserts — inside a PipeWire graph, and
-          sends the finished mix back out to the PA. There is no hardware desk in the
-          signal path. The surface is a web page, and any number of devices can hold
-          it at once: a laptop at front of house, a tablet on the wing, a phone on
-          stage.
-        </p>
-
-        <div class="mt-10 flex flex-wrap gap-3">
-          <UButton to="/architecture" size="lg" color="primary" trailing-icon="i-lucide-arrow-right">
-            How it is built
-          </UButton>
-          <UButton to="#install" size="lg" color="neutral" variant="outline">
-            Install
-          </UButton>
+    <header id="top" class="relative overflow-hidden pt-14 pb-20 sm:pt-24 sm:pb-28">
+      <div
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 bg-[radial-gradient(60rem_30rem_at_78%_20%,rgba(40,200,230,.10),transparent_60%),linear-gradient(rgba(128,140,150,.09)_1px,transparent_1px)] bg-[size:auto,100%_48px] [mask-image:linear-gradient(180deg,#000_40%,transparent)]"
+      />
+      <div class="relative mx-auto grid max-w-6xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-[1.05fr_.95fr] lg:gap-16">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">open · professional · software mixer</p>
+          <h1 class="mt-5 font-display text-[2.5rem] leading-[1.02] font-semibold tracking-[-0.035em] text-ink sm:text-6xl lg:text-[4.4rem]">
+            A mixing console, built from scratch <span class="text-accent">in software.</span>
+          </h1>
+          <p class="mt-5 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+            openmixer is a live mixer for Linux. Audio comes in from a stagebox, is mixed
+            by openmixer's own real-time engine inside PipeWire, and goes back out to the
+            PA. There is no hardware console in the signal path: the console
+            <strong class="font-medium text-ink">is</strong> the software, and every browser
+            on the network is its surface.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <UButton to="/features" size="lg" color="primary" trailing-icon="i-lucide-arrow-right">
+              Explore openmixer
+            </UButton>
+            <UButton to="#plugins" size="lg" color="neutral" variant="outline">
+              How it hosts plugins
+            </UButton>
+          </div>
+          <ul class="mt-8 flex flex-wrap gap-2" aria-label="Built on">
+            <li
+              v-for="c in ['PipeWire', 'native C engine', 'REAC stageboxes', 'X-Touch', 'LV2 · CLAP', 'GPL-3.0']"
+              :key="c"
+              class="rounded-full border border-edge bg-surface px-3 py-1.5 font-mono text-[11px] leading-none tracking-[0.04em] text-ink-dim"
+            >{{ c }}</li>
+          </ul>
         </div>
 
-        <dl class="mt-16 grid max-w-4xl gap-x-10 gap-y-6 border-t border-edge pt-8 sm:grid-cols-2 lg:grid-cols-4">
-          <div v-for="f in facts" :key="f.label">
-            <dt class="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-faint">{{ f.label }}</dt>
-            <dd class="mt-1 font-display text-lg text-ink">{{ f.value }}</dd>
-            <dd class="mt-1 text-sm leading-relaxed text-ink-dim">{{ f.note }}</dd>
+        <div
+          role="img"
+          aria-label="An illustration of the openmixer fader wall: seven channel strips and the main bus, each with a gain knob, a level meter and a fader."
+          class="rounded-[22px] border border-edge bg-linear-to-b from-surface-2 to-surface px-3 pt-5 pb-4 shadow-[0_24px_60px_rgba(20,40,50,.14)] dark:shadow-[0_30px_80px_rgba(0,0,0,.55),inset_0_1px_0_rgba(255,255,255,.04)] sm:px-5"
+        >
+          <div class="mb-4 flex items-center justify-between font-mono text-[11px] leading-none uppercase tracking-[0.1em] text-ink-faint">
+            <span>Inputs · Main</span>
+            <span class="flex items-center gap-2 text-meter">
+              <span class="size-[7px] rounded-full bg-meter shadow-[0_0_10px_var(--color-meter)]" />Live
+            </span>
           </div>
-        </dl>
+          <div class="grid grid-cols-5 gap-2 sm:grid-cols-8">
+            <div
+              v-for="(s, i) in strips"
+              :key="s.name"
+              class="min-w-0 flex-col items-center gap-2 rounded-[10px] border border-track bg-well pt-2.5 pb-2"
+              :class="i >= 4 ? 'hidden sm:flex' : 'flex'"
+            >
+              <div
+                class="relative size-[22px] rounded-full bg-[conic-gradient(var(--color-accent)_0_var(--k),var(--color-surface-3)_0)]"
+                :style="{ '--k': `${s.k}%` }"
+              >
+                <div class="absolute inset-1 rounded-full bg-surface-2" />
+              </div>
+              <div class="flex h-[140px] w-full justify-center gap-[5px] sm:h-[170px]">
+                <div class="relative h-full w-1 overflow-hidden rounded-sm bg-track">
+                  <i
+                    class="absolute inset-x-0 bottom-0 origin-bottom rounded-sm bg-[linear-gradient(0deg,var(--color-meter)_0_62%,var(--color-warn)_62%_84%,var(--color-clip)_84%)] motion-safe:animate-level"
+                    :style="{ height: `${s.m}%`, animationDuration: `${s.d}s` }"
+                  />
+                </div>
+                <div class="relative h-full w-1.5 rounded-[3px] bg-track">
+                  <div
+                    class="absolute left-1/2 -ml-[13px] h-3.5 w-[26px] rounded bg-linear-to-b from-[#dfe7ec] to-[#aab6be] shadow-[0_3px_6px_rgba(0,0,0,.6)]"
+                    :style="{ top: `${s.f}%` }"
+                  >
+                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-[#0b0e11]" />
+                  </div>
+                </div>
+              </div>
+              <div class="font-mono text-[10px] leading-none tracking-[0.05em] text-ink-dim">{{ s.name }}</div>
+            </div>
+            <div class="flex min-w-0 flex-col items-center gap-2 rounded-[10px] border border-accent/35 bg-accent/6 pt-2.5 pb-2">
+              <div class="relative size-[22px] rounded-full bg-[conic-gradient(var(--color-accent)_0_50%,var(--color-surface-3)_0)]">
+                <div class="absolute inset-1 rounded-full bg-surface-2" />
+              </div>
+              <div class="flex h-[140px] w-full justify-center gap-[5px] sm:h-[170px]">
+                <div v-for="(mm, j) in mainMeters" :key="j" class="relative h-full w-1 overflow-hidden rounded-sm bg-track">
+                  <i
+                    class="absolute inset-x-0 bottom-0 origin-bottom rounded-sm bg-[linear-gradient(0deg,var(--color-meter)_0_62%,var(--color-warn)_62%_84%,var(--color-clip)_84%)] motion-safe:animate-level"
+                    :style="{ height: `${mm.m}%`, animationDuration: `${mm.d}s` }"
+                  />
+                </div>
+                <div class="relative h-full w-1.5 rounded-[3px] bg-track">
+                  <div
+                    class="absolute left-1/2 -ml-[13px] h-3.5 w-[26px] rounded bg-linear-to-b from-omx-300 to-accent shadow-[0_3px_6px_rgba(0,0,0,.6)]"
+                    style="top: 31%"
+                  >
+                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-[#0b0e11]" />
+                  </div>
+                </div>
+              </div>
+              <div class="font-mono text-[10px] leading-none tracking-[0.05em] text-accent">MAIN</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </section>
+    </header>
 
-    <!-- The screenshot, first thing, because it is real -->
-    <section class="border-b border-edge">
-      <div class="mx-auto max-w-6xl px-6 py-14">
-        <Shot
-          src="/img/console-channels.png"
-          alt="The openmixer surface: a channel strip with gain, trim, pan, phantom and the EQ curve above a wall of sixteen faders and the main strip."
-          caption="The running console. Channel 9 selected on its processing rack; sixteen input strips and MAIN below."
-        />
-      </div>
-    </section>
+    <!-- The console -->
+    <section id="console" class="scroll-mt-20 border-t border-edge/55 py-18 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">The console</p>
+        <h2 class="mt-4 max-w-[20ch] font-display text-3xl leading-[1.08] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+          Not a remote for someone else's desk. The mixer itself.
+        </h2>
+        <p class="mt-4 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+          Most mixer apps are remote controls for a hardware console. With openmixer the
+          audio runs through the software: one console model that fits no particular desk
+          sits in the middle, and the engine, the surfaces and the I/O all plug into it.
+          <NuxtLink to="/architecture" class="text-accent hover:underline">How it is built</NuxtLink>.
+        </p>
 
-    <!-- Three claims -->
-    <section>
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="What it actually is" title="One model, one door, one audio path." />
-        <div class="grid gap-5 md:grid-cols-3">
-          <Slab title="A device-neutral model" tag="core">
-            <p>
-              One canonical mixer model sits in the middle — channels, faders, buses,
-              sends, DCAs, the matrix, latency paths, sessions. The surface, the audio
-              engine and the I/O all plug into that model and none of them assumes a
-              particular desk.
+        <ol class="mt-12 grid overflow-hidden rounded-[14px] border border-edge bg-surface md:grid-cols-5" aria-label="One channel's signal path">
+          <li
+            v-for="p in path"
+            :key="p.title"
+            class="border-b border-edge px-5 py-5 last:border-0 md:border-r md:border-b-0"
+            :class="p.core ? 'bg-linear-to-b from-accent/9 to-accent/2' : ''"
+          >
+            <small class="mb-2.5 block font-mono text-[11px] leading-none uppercase tracking-[0.12em]" :class="p.core ? 'text-accent' : 'text-ink-faint'">{{ p.at }}</small>
+            <strong class="block font-display text-base leading-tight font-semibold text-ink">{{ p.title }}</strong>
+            <span class="mt-1.5 block text-sm text-ink-dim">{{ p.what }}</span>
+          </li>
+        </ol>
+
+        <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <article v-for="c in cards" :key="c.title" class="flex flex-col gap-3 rounded-[14px] border border-edge bg-surface p-6 transition-colors hover:border-edge-strong">
+            <div class="grid size-10 place-items-center rounded-[10px] border border-edge bg-surface-2 text-accent" aria-hidden="true">
+              <UIcon :name="c.icon" class="size-5" />
+            </div>
+            <h3 class="font-display text-xl leading-tight font-semibold tracking-tight text-ink">{{ c.title }}</h3>
+            <p class="text-[0.96rem] leading-relaxed text-ink-dim">{{ c.text }}</p>
+            <span :class="[pill, TONE[c.tone], 'mt-auto']">{{ c.status }}</span>
+          </article>
+        </div>
+
+        <div class="mt-10">
+          <Shot
+            src="/img/console-channels.png"
+            alt="The openmixer surface: a channel strip with gain, trim, pan, phantom and the EQ curve above a wall of sixteen faders and the main strip."
+            caption="The running console. Channel 9 selected on its processing rack; sixteen input strips and MAIN below."
+          />
+        </div>
+
+        <ul class="mt-10 columns-1 gap-8 sm:columns-2 lg:columns-3" aria-label="What the mixer does today">
+          <li
+            v-for="f in features"
+            :key="f"
+            class="relative break-inside-avoid border-b border-dashed border-edge/80 py-2 pl-6 text-[0.95rem] text-ink-dim before:absolute before:top-[1.05rem] before:left-0 before:h-0.5 before:w-2 before:bg-accent"
+          >{{ f }}</li>
+        </ul>
+
+        <div class="mt-12 grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
+          <div class="rounded-[14px] border border-edge bg-surface p-7">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">Where it stands</p>
+            <p class="mt-4 flex items-start gap-3 text-ink">
+              <span class="mt-2 size-[9px] flex-none rounded-full bg-meter shadow-[0_0_12px_var(--color-meter)]" aria-hidden="true" />
+              The native engine has mixed real shows since July 2026.
             </p>
-            <p>
-              Real desks can be attached through adapters, but they are one optional
-              control path, not the product.
+            <div class="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-ink-dim">
+              <p>
+                It runs on a real rig, a Roland stagebox and an RME Babyface Pro. Phantom power
+                was confirmed at the XLR pins, two stageboxes have run at once, and the rate has
+                been switched between 48 and 96 kHz with the house up.
+              </p>
+              <p>
+                Some parts are not there yet. Recording has never captured a show, the X-Touch
+                support has never been driven on real hardware, and the matrix does not carry
+                audio. The plugin hosts are packaged today; the console itself is not published
+                yet.
+              </p>
+              <p>
+                <NuxtLink to="/features" class="text-accent hover:underline">The features page</NuxtLink>
+                marks each item by how far it has been proven and lists the known limitations.
+              </p>
+            </div>
+          </div>
+          <div class="rounded-[14px] border border-edge bg-well p-7">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">How anything here gets called finished</p>
+            <blockquote class="mt-4 border-l-2 border-accent pl-4 font-display text-xl leading-snug text-ink">
+              If a control claims to affect audio, measure audio.
+            </blockquote>
+            <p class="mt-4 text-[0.95rem] leading-relaxed text-ink-dim">
+              A control can read back perfectly and reach nothing at all. So the processing is
+              checked against values worked out on paper, changes are checked on the running
+              audio graph, and a phantom power claim needs a person at the connector, never a
+              light on a screen.
             </p>
-          </Slab>
-          <Slab title="State distribution is the product" tag="server">
-            <p>
-              The server holds the authoritative console state and serves it as REST
-              entities. Every entity is <code class="font-mono text-ink">GET</code>,
-              <code class="font-mono text-ink">PATCH</code> and
-              <code class="font-mono text-ink">OPTIONS</code>-able, and any
-              <code class="font-mono text-ink">GET</code> takes
-              <code class="font-mono text-ink">?watch=1</code> to become a live SSE
-              stream.
-            </p>
-            <p>
-              Every client is a remote client. Keeping them all looking at the same
-              desk is the hard part, and it is the part the design is about.
-            </p>
-          </Slab>
-          <Slab title="One native node, not a pile" tag="pipewire-native">
-            <p>
-              The structural DSP — per-strip gain, fader, pan, polarity, summing, the
-              EQ bank, gate, compressor, delay, reverb and the RTA tap — is one C
-              <code class="font-mono text-ink">pw_filter</code> node per stagebox
-              group. Not a stack of loopback subprocesses.
-            </p>
-            <p>
-              LV2 and CLAP plugin inserts sit on top of that, in supervised processes,
-              wired per strip and per output.
-            </p>
-          </Slab>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- Native processing -->
-    <section class="border-t border-edge">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Built into the engine" title="The processing a show lives on, written for the console itself." />
-        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
-          These run inside the real-time mix node: no plugin host, no process boundary, no
-          added latency. Every stage never outputs a non-finite sample, never stalls the
-          audio thread on denormals, and when bypassed its output is its input.
+    <section id="native" class="scroll-mt-20 border-t border-edge/55 py-18 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">Built into the engine</p>
+        <h2 class="mt-4 max-w-[20ch] font-display text-3xl leading-[1.08] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+          The processing a show lives on, written for the console itself.
+        </h2>
+        <p class="mt-4 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+          openmixer's own processors run inside the real-time mix node: no plugin host, no
+          process boundary, no added latency. Every stage keeps the same promises. It never
+          outputs a broken sample, it never stalls the audio thread, and when bypassed its
+          output is exactly its input.
+          <a :href="site('/docs/manual')" class="text-accent hover:underline">The operator manual</a>
+          shows how to use each one.
         </p>
-        <div class="grid gap-5 md:grid-cols-3">
-          <Slab v-for="g in native" :key="g.title" :title="g.title">
-            <dl class="space-y-3">
-              <div v-for="[name, what] in g.items" :key="name">
-                <dt class="font-display text-ink">{{ name }}</dt>
-                <dd>{{ what }}</dd>
-              </div>
-            </dl>
-          </Slab>
+
+        <div class="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_1fr_1.25fr]">
+          <article
+            v-for="g in native"
+            :key="g.title"
+            class="rounded-[14px] border p-6"
+            :class="g.featured ? 'border-accent/35 bg-linear-to-b from-accent/8 to-surface to-60% md:col-span-2 lg:col-span-1' : 'border-edge bg-surface'"
+          >
+            <h3 class="border-b border-edge pb-3.5 font-display text-lg font-semibold tracking-tight text-ink">{{ g.title }}</h3>
+            <ul>
+              <li v-for="[name, what] in g.items" :key="name" class="border-b border-dashed border-edge/80 py-3.5 last:border-0 last:pb-0">
+                <b class="block font-display text-[0.95rem] leading-snug font-semibold text-ink">{{ name }}</b>
+                <span class="mt-1 block text-sm text-ink-dim">{{ what }}</span>
+              </li>
+            </ul>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Plugin hosting -->
-    <section class="border-t border-edge">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Plugins" title="Any plugin you want, never at the cost of the show." />
-        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
-          A live console cannot go quiet because a plugin crashed. So processing comes in
-          layers: the console's own code inside the engine, and outside plugins in
+    <!-- Plugins -->
+    <section
+      id="plugins"
+      class="scroll-mt-20 border-t border-edge/55 bg-[radial-gradient(50rem_26rem_at_15%_0%,rgba(40,200,230,.08),transparent_60%)] py-18 sm:py-28"
+    >
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">Plugins</p>
+        <h2 class="mt-4 max-w-[20ch] font-display text-3xl leading-[1.08] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+          Every plugin you want. Never at the cost of the show.
+        </h2>
+        <p class="mt-4 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+          A live console cannot go silent because a plugin crashed. So openmixer loads
+          processing in layers: its own code inside the engine, and outside plugins in
           supervised processes that can fail without touching anything else.
+          <NuxtLink to="/docs/plugins" class="text-accent hover:underline">Plugins in the manual</NuxtLink>.
         </p>
-        <div class="grid gap-5 md:grid-cols-3">
-          <Slab title="openmixer native" tag="inside the engine">
-            <p>
-              Everything above runs in the same real-time node as the mix. Added latency:
-              none.
+
+        <div class="mt-12 grid gap-4 lg:grid-cols-3">
+          <article
+            v-for="t in tiers"
+            :key="t.title"
+            class="flex flex-col gap-3 rounded-[14px] border p-7"
+            :class="t.featured
+              ? 'border-accent/35 bg-linear-to-b from-accent/8 to-surface to-55% shadow-[0_0_0_1px_rgba(40,200,230,.12),0_20px_50px_rgba(20,40,50,.10)] dark:shadow-[0_0_0_1px_rgba(40,200,230,.12),0_24px_60px_rgba(0,0,0,.4)]'
+              : 'border-edge bg-surface'"
+          >
+            <p class="font-mono text-[11px] font-semibold leading-none uppercase tracking-[0.14em] text-ink-faint">{{ t.n }}</p>
+            <h3 class="font-display text-xl font-semibold tracking-tight text-ink">{{ t.title }}</h3>
+            <div v-if="t.formats.length" class="flex flex-wrap gap-1.5">
+              <span v-for="f in t.formats" :key="f" class="rounded border border-edge bg-surface-2 px-2 py-1 font-mono text-[11px] leading-none text-ink">{{ f }}</span>
+            </div>
+            <p class="text-[0.96rem] leading-relaxed text-ink-dim">
+              {{ t.text }}
+              <a v-if="!t.featured && !t.formats.length" href="#native" class="text-accent hover:underline">See the native processing.</a>
             </p>
-          </Slab>
-          <Slab title="LV2 and CLAP" tag="mod-host · omx-clap-host">
-            <p>
-              LV2 plugins run in mod-host, the host behind MOD Audio's devices. CLAP plugins
-              run in omx-clap-host, which speaks mod-host's protocol, so the console drives
-              both the same way. Controls come from each plugin's own metadata, and a
-              catalog ranks plugins by measured latency. Added latency: one buffer.
-            </p>
-          </Slab>
-          <Slab title="plugin-hostd" tag="the safety net">
-            <p>
-              A supervisor between the console and its plugin hosts. When a plugin crashes,
-              it restarts only that worker and restores its plugins and every setting. That
-              strip passes dry audio meanwhile; every other channel carries on.
-            </p>
-          </Slab>
+            <span :class="[pill, TONE[t.tone]]">{{ t.status }}</span>
+            <div class="mt-auto flex justify-between gap-4 border-t border-edge pt-4 font-mono text-xs text-ink-dim">
+              <span>{{ t.costLabel }}</span><b class="text-right font-medium text-ink">{{ t.cost }}</b>
+            </div>
+          </article>
         </div>
-        <div class="mt-8 rounded border border-edge bg-field p-6 text-sm leading-relaxed text-ink-dim">
-          <p>
-            We crashed a plugin on purpose on a running console and measured every strip
-            through it (30 September 2026). The mix through plugin-hostd was bit-identical to
-            the mix without it, every other strip moved by 0.000 dB, and only the worker
-            holding the faulty plugin restarted.
-          </p>
-          <p class="mt-3">
-            omx-clap-host and plugin-hostd are standalone projects: any host that speaks
-            mod-host's protocol can use them.
-            <a href="https://github.com/FreeMixer/omx-clap-host" class="text-accent hover:underline">omx-clap-host</a>,
-            <a href="https://github.com/FreeMixer/plugin-hostd" class="text-accent hover:underline">plugin-hostd</a>.
-          </p>
+
+        <div class="mt-4 grid gap-4 lg:grid-cols-[1.1fr_.9fr]">
+          <div class="rounded-[14px] border border-edge bg-surface p-7">
+            <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">What a crash looks like</p>
+            <h3 class="mt-3 font-display text-2xl font-semibold tracking-tight text-ink">A plugin dies mid-show. The mix does not notice.</h3>
+            <p class="mt-3 text-ink-dim">
+              We crash a plugin on purpose, on a running console, and measure every strip
+              through it. This is what the console hears, in order:
+            </p>
+            <ol class="mt-5">
+              <li
+                v-for="[code, what] in timeline"
+                :key="code"
+                class="grid gap-1 border-b border-dashed border-edge/80 py-2.5 text-[0.92rem] text-ink-dim last:border-0 sm:grid-cols-[9.5rem_1fr] sm:gap-4"
+              >
+                <code class="font-mono text-accent">{{ code }}</code><span>{{ what }}</span>
+              </li>
+            </ol>
+          </div>
+          <div class="grid content-start gap-4">
+            <div class="rounded-[14px] border border-edge bg-well px-6 py-5">
+              <strong class="block font-display text-3xl leading-none font-semibold tracking-tight text-accent sm:text-[2.4rem]">bit-identical</strong>
+              <span class="mt-2 block text-sm text-ink-dim">The mix through plugin-hostd against the mix through today's host: not one sample differs.</span>
+            </div>
+            <div class="rounded-[14px] border border-edge bg-well px-6 py-5">
+              <strong class="block font-display text-3xl leading-none font-semibold tracking-tight text-ink sm:text-[2.4rem]">0.000<small class="ml-1 text-[0.5em] tracking-normal text-ink-dim">dB</small></strong>
+              <span class="mt-2 block text-sm text-ink-dim">How far every other strip moved while one plugin crashed and came back.</span>
+            </div>
+            <div class="rounded-[14px] border border-edge bg-well px-6 py-5">
+              <strong class="block font-display text-3xl leading-none font-semibold tracking-tight text-ink sm:text-[2.4rem]">1<small class="ml-1 text-[0.5em] tracking-normal text-ink-dim">worker</small></strong>
+              <span class="mt-2 block text-sm text-ink-dim">Only the worker holding the faulty plugin restarted, and only that plugin was loaded again.</span>
+            </div>
+            <p class="text-[0.82rem] text-ink-faint">Measured on the openmixer development console, 30 September 2026.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Open components -->
+    <section id="open" class="scroll-mt-20 border-t border-edge/55 py-18 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">Open components</p>
+        <h2 class="mt-4 max-w-[20ch] font-display text-3xl leading-[1.08] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+          Built in the open, for everyone who hosts plugins.
+        </h2>
+        <p class="mt-4 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+          The pieces openmixer uses to load outside plugins are projects of their own,
+          packaged for Fedora and Debian, including Raspberry Pi OS and Zynthian. Any host that
+          already speaks mod-host's protocol can use them.
+        </p>
+        <div class="mt-12 grid gap-4 lg:grid-cols-3">
+          <a
+            v-for="r in repos"
+            :key="r.name"
+            :href="r.href"
+            class="flex flex-col gap-3 rounded-[14px] border border-edge bg-surface p-6 transition hover:-translate-y-0.5 hover:border-accent motion-reduce:transition-none"
+          >
+            <span :class="[pill, TONE[r.tone]]">{{ r.status }}</span>
+            <span class="font-mono text-[1.05rem] font-semibold text-ink">{{ r.name }}</span>
+            <p class="text-[0.96rem] leading-relaxed text-ink-dim">{{ r.text }}</p>
+            <span class="mt-auto text-sm text-accent">{{ r.go }} →</span>
+          </a>
         </div>
       </div>
     </section>
 
     <!-- Install -->
-    <section id="install" class="border-t border-edge bg-surface/40">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Install" title="Signed packages for x86_64 and ARM64." />
-        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">
-          The plugin hosts are packaged for Fedora and Debian, including Raspberry Pi OS and
-          Zynthian. Each package is built from a release tag, signed, and published at
-          freemixer.github.io.
+    <section id="install" class="scroll-mt-20 border-t border-edge/55 py-18 sm:py-28">
+      <div class="mx-auto max-w-6xl px-4 sm:px-6">
+        <p class="font-mono text-xs uppercase tracking-[0.14em] text-accent">Install</p>
+        <h2 class="mt-4 max-w-[20ch] font-display text-3xl leading-[1.08] font-semibold tracking-tight text-ink sm:text-[2.75rem]">
+          Signed packages for x86_64 and ARM64.
+        </h2>
+        <p class="mt-4 mb-10 max-w-[60ch] text-lg leading-relaxed text-ink-dim">
+          Every package is built from a release tag, signed, and published here, for Fedora,
+          Debian, Raspberry Pi OS and Zynthian. Add the repository, install, and run.
         </p>
         <InstallSteps />
-      </div>
-    </section>
-
-    <!-- Honest status -->
-    <section class="border-t border-edge bg-surface/40">
-      <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Status" title="It runs live, and it is not finished." />
-        <div class="grid gap-10 md:grid-cols-2">
-          <div class="space-y-4 text-sm leading-relaxed text-ink-dim">
-            <p>
-              openmixer has been driven on a real rig &mdash; a Roland stagebox and an
-              RME Babyface Pro &mdash; and the native engine has been mixing through a
-              real show since 2026-07-06. Phantom power has been confirmed at the XLR
-              pins with the console independently agreeing. Two stageboxes have been
-              established at once, and the fabric has been re-paced between 48 and
-              96 kHz with the house up.
-            </p>
-            <p>
-              Other parts are not there yet. Recording is landing now and has never
-              captured a show. The X-Touch surface is implemented and has never been
-              driven on real hardware. The matrix has addresses and a surface and does
-              not carry audio.
-            </p>
-            <p>
-              The feature pages label each item by how far it has actually been proven,
-              and the known limitations are listed rather than omitted. The plugin hosts
-              are packaged today; the console itself is not published yet.
-            </p>
-          </div>
-          <div class="rounded border border-edge bg-field p-6">
-            <p class="font-mono text-xs uppercase tracking-[0.14em] text-ink-faint">
-              How anything here gets called finished
-            </p>
-            <blockquote class="mt-4 border-l-2 border-accent pl-4 font-display text-lg leading-snug text-ink">
-              If a control claims to affect audio, measure audio.
-            </blockquote>
-            <p class="mt-4 text-sm leading-relaxed text-ink-dim">
-              A control can read back perfectly and reach nothing at all. So the signal
-              processing is checked against values worked out on paper rather than
-              captured from a run, graph changes are verified on the live graph rather
-              than on the model of it, and a phantom claim needs a person at the
-              connector &mdash; never a soft indicator on a screen.
-            </p>
-            <p class="mt-4 text-sm leading-relaxed text-ink-dim">
-              Nothing on this site describes a capability that does not exist.
-            </p>
-          </div>
-        </div>
+        <p class="mt-10 text-ink-dim">
+          More on <NuxtLink to="/get-it" class="text-accent hover:underline">getting it</NuxtLink>,
+          and answers to common questions in the <NuxtLink to="/faq" class="text-accent hover:underline">FAQ</NuxtLink>.
+        </p>
       </div>
     </section>
   </div>

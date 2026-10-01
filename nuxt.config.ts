@@ -64,19 +64,21 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
-  // The site is dark-only. Nuxt UI tracks its own `.dark` class through
-  // @nuxtjs/color-mode; without this its components render their light variants
-  // over a dark page — a solid button turns into a pale slab.
-  colorMode: { preference: 'dark', fallback: 'dark', classSuffix: '' },
+  // Dark and light, following the visitor's system until they pick one with the header
+  // toggle (remembered by color-mode in localStorage). color-mode puts `.dark` or
+  // `.light` on <html> — Nuxt UI keys its components on `.dark`, main.css gives the
+  // site's tokens their light values under `.light` — and mirrors it in data-theme.
+  colorMode: { preference: 'system', fallback: 'dark', classSuffix: '', dataValue: 'theme' },
 
   app: {
     // A project page under github.io lives at /<repo>/. Set NUXT_APP_BASE_URL at
     // generate time for that; the default serves from a domain root.
     head: {
-      htmlAttrs: { lang: 'en', 'data-theme': 'dark' },
+      htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#0b0e11' },
+        { name: 'theme-color', content: '#0b0e11', media: '(prefers-color-scheme: dark)' },
+        { name: 'theme-color', content: '#f5f7f9', media: '(prefers-color-scheme: light)' },
       ],
       // The prefix is a BUILD input: a leading-slash href here points above the mount on a
       // project page, which is how the favicon 404'd on the live site until 2026-09-07.
