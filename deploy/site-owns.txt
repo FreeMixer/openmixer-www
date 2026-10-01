@@ -24,3 +24,4 @@ architecture
 links
 ca
 openmixer-www
+_i18n
