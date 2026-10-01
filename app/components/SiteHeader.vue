@@ -7,6 +7,7 @@
 const links = [
   { to: '/architecture', label: 'Architecture' },
   { to: '/features', label: 'Features' },
+  { to: '/plugins', label: 'Plugins' },
   { to: '/docs', label: 'Docs' },
   { to: '/faq', label: 'FAQ' },
   { to: '/get-it', label: 'Get it' },
