@@ -16,6 +16,7 @@ interface Row {
   sample: unknown;
 }
 defineProps<{ row: Row }>();
+const { t } = useI18n();
 </script>
 
 <template>
@@ -26,10 +27,10 @@ defineProps<{ row: Row }>();
       <span
         v-if="row.demand"
         class="rounded border border-edge-strong px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.1em] text-ink-faint"
-      >on demand</span>
+      >{{ t('common.rest.onDemand') }}</span>
       <code class="font-mono text-sm text-ink">{{ row.path }}</code>
     </div>
-    <p v-if="row.example !== row.path" class="mt-2 font-mono text-xs text-ink-faint">e.g. {{ row.example }}</p>
+    <p v-if="row.example !== row.path" class="mt-2 font-mono text-xs text-ink-faint">{{ t('common.rest.example', { path: row.example }) }}</p>
 
     <ul v-if="row.fields.length" class="mt-4 space-y-2">
       <li v-for="f in row.fields" :key="f.name" class="border-l-2 border-edge pl-3">
@@ -38,19 +39,19 @@ defineProps<{ row: Row }>();
           <span
             class="font-mono text-[10px] uppercase tracking-[0.1em]"
             :class="f.writable ? 'text-accent' : 'text-ink-faint'"
-          >{{ f.writable ? 'writable' : 'read-only' }}</span>
+          >{{ f.writable ? t('common.rest.writable') : t('common.rest.readOnly') }}</span>
           <span v-if="f.limit" class="font-mono text-xs text-ink-dim">
-            {{ f.limit.min }}–{{ f.limit.max }}{{ f.limit.unit ? ` ${f.limit.unit}` : '' }}<template v-if="f.limit.step">, step {{ f.limit.step }}</template>
+            {{ f.limit.min }}–{{ f.limit.max }}{{ f.limit.unit ? ` ${f.limit.unit}` : '' }}<template v-if="f.limit.step">{{ t('common.rest.step', { step: f.limit.step }) }}</template>
           </span>
-          <span v-else-if="f.perInstance" class="font-mono text-xs text-ink-dim">range depends on the instance</span>
+          <span v-else-if="f.perInstance" class="font-mono text-xs text-ink-dim">{{ t('common.rest.perInstance') }}</span>
         </div>
         <p v-if="f.values" class="mt-1 font-mono text-xs text-ink-faint">{{ f.values.join(' · ') }}</p>
       </li>
     </ul>
-    <p v-else class="mt-4 text-sm text-ink-faint">No fields observed on the reference rig.</p>
+    <p v-else class="mt-4 text-sm text-ink-faint">{{ t('common.rest.noFields') }}</p>
 
     <details v-if="row.sample" class="mt-4">
-      <summary class="cursor-pointer font-mono text-xs uppercase tracking-[0.1em] text-ink-faint">Example response</summary>
+      <summary class="cursor-pointer font-mono text-xs uppercase tracking-[0.1em] text-ink-faint">{{ t('common.rest.exampleResponse') }}</summary>
       <pre class="mt-2 overflow-x-auto rounded border border-edge bg-field p-4 font-mono text-xs leading-relaxed text-ink-dim">{{ JSON.stringify(row.sample, null, 2) }}</pre>
     </details>
   </div>

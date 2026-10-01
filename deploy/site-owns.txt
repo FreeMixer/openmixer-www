@@ -22,4 +22,5 @@ features
 get-it
 architecture
 links
+ca
 openmixer-www
