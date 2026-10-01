@@ -37,8 +37,13 @@ const mark = computed(() => withSiteBase(useRuntimeConfig().app.baseURL, '/img/o
         >{{ l.label }}</NuxtLink>
       </nav>
 
+      <ClientOnly>
+        <UColorModeButton class="ml-auto md:ml-0" aria-label="Switch between light and dark" />
+        <template #fallback><span class="ml-auto size-8 md:ml-0" /></template>
+      </ClientOnly>
+
       <UButton
-        class="ml-auto md:hidden"
+        class="md:hidden"
         color="neutral"
         variant="ghost"
         :icon="open ? 'i-lucide-x' : 'i-lucide-menu'"
