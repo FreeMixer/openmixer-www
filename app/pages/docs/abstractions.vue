@@ -2,9 +2,11 @@
 <script setup lang="ts">
 import abstractions from '~/data/abstractions.json';
 
+const { t } = useI18n();
+
 useSeoMeta({
-  title: 'Abstractions catalog — openmixer',
-  description: 'Every reusable element in the codebase — types, components, widgets, libraries and modules — one line each, so a change composes an existing element before it writes a new one.',
+  title: () => t('docsAbstractions.seo.title'),
+  description: () => t('docsAbstractions.seo.description'),
 });
 
 const filter = ref('');
@@ -15,11 +17,11 @@ function matches(item: { name: string; summary?: string; package?: string }) {
   return hay.includes(needle.value);
 }
 
-const columns = [
-  { key: 'name', label: 'Name', mono: true },
-  { key: 'package', label: 'Package', mono: true },
-  { key: 'summary', label: 'Summary' },
-] as const;
+const columns = computed(() => [
+  { key: 'name', label: t('docsAbstractions.col.name'), mono: true },
+  { key: 'package', label: t('docsAbstractions.col.package'), mono: true },
+  { key: 'summary', label: t('docsAbstractions.col.summary') },
+] as const);
 
 const generatedFiltered = computed(() =>
   abstractions.generated
@@ -31,22 +33,19 @@ const generatedFiltered = computed(() =>
 <template>
   <div>
     <PageHero
-      eyebrow="Tech docs — Abstractions catalog"
-      title="Every reusable element, in one place."
-      lede="Two kinds of code exist here: a reusable element, or configuration composing one. This page is the inventory of the first kind — types, components, widgets, libraries and modules — so a change reaches for what already exists before it writes something new."
+      :eyebrow="t('docsAbstractions.hero.eyebrow')"
+      :title="t('docsAbstractions.hero.title')"
+      :lede="t('docsAbstractions.hero.lede')"
     />
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-6xl px-6 py-10 text-sm leading-relaxed text-ink-dim">
-        <p>
-          The web-ui and native-C halves below are curated by hand, because typedoc
-          reads TSDoc, not Vue single-file components or C headers. The
-          <code class="font-mono text-xs text-ink">@openmixer/core</code> and
-          <code class="font-mono text-xs text-ink">@openmixer/server</code> halves
-          are generated straight from their TSDoc comments —
-          {{ abstractions.meta.generatedCount }} exported symbols,
-          {{ abstractions.meta.documentedCount }} of them with a summary.
-        </p>
+        <p
+          v-html="t('docsAbstractions.intro', {
+            generated: abstractions.meta.generatedCount,
+            documented: abstractions.meta.documentedCount,
+          })"
+        />
       </div>
     </section>
 
@@ -74,11 +73,11 @@ const generatedFiltered = computed(() =>
 
     <section>
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Generated — core + server" title="The TypeScript public surface." />
+        <SectionHead :eyebrow="t('docsAbstractions.generated.eyebrow')" :title="t('docsAbstractions.generated.title')" />
         <input
           v-model="filter"
           type="text"
-          placeholder="Filter by name, package or summary…"
+          :placeholder="t('docsAbstractions.generated.filter')"
           class="mb-8 w-full max-w-md rounded border border-edge bg-field px-3 py-2 text-sm text-ink placeholder:text-ink-faint focus:border-accent focus:outline-none"
         >
         <div v-for="g in generatedFiltered" :key="g.label" class="mb-10">
@@ -94,7 +93,7 @@ const generatedFiltered = computed(() =>
             </template>
           </RefTable>
         </div>
-        <p v-if="!generatedFiltered.length" class="text-sm text-ink-faint">No symbol matches "{{ filter }}".</p>
+        <p v-if="!generatedFiltered.length" class="text-sm text-ink-faint">{{ t('docsAbstractions.generated.none', { filter }) }}</p>
       </div>
     </section>
   </div>
