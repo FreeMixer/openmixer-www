@@ -16,3 +16,4 @@ dist
 # commits the refresh; CI publishes whatever snapshot is checked in. Only the
 # intermediate typedoc reflection model stays out of git.
 /.docgen-tmp/
+/.docs-stage/
