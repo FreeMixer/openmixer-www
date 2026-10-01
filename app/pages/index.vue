@@ -17,24 +17,15 @@ const TONE: Record<Tone, string> = {
 };
 const pill = 'inline-flex self-start rounded-full border px-2.5 py-1.5 font-mono text-[10.5px] leading-none uppercase tracking-[0.1em]';
 
-/** Strip colours are theme tokens (main.css); class names are spelled out so Tailwind sees them. */
-const stripBg = {
-  red: 'bg-strip-red',
-  yellow: 'bg-strip-yellow',
-  green: 'bg-strip-green',
-  blue: 'bg-strip-blue',
-  magenta: 'bg-strip-magenta',
-} as const;
-
 /** The fader wall in the hero: an illustration, not a capture. */
 const strips = [
-  { name: 'KICK', c: 'red', k: 55, m: 58, d: 1.3, f: 34 },
-  { name: 'SNR', c: 'red', k: 42, m: 46, d: 0.9, f: 40 },
-  { name: 'BASS', c: 'yellow', k: 35, m: 38, d: 1.7, f: 46 },
-  { name: 'GTR', c: 'blue', k: 60, m: 64, d: 1.1, f: 30 },
-  { name: 'KEYS', c: 'yellow', k: 48, m: 52, d: 1.5, f: 37 },
-  { name: 'VOX', c: 'green', k: 66, m: 70, d: 1.25, f: 27 },
-  { name: 'FX', c: 'magenta', k: 30, m: 30, d: 2, f: 52 },
+  { name: 'KICK', k: 55, m: 58, d: 1.3, f: 34 },
+  { name: 'SNR', k: 42, m: 46, d: 0.9, f: 40 },
+  { name: 'BASS', k: 35, m: 38, d: 1.7, f: 46 },
+  { name: 'GTR', k: 60, m: 64, d: 1.1, f: 30 },
+  { name: 'KEYS', k: 48, m: 52, d: 1.5, f: 37 },
+  { name: 'VOX', k: 66, m: 70, d: 1.25, f: 27 },
+  { name: 'AMB', k: 30, m: 30, d: 2, f: 52 },
 ] as const;
 const mainMeters = [{ m: 66, d: 1.4 }, { m: 62, d: 1.45 }] as const;
 
@@ -275,14 +266,11 @@ useSeoMeta({
                     class="absolute left-1/2 -ml-[13px] h-3.5 w-[26px] rounded bg-linear-to-b from-[#dfe7ec] to-[#aab6be] shadow-[0_3px_6px_rgba(0,0,0,.6)]"
                     :style="{ top: `${s.f}%` }"
                   >
-                    <div class="absolute inset-x-1 top-1.5 h-0.5" :class="stripBg[s.c]" />
+                    <div class="absolute inset-x-1 top-1.5 h-0.5 bg-[#0b0e11]" />
                   </div>
                 </div>
               </div>
-              <div
-                class="w-[calc(100%-10px)] rounded-[3px] py-1 text-center font-mono text-[10px] leading-none font-semibold tracking-[0.05em] text-strip-ink"
-                :class="stripBg[s.c]"
-              >{{ s.name }}</div>
+              <div class="font-mono text-[10px] leading-none tracking-[0.05em] text-ink-dim">{{ s.name }}</div>
             </div>
             <div class="flex min-w-0 flex-col items-center gap-2 rounded-[10px] border border-accent/35 bg-accent/6 pt-2.5 pb-2">
               <div class="relative size-[22px] rounded-full bg-[conic-gradient(var(--color-accent)_0_50%,var(--color-surface-3)_0)]">
