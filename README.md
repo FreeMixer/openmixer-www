@@ -12,8 +12,8 @@ and code, all generated from the openmixer sources so they never drift from the 
 
 ## Read it
 
-The site is live at <https://freemixer.github.io/openmixer-www/>: start at Features, then the
-manual under Docs.
+The site is live at <https://freemixer.github.io/>: start at Features, then the manual under
+Docs.
 
 ## Install
 
