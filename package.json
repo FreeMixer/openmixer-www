@@ -14,6 +14,7 @@
     "docs:site": "node scripts/build-docs-tree.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:public": "node scripts/check-public.mjs",
+    "check:readme": "node scripts/check-readme.mjs",
     "predev": "npm run docs:gen",
     "prebuild": "npm run docs:gen",
     "pregenerate": "npm run docs:gen",

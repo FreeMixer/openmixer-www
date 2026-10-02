@@ -111,6 +111,10 @@ jobs:
       # Every page in English and Catalan, key for key; a missing translation fails here.
       - run: npm run check:i18n
 
+      # The README sells the packages; how to build lives in BUILDING.md. A build command
+      # on the README fails here.
+      - run: npm run check:readme
+
       - run: npm run generate
 
       - run: npm run docs:site
