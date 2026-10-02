@@ -73,17 +73,23 @@ into them.
 
 ### GitHub Pages
 
-`.github/workflows/pages.yml` builds and publishes on a push to `main`, and the site is
-live at <https://freemixer.github.io/openmixer-www/>. The workflow sets
-`NUXT_APP_BASE_URL=/openmixer-www/`; change it if the repository is renamed or a custom
-domain is used.
+`.github/workflows/pages.yml` builds on a push to `main` and publishes the site at the
+root of <https://freemixer.github.io/>, with `NUXT_APP_BASE_URL=/`. The root is served from
+`FreeMixer/freemixer.github.io`, which also holds the package repositories, so the workflow
+does not deploy a Pages artifact: it checks that repository out and `scripts/deploy-root.sh`
+replaces only the top-level paths listed in `deploy/site-owns.txt`, refusing a change that
+reaches anything else. A pull request runs the same steps as a dry run. Every page also gets
+a redirect page at its old `/openmixer-www/` address (`scripts/redirect-stubs.mjs`).
 
-It checks out `FreeMixer/openmixer` alongside this repository for the documentation tree.
-That repository is private, so the checkout needs a credential: **Settings → Secrets and
-variables → Actions → `OPENMIXER_DOCS_TOKEN`**, a fine-grained personal access token with
-`Contents: read` on `FreeMixer/openmixer`. Without it the run fails and Pages keeps serving
-the previous deployment — deliberately, because a site that quietly loses its manual looks
-exactly like a site that never had one.
+The workflow needs three secrets (**Settings → Secrets and variables → Actions**):
+
+- `OPENMIXER_DOCS_KEY`, the private half of a read-only deploy key on `FreeMixer/openmixer`,
+  for the documentation tree. That repository is private; without the key the run fails and
+  the root keeps serving the previous commit — deliberately, because a site that quietly
+  loses its manual looks exactly like a site that never had one.
+- `PAGES_TOKEN`, with push access to `FreeMixer/freemixer.github.io`.
+- `SITE_GPG_KEY`, the key that signs the publish commit. Without it the publish step refuses
+  to push; the dry run does not need it.
 
 ### The cluster
 
@@ -95,8 +101,8 @@ in the site needs Node once it is generated.
 ## What goes on this site
 
 Authored documentation and honest product description. Not development material: design
-records, working notes, audits and task lists stay in the openmixer repository and are
-neither linked nor reproduced here.
+records, working notes, audits and task lists stay private and are neither linked nor
+reproduced here.
 
 Every claim on the site is backed by something real in the openmixer repository. A
 capability that is built but unverified says so; a capability that does not exist is not
