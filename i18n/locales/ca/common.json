@@ -1,0 +1,66 @@
+{
+  "common": {
+    "nav": {
+      "architecture": "Arquitectura",
+      "features": "Funcions",
+      "plugins": "Plugins",
+      "docs": "Documentació",
+      "faq": "Preguntes",
+      "get-it": "Instal·lar",
+      "links": "Enllaços"
+    },
+    "header": {
+      "home": "Inici d'OpenMixer",
+      "theme": "Canvia entre el tema clar i el fosc",
+      "menu": "Menú",
+      "main": "Principal"
+    },
+    "footer": {
+      "tagline": "Una taula de mescles de programari per a Linux. La taula és el programari; el navegador n'és la superfície.",
+      "pages": "Pàgines",
+      "page": {
+        "architecture": "Arquitectura",
+        "features": "Funcions",
+      "plugins": "Plugins",
+        "docs": "Documentació",
+        "faq": "Preguntes freqüents",
+        "get-it": "Instal·lar",
+        "links": "Enllaços"
+      },
+      "licence": "Llicència",
+      "licenceText": "OpenMixer és programari lliure sota la llicència <span class=\"font-mono text-ink\">GPL-3.0-or-later</span>. Tots els paquets del projecte tenen la mateixa llicència.",
+      "trademarks": "Roland, Midas, Behringer, RME i els noms de producte que s'hi esmenten són dels seus propietaris respectius. OpenMixer és un projecte independent sense cap vincle amb cap d'ells."
+    },
+    "status": {
+      "live": "Provat a l'equip",
+      "measured": "Fet i mesurat",
+      "building": "En desenvolupament"
+    },
+    "code": {
+      "copy": "Copia",
+      "copied": "Copiat"
+    },
+    "rest": {
+      "onDemand": "a demanda",
+      "example": "p. ex. {path}",
+      "writable": "modificable",
+      "readOnly": "només lectura",
+      "step": ", pas {step}",
+      "perInstance": "el rang depèn de la instància",
+      "noFields": "No s'ha vist cap camp a l'equip de referència.",
+      "exampleResponse": "Resposta d'exemple"
+    },
+    "install": {
+      "fedora": "Fedora 44, x86_64 o aarch64.",
+      "debian": "Debian bookworm o trixie, amd64 o arm64. Els mateixos paquets s'instal·len a Raspberry Pi OS i a Zynthian.",
+      "pkgClapHost": "L'amfitrió CLAP i omx-clap-scan, amb la biblioteca omx-clap-core.",
+      "pkgHostd": "El supervisor de plugins i la seva pàgina de manual.",
+      "pkgDevel": "Capçaleres i fitxers pkg-config, per compilar el vostre propi amfitrió amb les mateixes biblioteques.",
+      "signed": "Els repositoris i tots els paquets estan signats amb una sola clau:",
+      "tryEyebrow": "Proveu-ho",
+      "tryTitle": "Dues ordres després d'instal·lar.",
+      "tryScan": "Tots els plugins CLAP d'aquesta màquina, amb els seus paràmetres i ports.",
+      "tryHostd": "El supervisor de plugins. Parla el protocol de mod-host, de manera que tot el que\ncontrola mod-host el controla també. Quan ja escolta, escriu \"plugin-hostd ready!\"."
+    }
+  }
+}

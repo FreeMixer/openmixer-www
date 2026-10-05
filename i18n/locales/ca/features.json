@@ -1,0 +1,105 @@
+{
+  "features": {
+    "seo": {
+      "title": "Funcions — OpenMixer",
+      "description": "Què fa avui la taula. Cada punt indica fins on s'ha provat realment: fet anar a l'equip, mesurat amb àudio o encara en curs."
+    },
+    "hero": {
+      "eyebrow": "Funcions",
+      "title": "Què fa i fins on s'ha provat.",
+      "lede": "Hi ha tres etiquetes i cada una vol dir una cosa diferent. Provat a l'equip vol dir que algú ho ha fet anar en una taula real amb maquinari real. Fet i mesurat vol dir que s'ha mesurat l'àudio que hi passa. En desenvolupament vol dir que el codi s'està incorporant i que encara no ho ha provat res."
+    },
+    "desk": {
+      "title": "La taula",
+      "p1": "Canals d'entrada amb guany del previ, trim, pan, polaritat, Phantom 48V i pad; un rack de processament complet a cada canal; busos, sends auxiliars amb punt de presa pre i post, DCA, una matrix, mix-minus, enllaç estèreo de canals i inserts de sortida.",
+      "p2": "Les sessions es conserven i es tornen a carregar en arrencar. Les escenes es poden recuperar. Grups de mute, solo (PFL, AFL i solo-in-place amb un pas d'armat), un dim i dos botons de pànic: un per a les sortides principals i un altre per a tota la taula.",
+      "p3": "El mix-minus és un tipus de ple dret amb les seves pròpies adreces, no un pedaç basat en desplaçaments d'índex. Els busos i el MAIN són canals com qualsevol altre: no hi ha mecanismes exclusius del màster amagats darrere d'un camí de codi diferent.",
+      "p4": "Dues excepcions, dites clarament, que convé conèixer abans de planificar-hi una actuació. La primera: s'ha mesurat que la matrix és digitalment muda amb un punt de creuament obert. La segona: carregar una actuació no deixa la taula neta; si carregueu l'actuació B sobre l'A, les corbes, les dinàmiques i les cues de l'A continuen actives a tots els canals que B no esmenta. Totes dues estan obertes i figuren més avall, a les limitacions conegudes."
+    },
+    "native": {
+      "title": "Processament natiu",
+      "p1": "Un banc d'EQ paramètric amb corba gràfica, un gate, un compressor, una línia de delay i una reverb. Tots són dins el node en C de la mateixa taula i tots s'han comprovat amb valors calculats a mà, no amb un enregistrament d'ells mateixos.",
+      "p2": "Moure un fader, un mute, un pan, una banda d'EQ, un gate, un compressor, un delay o una reverb canvia l'àudio en els tipus de canal on la taula diu que ho fa; on no pot, s'hi nega amb un motiu concret en lloc de mentir. És la part més sòlida de la taula i val la pena dir-ho sense embuts."
+    },
+    "rta": {
+      "title": "Analitzador en temps real",
+      "p1": "Una FFT nativa amb un nivell de zoom multiresolució: bins d'uns 0,73 Hz per sota d'una freqüència de transició de 300 Hz, on un analitzador de banda ampla no diu res útil. Retenció de pics, superposició pre-EQ i post-EQ i una traça de diferència per banda.",
+      "p2": "Res no calcula si ningú no ho mira. L'analitzador només funciona a demanda per a cada canal i l'activació sobreviu a una recàrrega perquè va lligada a la sessió, no al navegador. Els busos van tenir el seu analitzador el 2026-09-01; es va provar injectant un to en un bus i llegint el pic de l'espectre a la freqüència injectada, mentre que un bus sense send mostrava un fons sense cap pic.",
+      "shotAlt": "L'analitzador a tota alçada: un espectre en directe de 20 Hz a 20 kHz amb retenció de pics i quatre controls de banda d'EQ sobre la corba.",
+      "shotCaption": "L'analitzador funcionant amb una entrada en directe, amb els controls de les bandes d'EQ del canal sobre la mateixa corba."
+    },
+    "feedback": {
+      "title": "Detecció i correcció d'acoblaments",
+      "p1": "El detector vigila la signatura d'una sala que comença a acoblar-se i el corrector posa filtres notch a l'EQ del canal. Hi ha dos modes que es comporten de manera realment diferent: una passada de ring-out posa un notch de tall total amb una Q molt alta, mentre que el mode en directe posa una campana amb guany, la profunditat de la qual depèn de la relació entre el pic i la mitjana del senyal.",
+      "p2": "En el mode en directe, els notches s'aixequen per graons a mesura que la sala s'estabilitza (dos terços, un terç, fora) i tornen a baixar amb un temps de retenció doble si la freqüència reapareix. No toca mai les bandes de l'operador; només les seves, que porten una marca.",
+      "p3": "Per disseny, només s'aplica a les entrades. La correcció d'acoblaments als canals auxiliars, de mix i de matrix encara no s'ofereix."
+    },
+    "align": {
+      "title": "Alineació intel·ligent",
+      "p1": "Dos micròfons sobre una mateixa font capten el so en moments diferents. Trieu la referència, mireu com puja la coherència i apliqueu. L'ajust llegeix el pendent de la fase al llarg de la freqüència; per això necessita material de programa: un to pur no pot mesurar un retard, perquè un sinus ocupa un sol bin.",
+      "p2": "Corregeix amb delay i polaritat i <em class=\"text-ink\">informa</em> del residu en lloc de corregir-lo d'amagat. Un control que diu «137°» sense dir a quina freqüència convida l'operador a descobrir que, si canvia la banda d'anàlisi, canvia la resposta.",
+      "p3": "Limitació coneguda: una actuació desada no conté l'alineació; carregar-ne una l'esborra. No us refieu d'un fitxer d'actuació per recuperar-la.",
+      "measuredOn": "Mesurat a l'equip, 2026-08-31",
+      "colDialled": "Valor introduït",
+      "colMeasured": "Mesurat",
+      "colCoherence": "Coherència",
+      "converge": "Si s'aplica repetidament, convergeix: 4,748 → 0,252 → 0,016 → 0,001 → 0,000 ms, amb una coherència d'1,000."
+    },
+    "lv2": {
+      "title": "Inserts de plugins LV2",
+      "p1": "Cadenes d'inserts per canal i per sortida allotjades a <code class=\"font-mono text-sm text-ink\">mod-host</code>, amb un selector de plugins i un editor generat a partir dels ports del mateix plugin.",
+      "p2": "El catàleg classifica cada plugin per la latència d'anada i tornada <em class=\"text-ink\">mesurada</em>: directe fins a 5 ms, estudi per sobre d'aquest valor i, els dubtosos, en quarantena. Després, dins de cada nivell, els ordena per selecció i cost de CPU, de manera que l'opció segura per al directe és la que surt per defecte.",
+      "p3": "L'àudio dels inserts es verifica mesurant, no mirant: un to a través d'un graf real, un notch carregat com a LV2 i una lectura a l'altre extrem. La mesura de referència: una base de −12,04 dBFS; el mateix notch a través de la porta del plugin, −100,56 dBFS; i el bypass, que torna exactament a −12,04. Són 88,52 dB de tall a través del plugin, no pas per fora.",
+      "p4": "Limitacions conegudes: la compensació de latència dels plugins es calcula i s'informa, però encara no s'aplica, de manera que una cadena amb inserts de latències diferents no queda alineada en el temps; a més, treure un plugin d'una cadena en marxa no és fiable en algunes compilacions de <code class=\"font-mono text-xs\">mod-host</code>."
+    },
+    "reac": {
+      "title": "Stageboxes REAC",
+      "p1": "Els stageboxes Roland de la sèrie S es detecten, s'enruten i es controlen, inclòs el control del previ, que és el que en fa un stagebox i no només un flux d'àudio. A l'equip s'han establert dos stageboxes alhora amb els 128 enllaços intactes després d'una revinculació. També s'ha fet un canvi de cadència en directe de 48 a 96 kHz amb el PA de sala en marxa.",
+      "p2": "El Phantom 48V s'ha confirmat físicament als pins de l'XLR en dues entrades, amb la taula indicant el mateix de manera independent. Tres fonts, una sola resposta: és l'única mena de confirmació que pot tenir una afirmació sobre el Phantom 48V.",
+      "p3": "El transport és als projectes germans FreeREAC, no en aquest. OpenMixer s'encarrega del camí de control: la detecció, el previ, el patch i la banda de l'adaptador.",
+      "p4": "Obert i datat: a l'S-1608, el patch d'àudio i l'adreçament del previ fan servir dos desplaçaments diferents dins d'una mateixa caixa; el conjunt de capacitats de previ conegudes que s'informa en declara més de les reals, de manera que no prova que un canvi de previ hagi arribat; el banc superior d'un stagebox de 16 entrades es pot quedar al soroll de fons del convertidor quan no està donat d'alta; i la cadència a 44,1 kHz no s'ha provat mai, perquè cal una taula real que funcioni a 44,1.",
+      "shotAlt": "El patchbay: una graella de punts de creuament de fonts i canals, amb els stageboxes detectats agrupats a la vora esquerra.",
+      "shotCaption": "El patchbay. Les fonts al lateral, els canals a dalt; els stageboxes detectats, agrupats i comptats."
+    },
+    "surface": {
+      "title": "La superfície web",
+      "p1": "Un mur de faders amb bancs i pàgines d'usuari, canals amb un rack de processament que es pot reordenar, vistes de sends a busos i de la matrix, el patchbay, una vista del graf, una vista de telemetria i un espai de treball amb finestres acoblades que es poden separar i desar com a disposició.",
+      "p2": "Els bancs es desplacen amb la roda del ratolí a qualsevol punt del carril que no sigui un control: un clic de la roda és un banc, el mateix pas circular que fan els botons ◀ ▶. Un lliscament al ratolí tàctil mou un sol banc, no una dotzena. La roda sobre un fader continua ajustant aquell fader.",
+      "p3": "Anglès, català i castellà. Temes fosc, clar i d'alt contrast, en un eix independent de la personalitat de la taula.",
+      "p4": "Tot l'estat li arriba per un sol <code class=\"font-mono text-sm text-ink\">EventSource</code> i res més. La superfície no pot obrir una segona connexió amb la taula, per construcció i no per convenció.",
+      "p5": "Un canvi és un PATCH, mai una reconnexió. Hi ha un control de desplegament que fa anar un navegador real amb gestos reals contra una taula real i mesura les tasques llargues, les ràfegues de peticions, les reconnexions del flux, els avisos del framework i les correccions del servidor: un joc de proves unitàries en verd no pot veure una pestanya bloquejada."
+    },
+    "surfaces": {
+      "title": "Superfícies de control",
+      "p1": "Les Behringer X-Touch i X-Touch Mini estan implementades com a client bidireccional: els gestos de la superfície es converteixen en operacions canòniques; l'estat canònic, al seu torn, mou els faders motoritzats, els LED, els anells dels V-Pot, les pantalles de nom i els vúmetres. Està connectat a l'arrel de composició de producció.",
+      "p2": "No està marcat com a provat perquè no se n'ha fet anar res en una superfície real: ni desconnectar-la i tornar-la a connectar, ni la selecció, ni un recorregut de fader, ni els encoders, ni les escales dels vúmetres. El codi està fet; la verificació amb maquinari està pendent. Els adaptadors per a Midas, X32/M32 i Roland estan en la mateixa situació: implementacions reals, sense prova amb maquinari."
+    },
+    "recorder": {
+      "title": "Enregistrador i targeta de so virtual",
+      "p1": "Captura multipista en preses RF64 a 48 kHz, una biblioteca de preses i una targeta de so virtual perquè una altra aplicació de la mateixa màquina pugui ser una font o una destinació a la taula.",
+      "p2": "El disseny es va decidir el 2026-09-01 i ara s'està incorporant el codi: ja hi ha els camins de captura i reproducció en C, l'escriptor RF64 amb les seves proves contra oracle i les files del servidor. El conjunt de canals armats es deriva en lloc de desar-se. La reproducció es rebutja directament quan la freqüència de mostratge del graf no coincideix amb la de la presa, perquè en aquest camí no hi ha cap remostrejador.",
+      "p3": "Encara no hi ha cap prova a l'equip. Considereu-lo inacabat."
+    },
+    "limits": {
+      "eyebrow": "Abans de planificar una actuació",
+      "title": "Limitacions conegudes.",
+      "intro": "Una pàgina de producte que només enumera el que funciona no descriu una taula de mescles. Aquests són els límits que convé conèixer abans de confiar a OpenMixer res que no us podeu permetre perdre. És la mateixa llista que recull el manual.",
+      "showHead": "Carregar una actuació no reinicia la taula.",
+      "showBody": "Si carregueu una segona actuació sobre una primera, les corbes, les dinàmiques, les cues de delay i els notches d'acoblament de la primera continuen actius a tots els canals que la segona no esmenta.",
+      "alignHead": "L'alineació no sobreviu a la càrrega d'una actuació.",
+      "alignBody": "L'alineació de retard no es desa al fitxer d'actuació i carregar-ne un l'esborra.",
+      "matrixHead": "La matrix encara no porta àudio.",
+      "matrixBody": "Hi ha les adreces, la superfície i els punts de creuament; l'àudio, no. No la proveu d'oïda per acabar concloent que el que falla és una altra cosa.",
+      "surfacesHead": "Les superfícies de control no s'han verificat amb maquinari.",
+      "surfacesBody": "La implementació de l'X-Touch està completa i connectada, però no se n'ha provat cap part en una superfície real.",
+      "rateHead": "Els 44,1 kHz no estan provats amb stageboxes.",
+      "rateBody": "A l'equip s'han fet servir 48 i 96 kHz, inclòs un canvi en directe d'una a l'altra. Els 44,1, no.",
+      "recHead": "L'enregistrament no està acabat.",
+      "recBody": "El camí de captura, l'escriptor de fitxers i la biblioteca de preses s'estan incorporant ara; encara no s'hi ha enregistrat cap actuació.",
+      "packageHead": "La taula encara no està empaquetada.",
+      "packageBody": "Els hosts de plugins sí: {link}.",
+      "packageLink": "instal·leu-los des dels nostres paquets",
+      "footer": "Aquesta llista canvia a mesura que s'incorpora feina. La documentació en porta la versió actual."
+    }
+  }
+}

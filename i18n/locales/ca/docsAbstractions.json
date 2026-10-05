@@ -1,0 +1,25 @@
+{
+  "docsAbstractions": {
+    "seo": {
+      "title": "Catàleg d'abstraccions — OpenMixer",
+      "description": "Tots els elements reutilitzables del codi (tipus, components, ginys, biblioteques i mòduls), una línia per a cadascun, perquè un canvi combini un element existent abans d'escriure'n un de nou."
+    },
+    "hero": {
+      "eyebrow": "Documentació tècnica — Catàleg d'abstraccions",
+      "title": "Tots els elements reutilitzables, en un sol lloc.",
+      "lede": "Aquí hi ha dues menes de codi: un element reutilitzable o una configuració que en combina un. Aquesta pàgina és l'inventari de la primera mena (tipus, components, ginys, biblioteques i mòduls), perquè un canvi recorri al que ja existeix abans d'escriure res de nou."
+    },
+    "intro": "Les meitats de web-ui i de C natiu que hi ha a continuació es mantenen a mà, perquè typedoc llegeix TSDoc i no components Vue d'un sol fitxer ni capçaleres de C. Les meitats <code class=\"font-mono text-xs text-ink\">{'@'}openmixer/core</code> i <code class=\"font-mono text-xs text-ink\">{'@'}openmixer/server</code> es generen directament a partir dels seus comentaris TSDoc: {generated} símbols exportats, {documented} dels quals tenen un resum.",
+    "col": {
+      "name": "Nom",
+      "package": "Paquet",
+      "summary": "Resum"
+    },
+    "generated": {
+      "eyebrow": "Generat — core + server",
+      "title": "La superfície pública de TypeScript.",
+      "filter": "Filtra per nom, paquet o resum…",
+      "none": "Cap símbol coincideix amb «{filter}»."
+    }
+  }
+}

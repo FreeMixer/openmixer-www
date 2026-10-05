@@ -1,0 +1,18 @@
+{
+  "docsRefusalCodes": {
+    "seo": {
+      "title": "Codis de refús i d'etiquetes de desfer — OpenMixer",
+      "description": "Tots els codis de refús, d'avís i d'entrada de desfer que pot enviar el servidor, amb els paràmetres que porta cadascun, generats a partir del registre de missatges del mateix codi."
+    },
+    "col": {
+      "code": "Codi",
+      "params": "Paràmetres",
+      "doc": "Què vol dir"
+    },
+    "eyebrow": "Referència REST",
+    "title": "Codis de refús i d'etiquetes de desfer",
+    "lede": "Res per sota de la superfície no emet mai text per mostrar. Un refús, un avís o l'etiqueta d'una entrada de desfer viatja com un codi estable acompanyat d'un petit registre de paràmetres amb nom. El client el mostra en la llengua de l'operador. {count} codis, generats a partir del registre que també controla la compilació del mateix servidor.",
+    "allFamilies": "Totes les famílies",
+    "see": "Vegeu {type}."
+  }
+}

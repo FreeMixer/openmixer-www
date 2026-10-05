@@ -1,0 +1,366 @@
+{
+  "faq": {
+    "seo": {
+      "title": "Preguntes freqüents — OpenMixer",
+      "description": "Respostes clares sobre què és OpenMixer, què necessita, què pot portar avui i què no."
+    },
+    "hero": {
+      "eyebrow": "Preguntes freqüents",
+      "title": "Preguntes amb respostes clares.",
+      "lede": "També les que tenen un no per resposta."
+    },
+    "groups": {
+      "whatItIs": {
+        "heading": "Què és",
+        "items": {
+          "remote": {
+            "q": "És un control remot per a una taula de mescles?",
+            "a": [
+              "No. La majoria del programari que sembla una taula de mescles és una superfície per a una taula física que és en un altre lloc. OpenMixer és la taula: l'àudio hi passa a través. Les entrades arriben d'un stagebox o de qualsevol font de PipeWire, cada canal té un fader i una cadena de processament, els busos se sumen al processament de senyal de la mateixa taula i la mescla torna a sortir cap al PA.",
+              "No hi ha cap taula física en el camí del senyal. S'hi poden connectar taules reals com a controladors, però és un camí lateral opcional."
+            ]
+          },
+          "multiUser": {
+            "q": "Poden mesclar diverses persones alhora?",
+            "a": [
+              "Sí. És el disseny, no una funció afegida a posteriori. Un sol servidor conté tota la mescla i cada pantalla n'és una vista; per tant, un fader que es mou al portàtil del control de sala es mou alhora a la tauleta del lateral de l'escenari.",
+              "Tots els clients són remots, fins i tot el que funciona a la mateixa màquina. No hi ha cap superfície privilegiada."
+            ]
+          },
+          "offline": {
+            "q": "Necessita connexió a internet?",
+            "a": [
+              "No. Està fet partint de la base que no en tindrà. La superfície, el catàleg de plugins i tota la documentació se serveixen des de la mateixa màquina. No es baixa res de la xarxa per dibuixar una pàgina."
+            ]
+          },
+          "licence": {
+            "q": "Amb quina llicència es distribueix?",
+            "a": [
+              "GPL-3.0-or-later. Tots els paquets del projecte tenen la mateixa llicència."
+            ]
+          }
+        }
+      },
+      "sound": {
+        "heading": "So i nivells",
+        "items": {
+          "monoFold": {
+            "q": "Per què la suma a mono no té control de nivell?",
+            "a": [
+              "Perquè només hi ha un valor correcte i no és qüestió de gustos. Un parell estèreo amb contingut mono centrat porta el mateix senyal a totes dues potes; si se sumen dues potes idèntiques en una sola sortida, el resultat té el doble d'amplitud (sis decibels més) que cada pota per separat.",
+              "La suma aplica uns −6 dB fixos per desfer exactament aquesta duplicació, de manera que una mescla centrada queda al mateix nivell en mono que en estèreo. Un potenciòmetre allà només serviria perquè algú pogués convertir la resposta correcta en una d'equivocada."
+            ],
+            "link": "Per què la suma a mono i la llei de panoramització són valors fixos i no paràmetres"
+          },
+          "twiceLoud": {
+            "q": "Quants dB són el doble de fort?",
+            "a": [
+              "Depèn de què es dobla. Dos senyals idèntics sumats doblen l'amplitud, que són +6 dB. Dos senyals no relacionats sumats doblen la potència, que són +3 dB. La sonoritat percebuda, el que l'oient sent de debò, segueix una corba més lenta i aproximada: calen uns +10 dB perquè la majoria de la gent coincideixi que una cosa sona el doble de fort.",
+              "Les tres coses són certes i cap no és errònia; responen preguntes diferents."
+            ],
+            "link": "Les tres duplicacions"
+          },
+          "powerAmplitude": {
+            "q": "Quina diferència hi ha entre potència, amplitud i sonoritat?",
+            "a": [
+              "L'amplitud és la mida de la mateixa forma d'ona (la tensió, el valor de la mostra) i és el que multiplica un fader. La potència és proporcional al quadrat de l'amplitud i és el que llegeix un mesurador d'energia. La sonoritat és el que percep l'oient i creix més a poc a poc que totes dues.",
+              "El decibel és la relació comuna entre totes tres: 20·log10 d'una relació per a l'amplitud i 10·log10 per a la potència. Així, doblar l'amplitud i quadruplicar la potència donen els mateixos sis decibels."
+            ],
+            "link": "Potència, amplitud i sonoritat"
+          }
+        }
+      },
+      "running": {
+        "heading": "Posar-la en marxa",
+        "items": {
+          "package": {
+            "q": "Hi ha algun paquet que pugui instal·lar?",
+            "a": [
+              "Per als hosts de plugins, sí: omx-clap-host i plugin-hostd són paquets signats per a Fedora i per a Debian, Raspberry Pi OS i Zynthian, en x86_64 i ARM64.",
+              "La taula en si encara no s'ha publicat."
+            ],
+            "link": "Instal·leu-los des dels nostres paquets"
+          },
+          "quietChannel": {
+            "q": "Un canal ha quedat mut i el botó de mute no està encès: què el reté?",
+            "a": [
+              "El més probable és el solo in place. Quan el mode de cue és SIP i hi ha alguna cosa en solo, tots els canals que no estan en solo ni protegits contra el solo queden silenciats. Això és el que vol dir solo in place: és el mode que silencia la sala, no només els auriculars.",
+              "El canal ho diu en lloc de deixar que ho endevineu: l'estat de mute porta un indicador a part per a aquest cas; el canal té la seva pròpia insígnia i s'enfosqueix com qualsevol altra cosa que no se sent, sense que el botó de mute faci veure que algú l'ha premut. Per tornar-lo a sentir, traieu el solo o protegiu el canal contra el solo.",
+              "Les altres dues retencions es llegeixen igual: un grup de mute que reté el canal i un pànic. Cada una té el seu propi indicador, que pertany a qui l'ha activat."
+            ]
+          },
+          "requirements": {
+            "q": "Què necessita per funcionar?",
+            "a": [
+              "Linux amb PipeWire, Node 22 o posterior i pnpm per compilar-la. L'àudio pot venir de qualsevol cosa que PipeWire vegi, incloent-hi una interfície USB senzilla; per tant, no cal cap stagebox per provar-la.",
+              "L'equip de referència és un stagebox Roland REAC amb una RME Babyface Pro com a rellotge mestre, sobre Fedora."
+            ]
+          },
+          "pllClock": {
+            "q": "Per què l'equip necessita un rellotge amb PLL?",
+            "a": [
+              "Perquè la temporització d'OpenMixer prové del maquinari que mou el graf d'àudio. OpenMixer la passa a cada stagebox com a mestre REAC. Una interfície professional amb un llaç de seguiment de fase (PLL), com l'RME de l'equip de referència, manté un rellotge estable i filtra el jitter; un cristall lliure deriva i un temporitzador de programari té jitter segons la càrrega de la màquina.",
+              "El tauler de rellotge REAC mostra l'origen de la cadència de cada segment: phc o graph-ref vol dir que l'equip està enclavat; free-run vol dir que no ho està."
+            ],
+            "link": "Rellotge i freqüència de mostratge"
+          },
+          "sampleRates": {
+            "q": "Quines freqüències de mostratge funcionen?",
+            "a": [
+              "S'han fet servir tant 48 kHz com 96 kHz a l'equip, incloent-hi un canvi d'una a l'altra amb la taula en directe.",
+              "Els 44,1 kHz no s'han provat amb un stagebox i no es donen per bons. Per provar-ho cal una taula real que funcioni a 44,1 per marcar-ne la cadència."
+            ]
+          },
+          "lv2": {
+            "q": "Calen plugins LV2 per fer-la servir?",
+            "a": [
+              "No. Els faders, l'EQ, el gate, el compressor, el delay, la reverb, els busos i l'enrutament són nadius de la taula i no cal instal·lar res.",
+              "Una màquina acabada d'instal·lar no té cap plugin LV2, de manera que el selector de plugins surt buit. És el comportament esperat, no una avaria. Es poden instal·lar a part conjunts seleccionats, classificats per la latència d'anada i tornada mesurada perquè l'opció segura per al directe sigui la predeterminada."
+            ]
+          },
+          "offlineMode": {
+            "q": "La superfície mostra una taula sencera però no passa res quan moc un fader.",
+            "a": [
+              "És el mode fora de línia; l'indicador de connexió de la capçalera ho diu. Si no hi ha cap servidor accessible, la superfície passa a una taula simulada perquè es puguin aprendre els controls sense cap taula al darrere.",
+              "És fàcil de passar per alt precisament perquè no és un missatge d'error. Si esperàveu una taula en directe, el servidor no és accessible: comproveu que estigui en marxa i que la superfície rebi l'adreça que creieu."
+            ]
+          }
+        }
+      },
+      "building": {
+        "heading": "Construir-hi a sobre",
+        "items": {
+          "script": {
+            "q": "La puc controlar des d'un script?",
+            "a": [
+              "Sí. Tota la taula és una superfície REST: cada entitat respon a GET, PATCH i OPTIONS en una adreça simple que es pot escriure a mà. A més, curl és un client de ple dret, no un truc de depuració.",
+              "OPTIONS sobre qualsevol entitat en publica el contracte (els camps que es poden escriure, els intervals, les unitats i les opcions enumerades), de manera que un client es pot escriure a partir del que diu el servidor i no d'una còpia de les regles."
+            ]
+          },
+          "watch": {
+            "q": "Com puc seguir l'estat sense fer consultes periòdiques?",
+            "a": [
+              "Afegiu ?watch=1 a qualsevol GET i es converteix en un flux d'esdeveniments del servidor (SSE) que emet exactament el que retorna aquell GET, començant per una instantània completa.",
+              "Per a una superfície sencera, observeu l'arrel: un sol flux porta cada canvi confirmat a la taula. És millor que obrir un flux per panell: els navegadors només permeten sis connexions a un mateix origen; si les gasteu totes, cada petició posterior queda a la cua."
+            ]
+          },
+          "websocket": {
+            "q": "Hi ha una API de WebSocket?",
+            "a": [
+              "No, ni n'hi haurà. Hi ha una sola porta i un sol cable."
+            ]
+          }
+        }
+      },
+      "recording": {
+        "heading": "L'enregistrament i la prova de so virtual",
+        "items": {
+          "storage": {
+            "q": "On es desen els enregistraments i en quin format?",
+            "a": [
+              "Al directori d'estat de la taula: {'$'}XDG_STATE_HOME/openmixer/takes/<id>/; si aquesta variable no està definida, ~/.local/state/openmixer/takes/<id>/; o bé el directori que indiqui --state-dir. Cada pista és un fitxer propi: un canal mono en coma flotant de 32 bits, en WAV mentre no passa de 4 GB i en RF64 quan en passa, a la freqüència de mostratge a què funcionava el graf quan es va enregistrar la presa.",
+              "L'RF64 només canvia la capçalera quan un fitxer necessita mides de 64 bits; qualsevol DAW que obri un WAV obre tots dos formats igual."
+            ]
+          },
+          "whatRecorded": {
+            "q": "Què s'enregistra quan premo el botó d'enregistrar?",
+            "a": [
+              "Per defecte, totes les entrades que tenen patch i el MAIN, amb la possibilitat d'excloure'n cada canal; no cal omplir cap llista de canals abans. Els canals auxiliars i de matrix no s'armen si no ho demaneu.",
+              "Cada canal armat es captura en dos punts alhora: l'entrada en brut (presa just després del trim) i el senyal post-fader. A un canal d'entrada se li ofereix un tercer punt, pre-fader. Els punts són un conjunt, no una elecció: un canal pot enregistrar pre-fader i post-fader alhora. Al màster d'un bus només se li ofereix post-fader.",
+              "Encara no hi ha cap control a la superfície que canviï aquest conjunt; per tant, avui un canal enregistra el que té per defecte, tret que alguna cosa escrigui el camp a través de l'API."
+            ]
+          },
+          "armMidTake": {
+            "q": "Puc armar o desarmar un canal mentre s'enregistra una presa?",
+            "a": [
+              "No. El conjunt de canals d'una presa queda fixat en el moment que comença. Canviar l'armat a mitja presa afecta la presa següent, no la que està en curs; si no, ningú podria dir després què contenien de debò els primers deu minuts d'una actuació."
+            ]
+          },
+          "armMany": {
+            "q": "Hi ha una manera ràpida d'armar molts canals alhora?",
+            "a": [
+              "Encara no. Avui els canals s'armen d'un en un. Hi ha dissenyat un mode de mur (tocar les fitxes de tot el mur de faders per armar-les o desarmar-les, amb seleccionar-ho tot i no seleccionar-ne cap) que fa servir el mateix mecanisme que ja té el mode de sends a faders, però encara no està fet."
+            ]
+          },
+          "print": {
+            "q": "Puc treure un sol fitxer de l'actuació en lloc de tota la carpeta de stems?",
+            "a": [
+              "Sí: és la còpia final. El MAIN s'arma com qualsevol altre canal, de manera que la presa ja conté la mescla que vau fer aquella nit. L'exportació escriu aquesta captura com un WAV de 24 bits al costat dels stems. No se suma res per obtenir-la: els stems es capturen abans del processament, així que sumar-los donaria les entrades de la taula i no l'actuació.",
+              "Dos límits que convé saber. És WAV i encara no FLAC, que és la profunditat correcta en un contenidor poc adequat per a una cosa que ha de viatjar. A més, encara no hi ha cap botó que la llanci: l'exportació se serveix i funciona, però avui es llança a través de l'API.",
+              "Els stems mai no es reescriuen i no hi ha cap exportació de stems amb pèrdua, perquè una taula que desés una actuació en un format pitjor que el de la captura estaria llençant la raó mateixa d'haver-la enregistrat."
+            ]
+          },
+          "emptyTrack": {
+            "q": "Una pista de la presa és un fitxer buit. Ha fallat l'enregistrament?",
+            "a": [
+              "No. La presa ho diu en lloc d'amagar-ho. Un canal que estava armat però no tenia res connectat el fil d'àudio se'l salta del tot; per això el fitxer és una capçalera sense cap mostra. No s'ha perdut cap mostra; per això la presa també informa, amb tota honestedat, que no hi ha pèrdues. Un fitxer buit i les mostres perdudes són dos fets diferents.",
+              "La presa compta quantes de les seves pistes se sap que són buides i, a part, de quantes no pot dir res, perquè una presa feta abans que la taula ho mesurés no porta cap resposta, cosa que no és el mateix que un zero. A la prova de so, un canal amb la pista buida es queda amb l'entrada en directe en lloc de passar a silenci; la taula diu quins són."
+            ]
+          },
+          "virtualSoundcheck": {
+            "q": "Què és una prova de so virtual?",
+            "a": [
+              "Tornar a carregar una presa enregistrada a la taula en directe perquè soni com si el grup tornés a ser a l'escenari. Carregueu una presa, activeu-la i cada canal amb una pista que hi correspongui passa de l'entrada en directe a aquella pista. Així podeu ajustar els monitors, provar una cadena de plugins o formar un operador sense que ningú toqui a la sala.",
+              "Un canal per al qual la presa no té res es queda amb l'entrada en directe; una prova de so mai no substitueix un micròfon que funciona per silenci."
+            ]
+          },
+          "playRefused": {
+            "q": "He premut reproduir i la taula s'hi ha negat. Per què?",
+            "a": [
+              "«Cap canal no escolta la presa, així que sonaria sense que ningú la sentís: activeu primer un canal o comproveu que la presa pot servir aquests canals.» Reproduir és un pas diferent d'activar: activar és el que fa passar els canals de les entrades en directe a les pistes de la presa; reproduir només mou el transport.",
+              "Primer activeu. Si ja ho havíeu fet i continua sortint aquest missatge, la presa no té cap pista per a cap dels canals que heu activat: comproveu que sigui la presa que volíeu.",
+              "Reproduir vol dir sentir-ho. Per això s'hi nega en lloc d'obeir. Un transport que corre cap a una sala buida mentre la posició no para de pujar és el tipus de control que funciona i que fa perdre una prova de so."
+            ]
+          },
+          "otherRate": {
+            "q": "Puc fer una prova de so virtual a una freqüència de mostratge diferent de la de la presa?",
+            "a": [
+              "Sí. El camí de reproducció en directe continua sense remostrejador, expressament; per això, en carregar una presa a una altra freqüència, es converteixen les pistes que es reproduiran, fora de línia i al disc, abans que existeixi el transport. El graf només obre fitxers que ja són a la seva freqüència. La conversió queda desada a la presa, de manera que una segona càrrega només costa una comprovació de fitxer.",
+              "Una diferència de freqüència només es rebutja quan la conversió no es pot fer: si no hi ha cap convertidor inclòs o si una conversió no s'ha pogut acabar. Aquest rebuig continua indicant totes dues freqüències."
+            ]
+          },
+          "recordAndPlay": {
+            "q": "Puc enregistrar i fer una prova de so virtual alhora?",
+            "a": [
+              "No. L'enregistrament i la reproducció fan servir el mateix graf d'àudio. Engegar-ne un mentre l'altre l'ocupa es rebutja directament en lloc de quedar a la cua en silenci."
+            ]
+          },
+          "trust": {
+            "q": "Em puc refiar de l'enregistrament i de la prova de so virtual en una actuació real?",
+            "a": [
+              "Encara no. El camí ha fet la seva primera presa real a l'equip (vuitanta-quatre pistes), que és més del que tenia, però no és una actuació. Considereu la funció inacabada fins que n'hagi passat una sencera, igual que ja ho indica la pàgina de funcions."
+            ]
+          }
+        }
+      },
+      "refusals": {
+        "heading": "Quan la taula s'hi nega",
+        "items": {
+          "insertBudget": {
+            "q": "«el destí no es pot permetre aquesta cadena d'inserts»",
+            "a": [
+              "Els plugins d'aquest rack afegeixen més retard del que pot assumir el destí del senyal. El pressupost és del destí, no del plugin: un destí de monitor té un límit de 5 ms i s'hi nega; un destí de programa té 100 ms i un d'efectes 60 ms; aquests dos deixen passar el canvi i avisen.",
+              "El motiu que hi ha al darrere indica el plugin i les xifres: «ZaMaximX2 posa aquesta cadena a 7,4 ms, per sobre del pressupost de 5,0 ms d'un destí de monitor a 48000 Hz. En un send de monitor, l'intèrpret se sent amb aquest retard.»",
+              "Traieu el plugin que s'hi esmenta, substituïu-lo per un de latència més baixa o poseu-lo en un lloc on el retard no importi. Fer-ne el bypass no hi ajuda: un plugin en bypass continua tenint el seu retard."
+            ]
+          },
+          "monoStrip": {
+            "q": "«… té 2 potes d'àudio i aquest canal és mono: poseu-hi la versió mono del plugin o feu el canal estèreo.»",
+            "a": [
+              "Heu posat un plugin estèreo en un canal mono. La frase dona totes dues sortides perquè totes dues són reals: la majoria de famílies de plugins tenen una versió mono del mateix processador, mentre que un canal alimentat amb una font estèreo es pot fer estèreo.",
+              "S'hi nega en lloc de reduir el plugin a mono perquè aquesta reducció seria silenciosa i errònia. Totes dues potes de sortida arriben a l'únic port d'entrada del canal i s'hi sumen: s'ha mesurat una pujada de 6,02 dB a la mescla principal amb un EQ estèreo a guany unitari que no fa res. La versió mono del mateix plugin mou la mescla 0,00 dB.",
+              "Quan es dispara no s'escriu res. Es rebutja tot el rack en lloc de retallar-lo d'amagat. Només s'esmenta el primer plugin que no hi cap.",
+              "Us hi trobareu menys sovint que abans: la porta del rack del canal publica què hi cap, de manera que el selector mostra en gris un plugin massa ample en lloc d'oferir-lo. El rebuig continua existint per a tot el que no passa pel selector i per a un canal que canvia d'amplada amb un rack que ja té carregat."
+            ]
+          },
+          "postFader": {
+            "q": "«un plugin encara no pot funcionar a Post-Fader: poseu-lo en un d'aquests punts: Top-Of-Ch, Post-Trim, Pre-EQ, Post-EQ, Pre-Fader»",
+            "a": [
+              "Post-Fader és un punt amb nom de la cadena del canal que encara no porta àudio. L'espai s'hi ha deixat expressament en lloc de treure'l, perquè és millor veure un mecanisme que falta que no pas un que ha desaparegut sense dir res.",
+              "Poseu el plugin en un dels cinc punts que indica la frase o al rack d'inserts del canal, que ja és després del fader. Quan Post-Fader porti àudio, s'afegirà a la llista i aquest missatge deixarà de sortir, sense que calgui canviar res del que parla amb la taula."
+            ]
+          },
+          "hostSlots": {
+            "q": "«el host de plugins no té cap espai d'instància lliure … reinicieu el host de plugins per recuperar-los»",
+            "a": [
+              "La frase porta dues xifres: quants espais té el host en total i quants n'ocupen plugins que es van treure del rack i que no s'han alliberat mai. Quan la segona xifra s'acosta a la primera, aquest és tot el diagnòstic: el host perd un espai cada vegada que es treu un plugin del rack, de manera que una sessió llarga provant plugins l'acaba esgotant.",
+              "Reinicieu el host de plugins. El processament propi de la taula no en depèn gens, de manera que la taula continua mesclant mentre torna."
+            ]
+          },
+          "takeRate": {
+            "q": "«la presa es va enregistrar a 48000 Hz i la taula funciona a 96000 Hz: igualeu el rellotge o torneu-la a enregistrar»",
+            "a": [
+              "Normalment, una presa a una altra freqüència es converteix automàticament: en carregar-la, es remostregen fora de línia les pistes que es reproduiran, abans que premeu activar, de manera que la reproducció va a la freqüència del graf. Aquest rebuig és el que queda: no hi ha cap convertidor inclòs en aquesta instal·lació o una conversió no s'ha pogut acabar. Continua volent dir que la presa no es pot reproduir aquí tal com és.",
+              "Poseu el graf a la freqüència de la presa o enregistreu una presa nova a la freqüència a què treballeu."
+            ]
+          },
+          "soundcheckLoaded": {
+            "q": "«hi ha una prova de so virtual carregada: traieu-la abans d'enregistrar, perquè la presa del disc sigui la sala i no l'enregistrament»",
+            "a": [
+              "Una prova de so està alimentant els canals des d'una presa; per tant, si ara enregistréssiu, capturaríeu aquella presa al disc en lloc de la sala. Traieu-la i després enregistreu.",
+              "També passa al revés: «s'està enregistrant una presa: atureu-la abans de reproduir-ne una». Totes dues direccions fan servir el mateix graf d'àudio i es rebutgen en lloc de quedar a la cua en silenci l'una darrere de l'altra."
+            ]
+          },
+          "noChannel": {
+            "q": "«no s'enregistraria cap canal: comproveu que les entrades tinguin patch i que no s'hagin tret de la presa»",
+            "a": [
+              "No hi ha res armat. Com que els canals s'armen per defecte i s'exclouen a mà, això gairebé sempre vol dir que no hi ha res connectat: un canal sense font no enregistra res que valgui la pena desar i queda fora del càlcul fins que s'hi connecta alguna cosa.",
+              "Connecteu una entrada o torneu a posar un canal que havíeu tret de la presa. S'hi nega abans de la primera mostra en lloc de deixar-vos una carpeta per netejar."
+            ]
+          },
+          "diskSpace": {
+            "q": "«el disc té 3221225472 bytes i aquesta presa en necessita com a mínim 15032385536 per començar»",
+            "a": [
+              "L'enregistrador calcula què necessita la presa per obrir-se amb seguretat i ho comprova primer. Les dues xifres hi són expressament: amb «no hi ha prou espai» no podeu fer res, però amb «necessita 14 GB i n'hi ha 3», sí.",
+              "Allibereu espai o apunteu el directori d'estat a un lloc amb espai. La mateixa comprovació protegeix un render i l'exportació de la còpia final, cadascun amb les seves xifres."
+            ]
+          },
+          "noMain": {
+            "q": "«aquesta presa no conté cap captura del MAIN; la còpia final és la captura del MAIN»",
+            "a": [
+              "La còpia final no és una mescla que calculi la taula; és la captura del MAIN que la presa ja conté. Una presa enregistrada amb el MAIN exclòs no té res per treure.",
+              "Per a aquesta presa no s'hi pot fer res. Deixeu el MAIN armat (ho està per defecte) i la presa següent en tindrà."
+            ]
+          },
+          "applyConfirm": {
+            "q": "«aplicar això canviaria 5 coses del que té el canal (gain, trim, pan, eq, inserts): confirmeu per continuar»",
+            "a": [
+              "Una configuració de canal és una declaració completa sobre un canal; per tant, aplicar-ne una a un canal que ja té alguna cosa canvia el que hi ha. La taula calcula exactament quins camps canviarien, rebutja l'aplicació i en retorna la llista amb el rebuig, sense escriure res.",
+              "Torneu-la a enviar amb la confirmació i s'aplicarà. La llista és la mateixa que mostra el diàleg, perquè el diàleg es dibuixa a partir d'aquest rebuig i no d'una previsualització que la superfície hagi demanat pel seu compte; un navegador, una superfície OSC i un client MCP s'hi troben i hi responen de la mateixa manera.",
+              "Una aplicació que no canviaria res no queda mai retinguda: aplicar dues vegades la mateixa configuració no pregunta dues vegades. I si preferiu que no us ho pregunti mai, la confirmació és un paràmetre propi de la taula, que es llegeix de nou a cada intent. Expressament, no és el mateix interruptor que habilita les accions destructives: una aplicació no elimina res."
+            ]
+          },
+          "undoMoved": {
+            "q": "«db ara marca −3.0, no pas el −12.0 que va deixar aquest pas (canviat per l'entrada 41)»",
+            "a": [
+              "El canvi que voleu desfer s'ha mogut des de llavors: un altre operador, una superfície de control o un gest vostre posterior. Escriure ara el valor antic faria saltar el fader d'un valor que ningú no espera a un que ningú no ha demanat.",
+              "Ctrl+Z rep la mateixa frase que el botó «Desfés això» de la llista, igual que el refer: la taula compara el pas amb el valor actual del camp abans de tornar a aplicar res. Fa la mateixa pregunta a les tres portes en lloc de ser curosa a la llista i brusca a la part superior. No s'escriu res mentre la pregunta està oberta.",
+              "La taula pregunta en lloc de triar: tornar enrere igualment o deixar-ho estar. Un salt enrere fet des d'una fila de la llista deixa constància a la seva nova entrada que ha passat per sobre de la posterior, de manera que la llista diu que hi ha hagut un salt enrere. No ho torna a intentar mai d'amagat. Si la taula es torna a moure mentre la pregunta és a la pantalla, l'oferta es descarta en lloc de respondre-la contra un valor caducat."
+            ]
+          },
+          "mastering": {
+            "q": "«Heu demanat ser la taula de mescles, però ja hi ha una taula que fa de mestre en aquest segment.»",
+            "a": [
+              "Un sol mestre per segment REAC és la llei del protocol, no una política d'aquesta taula. Una altra taula té el cable, de manera que aquesta es manté a l'espera i no hi ha afirmat res.",
+              "El tauler ofereix l'únic gest que ho resol: passar el segment a enregistrador i entrar al cable com a extrem de la caixa. O bé traieu l'altra taula del segment; aleshores el mode automàtic l'agafarà tot sol.",
+              "Hi ha dues frases relacionades que no tenen botó, perquè el remei no és cosa de la taula. «Un stagebox d'aquest segment té l'interruptor REAC Mode a M (mestre)» vol dir anar fins a la caixa, posar l'interruptor a S i apagar-la i tornar-la a engegar. «Alguna cosa fa de mestre en aquest segment i la taula no pot dir què és» vol dir esbrinar què més hi ha en aquest cable."
+            ]
+          },
+          "slaveRate": {
+            "q": "«Un segment esclau no té cap freqüència per definir: segueix la cadència del mestre extern»",
+            "a": [
+              "El segment segueix una altra taula. Un seguidor no té cap cadència pròpia per definir: s'enclava físicament a la del mestre.",
+              "Si la freqüència la podeu triar vosaltres, primer preneu el segment: promoveu-lo a taula de mescles i després definiu-hi la freqüència. Són dues confirmacions en lloc d'una; cada una torna a establir el segment al cable."
+            ]
+          }
+        }
+      },
+      "trust": {
+        "heading": "Si us en podeu refiar",
+        "items": {
+          "realShow": {
+            "q": "Puc mesclar una actuació real amb això?",
+            "a": [
+              "Fa actuacions reals en un equip des del 2026-07-06; per tant, la resposta honesta és que depèn del que necessiti la vostra actuació.",
+              "Els canals, els busos, els sends, els DCA, els grups de mute, l'EQ, les dinàmiques, l'analitzador, la correcció d'acoblaments, l'alineació de retard, els inserts de plugins i els stageboxes REAC s'han fet anar i s'han mesurat. La matrix encara no porta àudio, l'enregistrament no està acabat i cap superfície de control no s'ha verificat amb maquinari. Llegiu les limitacions conegudes abans de comprometre-us-hi, no després."
+            ]
+          },
+          "reachAudio": {
+            "q": "Com sabeu que un control arriba de debò a l'àudio?",
+            "a": [
+              "Mesurant l'àudio. Un control pot retornar el valor perfectament sense arribar enlloc. Una prova que només pregunta al model si ha canviat sempre li donarà la raó.",
+              "Per això el processament de senyal es comprova amb valors calculats sobre el paper i no capturats d'una execució, els canvis al graf es verifiquen sobre el graf en directe i no sobre un model. Una afirmació sobre el Phantom 48V necessita una persona al connector, no un indicador a la pantalla."
+            ]
+          },
+          "roland": {
+            "q": "Quins stageboxes Roland són compatibles?",
+            "a": [
+              "Les caixes de la sèrie S per REAC, inclòs el control del previ (Phantom 48V, pad i sensibilitat), que és el que fa que una caixa sigui un stagebox i no només un flux d'àudio. A l'equip s'han establert dues caixes alhora.",
+              "El transport REAC en si és un projecte a part, FreeREAC. El seu propi web explica què se sap del protocol i amb quines caixes s'ha treballat."
+            ]
+          }
+        }
+      }
+    }
+  }
+}
