@@ -7,8 +7,13 @@
  * openmixer repo) so the site and the product read as one thing: the console field
  * #15191e, the console cyan #28c8e6, the meter green #34d17b.
  *
+ * The values in @theme are the dark theme. `html.light` at the end gives the same
+ * tokens their light values; @nuxtjs/color-mode (through Nuxt UI) sets that class
+ * from the system preference or the header toggle. Text tokens meet WCAG AA (4.5:1)
+ * on every surface token in both themes.
+ *
  * Everything else on this site is Tailwind utilities and Nuxt UI components. There
- * are no hand-written rules and no second stylesheet.
+ * are no other hand-written rules and no second stylesheet.
  */
 @import "tailwindcss";
 @import "@nuxt/ui";
@@ -20,12 +25,24 @@
   --color-surface-3: #242b33;
   --color-ink: #eaf0f4;
   --color-ink-dim: #8a97a3;
-  --color-ink-faint: #5a6571;
+  --color-ink-faint: #808c98;
   --color-accent: #28c8e6;
   --color-accent-ink: #04161c;
   --color-meter: #34d17b;
+  --color-warn: #f2b632;
+  --color-clip: #ff4d45;
+  --color-release: #c9b6ff;
+  --color-well: #0d1115;
+  --color-track: #1a2027;
   --color-edge: #2a323b;
   --color-edge-strong: #3a444f;
+
+  /* The home page's fader-wall meters. Each meter sets its own animation-duration. */
+  --animate-level: level 1.6s ease-in-out infinite alternate;
+  @keyframes level {
+    from { transform: scaleY(0.72); }
+    to { transform: scaleY(1); }
+  }
 
   /* Families are named here and nowhere else. @nuxt/fonts (shipped with Nuxt UI)
      reads them off this file, downloads them AT BUILD TIME and emits self-hosted
@@ -56,4 +73,27 @@
   --color-omx-800: #125f6e;
   --color-omx-900: #103f49;
   --color-omx-950: #0a2730;
+}
+
+/* The light theme: the same tokens, light values. Unlayered, so it wins over @theme. */
+html.light {
+  --color-field: #f5f7f9;
+  --color-surface: #ffffff;
+  --color-surface-2: #eef2f5;
+  --color-surface-3: #d9e0e6;
+  --color-ink: #0e1419;
+  --color-ink-dim: #4a5866;
+  --color-ink-faint: #5f6b77;
+  --color-accent: #0b7287;
+  --color-accent-ink: #ffffff;
+  --color-meter: #17773f;
+  --color-warn: #8a5a00;
+  --color-clip: #c62a22;
+  --color-release: #6a4bc4;
+  --color-well: #f0f3f6;
+  --color-track: #d3dae0;
+  --color-edge: #d5dce2;
+  --color-edge-strong: #b3bec8;
+  /* Nuxt UI's solid primary carries white text in light mode; the dark-mode cyan is too pale for it. */
+  --ui-primary: var(--color-accent);
 }

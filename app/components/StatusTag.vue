@@ -7,11 +7,7 @@
  */
 const props = defineProps<{ state: 'live' | 'measured' | 'building' }>();
 
-const LABEL = {
-  live: 'Proven on the rig',
-  measured: 'Built and measured',
-  building: 'In development',
-} as const;
+const { t } = useI18n();
 
 const TONE = {
   live: 'border-meter/40 text-meter',
@@ -19,7 +15,7 @@ const TONE = {
   building: 'border-edge-strong text-ink-dim',
 } as const;
 
-const label = computed(() => LABEL[props.state]);
+const label = computed(() => t(`common.status.${props.state}`));
 const tone = computed(() => TONE[props.state]);
 </script>
 

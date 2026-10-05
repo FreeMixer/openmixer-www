@@ -1,0 +1,81 @@
+{
+  "docsReacRole": {
+    "seo": {
+      "title": "El rol del segment REAC — OpenMixer",
+      "description": "Quin extrem d'un cable REAC presenta la consola (mesclador, gravador o automàtic): què fa cadascun, a partir de què decideix l'automàtic i les quatre frases amb què la consola us avisa quan no pren un rol."
+    },
+    "hero": {
+      "eyebrow": "Manual — segments REAC",
+      "title": "Quin extrem del cable és la consola.",
+      "lede": "Un segment REAC té exactament un master. O aquesta consola en fa de master i governa les stageboxes o en fa una altra taula i la consola s'hi uneix com a extrem de caixa. Aquesta elecció és el rol del segment: una de les dues coses que configureu per a cada segment a Configuració → Rellotge; l'altra és la freqüència de mostratge. Per defecte, la decisió queda en mans de la consola, que observa el cable abans d'imposar-hi res."
+    },
+    "segments": {
+      "title": "Els segments i les dues coses que hi podeu configurar.",
+      "p1": "Un segment és un cable REAC (REAC A, REAC B, etc.), que apareix a la llista amb el nom de patch del que hi ha connectat. Tota la resta que mostra la fitxa és observació: qui en fa de master i a quin ritme, quin enllaç està actiu, quin model de caixa ha respost i amb quin microprogramari, si hi ha algun conflicte. Dos camps són vostres: la <span class=\"text-ink\">freqüència</span> i el <span class=\"text-ink\">rol</span>.",
+      "p2": "Un camp que no configureu mai es queda sense valor, cosa que deixa vigent el valor per defecte que el dimoni considera millor; això no és el mateix que triar-lo. L'única excepció és el rol, que es comporta com a automàtic fins que no digueu el contrari.",
+      "p3": "Totes dues opcions queden en espera en lloc d'enviar-se a mesura que us desplaceu per la llista. Primer trieu i després confirmeu; la confirmació us diu què costarà. Canviar el rol torna a establir el segment al cable: uns quants segons d'interrupció. Canviar la freqüència és pitjor: uns sis segons mentre la caixa es torna a sincronitzar. Si la caixa porta el retorn del PA, això vol dir tot l'equip."
+    },
+    "roles": {
+      "title": "Mesclador, gravador, automàtic.",
+      "mixer": "<span class=\"text-ink\">Mesclador.</span> La consola és l'extrem de taula de l'aparellament. Fa de master del segment, governa les stageboxes que hi ha i marca el ritme del cable; per això la freqüència només la podeu configurar en aquest rol.",
+      "recorder": "<span class=\"text-ink\">Gravador.</span> La consola es presenta com a extrem de caixa i s'uneix a un cable del qual una altra taula fa de master, per agafar-ne un senyal. No imposa cap ritme propi i segueix físicament la taula externa.",
+      "automatic": "<span class=\"text-ink\">Automàtic.</span> El valor per defecte. La consola primer llegeix el segment i després pren l'extrem que estigui lliure: un cable que no té master o del qual ja és master, el pren com a mesclador; un cable del qual fa de master una taula externa, s'hi uneix com a gravador. Desconnectar una taula i que la consola recuperi les caixes és l'automàtic fent la seva feina.",
+      "never": "L'automàtic mai no s'imposa a un master extern. Amb una taula, s'hi uneix; no s'hi baralla. Un sol master per segment és la llei de REAC, no una política d'aquesta consola. Si el master del cable és una stagebox o la consola no pot saber què és, no imposa res i us diu per què.",
+      "note": "En aquesta taula hi ha dues coses que es podrien anomenar gravador; les etiquetes les mantenen separades. El control de Configuració es diu <span class=\"text-ink\">Rol REAC</span> i els seus tres valors són Mesclador, Gravador i Automàtic: aquest gravador és l'extrem d'un aparellament REAC que presenta la consola. Allà on la taula es refereix a l'enregistrador multipista que escriu preses al disc, diu <span class=\"text-ink\">enregistrador (preses)</span>, de manera que una frase com «aquesta consola no té enregistrador (preses)» mai no parla del cable."
+    },
+    "watching": {
+      "title": "Què vigila l'automàtic i quan decideix.",
+      "p1": "Dos fets, tots dos publicats pel cable: si el segment té master i si és nostre i, quan no ho és, si el que en fa de master és una taula, una stagebox o alguna cosa que la consola no sap identificar. Aquesta és tota la informació que fa servir.",
+      "p2": "No és un temporitzador. Cada segment es resol quan s'anuncia, de manera que la decisió segueix el cable i no un rellotge: una taula que arriba després que la consola hagi pres un segment es detecta en el seu anunci següent i l'automàtic torna a decidir tenint-la en compte. Una taula lenta costa una nova decisió, mai una baralla.",
+      "p3": "L'automàtic funciona a tots els segments que la consola veu, fins i tot els que no heu tocat mai: una consola acabada d'instal·lar no es queda aturada en un cable esperant que algú li digui què ha de fer.",
+      "p4": "La consola torna a imposar el que heu demanat, mai el que ella ha deduït. Deixar un segment en automàtic el manté en automàtic: una observació que canvia no pot escriure d'amagat un rol fix a la vostra actuació.",
+      "p5": "La fitxa mostra la resposta del mateix dimoni al costat del rol que heu triat: <span class=\"text-ink\">Aplicat</span>, <span class=\"text-ink\">Restablint…</span> o <span class=\"text-ink\">Cercant una taula…</span>. Un gravador que espera una taula que no hi és apareix com a «cercant» i mai com a «aplicat», que és la resposta honesta."
+    },
+    "refusals": {
+      "title": "Quan la consola no pren el rol que heu demanat.",
+      "intro": "Us diu quina de les quatre coses ha passat a la fitxa del mateix segment. Quan hi ha un sol gest que ho resol, aquest gest és un botó al costat de la frase, mai un fitxer de configuració ni un reinici.",
+      "deskMasters": {
+        "when": "Heu demanat ser el mesclador i una taula ja fa de master del cable",
+        "text": "Heu demanat ser el mesclador, però una taula ja fa de master d'aquest segment. Un sol master per segment és la llei de REAC, així que la consola es manté a l'espera i no ha imposat res al cable.",
+        "doing": "El tauler ofereix un sol botó: canviar aquest segment a gravador."
+      },
+      "rivalBox": {
+        "when": "Una stagebox del segment té el commutador Mode en M",
+        "text": "Una stagebox d'aquest segment té el commutador REAC Mode en M (master), així que la consola no prendrà cap rol al seu costat. Poseu el commutador en S (slave) i apagueu i torneu a engegar la caixa.",
+        "doing": "No hi ha cap botó, perquè el remei és un commutador de la caixa. Inventar un control que la consola no pot complir seria l'altra meitat de la mateixa mentida."
+      },
+      "rivalUnknown": {
+        "when": "Alguna cosa fa de master del cable i la consola no sap què és",
+        "text": "Alguna cosa fa de master d'aquest segment i la consola no sap què és, així que no prendrà cap rol al seu costat. Comproveu què més hi ha en aquest cable.",
+        "doing": "Tampoc no hi ha cap botó. Primer esbrineu què hi ha al segment."
+      },
+      "noMaster": {
+        "when": "Heu demanat enregistrar i el cable no té cap master",
+        "text": "Heu demanat enregistrar, però aquest segment no té cap master. El rol s'ha imposat i la consola cerca una taula; fins que n'aparegui una, no hi ha res d'on enregistrar.",
+        "doing": "Aquest ja ha arribat al cable, perquè l'heu triat vosaltres. El tauler ofereix tornar a mesclador."
+      }
+    },
+    "rate": {
+      "title": "La freqüència és de qui fa de master del cable.",
+      "p1": "Un segment que segueix una taula externa no té cap freqüència a configurar: segueix físicament el ritme d'aquesta taula. La consola refusa escriure-hi una freqüència en lloc d'acceptar-ne una que no pot complir. El tauler ho diu així: <span class=\"text-ink\">un segment esclau no té cap freqüència a configurar; segueix el ritme del master extern</span>.",
+      "p2": "La condició depèn del que el segment fa ara, no del que voleu que acabi fent. Per això, passar un segment a mesclador i configurar-ne la freqüència són dues confirmacions, no una: primer preneu el cable i després hi fixeu el ritme.",
+      "p3": "Una freqüència que el segment no publica com a possible també es refusa, amb la llista de les que accepta. Mai no s'arrodoneix d'amagat a la més propera que li va bé."
+    },
+    "file": {
+      "title": "El fitxer que escriu la consola.",
+      "p1": "El dimoni REAC es configura amb un petit fitxer d'entorn, <code class=\"font-mono text-sm text-ink\">~/.config/openmixer/reac.env</code>, que genera la consola: triar el rol a Configuració és el que escriu <code class=\"font-mono text-sm text-ink\">REAC_ROLE</code> al disc, de manera que l'elecció sobreviu a un reinici del dimoni i de la màquina. L'escriptura és atòmica (es posa al seu lloc un fitxer nou sencer), així que un desament interromput mai no deixa una configuració a mig escriure.",
+      "p2": "El fitxer diu què <em>és</em> la consola al cable i no conté res més: el rol, les dues interfícies, la família de la taula i la freqüència del cable, a més del model de caixa allà on l'equip encara n'espera un de concret. Quina stagebox hi ha realment s'aprèn del cable i, expressament, no s'escriu aquí.",
+      "p3": "Com que la consola regenera el fitxer en lloc d'editar-lo, és un fitxer de la consola i no un fitxer compartit: un comentari o una variable que hi afegiu a mà desapareix la propera vegada que la consola l'escriu. Deseu el que necessiteu en un altre lloc.",
+      "p4": "La consola és prudent a l'hora d'escriure. Un canvi de rol només escriu quan el fitxer realment diu una altra cosa. Si no hi ha fitxer o no es pot interpretar, no s'escriu res: un sistema sense configurar continua sense configurar en lloc d'adquirir una assignació que ningú no ha triat."
+    },
+    "arriving": {
+      "eyebrow": "En camí",
+      "title": "El que aquest capítol encara no descriu.",
+      "rateControl": "Un control de freqüència que s'amagui en un segment que segueix una altra taula. El tauler decideix si l'ofereix a partir del rol que heu demanat i no del rol que el segment té en aquell moment, de manera que en un segment deixat en automàtic que s'ha unit a una taula externa el control encara hi pot aparèixer. Si el feu servir, l'escriptura es refusa honestament amb la frase de més amunt: no es configura res d'amagat."
+    },
+    "rest": {
+      "text": "Els segments són {list} i cadascun és {one}, amb els dos camps modificables i tot el que el cable n'informa, a la {link}.",
+      "link": "referència REST"
+    }
+  }
+}
