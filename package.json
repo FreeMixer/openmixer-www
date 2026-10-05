@@ -15,14 +15,15 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:public": "node scripts/check-public.mjs",
     "check:readme": "node scripts/check-readme.mjs",
-    "predev": "npm run docs:gen",
-    "prebuild": "npm run docs:gen",
-    "pregenerate": "npm run docs:gen",
+    "predev": "npm run docs:gen && npm run catalog:check",
+    "prebuild": "npm run docs:gen && npm run catalog:check",
+    "pregenerate": "npm run docs:gen && npm run catalog:check",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
+    "catalog:check": "node scripts/check-plugin-catalog.mjs",
     "docs:mcp": "node scripts/gen-mcp-tools.mjs"
   },
   "dependencies": {
@@ -33,6 +34,8 @@
     "vue": "^3.5.40"
   },
   "devDependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.7"
   }

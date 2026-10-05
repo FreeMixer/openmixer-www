@@ -3,6 +3,7 @@
     "nav": {
       "architecture": "Architecture",
       "features": "Features",
+      "plugins": "Plugins",
       "docs": "Docs",
       "faq": "FAQ",
       "get-it": "Get it",
@@ -20,6 +21,7 @@
       "page": {
         "architecture": "Architecture",
         "features": "Features",
+      "plugins": "Plugins",
         "docs": "Documentation",
         "faq": "FAQ",
         "get-it": "Get it",

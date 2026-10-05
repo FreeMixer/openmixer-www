@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
 /**
- * The masthead. The wordmark is the console's own mark; the nav is the six pages,
+ * The masthead. The wordmark is the console's own mark; the nav is the seven pages,
  * nothing hidden behind a menu on desktop, then the language switch: the same page in the
  * other language.
  */
@@ -9,7 +9,7 @@ const { t, locale, locales } = useI18n();
 const sitePath = useSitePath();
 const switchLocalePath = useSwitchLocalePath();
 const links = computed(() =>
-  (['architecture', 'features', 'docs', 'faq', 'get-it', 'links'] as const).map((page) => ({
+  (['architecture', 'features', 'plugins', 'docs', 'faq', 'get-it', 'links'] as const).map((page) => ({
     to: sitePath(`/${page}`),
     label: t(`common.nav.${page}`),
   })),
