@@ -23,7 +23,14 @@
 // BEFORE `npm run docs:links`, so the link checker sees the merged tree and every manual
 // cross-link is checked with everything else.
 //
-// THE TWO RULES THIS SCRIPT REFUSES ON, both learned the expensive way:
+// ONLY THE ALLOWLIST. The docs build bundles every markdown file under the repo's docs/
+// into its JS, whether or not it renders a page for it. Run on the checkout, it shipped
+// the whole private docs/design tree to the public site (2026-10-01). So it never runs on
+// the checkout: it runs on a sparse copy of it whose docs/ holds only the pages named in
+// deploy/public-docs.txt, with the edits that file lists applied, and without .claude/ and
+// CLAUDE.md. A page the list does not name is not in the build at all.
+//
+// THE RULES THIS SCRIPT REFUSES ON, learned the expensive way:
 //
 //  1. NO SILENT OVERWRITE. Two Nuxt apps published under one prefix can collide: every
 //     asset is content-hashed except `_nuxt/builds/latest.json`, the app manifest, and the
@@ -42,7 +49,7 @@
 //     every /docs route the build produced is there, the three pages this feature exists
 //     for are there, and the number of published manual pages equals the number of markdown
 //     files in the source tree — a count that comes from the other side of the boundary.
-import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -114,8 +121,95 @@ const revision = (() => {
 })();
 console.log(`[build-docs-tree] openmixer checkout ${src} at ${revision}, base ${baseURL}`);
 
+// ---------------------------------------------------------------------------
+// Stage a copy of the checkout that holds only the public pages
+// ---------------------------------------------------------------------------
+
+const ALLOWLIST_FILE = join(wwwRoot, 'deploy/public-docs.txt');
+const stage = join(wwwRoot, '.docs-stage');
+
+/** Parse deploy/public-docs.txt into { pages, dirs, edits }. */
+function readAllowlist(file) {
+  const pages = [];
+  const dirs = [];
+  const edits = [];
+  readFileSync(file, 'utf8')
+    .split('\n')
+    .forEach((raw, i) => {
+      const line = raw.trim();
+      if (line === '' || line.startsWith('#')) return;
+      const where = `${file}:${i + 1}`;
+      const [path, verb] = line.split(/\s+/, 2);
+      if (path.startsWith('/') || path.split('/').includes('..')) die(`${where}: ${path} is not a path under docs/`);
+      if (/^(design|audits|operations|research|migration|brand|reference)\//.test(path)) {
+        die(`${where}: docs/${path} is private material and is never published`);
+      }
+      if (verb === undefined) {
+        if (path.endsWith('/')) dirs.push(path);
+        else if (path.endsWith('.md')) pages.push(path);
+        else die(`${where}: a page ends in .md, a directory in /`);
+        return;
+      }
+      const args = [...line.slice(line.indexOf(verb) + verb.length).matchAll(/"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1]);
+      if (verb === 'drop-section' && args.length === 1) edits.push({ path, verb, heading: args[0], where });
+      else if (verb === 'replace' && args.length === 2) edits.push({ path, verb, from: args[0], to: args[1], where });
+      else die(`${where}: unknown edit "${line}"`);
+    });
+  for (const e of edits) if (!pages.includes(e.path)) die(`${e.where}: ${e.path} is edited but not published`);
+  return { pages, dirs, edits };
+}
+
+/** Apply one edit; returns the new text, or dies when it changes nothing. */
+function applyEdit(text, e) {
+  let out = text;
+  if (e.verb === 'replace') out = text.split(e.from).join(e.to);
+  if (e.verb === 'drop-section') {
+    const lines = text.split('\n');
+    const at = lines.findIndex((l) => l.trim() === `## ${e.heading}`);
+    if (at >= 0) {
+      let end = lines.findIndex((l, i) => i > at && /^#{1,2}\s/.test(l));
+      if (end < 0) end = lines.length;
+      out = [...lines.slice(0, at), ...lines.slice(end)].join('\n');
+    }
+  }
+  if (out === text) die(`${e.where}: the edit changed nothing in docs/${e.path}; the source moved, update the list`);
+  return out;
+}
+
+const allow = readAllowlist(ALLOWLIST_FILE);
+for (const page of allow.pages) {
+  if (!existsSync(join(src, 'docs', page))) die(`deploy/public-docs.txt names docs/${page}, which the checkout does not have`);
+}
+
+const git = (args, cwd = stage) => execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'] });
+rmSync(stage, { recursive: true, force: true });
+git(['clone', '--quiet', '--shared', '--no-checkout', src, stage], wwwRoot);
+// Sparse, so the copy is a clean checkout of the same commit: `git describe --dirty`, which
+// stamps the manual's version line, reads it as the revision it is.
+git(['sparse-checkout', 'set', '--no-cone', '/*', '!/docs/', '!/.claude/', '!/CLAUDE.md', ...allow.pages.map((p) => `/docs/${p}`), ...allow.dirs.map((d) => `/docs/${d}`)]);
+git(['checkout', '--quiet', '--detach', git(['rev-parse', 'HEAD'], src).trim()]);
+
+for (const e of allow.edits) {
+  const file = join(stage, 'docs', e.path);
+  writeFileSync(file, applyEdit(readFileSync(file, 'utf8'), e));
+}
+// An edited page is still the revision it came from, not a dirty tree.
+if (allow.edits.length > 0) git(['update-index', '--assume-unchanged', ...new Set(allow.edits.map((e) => `docs/${e.path}`))]);
+
+// Presence-verify the copy: its docs/ markdown is exactly the list, and nothing private is in it.
+const stagedPages = existsSync(join(stage, 'docs'))
+  ? readdirSync(join(stage, 'docs'), { recursive: true }).map(String).filter((f) => f.endsWith('.md'))
+  : [];
+const extra = stagedPages.filter((p) => !allow.pages.includes(p));
+const absent = allow.pages.filter((p) => !stagedPages.includes(p));
+if (extra.length > 0) die(`the staged copy carries pages the list does not name: ${extra.slice(0, 5).join(', ')}`);
+if (absent.length > 0) die(`the staged copy lacks pages the list names: ${absent.slice(0, 5).join(', ')}`);
+for (const p of ['.claude', 'CLAUDE.md', 'docs/design']) if (existsSync(join(stage, p))) die(`the staged copy still has ${p}`);
+const allPages = git(['ls-tree', '-r', '--name-only', 'HEAD', 'docs/'], src).split('\n').filter((f) => f.endsWith('.md'));
+console.log(`[build-docs-tree] staged ${stagedPages.length} of ${allPages.length} docs pages (deploy/public-docs.txt), ${allow.edits.length} edit(s)`);
+
 const run = (command, args, env) =>
-  execFileSync(command, args, { cwd: src, stdio: 'inherit', env: { ...process.env, ...env } });
+  execFileSync(command, args, { cwd: stage, stdio: 'inherit', env: { ...process.env, ...env } });
 
 // `website` sits at stratum S0 and reads `core` (S1) and `catalog` (S2) by a plain relative
 // filesystem path into their BUILT dist, never a package.json dependency — that edge would
@@ -139,7 +233,7 @@ run('pnpm', ['--filter', '@freemixer/website', 'generate'], {
   NUXT_APP_BUILD_ASSETS_DIR: DOCS_ASSETS_DIR,
 });
 
-const built = join(src, 'packages/website/.output/public');
+const built = join(stage, 'packages/website/.output/public');
 if (!existsSync(join(built, 'docs/manual/index.html'))) {
   die(`the docs build produced no ${built}/docs/manual/index.html — nothing to publish`);
 }
@@ -203,19 +297,18 @@ for (const rel of REQUIRED) {
   if (!existsSync(full) || statSync(full).size === 0) die(`${rel} is missing or empty in ${dist}`);
 }
 
-// Every manual chapter in the SOURCE tree has a page on the site, checked by path rather
-// than by count: two sets of the same size can still disagree about which pages they hold.
-const sourceManual = readdirSync(join(src, 'docs/manual'), { recursive: true })
-  .map(String)
-  .filter((f) => f.endsWith('.md'));
-if (sourceManual.length === 0) die(`no markdown under ${src}/docs/manual — the source count is a measurement of nothing`);
-const unpublished = sourceManual.filter((md) => {
-  const slug = md.replace(/\.md$/, '').replace(/(^|\/)index$/, '');
-  return !existsSync(join(dist, 'docs/manual', slug, 'index.html'));
-});
-if (unpublished.length > 0) {
-  die(`${unpublished.length} manual chapter(s) in the tree are not on the site: ${unpublished.join(', ')}`);
-}
+// Every listed page has a page on the site, and no doc page is there that the list does not
+// name: checked by path, against the destination.
+const routeOf = (md) => `docs/${md.replace(/\.md$/, '').replace(/(^|\/)index$/, '')}`.replace(/\/$/, '');
+const expected = new Set(allow.pages.filter((p) => p !== 'index.md').map(routeOf));
+const unpublished = [...expected].filter((r) => !existsSync(join(dist, r, 'index.html')));
+if (unpublished.length > 0) die(`${unpublished.length} listed page(s) are not on the site: ${unpublished.join(', ')}`);
+const DOCS_SECTIONS = new Set(allow.pages.filter((p) => p.includes('/')).map((p) => p.split('/')[0]));
+const strays = filesUnder(join(dist, 'docs'))
+  .filter((f) => f.endsWith('index.html') && DOCS_SECTIONS.has(f.split('/')[0]))
+  .map((f) => `docs/${f.replace(/\/?index\.html$/, '')}`)
+  .filter((r) => !expected.has(r));
+if (strays.length > 0) die(`${strays.length} doc page(s) on the site are not on the list: ${strays.slice(0, 5).join(', ')}`);
 const publishedManual = filesUnder(join(dist, 'docs/manual')).filter((f) => f.endsWith('index.html')).length;
 
 const publishedDocs = filesUnder(join(dist, 'docs')).filter((f) => f.endsWith('index.html')).length;

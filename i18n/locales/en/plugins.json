@@ -1,0 +1,148 @@
+{
+  "plugins": {
+    "seo": {
+      "title": "Plugin catalog — OpenMixer",
+      "description": "What OpenMixer measured about {count} audio plugins on {day}: stability, real-time safety, CPU cost, latency, and whether each runs in-process.",
+      "entryTitle": "{name} — plugin catalog — OpenMixer",
+      "entryDescription": "{name}: {verdict} in the OpenMixer plugin catalog run of {day}.",
+      "entryDescriptionVendor": "{name} by {vendor}: {verdict} in the OpenMixer plugin catalog run of {day}."
+    },
+    "verdict": {
+      "in-process": {
+        "label": "In-process",
+        "meaning": "Passed every measured dimension. Qualified to run inside the engine’s own process."
+      },
+      "isolated": {
+        "label": "Isolated",
+        "meaning": "Runs, in a separate process. The deciding reason says why it is not in-process."
+      },
+      "unknown": {
+        "label": "Not fully measured",
+        "meaning": "At least one dimension was not measured, so no verdict is given. Runs in a separate process."
+      },
+      "refused": {
+        "label": "Refused",
+        "meaning": "The qualifier could not load or run it."
+      }
+    },
+    "dimension": {
+      "stability": "Stability",
+      "rtSafety": "Real-time safety",
+      "features": "Host features",
+      "cost": "CPU cost",
+      "latency": "Latency",
+      "topology": "Inputs and outputs"
+    },
+    "rating": {
+      "suitable": "Passed",
+      "conditional": "Caution",
+      "unknown": "Not measured",
+      "unsuitable": "Failed"
+    },
+    "kind": {
+      "effect": "effect",
+      "instrument": "instrument",
+      "other": "plugin"
+    },
+    "source": {
+      "qualify": "the qualify job",
+      "console": "the verdicts a running console ({producer}) held on that date"
+    },
+    "hero": {
+      "eyebrow": "Plugin catalog",
+      "title": "What we measured about each plugin.",
+      "lede": "Each plugin is loaded, run and measured before the console hosts it: stability over repeated load cycles and a long soak, allocations, locks and system calls in the audio callback, CPU cost, latency and its inputs and outputs. These are the results of the run of {day}, at {rate} Hz and {quantum} frames, taken from {source}."
+    },
+    "tiles": {
+      "tested": "Tested"
+    },
+    "effects": {
+      "eyebrow": "Effects",
+      "title": "{count} effects",
+      "lede": "Plugins that process a channel or a bus. Select a plugin for every reason behind its verdict.",
+      "search": "Search name, vendor, URI",
+      "searchLabel": "Search effects",
+      "verdictLabel": "Filter by verdict",
+      "formatLabel": "Filter by format",
+      "vendorLabel": "Filter by vendor",
+      "anyVerdict": "Any verdict",
+      "anyFormat": "Any format",
+      "anyVendor": "Any vendor",
+      "unknownVendor": "Unknown",
+      "shown": "{shown} of {total} shown"
+    },
+    "instruments": {
+      "eyebrow": "Instruments",
+      "title": "{count} instruments",
+      "lede": "Instruments are for playing parts from the console, such as a MIDI sequence at a set clock and tempo. They are listed with the same measurements and are not ranked against effects.",
+      "none": "No instrument was part of this run."
+    },
+    "others": {
+      "eyebrow": "Other",
+      "title": "{count} other plugins",
+      "lede": "Analysers, generators and utilities, as the plugins declare themselves."
+    },
+    "reading": {
+      "eyebrow": "Reading the verdicts",
+      "title": "What each verdict means.",
+      "threshold": "A dimension counts as measured only past its threshold: {cycles} load cycles, a {hours}-hour soak, and a CPU cost of at most {ceiling} of one core at the 95th percentile. The worst dimension decides the verdict."
+    },
+    "data": {
+      "eyebrow": "The data",
+      "title": "Where these figures come from.",
+      "one": "Every figure on these pages is generated from one run file, published with its schema. The same file is installed on consoles by the openmixer-plugin-catalog package.",
+      "runData": "This run’s data ({file})",
+      "schema": "The schema and how the fields are derived",
+      "two": "A result is for the package version and date shown on the plugin’s page. If you maintain a plugin and an entry is wrong or out of date, each plugin page has a link to report it."
+    },
+    "table": {
+      "plugin": "Plugin",
+      "verdict": "Verdict",
+      "deciding": "Deciding reason",
+      "format": "Format",
+      "cpu": "CPU p95",
+      "package": "Package tested",
+      "vendorUndeclared": "Vendor not declared",
+      "also": "also {format}",
+      "empty": "No plugin matches."
+    },
+    "entry": {
+      "notFound": "No such plugin in the catalog",
+      "heroEyebrow": "Plugin catalog · {format} {kind}",
+      "by": "by {vendor}",
+      "factsEyebrow": "Facts",
+      "factsTitle": "What was tested.",
+      "measEyebrow": "Measurements",
+      "measTitle": "Every reason, by dimension.",
+      "deciding": "Deciding",
+      "incidents": "Crashes and timeouts",
+      "facts": {
+        "uri": "URI",
+        "vendor": "Vendor",
+        "vendorNone": "Not declared by the plugin",
+        "format": "Format",
+        "formatAlso": "{format} (also available as {other})",
+        "class": "Declared class",
+        "classNone": "None declared",
+        "package": "Package tested",
+        "packageNone": "Not installed from a package",
+        "version": "Plugin version",
+        "run": "Run",
+        "runValue": "{day}, {rate} Hz, {quantum}-frame quantum",
+        "io": "Inputs and outputs",
+        "ioValue": "{inputs} in, {outputs} out",
+        "ioMidi": "{inputs} in, {outputs} out, MIDI in",
+        "latencyClass": "Latency class",
+        "notMeasured": "Not measured",
+        "hosting": "Latency added by hosting",
+        "hostingValue": "{quanta} quantum, {ms} ms",
+        "cpu": "CPU, 95th percentile",
+        "cpuValue": "{pct} of one core"
+      },
+      "footerPackage": "This entry is for {what}, measured on {day}. If you maintain this plugin and something here is wrong or out of date, tell us.",
+      "footerBinary": "the binary installed on the test machine",
+      "report": "Report a mistake",
+      "all": "All plugins"
+    }
+  }
+}

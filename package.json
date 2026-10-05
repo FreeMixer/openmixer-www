@@ -12,6 +12,9 @@
     "docs:gen": "npm run docs:rest && npm run docs:api && npm run docs:mcp",
     "docs:links": "node scripts/check-links.mjs",
     "docs:site": "node scripts/build-docs-tree.mjs",
+    "check:i18n": "node scripts/check-i18n.mjs",
+    "check:public": "node scripts/check-public.mjs",
+    "check:readme": "node scripts/check-readme.mjs",
     "predev": "npm run docs:gen && npm run catalog:check",
     "prebuild": "npm run docs:gen && npm run catalog:check",
     "pregenerate": "npm run docs:gen && npm run catalog:check",
@@ -20,11 +23,12 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "typecheck": "nuxt typecheck",
-    "docs:mcp": "node scripts/gen-mcp-tools.mjs",
-    "catalog:check": "node scripts/check-plugin-catalog.mjs"
+    "catalog:check": "node scripts/check-plugin-catalog.mjs",
+    "docs:mcp": "node scripts/gen-mcp-tools.mjs"
   },
   "dependencies": {
     "@nuxt/ui": "^4.10.0",
+    "@nuxtjs/i18n": "^10.6.0",
     "nuxt": "^4.4.8",
     "tailwindcss": "^4.3.2",
     "vue": "^3.5.40"

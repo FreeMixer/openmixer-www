@@ -1,0 +1,106 @@
+{
+  "architecture": {
+    "seo": {
+      "title": "Arquitectura — OpenMixer",
+      "description": "Una visió tècnica d'OpenMixer: un sol model canònic, una sola porta REST amb fluxos en directe, un sol node natiu de PipeWire que porta l'àudio i un nucli de processament de senyal escrit en C."
+    },
+    "hero": {
+      "eyebrow": "Visió tècnica",
+      "title": "Un model. Una porta. Un sol camí cap a l'àudio.",
+      "lede": "Aquesta pàgina explica com està construït OpenMixer i per què està construït així. És per a qui ha de decidir si hi construeix a sobre, si el fa servir o si el desmunta peça a peça."
+    },
+    "s1": {
+      "eyebrow": "01 — Propietat",
+      "title": "El servidor és el propietari de l'estat de la taula. Els clients el mostren.",
+      "p1": "Hi ha un sol model canònic de taula de mescles — canals, faders, busos, sends, DCA, la matrix, camins de latència, sessions — i no depèn de cap dispositiu. La superfície, el motor d'àudio i les entrades i sortides es connecten a aquest model i cap d'ells no pressuposa una taula concreta. S'hi poden connectar taules físiques a través d'adaptadors, però són un camí de control opcional, no el producte.",
+      "p2": "L'estat el custodia el servidor, que n'és l'única font de veritat. Els clients demanen canvis i mostren el que els torna; ningú més no té opinió sobre com és la taula. Això importa més del que sembla. Un límit que viu en un client — un màxim de canals, un rang permès, un bloqueig de seguretat — és només orientatiu: el client següent se'l salta sense més. Un límit que viu a la porta s'aplica a tot el que hi truqui.",
+      "p3": "Tots els clients són clients remots. Un portàtil al control de sala té exactament la mateixa categoria que una tauleta al lateral de l'escenari o un mòbil damunt l'escenari. Que tots vegin la mateixa taula no és una funció del producte; és el producte.",
+      "wire": "// tot el protocol",
+      "oneStream": "// un sol flux per a tota la taula"
+    },
+    "s2": {
+      "eyebrow": "02 — L'espai d'adreces",
+      "title": "Cada fet té una adreça; l'adreça té una gramàtica.",
+      "p1": "La taula publica unes vuitanta-cinc entitats i totes són accessibles en un camí construït amb la mateixa gramàtica: {grammar}. {kind} i {index} són dos segments i mai un de sol, de manera que una adreça es pot continuar escrivint a mà i {curl} continua servint com a prova d'acceptació. Una taula que no podeu adreçar a mà és una taula que no podeu depurar a les tres de la tarda amb l'obertura de portes a les set.",
+      "p2": "Cada entitat respon a <code class=\"font-mono text-sm text-ink\">GET</code>, <code class=\"font-mono text-sm text-ink\">PATCH</code> i <code class=\"font-mono text-sm text-ink\">OPTIONS</code>. <code class=\"font-mono text-sm text-ink\">OPTIONS</code> és el contracte: els camps modificables, els rangs, les unitats i les opcions enumerades els publica el servidor, de manera que un client mostra els límits que li han arribat per la xarxa en lloc de portar-ne una còpia pròpia.",
+      "kinds": {
+        "title": "Tipus, no famílies separades",
+        "tag": "adreçament",
+        "p1": "Els busos, els DCA, els grups de mute i les matrix no són espais d'adreces separats. Són <em class=\"text-ink\">tipus</em> de canal: <code class=\"font-mono text-xs text-ink\">/channel/aux/3</code>, <code class=\"font-mono text-xs text-ink\">/channel/dca/2</code>, <code class=\"font-mono text-xs text-ink\">/channel/muteGroup/1</code>, <code class=\"font-mono text-xs text-ink\">/channel/main/1</code>.",
+        "p2": "Unificar-los va eliminar la major part de la duplicació del protocol amb una decisió d'adreçament, sense cap refactorització. Per això MAIN i els busos són canals normals, sense cap maquinària exclusiva del màster al darrere."
+      },
+      "urls": {
+        "title": "El contracte genera les URL",
+        "tag": "deducció",
+        "p1": "Una fila no s'inventa el seu propi espai d'adreces ni el seu propi camí. Tots dos es dedueixen del contracte i de la configuració de la taula, de manera que la forma de l'API és una conseqüència de la declaració i no una cosa que es manté al seu costat.",
+        "p2": "Ara mateix la taula registra 183 plantilles de camí, 58 de les quals sota <code class=\"font-mono text-xs text-ink\">/channel</code>."
+      },
+      "declared": {
+        "title": "Declarat vol dir servit",
+        "tag": "invariant",
+        "p1": "Tota entitat que declara el disseny és una entitat que el servidor respon. No hi ha cap llista pendent de noms que existeixen sobre el paper i que a la xarxa donen 404. Les dues direccions es comproven l'una contra l'altra automàticament, no a ull.",
+        "p2": "Un control que res no pot anomenar no és un defecte menor: és un control que cap superfície, script ni automatització no podrà assolir mai."
+      }
+    },
+    "s3": {
+      "eyebrow": "03 — Estat en directe",
+      "title": "Un flux no és un recurs diferent.",
+      "quote": "Un flux no és un recurs diferent. És el mateix recurs, que encara s'està enviant.",
+      "p1": "Qualsevol <code class=\"font-mono text-sm text-ink\">GET</code> admet <code class=\"font-mono text-sm text-ink\">?watch=1</code> i es converteix en un flux d'esdeveniments enviats pel servidor. La regla que hi ha a sota es pot provar en una línia: un flux sobre la URL R emet exactament el JSON que retorna <code class=\"font-mono text-sm text-ink\">GET R</code>. No hi ha un segon esquema, ni un vocabulari d'esdeveniments per aprendre, ni cap risc que tots dos acabin divergint.",
+      "p2": "Tots els fluxos s'obren amb una instantània completa, de manera que un client que s'acaba de connectar i un que fa tota la nit que funciona veuen la mateixa taula. A partir d'aquí, un canvi arriba com un pegat sobre una fila, mai com una reconnexió.",
+      "p3": "El flux arrel porta tots els canvis confirmats per una sola connexió. És intencionat: un navegador només permet sis connexions per origen. Una superfície que obre un flux per panell les gasta totes i, a partir d'aquí, deixa en cua per sempre totes les peticions següents.",
+      "p4": "Uns quants paràmetres de consulta els limita el servidor en lloc de fiar-se del que envia el client. Un d'ells es guanya el lloc amb una mesura: demanar menys bandes d'analitzador redueix la FFT a l'origen i no després de la xarxa. És la diferència entre 372 KB i uns 13 KB per trama.",
+      "p5": "No hi ha WebSocket. Una porta, un canal de comunicació, un vocabulari. I el contrapès honest, perquè aquesta pàgina no és un fullet comercial: el buffering dels proxys és l'argument de debò contra els esdeveniments enviats pel servidor. Quan falla, les coses funcionen però a batzegades, cosa que almenys es veu."
+    },
+    "s4": {
+      "eyebrow": "04 — Com arriba l'estat a l'àudio",
+      "title": "Una sola declaració, en tots dos sentits.",
+      "p1": "Un recurs declara quatre coses: la seva identitat, el seu estat únic, els camps modificables i la seva projecció cap a l'àudio. D'aquesta declaració única el sistema en dedueix la lectura, l'escriptura, el contracte publicat, la trama de difusió <em class=\"text-ink\">i</em> l'accionament que arriba al motor.",
+      "p2": "Deduir tots dos sentits d'una sola declaració és la decisió que sosté tota la resta. Quan la meitat cap als clients i la meitat cap al motor s'escriuen per separat, només coincideixen mentre algú s'encarrega que coincideixin. I la fallada és silenciosa, perquè un control que no arriba enlloc es continua llegint bé des del model, que mai no n'ha dubtat. Aquí no hi ha cap segona meitat per oblidar.",
+      "p3": "D'aquí en surten tres regles. Un accionament que no ha arribat enlloc informa d'un error, no d'un èxit. Un control envia el valor compost, mai un indicador en brut: al motor se li diu quin <em>és</em> ara el guany del canal, no quina de les sis causes que hi contribueixen ha canviat. I els busos i MAIN són canals, de manera que fan el mateix camí que tota la resta.",
+      "latch": {
+        "title": "Com es manté honest un estat retingut",
+        "p1": "Per a l'estat que viu en maquinari extern, la resposta correcta més barata és <span class=\"text-ink\">consultar i comparar</span>: preguntar al dispositiu què té i escriure només si no coincideix. Reafirmar-lo periòdicament a cegues és el recurs de reserva, només per als dispositius als quals no es pot preguntar.",
+        "p2": "Consultar no és només més barat. Una reafirmació a cegues durant una actuació sobreescriu el que algú hagi tocat a la caixa; consultant, la desviació es converteix en informació en lloc de quedar tapada. Dues preguntes decideixen si un control necessita aquesta cura: es corregeix sol? L'operador se n'adonaria? Un fader es corregeix sol i se sent, així que no necessita ni una cosa ni l'altra. El Phantom 48V i un pad es fixen una vegada a la prova de so i no es tornen a enviar mai; així és exactament com un error de 20 dB de pad pot sobreviure tota una gira com a «aquest canal sona estrany».",
+        "p3": "L'excepció honesta: un stagebox REAC no ofereix cap manera de consultar el previ. Allà el registre de la taula <em>és</em> l'estat, no una còpia en memòria cau. Tot i així, el que la taula informa com a aplicat no pot mentir sobre aquest fet."
+      }
+    },
+    "s5": {
+      "eyebrow": "05 — El camí de l'àudio",
+      "title": "Un sol node natiu, no quaranta subprocessos.",
+      "p1": "El processament estructural del senyal és un sol node <code class=\"font-mono text-sm text-ink\">pw_filter</code> escrit en C per a cada grup d'stagebox: guany per canal, fader, pan, polaritat, suma, el banc d'EQ, el gate i el compressor, el delay i la reverb natius i el punt de presa de l'analitzador. Un node, un sol callback de temps real, una sola passada per tot el mix que aprofita bé la memòria cau.",
+      "p2": "Va substituir uns quaranta subprocessos <code class=\"font-mono text-sm text-ink\">pw-loopback</code>, per dues raons que tenen a veure amb la quantitat de nodes i no amb PipeWire. El dimoni arribava al límit de descriptors de fitxer cap al canal onze i el graf es quedava congelat. I quan una interfície física se suspenia, PipeWire passava al seu driver fictici: tot el graf quedava aturat, sense càrrega i sense àudio.",
+      "p3": "La forma d'un sol node també guanya per mèrits propis. Un sol callback de temps real té menys jitter que N nodes planificats per separat; un node amb enllaços de sortida queda lligat net al grup del driver de la sortida per construcció. Els nodes es creen quan es connecta un stagebox i es destrueixen quan es desconnecta; els canals s'afegeixen a un node en marxa sense interrompre'l; i tots els nodes comparteixen un sol client, de manera que el cost en descriptors de fitxer de tota la taula és una sola connexió.",
+      "p4": "Si se li demana una taula més ampla del que pot portar, s'hi nega en lloc de retallar-la. Retallar-la donava una taula que informava d'èxit i que, simplement, no tenia canals més enllà del límit: canals que existien al model, dibuixaven faders a la superfície i no portaven àudio.",
+      "kernel": {
+        "title": "El nucli",
+        "body": "L'aritmètica viu en una sola capçalera de petites funcions <code class=\"font-mono text-xs text-ink\">static inline</code>, sense PipeWire, sense assignació de memòria i sense res de la libc més enllà de <code class=\"font-mono text-xs text-ink\">&lt;math.h&gt;</code>. És intencionat. Una llei de pan és el tipus de cosa que s'ha de poder demostrar correcta, així que es manté comprovable aïllada del cicle de vida del filtre."
+      },
+      "realtime": {
+        "title": "El contracte de temps real",
+        "body": "El callback llegeix els paràmetres de cada canal amb accessos atòmics d'una paraula, obté el nombre de canals amb una lectura acquire, no assigna memòria, no escriu res al registre i aplica una rampa a cada canvi de guany perquè moure un control no pugui provocar un clic."
+      },
+      "onTop": {
+        "title": "Per sobre",
+        "body": "Els inserts de plugins LV2 els allotja <code class=\"font-mono text-xs text-ink\">mod-host</code> i s'encadenen a la frontera d'aquest node, per canal i per sortida. Són dues capes de processament de senyal que no són intercanviables: una és la taula; l'altra, el que hi munteu al rack."
+      }
+    },
+    "s6": {
+      "eyebrow": "06 — Verificació",
+      "title": "El processament de senyal es comprova contra l'aritmètica.",
+      "p1": "El nucli en C es verifica amb oracles de forma tancada: cada valor esperat es calcula primer sobre el paper, mai no es pren d'una execució del codi. Aquesta distinció és tota la qüestió. Una prova que desa el que ha produït la implementació i després comprova que la implementació encara ho produeix donarà la raó a un error per sempre. Una prova que fixa 500,0 ms abans que s'executi res, no.",
+      "p2": "La bateria d'oracles és C pur, sense PipeWire ni assignació de memòria, de manera que es compila i s'executa en segons i es pot fer córrer amb tota seguretat al costat d'una taula en directe.",
+      "p3": "Per sobre, els controls que diuen afectar l'àudio es verifiquen mesurant àudio — un to que travessa un graf real i una lectura a l'altre extrem — i no comprovant que un model ha canviat. Un model és correcte exactament en els casos en què és ell mateix el que falla.",
+      "p4": "Una prova que necessita un graf real en té un de propi. Cada procés de prova arrenca un dimoni PipeWire privat en un directori temporal, amb un socket que porta el nom del procés. Tant el dimoni com els seus clients apunten a aquest socket i no al de la sessió; així una bateria de proves no pot arribar a l'àudio de l'operador, dues bateries que s'executen alhora no es veuen entre elles i res no sobreviu al procés que ho ha creat. El dimoni no s'espera amb un sleep: es considera engegat quan respon una pregunta.",
+      "oracle": {
+        "title": "Com és un oracle: la línia de delay",
+        "i1": "Una negra a 120 BPM són 500,0 ms. No aproximadament: la prova diu 500,0; 250,0 per a una corxera; 166,6667 per a una nota de treset.",
+        "i2": "Amb el wet al màxim i sense realimentació, un impuls a la mostra 0 ha de reaparèixer a la mostra 100 amb valor 1,0 i la mostra 0 ha de valer exactament 0,0.",
+        "i3": "Amb una realimentació de 0,5, els ecos a les trames 10, 20 i 30 han de valer 1,0; 0,5 i 0,25: el segon és <code class=\"font-mono text-xs text-ink\">fb¹</code> i el tercer, <code class=\"font-mono text-xs text-ink\">fb²</code>.",
+        "i4": "Amb el mix a 0, la sortida ha de ser <em class=\"text-ink\">idèntica bit a bit</em> al senyal sec. Igualtat exacta, no una tolerància.",
+        "i5": "Una realimentació absurda de 5,0 s'ha de limitar i mantenir-se acotada durant 64 trames.",
+        "note": "La mateixa disciplina cobreix el bus de suma, la llei de pan, la matriu d'encaminament, l'ajust de l'alineació i el format de fitxer de l'enregistrador."
+      }
+    }
+  }
+}

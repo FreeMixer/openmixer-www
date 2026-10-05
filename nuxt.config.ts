@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // openmixer-www — the project website. Statically generated, no server at runtime.
 
-import { existsSync, readFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 // crawlLinks finds a dynamic route only via an <a href> already sitting in ALREADY-
@@ -13,6 +13,25 @@ const restReferencePath = fileURLToPath(new URL('./app/data/rest-reference.json'
 const familyRoutes: string[] = existsSync(restReferencePath)
   ? (JSON.parse(readFileSync(restReferencePath, 'utf8')).families as { slug: string }[]).map((f) => `/docs/rest/${f.slug}`)
   : [];
+
+/**
+ * The site's languages. English is the default and has no prefix; Catalan lives under /ca/.
+ * Each locale is a directory of message files under i18n/locales/, one per page or shared
+ * part, and `scripts/check-i18n.mjs` fails the build when the two directories do not hold
+ * the same keys.
+ */
+const LOCALES = [
+  { code: 'en', language: 'en', name: 'English' },
+  { code: 'ca', language: 'ca', name: 'Català' },
+] as const;
+const localeFiles = (code: string): string[] =>
+  readdirSync(fileURLToPath(new URL(`./i18n/locales/${code}`, import.meta.url)))
+    .filter((f) => f.endsWith('.json'))
+    .sort()
+    .map((f) => `${code}/${f}`);
+
+/** The public origin, for the hreflang and canonical links. */
+const siteOrigin = process.env.SITE_ORIGIN ?? 'https://openmixer.org';
 
 /** The prefix this build is served under, with a trailing slash. Same input Nuxt reads. */
 const baseURL = process.env.NUXT_APP_BASE_URL ?? '/';
@@ -44,7 +63,13 @@ export default defineNuxtConfig({
   // A brochure site: prerender every route to plain files so it can be served from
   // GitHub Pages, an nginx root, or the cluster, with nothing running behind it.
   ssr: true,
-  nitro: { prerender: { crawlLinks: true, routes: ['/', ...familyRoutes], failOnError: true } },
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ['/', '/ca', ...familyRoutes, ...familyRoutes.map((r) => `/ca${r}`)],
+      failOnError: true,
+    },
+  },
 
   // /api-docs/ (typedoc's own static HTML tree, copied verbatim from public/) and
   // openapi.json are plain files, not Vue routes — the prerender crawler otherwise
@@ -60,23 +85,38 @@ export default defineNuxtConfig({
 
   // Nuxt UI v4 owns the Tailwind v4 pipeline itself (it registers @tailwindcss/vite),
   // so there is no separate Tailwind module and no tailwind.config.
-  modules: ['@nuxt/ui'],
+  modules: ['@nuxt/ui', '@nuxtjs/i18n'],
+
+  // English at the root, Catalan under /ca/. No browser-language redirect: the site is
+  // static files, and a visitor picks the language with the switcher in the header.
+  i18n: {
+    strategy: 'prefix_except_default',
+    defaultLocale: 'en',
+    locales: LOCALES.map((l) => ({ ...l, files: localeFiles(l.code) })),
+    langDir: 'locales',
+    baseUrl: siteOrigin,
+    detectBrowserLanguage: false,
+    // Messages may carry inline markup (<code>, <strong>, external links), rendered with
+    // v-html; they are this repository's own text, never visitor input.
+    compilation: { strictMessage: false, escapeHtml: false },
+  },
 
   css: ['~/assets/css/main.css'],
 
-  // The site is dark-only. Nuxt UI tracks its own `.dark` class through
-  // @nuxtjs/color-mode; without this its components render their light variants
-  // over a dark page — a solid button turns into a pale slab.
-  colorMode: { preference: 'dark', fallback: 'dark', classSuffix: '' },
+  // Dark and light, following the visitor's system until they pick one with the header
+  // toggle (remembered by color-mode in localStorage). color-mode puts `.dark` or
+  // `.light` on <html> — Nuxt UI keys its components on `.dark`, main.css gives the
+  // site's tokens their light values under `.light` — and mirrors it in data-theme.
+  colorMode: { preference: 'system', fallback: 'dark', classSuffix: '', dataValue: 'theme' },
 
   app: {
     // A project page under github.io lives at /<repo>/. Set NUXT_APP_BASE_URL at
     // generate time for that; the default serves from a domain root.
     head: {
-      htmlAttrs: { lang: 'en', 'data-theme': 'dark' },
       meta: [
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#0b0e11' },
+        { name: 'theme-color', content: '#0b0e11', media: '(prefers-color-scheme: dark)' },
+        { name: 'theme-color', content: '#f5f7f9', media: '(prefers-color-scheme: light)' },
       ],
       // The prefix is a BUILD input: a leading-slash href here points above the mount on a
       // project page, which is how the favicon 404'd on the live site until 2026-09-07.

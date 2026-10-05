@@ -122,20 +122,6 @@ export function catalogRows(run: CatalogRun): CatalogRow[] {
   return rows.sort((a, b) => a.name.localeCompare(b.name));
 }
 
-export const VERDICT_LABEL: Record<Verdict, string> = {
-  'in-process': 'In-process',
-  isolated: 'Isolated',
-  unknown: 'Not fully measured',
-  refused: 'Refused',
-};
-
-export const VERDICT_MEANING: Record<Verdict, string> = {
-  'in-process': 'Passed every measured dimension. Qualified to run inside the engine’s own process.',
-  isolated: 'Runs, in a separate process. The deciding reason says why it is not in-process.',
-  unknown: 'At least one dimension was not measured, so no verdict is given. Runs in a separate process.',
-  refused: 'The qualifier could not load or run it.',
-};
-
 export const VERDICT_ORDER: readonly Verdict[] = ['in-process', 'isolated', 'unknown', 'refused'];
 
 /** Nuxt UI badge colours per verdict. */
@@ -144,15 +130,6 @@ export const VERDICT_COLOR: Record<Verdict, 'success' | 'info' | 'neutral' | 'er
   isolated: 'info',
   unknown: 'neutral',
   refused: 'error',
-};
-
-export const DIMENSION_LABEL: Record<CatalogReason['dimension'], string> = {
-  stability: 'Stability',
-  rtSafety: 'Real-time safety',
-  features: 'Host features',
-  cost: 'CPU cost',
-  latency: 'Latency',
-  topology: 'Inputs and outputs',
 };
 
 /** The text of the reason that decided a plugin's verdict, or null when nothing below suitable. */

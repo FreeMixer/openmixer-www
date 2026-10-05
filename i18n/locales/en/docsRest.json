@@ -1,0 +1,37 @@
+{
+  "docsRest": {
+    "seo": {
+      "title": "REST reference — OpenMixer",
+      "description": "Every addressable entity on the console, generated from the server’s own contract: the rows, their fields, the field limits and the refusal codes."
+    },
+    "hero": {
+      "eyebrow": "Tech docs — REST reference",
+      "title": "Every entity, straight from the contract.",
+      "lede": "This reference is generated, not written: it comes from the same address space, field limits and refusal catalog the running server publishes through OPTIONS. It cannot describe a control the server does not actually serve, and it cannot miss one either."
+    },
+    "rules": {
+      "eyebrow": "Before you read a row",
+      "title": "Three things true of every entity here.",
+      "verbsTag": "every row",
+      "verbs": "Every address answers <code class=\"font-mono text-xs text-ink\">GET</code>. One that takes a write below answers <code class=\"font-mono text-xs text-ink\">PATCH</code> too, and <code class=\"font-mono text-xs text-ink\">OPTIONS</code> always publishes the live contract — the writable fields, the ranges and the enumerated options — for whichever is true on the server you are talking to.",
+      "watchTitle": "{'?'}watch=1 on any address",
+      "watchTag": "streaming",
+      "watch": "Add it to a <code class=\"font-mono text-xs text-ink\">GET</code> and it becomes a server-sent event stream emitting exactly what that <code class=\"font-mono text-xs text-ink\">GET</code> returns, snapshot first. A handful of rows — marked <span class=\"text-ink\">on demand</span> below — only compute while at least one client is watching them.",
+      "genTitle": "Generated, so it dates itself",
+      "genTag": "provenance",
+      "gen": "Built from an OpenMixer checkout's <code class=\"font-mono text-xs text-ink\">travel-sheet.json</code>, <code class=\"font-mono text-xs text-ink\">engine-ui-rows.json</code> and <code class=\"font-mono text-xs text-ink\">message-code.ts</code> — {rows} rows across {families} families, generated {date}."
+    },
+    "family": {
+      "eyebrow": "By family",
+      "title": "Pick a resource."
+    },
+    "codes": {
+      "title": "Refusal and undo-label codes",
+      "body": "Every refusal, warning and undo-entry label the server can send, with the parameters each one carries. Nothing below the surface renders display prose directly — a code plus its parameters travels the wire, and the client's own locale supplies the sentence."
+    },
+    "openapi": {
+      "title": "OpenAPI 3.1 document",
+      "body": "The same {rows} rows and the refusal catalog as one standard, tool-readable document — paths, request and response JSON Schema, and the refusal codes as reusable components. Generated, not hand-written, same as everything else on this page."
+    }
+  }
+}

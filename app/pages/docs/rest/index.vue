@@ -2,35 +2,39 @@
 <script setup lang="ts">
 import restReference from '~/data/rest-reference.json';
 
+const { t } = useI18n();
+const sitePath = useSitePath();
+
 useSeoMeta({
-  title: 'REST reference — openmixer',
-  description: 'Every addressable entity on the console, generated from the server’s own contract: the rows, their fields, the field limits and the refusal codes.',
+  title: () => t('docsRest.seo.title'),
+  description: () => t('docsRest.seo.description'),
 });
 
 const families = [...restReference.families].sort((a, b) => humanizeSlug(a.slug).localeCompare(humanizeSlug(b.slug)));
 const totalRows = restReference.families.reduce((n, f) => n + f.count, 0);
+const generatedOn = new Date(restReference.meta.generatedAt).toISOString().slice(0, 10);
 </script>
 
 <template>
   <div>
     <PageHero
-      eyebrow="Tech docs — REST reference"
-      title="Every entity, straight from the contract."
-      lede="This reference is generated, not written: it comes from the same address space, field limits and refusal catalog the running server publishes through OPTIONS. It cannot describe a control the server does not actually serve, and it cannot miss one either."
+      :eyebrow="t('docsRest.hero.eyebrow')"
+      :title="t('docsRest.hero.title')"
+      :lede="t('docsRest.hero.lede')"
     />
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="Before you read a row" title="Three things true of every entity here." />
+        <SectionHead :eyebrow="t('docsRest.rules.eyebrow')" :title="t('docsRest.rules.title')" />
         <div class="grid gap-5 md:grid-cols-3">
-          <Slab title="GET, PATCH, OPTIONS" tag="every row">
-            <p>Every address answers <code class="font-mono text-xs text-ink">GET</code>. One that takes a write below answers <code class="font-mono text-xs text-ink">PATCH</code> too, and <code class="font-mono text-xs text-ink">OPTIONS</code> always publishes the live contract — the writable fields, the ranges and the enumerated options — for whichever is true on the server you are talking to.</p>
+          <Slab title="GET, PATCH, OPTIONS" :tag="t('docsRest.rules.verbsTag')">
+            <p v-html="t('docsRest.rules.verbs')" />
           </Slab>
-          <Slab title="?watch=1 on any address" tag="streaming">
-            <p>Add it to a <code class="font-mono text-xs text-ink">GET</code> and it becomes a server-sent event stream emitting exactly what that <code class="font-mono text-xs text-ink">GET</code> returns, snapshot first. A handful of rows — marked <span class="text-ink">on demand</span> below — only compute while at least one client is watching them.</p>
+          <Slab :title="t('docsRest.rules.watchTitle')" :tag="t('docsRest.rules.watchTag')">
+            <p v-html="t('docsRest.rules.watch')" />
           </Slab>
-          <Slab title="Generated, so it dates itself" tag="provenance">
-            <p>Built from an openmixer checkout's <code class="font-mono text-xs text-ink">travel-sheet.json</code>, <code class="font-mono text-xs text-ink">engine-ui-rows.json</code> and <code class="font-mono text-xs text-ink">message-code.ts</code> — {{ totalRows }} rows across {{ families.length }} families, generated {{ new Date(restReference.meta.generatedAt).toISOString().slice(0, 10) }}.</p>
+          <Slab :title="t('docsRest.rules.genTitle')" :tag="t('docsRest.rules.genTag')">
+            <p v-html="t('docsRest.rules.gen', { rows: totalRows, families: families.length, date: generatedOn })" />
           </Slab>
         </div>
       </div>
@@ -38,11 +42,11 @@ const totalRows = restReference.families.reduce((n, f) => n + f.count, 0);
 
     <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="By family" title="Pick a resource." />
+        <SectionHead :eyebrow="t('docsRest.family.eyebrow')" :title="t('docsRest.family.title')" />
         <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           <NuxtLink
             v-for="f in families" :key="f.slug"
-            :to="`/docs/rest/${f.slug}`"
+            :to="sitePath(`/docs/rest/${f.slug}`)"
             class="group flex items-baseline justify-between rounded border border-edge bg-surface/60 px-4 py-3 transition-colors hover:border-accent/60"
           >
             <span class="font-mono text-sm text-ink group-hover:text-accent">{{ f.root }}</span>
@@ -56,28 +60,18 @@ const totalRows = restReference.families.reduce((n, f) => n + f.count, 0);
       <div class="mx-auto max-w-6xl px-6 py-16">
         <div class="grid gap-5 sm:grid-cols-2">
           <LinkCard
-            title="Refusal and undo-label codes"
-            href="/docs/rest/refusal-codes"
+            :title="t('docsRest.codes.title')"
+            :href="sitePath('/docs/rest/refusal-codes')"
             label="/docs/rest/refusal-codes"
           >
-            <p>
-              Every refusal, warning and undo-entry label the server can send, with
-              the parameters each one carries. Nothing below the surface renders
-              display prose directly — a code plus its parameters travels the wire,
-              and the client's own locale supplies the sentence.
-            </p>
+            <p>{{ t('docsRest.codes.body') }}</p>
           </LinkCard>
           <LinkCard
-            title="OpenAPI 3.1 document"
-            href="/openapi.json"
+            :title="t('docsRest.openapi.title')"
+            :href="sitePath('/openapi.json')"
             label="/openapi.json"
           >
-            <p>
-              The same {{ totalRows }} rows and the refusal catalog as one standard,
-              tool-readable document — paths, request and response JSON Schema, and
-              the refusal codes as reusable components. Generated, not hand-written,
-              same as everything else on this page.
-            </p>
+            <p>{{ t('docsRest.openapi.body', { rows: totalRows }) }}</p>
           </LinkCard>
         </div>
       </div>

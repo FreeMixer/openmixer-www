@@ -1,0 +1,30 @@
+{
+  "links": {
+    "seo": {
+      "title": "Enllaços — OpenMixer",
+      "description": "El repositori del codi font d'OpenMixer, el projecte germà d'interoperabilitat FreeREAC i els projectes de base sobre els quals s'ha construït OpenMixer."
+    },
+    "hero": {
+      "eyebrow": "Enllaços",
+      "title": "On és el codi i sobre què s'aguanta."
+    },
+    "project": {
+      "eyebrow": "El projecte",
+      "title": "Codi font."
+    },
+    "openmixer": {
+      "notPublic": "encara no és públic",
+      "what": "Tota la taula de mescles: el model, el servidor, la superfície, el motor natiu per a PipeWire amb el seu processament de senyal en C, el catàleg de plugins, els adaptadors i tota la documentació. Un espai de treball pnpm, GPL-3.0-or-later.",
+      "noLink": "Ara mateix el repositori no és obert al públic, per això aquí no hi ha cap enllaç. Quan això canviï, aquesta fitxa en tindrà un."
+    },
+    "freereac": "El projecte germà: documentació oberta i eines per al REAC de Roland, el protocol d'àudio sobre Ethernet que parlen els stageboxes. OpenMixer s'encarrega del camí de control dels stageboxes; el treball sobre el protocol es fa a FreeREAC.",
+    "upstream": {
+      "eyebrow": "Projectes de base",
+      "title": "Sobre què està construït OpenMixer.",
+      "text": "Cap d'aquests projectes no és nostre. Són els projectes sense els quals la taula de mescles no existiria i els que cal llegir si voleu entendre la capa que hi ha a sota.",
+      "pipewire": "El graf d'àudio on viu la taula de mescles. El motor d'OpenMixer és un client natiu de PipeWire i el seu processament de senyal és un node de filtre dins d'aquest graf.",
+      "lv2": "L'estàndard de plugins que fan servir les cadenes d'inserts. Qualsevol cosa que es distribueixi en LV2 es pot muntar en un canal o en una sortida.",
+      "modHost": "L'amfitrió LV2 de MOD Devices sobre el qual es construeixen les cadenes d'inserts."
+    }
+  }
+}
