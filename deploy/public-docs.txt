@@ -130,4 +130,3 @@ architecture/technical-manual.md
 
 # Edits
 admin/env-vars.md drop-section "The MCP server's variables"
-install/trust-the-console.md replace "`msi.lan`" "`console.lan`"
