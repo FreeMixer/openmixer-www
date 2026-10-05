@@ -3,6 +3,7 @@
     "nav": {
       "architecture": "Arquitectura",
       "features": "Funcions",
+      "plugins": "Plugins",
       "docs": "Documentació",
       "faq": "Preguntes",
       "get-it": "Instal·lar",
@@ -20,6 +21,7 @@
       "page": {
         "architecture": "Arquitectura",
         "features": "Funcions",
+      "plugins": "Plugins",
         "docs": "Documentació",
         "faq": "Preguntes freqüents",
         "get-it": "Instal·lar",

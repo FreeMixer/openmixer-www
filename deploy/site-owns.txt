@@ -19,6 +19,7 @@ docs
 manual
 faq
 features
+plugins
 get-it
 architecture
 links

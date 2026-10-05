@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+name: Plugin catalog correction
+description: A plugin's entry on https://freemixer.github.io/plugins/ is wrong or out of date.
+title: "Plugin verdict: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for checking. The catalog shows what was measured on one package version, on one
+        date. If your plugin has changed since, or a measurement looks wrong, say what you see and
+        we will re-run it.
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin URI
+      description: As shown on the plugin's page.
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Package tested
+      description: The package and version shown on the plugin's page.
+  - type: input
+    id: run
+    attributes:
+      label: Run date
+  - type: textarea
+    id: what
+    attributes:
+      label: What is wrong
+      description: Which reason or figure, and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: A newer version that fixes it, a changelog entry, a measurement or a log.
