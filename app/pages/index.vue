@@ -106,8 +106,8 @@ const repos = computed(() =>
     {
       id: 'clapHost',
       name: 'omx-clap-host',
-      href: 'https://github.com/FreeMixer/omx-clap-host',
-      go: 'github.com/FreeMixer/omx-clap-host',
+      href: 'https://github.com/FreeMixer/omx-clap-core',
+      go: 'github.com/FreeMixer/omx-clap-core',
       status: 'released',
       tone: 'rel',
     },
