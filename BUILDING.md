@@ -64,10 +64,11 @@ whatever the release holds today. To publish new docs:
 
 1. build the tree (step 1 above); it refuses a tree the public guard (`check-public.mjs`)
    objects to, and prints the pin lines;
-2. attach the tarball to a release of this repository (`gh release create docs-<openmixer
-   revision> docs-tree.tar.gz --prerelease`);
-3. open a pull request that changes `deploy/docs-tree.txt` to the new release, asset, sha256 and
-   openmixer revision. The pull request's run is the dry run of the whole site.
+2. `scripts/pin-docs-tree.sh docs-tree.tar.gz <openmixer revision>` attaches the tarball to a release of this
+   repository (`docs-<openmixer revision>`, a pre-release) and opens the pull request that changes
+   `deploy/docs-tree.txt` to the new release, asset, sha256 and openmixer revision (`DRY_RUN=1` only rewrites
+   the file). The pull request's run is the dry run of the whole site. It needs `gh` and this repository, and
+   nothing from the private checkout, so the desk or a job on the openmixer side can run it.
 
 **The list.** Only the pages named in `deploy/public-docs.txt` are published, and it stays the one
 list. The tree is built on a sparse copy of the checkout that holds only those pages (the docs
