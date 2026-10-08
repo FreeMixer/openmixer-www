@@ -37,12 +37,12 @@ manual/hrp.md
 manual/index.md
 manual/keyboard.md
 manual/layouts.md
+manual/look.md
 manual/lcr.md
 manual/matrix-outputs.md
 manual/menus.md
 manual/metering-latency.md
 manual/patchbay.md
-manual/personalities-themes.md
 manual/plugin-catalog/analysis.md
 manual/plugin-catalog/delay.md
 manual/plugin-catalog/dynamics.md
