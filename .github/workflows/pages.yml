@@ -23,27 +23,28 @@
 # BASE URL is "/": the site sits at the domain root. `npm run docs:links` still fails
 # the build on any internal link that does not resolve.
 #
-# THE DOCUMENTATION TREE IS BUILT, NOT COPIED. The operator manual, the FAQ and the
-# architecture pages live in FreeMixer/openmixer (docs/**/*.md) and are rendered by
-# that repo's own `packages/website` build, which is also what a console serves
-# offline at /help. `npm run docs:site` checks that build out, runs it with this
-# site's prefix and publishes its /docs/** tree here — one source, one renderer, and
-# nothing of the prose committed twice. See scripts/build-docs-tree.mjs.
+# THE DOCUMENTATION TREE IS BUILT, NOT COPIED, AND BUILT ELSEWHERE. The operator manual, the FAQ
+# and the architecture pages live in FreeMixer/openmixer (docs/**/*.md) and are rendered by that
+# repo's own `packages/website` build, which is also what a console serves offline at /help.
+# That repository is private, so this workflow never reads it: it downloads the tree that
+# deploy/docs-tree.txt pins (a tarball attached to a public release of this repository, checked
+# against its sha256) and `npm run docs:site` publishes its /docs/** tree here. One source, one
+# renderer, nothing of the prose committed twice, and every input of this run is public. The tree
+# is built on the machine that holds the openmixer checkout (BUILDING.md, "The documentation
+# tree"), and a new one is a pull request that changes the pin. See scripts/build-docs-tree.mjs.
 #
-# ONLY LISTED PAGES. That build runs on a sparse copy of the checkout holding only the
-# pages named in deploy/public-docs.txt: run on the whole checkout it bundled every
-# private design note into one JS chunk (2026-10-01). Then scripts/check-public.mjs reads
-# every text file of the finished site and fails the run on a home path, the agent notes,
-# an internal host name or a private address. The workflow was disabled after that leak;
-# re-enable it (Actions -> pages -> Enable workflow, or `gh workflow enable pages`) only
-# once these two steps are on main.
+# ONLY LISTED PAGES. The tree is built on a sparse copy of the checkout holding only the pages
+# named in deploy/public-docs.txt: run on the whole checkout it bundled every private design note
+# into one JS chunk (2026-10-01). The publish step refuses a tree built from another list, then
+# scripts/check-public.mjs reads every text file of the finished site and fails the run on a home
+# path, the agent notes, an internal host name or a private address. The workflow was disabled
+# after that leak; re-enable it (Actions -> pages -> Enable workflow, or `gh workflow enable
+# pages`) only once these two steps are on main.
 #
-# THE TOKEN. FreeMixer/openmixer is private, so the checkout below needs a
-# credential with read access to it (Settings -> Secrets -> Actions:
-# OPENMIXER_DOCS_KEY, the private half of a read-only deploy key registered on that repository).
-# Without it this workflow FAILS rather than publishing a site whose manual 404s —
-# a site that quietly lost a third of its pages looks exactly like a site that never
-# had them. The root keeps serving the previous commit while a run is red.
+# NO TOKEN FOR THE DOCS. Without a pinned tree that downloads and matches its sha256 this
+# workflow FAILS rather than publishing a site whose manual 404s — a site that quietly lost a
+# third of its pages looks exactly like a site that never had them. The root keeps serving the
+# previous commit while a run is red.
 #
 # TRIGGER. Push to main plus dispatch; a pull request runs as a dry run. openmixer's dispatch-only law
 # (docs/design/specs/2026-09-02-delivery-pipeline.md §0) binds the workflows that
@@ -85,21 +86,6 @@ jobs:
         with:
           path: openmixer-www
 
-      # NOT checked out as "openmixer": the REST/API generators (scripts/gen-*.mjs)
-      # read a sibling ../openmixer as "regenerate from source", which needs a full
-      # workspace build this runner does not do. With no sibling by that name they
-      # publish the committed snapshots, which is what they are committed for. The
-      # docs tree is given its path explicitly, below.
-      - uses: actions/checkout@v4
-        with:
-          repository: FreeMixer/openmixer
-          ref: main
-          ssh-key: ${{ secrets.OPENMIXER_DOCS_KEY }}
-          path: openmixer-src
-
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 10
       - uses: actions/setup-node@v4
         with:
           node-version: 24
@@ -117,9 +103,12 @@ jobs:
 
       - run: npm run generate
 
+      # The pinned docs tree: public release, sha256 checked, then added to the generated site.
+      - run: scripts/fetch-docs-tree.sh "$RUNNER_TEMP/docs-tree"
+
       - run: npm run docs:site
         env:
-          OPENMIXER_SRC: ${{ github.workspace }}/openmixer-src
+          DOCS_TREE: ${{ runner.temp }}/docs-tree
 
       - run: node scripts/redirect-stubs.mjs
 
