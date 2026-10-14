@@ -10,34 +10,28 @@
 // tree inside one JS chunk; a check on rendered pages alone would have passed it.
 //
 // Usage: node scripts/check-public.mjs [dir]   (default .output/public)
-// Exit 0 clean, 1 on any hit, 2 when there is nothing to check.
+// The patterns come from the private list, PUBLIC_GUARD_LIST (see private-list.mjs).
+// Exit 0 clean, 1 on any hit, 2 when there is nothing to check, 3 when the list is not reachable.
 
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadPrivateList } from './private-list.mjs';
 
-/** What must never be published. Each entry: a name for the report and a pattern. */
-export const FORBIDDEN = [
-  { name: 'home directory', re: /\/home\/pau\b/ },
-  { name: 'CLAUDE.md', re: /CLAUDE\.md/ },
-  { name: '.claude/ directory', re: /\.claude\// },
-  { name: 'internal domain 0cs.lan', re: /0cs\.lan/i },
-  { name: 'tecman', re: /tecman/i },
-  { name: 'desk host name msi', re: /(?<![A-Za-z0-9_])msi(?![A-Za-z0-9_])/ },
-  { name: 'private address 192.168.x.x', re: /(?<![\d.])192\.168\.\d{1,3}\.\d{1,3}(?![\d.])/ },
-  { name: 'private address 10.x.x.x', re: /(?<![\d.])10\.\d{1,3}\.\d{1,3}\.\d{1,3}(?![\d.])/ },
-  { name: 'claude', re: /claude/i },
-  { name: 'anthropic', re: /anthropic/i },
-];
+// WHAT must never be published comes from the private list (private-list.mjs), not from this
+// file: spelled out here, the names this guard keeps off the site would be published by the guard
+// itself. Each entry is a name for the report and a pattern; the functions below take them as an
+// argument, so a test hands them a list of its own.
 
 /** Files read as text. Images and fonts are skipped; an unknown extension is read too. */
 const BINARY = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico', '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.gz', '.br', '.zip']);
 
-/** Every hit in one text, as { name, line, excerpt }. */
-export function scanText(text) {
+/** Every hit of `forbidden` ([{ name, re }]) in one text, as { name, line, excerpt }. */
+export function scanText(text, forbidden) {
+  if (!Array.isArray(forbidden) || forbidden.length === 0) throw new Error('scanText: no forbidden patterns given');
   const hits = [];
   const lines = text.split('\n');
-  for (const { name, re } of FORBIDDEN) {
+  for (const { name, re } of forbidden) {
     const global = new RegExp(re.source, re.flags.includes('g') ? re.flags : `${re.flags}g`);
     for (let i = 0; i < lines.length; i++) {
       for (const m of lines[i].matchAll(global)) {
@@ -59,11 +53,11 @@ function filesUnder(dir) {
 }
 
 /** Scan a directory; returns { files, hits: [{ file, name, line, excerpt }] }. */
-export function scanDir(dir) {
+export function scanDir(dir, forbidden) {
   const files = filesUnder(dir).filter((f) => !BINARY.has(extname(f).toLowerCase()));
   const hits = [];
   for (const file of files) {
-    for (const hit of scanText(readFileSync(join(dir, file), 'utf8'))) hits.push({ file, ...hit });
+    for (const hit of scanText(readFileSync(join(dir, file), 'utf8'), forbidden)) hits.push({ file, ...hit });
   }
   return { files: files.length, hits };
 }
@@ -74,7 +68,14 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     console.error(`[check-public] no built site at ${dir}: nothing was checked`);
     process.exit(2);
   }
-  const { files, hits } = scanDir(dir);
+  let list;
+  try {
+    list = loadPrivateList();
+  } catch (e) {
+    console.error(`[check-public] ${e.message}: nothing was checked, and that is a failure`);
+    process.exit(3);
+  }
+  const { files, hits } = scanDir(dir, list.forbidden);
   if (files === 0) {
     console.error(`[check-public] ${dir} holds no text files: nothing was checked`);
     process.exit(2);

@@ -79,6 +79,14 @@ tree built from another one: a change to the list is a new tree and a new pin.
 `scripts/check-public.mjs` then reads every text file of the built site and fails on a home path,
 agent notes, an internal host name or a private address.
 
+**The private list.** What the guard looks for, what the staged copy leaves out and what the MCP
+table redacts are names of the private tree, so they are not in this repository: the scripts read
+them from a JSON file at `PUBLIC_GUARD_LIST`, by default `../openmixer-ops/ops/public-guard/www.json`
+(the ops checkout beside this one). Its shape is described in `scripts/private-list.mjs`. Without
+it `check-public.mjs` exits 3, and the docs build and the MCP generator refuse; none of them passes
+on an empty list. The guard's own tests use a neutral list of planted markers, so they run anywhere.
+In CI the list comes from the `PUBLIC_GUARD_LIST_JSON` secret.
+
 `scripts/build-docs-tree.mjs` does both steps. It refuses rather than delivering less than it
 claims: no tree, no publish (there is deliberately no snapshot to fall back on); a tree built for
 another base URL or from another list is refused; any file that would overwrite one of this

@@ -35,6 +35,8 @@
 //                            site's links are one address space. A tree built for another
 //                            prefix is refused: its links would point past this site.
 //   PUBLIC_DOCS_LIST         the allowlist, default deploy/public-docs.txt (tests point it elsewhere).
+//   PUBLIC_GUARD_LIST        the private list (private-list.mjs), BUILD half only: what the staged
+//                            copy leaves out. Without it the build refuses.
 //
 // Output: files added to .output/public (or the first argument). Run it AFTER `npm run
 // generate` and BEFORE `npm run docs:links`, so the link checker sees the merged tree and every
@@ -44,8 +46,9 @@
 // into its JS, whether or not it renders a page for it. Run on the checkout, it shipped
 // the whole private docs/design tree to the public site (2026-10-01). So it never runs on
 // the checkout: it runs on a sparse copy of it whose docs/ holds only the pages named in
-// deploy/public-docs.txt, with the edits that file lists applied, and without .claude/ and
-// CLAUDE.md. A page the list does not name is not in the build at all. The tree records a hash
+// deploy/public-docs.txt, with the edits that file lists applied, and without the private tree's
+// working notes and tooling directory (named in the private list, PUBLIC_GUARD_LIST; see
+// private-list.mjs). A page the list does not name is not in the build at all. The tree records a hash
 // of the list it was built from, and the publish half refuses a tree built from another one:
 // the list stays the one list, and a change to it is a new tree.
 //
@@ -74,6 +77,7 @@ import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadPrivateList } from './private-list.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
@@ -200,6 +204,12 @@ const listHash = createHash('sha256')
   .digest('hex');
 
 function buildFromCheckout() {
+  let privateList;
+  try {
+    privateList = loadPrivateList();
+  } catch (e) {
+    die(`${e.message} — refusing to build a docs tree without knowing what to leave out`);
+  }
   if (!existsSync(join(src, 'packages/website/nuxt.config.ts')) || !existsSync(join(src, 'docs/manual/index.md'))) {
     die(
       `no openmixer checkout at ${src} — set OPENMIXER_SRC.\n` +
@@ -226,7 +236,7 @@ function buildFromCheckout() {
   git(['clone', '--quiet', '--shared', '--no-checkout', src, stage], wwwRoot);
   // Sparse, so the copy is a clean checkout of the same commit: `git describe --dirty`, which
   // stamps the manual's version line, reads it as the revision it is.
-  git(['sparse-checkout', 'set', '--no-cone', '/*', '!/docs/', '!/.claude/', '!/CLAUDE.md', ...allow.pages.map((p) => `/docs/${p}`), ...allow.dirs.map((d) => `/docs/${d}`)]);
+  git(['sparse-checkout', 'set', '--no-cone', '/*', '!/docs/', ...privateList.exclude.map((p) => `!/${p}`), ...allow.pages.map((p) => `/docs/${p}`), ...allow.dirs.map((d) => `/docs/${d}`)]);
   git(['checkout', '--quiet', '--detach', git(['rev-parse', 'HEAD'], src).trim()]);
 
   for (const e of allow.edits) {
@@ -244,7 +254,7 @@ function buildFromCheckout() {
   const absent = allow.pages.filter((p) => !stagedPages.includes(p));
   if (extra.length > 0) die(`the staged copy carries pages the list does not name: ${extra.slice(0, 5).join(', ')}`);
   if (absent.length > 0) die(`the staged copy lacks pages the list names: ${absent.slice(0, 5).join(', ')}`);
-  for (const p of ['.claude', 'CLAUDE.md', 'docs/design']) if (existsSync(join(stage, p))) die(`the staged copy still has ${p}`);
+  for (const p of [...privateList.exclude, 'docs/design']) if (existsSync(join(stage, p))) die(`the staged copy still has ${p}`);
   const allPages = git(['ls-tree', '-r', '--name-only', 'HEAD', 'docs/'], src).split('\n').filter((f) => f.endsWith('.md'));
   console.log(`[build-docs-tree] staged ${stagedPages.length} of ${allPages.length} docs pages (deploy/public-docs.txt), ${allow.edits.length} edit(s)`);
 
