@@ -118,8 +118,19 @@ jobs:
 
       # Nothing private leaves this runner: the guard's own tests, then the guard over the
       # whole published tree. A hit fails the run before anything is pushed.
+      # The guard's tests use a neutral list of their own. The guard itself reads the real list,
+      # which is private (scripts/private-list.mjs) and reaches the runner as the
+      # PUBLIC_GUARD_LIST_JSON secret; without it the guard fails closed and nothing is pushed.
       - run: node --test scripts/*.test.mjs
+      - name: Write the guard's private list
+        env:
+          LIST_JSON: ${{ secrets.PUBLIC_GUARD_LIST_JSON }}
+        run: |
+          [ -n "$LIST_JSON" ] || { echo "::error::PUBLIC_GUARD_LIST_JSON is not set; the public guard has nothing to check against"; exit 1; }
+          printf '%s\n' "$LIST_JSON" > "$RUNNER_TEMP/public-guard.json"
       - run: npm run check:public
+        env:
+          PUBLIC_GUARD_LIST: ${{ runner.temp }}/public-guard.json
 
       # The root site, with the package repositories in it. The token is only needed to
       # push; a pull request reads the public repository without it.

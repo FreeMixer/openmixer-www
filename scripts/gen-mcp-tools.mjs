@@ -10,17 +10,19 @@
 //
 // Input  (from OPENMIXER_SRC, default ../openmixer):
 //   packages/mcp-server/README.md
+// and the private list (PUBLIC_GUARD_LIST, see private-list.mjs) for the redactions.
 // Output (consumed by app/pages/docs/mcp.vue):
 //   app/data/mcp-tools.json
 
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { resolve, dirname } from 'node:path';
+import { resolve, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadPrivateList } from './private-list.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
 const src = resolve(wwwRoot, process.env.OPENMIXER_SRC || '../openmixer');
-const OUT = resolve(wwwRoot, 'app/data/mcp-tools.json');
+const OUT = resolve(wwwRoot, process.env.MCP_TOOLS_OUT || 'app/data/mcp-tools.json'); // tests point it elsewhere
 const readmePath = resolve(src, 'packages/mcp-server/README.md');
 
 // Same rule as the other generators: the Pages runner has no openmixer checkout,
@@ -31,6 +33,16 @@ if (!existsSync(readmePath)) {
     process.exit(0);
   }
   console.error(`[gen-mcp-tools] no checkout at ${src} and no committed snapshot to fall back to`);
+  process.exit(1);
+}
+
+// Read only once there is a checkout to generate from: the Pages runner keeps the snapshot above
+// and never needs it. Here, a missing list is a refusal, never an unredacted table.
+let privateList;
+try {
+  privateList = loadPrivateList();
+} catch (e) {
+  console.error(`[gen-mcp-tools] ${e.message} — refusing to generate a table that cannot be redacted`);
   process.exit(1);
 }
 
@@ -50,19 +62,16 @@ function plain(cell) {
 // and an operator's checkout path are internal, so a citation of one is named for
 // what it is rather than published as a path a reader cannot open.
 function redactInternalPaths(text) {
-  return text
+  let out = text
     .replace(/docs\/design\/specs and docs\/design\/notes/g, 'the design specs and the working notes')
     .replace(/docs\/design\/[A-Za-z0-9_./*-]+/g, 'an internal design record')
     .replace(/docs\/design\b/g, 'the internal design records')
-    .replace(/~\/Devel[A-Za-z0-9_./-]*/g, 'an internal checkout')
-    // The tooling directory and the working-notes file are named for the editor
-    // that reads them. The site describes what they hold, not what they are called.
-    .replace(/\.claude\/spec-map\.txt/g, 'the design gate’s spec map')
-    .replace(/the tree's local CLAUDE\.md/g, 'the tree’s own working notes')
-    // `<project>` in a documented path is a literal placeholder, not a value the
-    // regex should stop at — widened so a phrase like `.claude/projects/<project>/memory/*.md`
-    // (README's OPENMIXER_MEMORY_DIR row) redacts whole, not up to the `<`.
-    .replace(/\.claude\/[A-Za-z0-9_./*<>-]+/g, 'the tree’s discipline documents');
+    .replace(/~\/Devel[A-Za-z0-9_./-]*/g, 'an internal checkout');
+  // The tooling directory and the working-notes file are private names: their redactions
+  // are in the private list, applied in its order. The site describes what those files
+  // hold, not what they are called.
+  for (const r of privateList.redactions) out = out.replace(r.re, r.with);
+  return out;
 }
 
 const rows = [];
@@ -109,7 +118,7 @@ if (envSection) {
     );
     // The `meaning` column is prose about what the variable does, same source as the
     // tools table's `answers` column and the same leak risk (OPENMIXER_MEMORY_DIR's row
-    // names a `~/.claude/projects/<project>/...` path) — same redaction, not a special case.
+    // names a path under the private tooling directory) — same redaction, not a special case.
     env.push({ name: plain(cells[0]), meaning: redactInternalPaths(plain(cells[1])), default: fallback });
   }
 }
@@ -118,7 +127,7 @@ if (envSection) {
 // carries what the rule above exists to keep off the site.
 const leaks = [...rows, ...env]
   .flatMap((r) => Object.values(r))
-  .filter((v) => typeof v === 'string' && /docs\/design|~\/Devel|\.claude|CLAUDE\.md/.test(v));
+  .filter((v) => typeof v === 'string' && (/docs\/design|~\/Devel/.test(v) || privateList.survivors.some((re) => re.test(v))));
 if (leaks.length > 0) {
   console.error(`[gen-mcp-tools] ${leaks.length} internal-path citation(s) survived redaction — fix redactInternalPaths before publishing`);
   for (const leak of leaks) console.error(`  ${leak}`);
@@ -130,4 +139,4 @@ writeFileSync(
   OUT,
   `${JSON.stringify({ meta: { generatedAt: new Date().toISOString(), toolCount: rows.length }, tools: rows, env }, null, 2)}\n`,
 );
-console.log(`[gen-mcp-tools] ${rows.length} tools in ${families.length} families (${families.join(', ')}), ${env.length} environment variables → app/data/mcp-tools.json`);
+console.log(`[gen-mcp-tools] ${rows.length} tools in ${families.length} families (${families.join(', ')}), ${env.length} environment variables → ${relative(wwwRoot, OUT)}`);
