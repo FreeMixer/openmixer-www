@@ -33,6 +33,10 @@
       "reacRole": {
         "title": "El paper al segment REAC",
         "blurb": "Quin extrem d'un cable REAC fa la taula (taula de mescles, enregistrador o automàtic), en què es basa el mode automàtic per decidir i les frases que dona quan no accepta un paper."
+      },
+      "control24": {
+        "title": "Connectar una Control{'|'}24",
+        "blurb": "Què envia pel cable la Digidesign Control{'|'}24, què li ha de donar la xarxa i com s'instal·len libdiginet i la seva eina de prova."
       }
     },
     "faqGroups": {

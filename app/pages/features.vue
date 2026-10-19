@@ -156,6 +156,11 @@ const alignRows = [
           </div>
           <div class="space-y-3">
             <p class="text-ink-faint">{{ t('features.surfaces.p2') }}</p>
+            <i18n-t keypath="features.surfaces.control24.text" tag="p" scope="global" class="text-ink-faint">
+              <template #link>
+                <NuxtLink :to="sitePath('/docs/control24')" class="text-accent hover:underline">{{ t('features.surfaces.control24.link') }}</NuxtLink>
+              </template>
+            </i18n-t>
           </div>
         </FeatureRow>
 
