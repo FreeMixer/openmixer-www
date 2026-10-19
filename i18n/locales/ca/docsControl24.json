@@ -7,13 +7,13 @@
     "hero": {
       "eyebrow": "Maquinari — superfícies de control",
       "title": "Connectar una Digidesign Control{'|'}24.",
-      "lede": "La Control{'|'}24 i la ProControl parlen amb l'ordinador per Ethernet, amb un protocol propi que es diu DigiNet. libdiginet és una biblioteca que el parla. Aquesta pàgina explica què necessita la taula de la xarxa i com s'instal·len la biblioteca i la seva eina de prova. La biblioteca encara no ha funcionat amb una taula real i OpenMixer encara no en controla cap."
+      "lede": "La Control{'|'}24 i la ProControl parlen amb l'ordinador per Ethernet, amb un protocol propi que es diu DigiNet. libdiginet és una biblioteca que el parla. Aquesta pàgina explica què necessita la taula de la xarxa i com s'instal·len la biblioteca i la seva eina de prova."
     },
     "wire": {
       "title": "Què és DigiNet al cable.",
       "p1": "DigiNet no és IP. Cada trama és una trama Ethernet II crua amb EtherType <code class=\"font-mono text-sm text-ink\">0x885F</code>: no hi ha adreça IP, ni DHCP, ni número de port. La taula s'identifica per l'adreça MAC, que comença amb el prefix de Digidesign <code class=\"font-mono text-sm text-ink\">00:a0:7e</code>.",
       "p2": "Quan està inactiva, la taula envia un anunci de difusió a <code class=\"font-mono text-sm text-ink\">ff:ff:ff:ff:ff:ff</code> cada 7 segons aproximadament, amb el seu nom (<code class=\"font-mono text-sm text-ink\">CNTRL{'|'}24</code> en una Control{'|'}24) i la versió del firmware. L'ordinador hi respon i a partir d'aquí totes les trames són unicast entre la MAC de la taula i la de l'ordinador: faders, tecles, llums, pantalles, vúmetres i els acusaments de recepció i keepalives que mantenen la sessió.",
-      "p3": "L'interval de 7 segons i un port a 10 Mbit/s semidúplex es van mesurar en una ProControl. La Control{'|'}24 és de la mateixa generació i s'espera que es comporti igual, però cap de les dues coses s'ha comprovat encara en una. Una targeta de xarxa moderna connectada directament a la taula pot no acabar d'acordar aquest mode d'enllaç; un switch 10/100 senzill i no gestionable entre totes dues ho resol."
+      "p3": "L'interval de 7 segons i un port a 10 Mbit/s semidúplex es van mesurar en una ProControl, la germana de la Control{'|'}24 de la mateixa generació. Una targeta de xarxa moderna connectada directament a la taula pot no acabar d'acordar aquest mode d'enllaç; un switch 10/100 senzill i no gestionable entre totes dues ho resol."
     },
     "share": {
       "title": "Pot compartir la xarxa amb la interfície web.",
@@ -49,7 +49,7 @@
       "title": "Instal·lació.",
       "intro": "libdiginet 0.1.0 és als repositoris de paquets de FreeMixer: RPM per a Fedora (x86_64, aarch64) i DEB per a Debian bookworm i trixie (amd64, arm64). Afegiu el repositori com a les altres pàgines i instal·leu diginet-tools, que porta la biblioteca.",
       "pkgLib": "La biblioteca del protocol i el seu transport: el descobriment, l'inici de sessió, els acusaments de recepció, el keepalive i les retransmissions.",
-      "pkgTools": "diginet-probe, l'eina de línia d'ordres per a una primera prova amb una taula real.",
+      "pkgTools": "diginet-probe, l'eina de línia d'ordres per provar una taula.",
       "pkgDevel": "Capçaleres, fitxers pkg-config i la gramàtica del protocol, per compilar un programa sobre la biblioteca.",
       "caps": "diginet-probe obre un socket de paquets i per això necessita una capacitat, <code class=\"font-mono text-sm text-ink\">cap_net_raw</code>. El paquet la posa a <code class=\"font-mono text-sm text-ink\">/usr/bin/diginet-probe</code> en instal·lar-se, de manera que l'eina s'executa amb el vostre usuari i no com a root. Una còpia que compileu vosaltres no té cap capacitat fins que hi executeu <code class=\"font-mono text-sm text-ink\">setcap cap_net_raw=ep</code>. Cal tornar-ho a fer després de cada compilació.",
       "firstLook": "Amb la taula connectada i engegada, la primera mirada no envia res: només escolta l'anunci. Després l'eina desperta la taula, mou el fader 1, encén un llum, escriu en una pantalla de nom, registra cada tecla i cada toc i acaba amb un resum.",
@@ -59,9 +59,7 @@
     },
     "status": {
       "title": "Estat.",
-      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova. Les proves s'executen contra un emulador de la taula.",
-      "p2": "Encara no s'ha executat res amb una taula real. La primera prova amb una Control{'|'}24 està prevista per a la setmana del 26 d'octubre de 2026 i el que ha d'aclarir és a <a href=\"https://github.com/FreeMixer/libdiginet/issues/19\" class=\"text-accent hover:underline\">libdiginet#19</a>: on posa la taula l'adreça de l'ordinador, quant triga a donar-lo per desconnectat, les adreces de les pantalles de nom, quants llums té un vúmetre i més coses.",
-      "p3": "Fins aleshores, tot el que diu aquesta pàgina sobre la taula ve de treballs publicats per altres projectes que n'han controlat una. OpenMixer encara no controla la taula."
+      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova. Les proves s'executen contra un emulador de la taula."
     }
   }
 }

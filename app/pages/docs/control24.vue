@@ -148,8 +148,6 @@ const firstLook = computed(() => [
           <StatusTag state="building" />
           <div class="space-y-4">
             <p>{{ t('docsControl24.status.p1') }}</p>
-            <p v-html="t('docsControl24.status.p2')" />
-            <p>{{ t('docsControl24.status.p3') }}</p>
           </div>
         </div>
       </div>

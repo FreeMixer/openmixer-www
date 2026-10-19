@@ -7,13 +7,13 @@
     "hero": {
       "eyebrow": "Hardware — superficies de control",
       "title": "Conectar una Digidesign Control{'|'}24.",
-      "lede": "La Control{'|'}24 y la ProControl hablan con el ordenador por Ethernet, con un protocolo propio llamado DigiNet. libdiginet es una biblioteca que lo habla. Esta página explica qué necesita la mesa de la red y cómo se instalan la biblioteca y su herramienta de prueba. La biblioteca todavía no ha funcionado con una mesa real y OpenMixer todavía no controla ninguna."
+      "lede": "La Control{'|'}24 y la ProControl hablan con el ordenador por Ethernet, con un protocolo propio llamado DigiNet. libdiginet es una biblioteca que lo habla. Esta página explica qué necesita la mesa de la red y cómo se instalan la biblioteca y su herramienta de prueba."
     },
     "wire": {
       "title": "Qué es DigiNet en el cable.",
       "p1": "DigiNet no es IP. Cada trama es una trama Ethernet II en bruto con EtherType <code class=\"font-mono text-sm text-ink\">0x885F</code>: no hay dirección IP, ni DHCP, ni número de puerto. La mesa se identifica por su dirección MAC, que empieza por el prefijo de Digidesign <code class=\"font-mono text-sm text-ink\">00:a0:7e</code>.",
       "p2": "Cuando está inactiva, la mesa envía un anuncio de difusión a <code class=\"font-mono text-sm text-ink\">ff:ff:ff:ff:ff:ff</code> cada 7 segundos aproximadamente, con su nombre (<code class=\"font-mono text-sm text-ink\">CNTRL{'|'}24</code> en una Control{'|'}24) y la versión del firmware. El ordenador responde y a partir de ahí todas las tramas son unicast entre la MAC de la mesa y la del ordenador: faders, teclas, luces, pantallas, vúmetros y los acuses de recibo y keepalives que mantienen la sesión.",
-      "p3": "El intervalo de 7 segundos y un puerto a 10 Mbit/s semidúplex se midieron en una ProControl. La Control{'|'}24 es de la misma generación y se espera que se comporte igual, pero ninguna de las dos cosas se ha comprobado todavía en una. Una tarjeta de red moderna conectada directamente a la mesa puede no acabar de negociar ese modo de enlace; un switch 10/100 sencillo y no gestionable entre las dos lo resuelve."
+      "p3": "El intervalo de 7 segundos y un puerto a 10 Mbit/s semidúplex se midieron en una ProControl, la hermana de la Control{'|'}24 de la misma generación. Una tarjeta de red moderna conectada directamente a la mesa puede no acabar de negociar ese modo de enlace; un switch 10/100 sencillo y no gestionable entre las dos lo resuelve."
     },
     "share": {
       "title": "Puede compartir la red con la interfaz web.",
@@ -49,7 +49,7 @@
       "title": "Instalación.",
       "intro": "libdiginet 0.1.0 está en los repositorios de paquetes de FreeMixer: RPM para Fedora (x86_64, aarch64) y DEB para Debian bookworm y trixie (amd64, arm64). Añade el repositorio como en las demás páginas e instala diginet-tools, que trae la biblioteca.",
       "pkgLib": "La biblioteca del protocolo y su transporte: el descubrimiento, el inicio de sesión, los acuses de recibo, el keepalive y las retransmisiones.",
-      "pkgTools": "diginet-probe, la herramienta de línea de órdenes para una primera prueba con una mesa real.",
+      "pkgTools": "diginet-probe, la herramienta de línea de órdenes para probar una mesa.",
       "pkgDevel": "Cabeceras, ficheros pkg-config y la gramática del protocolo, para compilar un programa sobre la biblioteca.",
       "caps": "diginet-probe abre un socket de paquetes y para eso necesita una capacidad, <code class=\"font-mono text-sm text-ink\">cap_net_raw</code>. El paquete se la pone a <code class=\"font-mono text-sm text-ink\">/usr/bin/diginet-probe</code> al instalarse, así que la herramienta se ejecuta con tu usuario y no como root. Una copia que compiles tú no tiene ninguna capacidad hasta que ejecutes <code class=\"font-mono text-sm text-ink\">setcap cap_net_raw=ep</code> sobre ella. Hay que repetirlo después de cada compilación.",
       "firstLook": "Con la mesa conectada y encendida, el primer vistazo no envía nada: solo escucha el anuncio. Después la herramienta despierta la mesa, mueve el fader 1, enciende una luz, escribe en una pantalla de nombre, registra cada tecla y cada toque y termina con un resumen.",
@@ -59,9 +59,7 @@
     },
     "status": {
       "title": "Estado.",
-      "p1": "La biblioteca está publicada: libdiginet 0.1.0 incluye el protocolo, el transporte y la herramienta de prueba. Sus pruebas se ejecutan contra un emulador de la mesa.",
-      "p2": "Todavía no se ha ejecutado nada con una mesa real. La primera prueba con una Control{'|'}24 está prevista para la semana del 26 de octubre de 2026 y lo que tiene que aclarar está en <a href=\"https://github.com/FreeMixer/libdiginet/issues/19\" class=\"text-accent hover:underline\">libdiginet#19</a>: dónde pone la mesa la dirección del ordenador, cuánto tarda en darlo por desconectado, las direcciones de las pantallas de nombre, cuántas luces tiene un vúmetro y más cosas.",
-      "p3": "Hasta entonces, todo lo que dice esta página sobre la mesa viene de trabajos publicados por otros proyectos que han controlado una. OpenMixer todavía no controla la mesa."
+      "p1": "La biblioteca está publicada: libdiginet 0.1.0 incluye el protocolo, el transporte y la herramienta de prueba. Sus pruebas se ejecutan contra un emulador de la mesa."
     }
   }
 }
