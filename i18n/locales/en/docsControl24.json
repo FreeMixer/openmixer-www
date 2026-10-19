@@ -1,0 +1,67 @@
+{
+  "docsControl24": {
+    "seo": {
+      "title": "Connecting a Control{'|'}24 — OpenMixer",
+      "description": "How a Digidesign Control{'|'}24 talks over Ethernet (DigiNet, EtherType 0x885F, no IP), what the network has to give it, and how to install libdiginet and diginet-probe."
+    },
+    "hero": {
+      "eyebrow": "Hardware — control surfaces",
+      "title": "Connecting a Digidesign Control{'|'}24.",
+      "lede": "The Control{'|'}24 and the ProControl talk to their host over Ethernet, in a protocol of their own called DigiNet. libdiginet is a library that speaks it. This page says what the desk needs from the network and how to install the library and its test tool. The library has not yet run on a real desk, and OpenMixer does not drive one yet."
+    },
+    "wire": {
+      "title": "What DigiNet is on the wire.",
+      "p1": "DigiNet is not IP. Every frame is a raw Ethernet II frame with EtherType <code class=\"font-mono text-sm text-ink\">0x885F</code>: no IP address, no DHCP, no port number. The desk is known by its MAC address, which starts with Digidesign's prefix <code class=\"font-mono text-sm text-ink\">00:a0:7e</code>.",
+      "p2": "An idle desk broadcasts an announce to <code class=\"font-mono text-sm text-ink\">ff:ff:ff:ff:ff:ff</code> about every 7 seconds, with its name (<code class=\"font-mono text-sm text-ink\">CNTRL{'|'}24</code> on a Control{'|'}24) and its firmware version. A host answers it, and from then on every frame is unicast between the desk's MAC and the host's MAC: faders, keys, lamps, displays, meters, and the acknowledgements and keepalives that hold the session up.",
+      "p3": "The 7-second interval and a port at 10 Mbit/s half duplex were measured on a ProControl. The Control{'|'}24 is of the same generation and is expected to behave the same; neither has been checked on one yet. A modern network card cabled straight to the desk may not settle on that link mode, and a cheap unmanaged 10/100 switch between the two does."
+    },
+    "share": {
+      "title": "It can share a network with the web UI.",
+      "p1": "A switch forwards a DigiNet frame like any other Ethernet frame, so the desk can sit on the same segment as the tablets and laptops that open the web UI. Machines that speak only IP ignore an EtherType they do not know. Apart from the desk's broadcast announce, a switch delivers DigiNet frames only to the console host's port, because they are addressed to its MAC.",
+      "p2": "The frames are small: libdiginet puts at most 48 commands and 314 bytes in one, and paces display writes 2 ms apart."
+    },
+    "needs": {
+      "title": "What the network needs.",
+      "segment": {
+        "head": "The same layer-2 segment, with no router in between.",
+        "body": "DigiNet has no IP header, so a router has nothing to route. The desk and the console host must be on the same Ethernet segment: one cable, or switches only."
+      },
+      "vlan": {
+        "head": "The untagged (native) VLAN of the host's port.",
+        "body": "The desk sends plain frames with no VLAN tag. Put it on the untagged VLAN of the switch port the host is on, and use the host's plain interface, not a VLAN sub-interface."
+      },
+      "wired": {
+        "head": "A cable from the desk to the host.",
+        "body": "Some Wi-Fi bridges and range extenders forward only IP and ARP and drop an EtherType they do not know. Keep the path from the desk to the host wired. Web UI clients on Wi-Fi are fine: they talk IP to the console."
+      },
+      "reac": {
+        "head": "Not on the REAC stagebox link.",
+        "body": "The interface that carries the REAC stageboxes carries their audio and nothing else. The desk goes on another interface of the host."
+      }
+    },
+    "security": {
+      "title": "Security.",
+      "p1": "DigiNet has no authentication. The desk takes a session with whichever host answers its announce, with no password and no key, and nothing in a frame proves who sent it.",
+      "p2": "On a network you control, that is enough. On a venue LAN shared with other people, give the desk and the console host a segment of their own: a separate switch, or a VLAN that only the two of them are on.",
+      "p3": "The desk also accepts a family of system messages (<code class=\"font-mono text-sm text-ink\">F0 13 xx 70 …</code>) that writes to its own memory. libdiginet refuses to send it."
+    },
+    "install": {
+      "title": "Install.",
+      "intro": "libdiginet 0.1.0 is in the FreeMixer package repositories: RPMs for Fedora (x86_64, aarch64) and DEBs for Debian bookworm and trixie (amd64, arm64). Add the repository as on the other pages and install diginet-tools, which brings the library with it.",
+      "pkgLib": "The protocol library and its transport: discovery, the session handshake, acknowledgements, keepalive and retransmit.",
+      "pkgTools": "diginet-probe, the command-line tool for a first test on a real desk.",
+      "pkgDevel": "Headers, pkg-config files and the protocol grammar, for building a program on the library.",
+      "caps": "diginet-probe opens a packet socket, and that needs one capability, <code class=\"font-mono text-sm text-ink\">cap_net_raw</code>. The package sets it on <code class=\"font-mono text-sm text-ink\">/usr/bin/diginet-probe</code> when it installs, so the probe runs as your own user, not as root. A copy you build yourself has no capability until you run <code class=\"font-mono text-sm text-ink\">setcap cap_net_raw=ep</code> on it, and again after every rebuild.",
+      "firstLook": "With the desk cabled and powered on, the first look sends nothing: it only listens for the announce. The probe then wakes the desk, moves fader 1, lights a lamp, writes a scribble strip, logs every key and touch, and ends with a summary.",
+      "listen": "listen only: the desk's announce, about every 7 seconds",
+      "probe": "wake the desk and run the first test",
+      "probeDoc": "Every option and exit status of the probe: <a href=\"https://github.com/FreeMixer/libdiginet/blob/main/docs/probe.md\" class=\"text-accent hover:underline\">docs/probe.md</a>. The protocol as it is known, with a source for every claim: <a href=\"https://github.com/FreeMixer/libdiginet/blob/main/docs/protocol.md\" class=\"text-accent hover:underline\">docs/protocol.md</a>."
+    },
+    "status": {
+      "title": "Status.",
+      "p1": "The library is released: libdiginet 0.1.0 holds the protocol, the transport and the probe, and its tests run against a desk emulator.",
+      "p2": "Nothing has run on a real desk yet. The first run on a Control{'|'}24 is planned for the week of 26 October 2026, and what it settles is listed in <a href=\"https://github.com/FreeMixer/libdiginet/issues/19\" class=\"text-accent hover:underline\">libdiginet#19</a>: where the desk puts the host's address, its offline timeout, the scribble strip addresses, the meter length and more.",
+      "p3": "Until then, every fact about the desk on this page comes from published work by other projects that drove one. OpenMixer itself does not drive the desk yet."
+    }
+  }
+}

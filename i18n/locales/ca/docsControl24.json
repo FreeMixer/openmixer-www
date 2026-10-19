@@ -1,0 +1,67 @@
+{
+  "docsControl24": {
+    "seo": {
+      "title": "Connectar una Control{'|'}24 — OpenMixer",
+      "description": "Com parla per Ethernet una Digidesign Control{'|'}24 (DigiNet, EtherType 0x885F, sense IP), què li ha de donar la xarxa i com s'instal·len libdiginet i diginet-probe."
+    },
+    "hero": {
+      "eyebrow": "Maquinari — superfícies de control",
+      "title": "Connectar una Digidesign Control{'|'}24.",
+      "lede": "La Control{'|'}24 i la ProControl parlen amb l'ordinador per Ethernet, amb un protocol propi que es diu DigiNet. libdiginet és una biblioteca que el parla. Aquesta pàgina explica què necessita la taula de la xarxa i com s'instal·len la biblioteca i la seva eina de prova. La biblioteca encara no ha funcionat amb una taula real i OpenMixer encara no en controla cap."
+    },
+    "wire": {
+      "title": "Què és DigiNet al cable.",
+      "p1": "DigiNet no és IP. Cada trama és una trama Ethernet II crua amb EtherType <code class=\"font-mono text-sm text-ink\">0x885F</code>: no hi ha adreça IP, ni DHCP, ni número de port. La taula s'identifica per l'adreça MAC, que comença amb el prefix de Digidesign <code class=\"font-mono text-sm text-ink\">00:a0:7e</code>.",
+      "p2": "Quan està inactiva, la taula envia un anunci de difusió a <code class=\"font-mono text-sm text-ink\">ff:ff:ff:ff:ff:ff</code> cada 7 segons aproximadament, amb el seu nom (<code class=\"font-mono text-sm text-ink\">CNTRL{'|'}24</code> en una Control{'|'}24) i la versió del firmware. L'ordinador hi respon i a partir d'aquí totes les trames són unicast entre la MAC de la taula i la de l'ordinador: faders, tecles, llums, pantalles, vúmetres i els acusaments de recepció i keepalives que mantenen la sessió.",
+      "p3": "L'interval de 7 segons i un port a 10 Mbit/s semidúplex es van mesurar en una ProControl. La Control{'|'}24 és de la mateixa generació i s'espera que es comporti igual, però cap de les dues coses s'ha comprovat encara en una. Una targeta de xarxa moderna connectada directament a la taula pot no acabar d'acordar aquest mode d'enllaç; un switch 10/100 senzill i no gestionable entre totes dues ho resol."
+    },
+    "share": {
+      "title": "Pot compartir la xarxa amb la interfície web.",
+      "p1": "Un switch reenvia una trama DigiNet com qualsevol altra trama Ethernet, de manera que la taula pot estar al mateix segment que les tauletes i els portàtils que obren la interfície web. Les màquines que només parlen IP ignoren un EtherType que no coneixen. Tret de l'anunci de difusió de la taula, el switch només lliura les trames DigiNet al port de l'ordinador de la taula de mescles, perquè van adreçades a la seva MAC.",
+      "p2": "Les trames són petites: libdiginet hi posa com a màxim 48 ordres i 314 bytes i espaia 2 ms les escriptures a les pantalles."
+    },
+    "needs": {
+      "title": "Què necessita la xarxa.",
+      "segment": {
+        "head": "El mateix segment de capa 2, sense cap router entremig.",
+        "body": "DigiNet no té capçalera IP, així que un router no hi té res a encaminar. La taula i l'ordinador han d'estar al mateix segment Ethernet: un sol cable o només switches."
+      },
+      "vlan": {
+        "head": "La VLAN sense etiquetar (nativa) del port de l'ordinador.",
+        "body": "La taula envia trames sense etiqueta VLAN. Poseu-la a la VLAN sense etiquetar del port del switch on hi ha l'ordinador i feu servir la interfície normal de l'ordinador, no una subinterfície VLAN."
+      },
+      "wired": {
+        "head": "Un cable de la taula a l'ordinador.",
+        "body": "Alguns ponts i repetidors Wi-Fi només reenvien IP i ARP i descarten els EtherType que no coneixen. Feu que tot el camí de la taula a l'ordinador sigui per cable. Els clients de la interfície web poden anar per Wi-Fi sense problema: parlen IP amb la taula de mescles."
+      },
+      "reac": {
+        "head": "No a l'enllaç REAC dels stageboxes.",
+        "body": "La interfície que porta els stageboxes REAC porta el seu àudio i res més. La taula va en una altra interfície de l'ordinador."
+      }
+    },
+    "security": {
+      "title": "Seguretat.",
+      "p1": "DigiNet no té cap autenticació. La taula obre sessió amb qualsevol ordinador que respongui al seu anunci, sense contrasenya ni clau. Res d'una trama no demostra qui l'ha enviada.",
+      "p2": "En una xarxa que controleu, això n'hi ha prou. En una xarxa local d'una sala compartida amb altra gent, doneu a la taula i a l'ordinador un segment només per a ells: un switch a part o una VLAN on només hi siguin tots dos.",
+      "p3": "La taula també accepta una família de missatges de sistema (<code class=\"font-mono text-sm text-ink\">F0 13 xx 70 …</code>) que escriu a la seva pròpia memòria. libdiginet es nega a enviar-la."
+    },
+    "install": {
+      "title": "Instal·lació.",
+      "intro": "libdiginet 0.1.0 és als repositoris de paquets de FreeMixer: RPM per a Fedora (x86_64, aarch64) i DEB per a Debian bookworm i trixie (amd64, arm64). Afegiu el repositori com a les altres pàgines i instal·leu diginet-tools, que porta la biblioteca.",
+      "pkgLib": "La biblioteca del protocol i el seu transport: el descobriment, l'inici de sessió, els acusaments de recepció, el keepalive i les retransmissions.",
+      "pkgTools": "diginet-probe, l'eina de línia d'ordres per a una primera prova amb una taula real.",
+      "pkgDevel": "Capçaleres, fitxers pkg-config i la gramàtica del protocol, per compilar un programa sobre la biblioteca.",
+      "caps": "diginet-probe obre un socket de paquets i per això necessita una capacitat, <code class=\"font-mono text-sm text-ink\">cap_net_raw</code>. El paquet la posa a <code class=\"font-mono text-sm text-ink\">/usr/bin/diginet-probe</code> en instal·lar-se, de manera que l'eina s'executa amb el vostre usuari i no com a root. Una còpia que compileu vosaltres no té cap capacitat fins que hi executeu <code class=\"font-mono text-sm text-ink\">setcap cap_net_raw=ep</code>. Cal tornar-ho a fer després de cada compilació.",
+      "firstLook": "Amb la taula connectada i engegada, la primera mirada no envia res: només escolta l'anunci. Després l'eina desperta la taula, mou el fader 1, encén un llum, escriu en una pantalla de nom, registra cada tecla i cada toc i acaba amb un resum.",
+      "listen": "només escoltar: l'anunci de la taula, cada 7 segons aproximadament",
+      "probe": "despertar la taula i fer la primera prova",
+      "probeDoc": "Totes les opcions i els codis de sortida de l'eina: <a href=\"https://github.com/FreeMixer/libdiginet/blob/main/docs/probe.md\" class=\"text-accent hover:underline\">docs/probe.md</a>. El protocol tal com es coneix, amb una font per a cada afirmació: <a href=\"https://github.com/FreeMixer/libdiginet/blob/main/docs/protocol.md\" class=\"text-accent hover:underline\">docs/protocol.md</a>."
+    },
+    "status": {
+      "title": "Estat.",
+      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova. Les proves s'executen contra un emulador de la taula.",
+      "p2": "Encara no s'ha executat res amb una taula real. La primera prova amb una Control{'|'}24 està prevista per a la setmana del 26 d'octubre de 2026 i el que ha d'aclarir és a <a href=\"https://github.com/FreeMixer/libdiginet/issues/19\" class=\"text-accent hover:underline\">libdiginet#19</a>: on posa la taula l'adreça de l'ordinador, quant triga a donar-lo per desconnectat, les adreces de les pantalles de nom, quants llums té un vúmetre i més coses.",
+      "p3": "Fins aleshores, tot el que diu aquesta pàgina sobre la taula ve de treballs publicats per altres projectes que n'han controlat una. OpenMixer encara no controla la taula."
+    }
+  }
+}
