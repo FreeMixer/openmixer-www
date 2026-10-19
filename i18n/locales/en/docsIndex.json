@@ -33,6 +33,10 @@
       "reacRole": {
         "title": "The REAC segment role",
         "blurb": "Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role."
+      },
+      "control24": {
+        "title": "Connecting a Control{'|'}24",
+        "blurb": "What the Digidesign Control{'|'}24 sends on the wire, what the network must give it, and installing libdiginet and its probe."
       }
     },
     "faqGroups": {
