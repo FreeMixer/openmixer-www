@@ -36,6 +36,7 @@ const siteChapters = computed(() =>
     ['templates', '/docs/templates'],
     ['plugins', '/docs/plugins'],
     ['reacRole', '/docs/reac-role'],
+    ['control24', '/docs/control24'],
   ] as const).map(([k, to]) => ({
     title: t(`docsIndex.chapters.${k}.title`),
     blurb: t(`docsIndex.chapters.${k}.blurb`),
