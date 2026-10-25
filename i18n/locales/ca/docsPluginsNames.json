@@ -1,0 +1,28 @@
+{
+  "docsPluginsNames": {
+    "seo": {
+      "title": "Noms: repositori, paquet i pkg-config | OpenMixer",
+      "description": "El nom de repositori, pkg-config, RPM, DEB i npm de cada peça d'OpenMixer que es pot fer servir per separat."
+    },
+    "hero": {
+      "eyebrow": "Referència | plugins",
+      "title": "Noms: repositori, paquet i pkg-config.",
+      "lede": "Una fila per peça. Serveix per trobar el paquet que conté una peça o el repositori que hi ha darrere del nom d'un paquet."
+    },
+    "table": {
+      "title": "Una fila per peça.",
+      "intro": "Un guionet vol dir que la peça no es lliura d'aquesta manera."
+    },
+    "columns": {
+      "repo": "Repositori",
+      "pkgconfig": "pkg-config",
+      "rpm": "RPM",
+      "deb": "DEB",
+      "npm": "npm"
+    },
+    "suffix": {
+      "title": "Com es numera un paquet construït.",
+      "text": "Els paquets que construïm duen el sufix <code>fmx</code> després del número de versió (<code>0.10.6-1-fmx</code>), mai la paraula freemixer."
+    }
+  }
+}
