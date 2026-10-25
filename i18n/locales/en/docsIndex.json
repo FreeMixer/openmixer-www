@@ -30,6 +30,22 @@
         "title": "Plugins and the insert rack",
         "blurb": "Racking a plugin on a channel or a bus output, the picker, the generated editor, mono against stereo, and the latency budget the destination sets."
       },
+      "pluginsShipped": {
+        "title": "The plugins the packages ship",
+        "blurb": "The omx plugins as LV2 and CLAP, and how to install them on Fedora, Debian and Raspberry Pi OS."
+      },
+      "pluginsThirdParty": {
+        "title": "Third-party plugins",
+        "blurb": "Installing LV2 and CLAP plugins from your distribution, how the console runs them and what a qualification verdict means."
+      },
+      "pluginsPanels": {
+        "title": "A panel for any plugin",
+        "blurb": "How omx-panel draws a MOD GUI, controller pages and a host layout from what a plugin declares."
+      },
+      "pluginsNames": {
+        "title": "Names reference",
+        "blurb": "Repository, pkg-config, RPM, DEB and npm names of every piece you can use on its own."
+      },
       "reacRole": {
         "title": "The REAC segment role",
         "blurb": "Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role."

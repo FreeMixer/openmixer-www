@@ -1,0 +1,33 @@
+{
+  "docsPluginsShipped": {
+    "seo": {
+      "title": "Els plugins que porten els paquets | OpenMixer",
+      "description": "Els plugins omx en LV2 i CLAP i les ordres d'instal·lació per a Fedora, Debian i Raspberry Pi OS."
+    },
+    "hero": {
+      "eyebrow": "Plugins | què porten",
+      "title": "Els plugins que porten els paquets.",
+      "lede": "Els efectes de la taula, com a plugins que pots carregar en qualsevol host que parli LV2 o CLAP. No cal la taula per fer-los servir."
+    },
+    "what": {
+      "title": "Dinou efectes, dos formats.",
+      "formats": "El paquet <code>omx-plugins</code> porta cada efecte dues vegades: com a <strong>CLAP</strong>, per als hosts CLAP i com a <strong>LV2</strong>, per als hosts LV2. La versió LV2 porta també una MOD GUI.",
+      "same": "El processament de cada un és el de la taula, de manera que un plugin sona igual en un host que a la taula. Cada plugin es descriu una sola vegada i els seus paràmetres CLAP, els seus ports LV2 i la seva MOD GUI surten d'aquesta única descripció, així que no es poden contradir.",
+      "catalogue": "El conjunt: chorus, comp, deesser, delay, drive, eq8, eq16, eq32, flanger, geq, keyed-gate, limiter, phaser, pitch, reverb, rotary, strip, transient i tremolo. Cada plugin, amb el seu id CLAP, la seva URI LV2 i els marges dels seus paràmetres, és al <a class=\"text-accent hover:underline\" href=\"https://github.com/FreeMixer/omx-plugins\">README d'omx-plugins</a>."
+    },
+    "install": {
+      "title": "Instal·lació.",
+      "fedora": "A Fedora, afegeix el repositori de paquets de FreeMixer i instal·la:",
+      "debian": "A Debian (bookworm o trixie) i Raspberry Pi OS, afegeix la clau de signatura del repositori i el repositori i instal·la. El nom de la versió es llegeix del teu sistema:",
+      "signed": "Els paquets i les metadades del repositori estan signats."
+    },
+    "packages": {
+      "title": "Quin paquet i on van els fitxers.",
+      "split": "<code>omx-plugins</code> instal·la els dos formats. Per prendre només el que carrega el teu host, instal·la <code>omx-plugins-clap</code> o <code>omx-plugins-lv2</code>.",
+      "where": "Els fitxers van on els hosts miren sense configurar res: els plugins CLAP a <code>/usr/lib/clap</code> a totes les distribucions i els LV2 a <code>/usr/lib64/lv2</code> a Fedora i a <code>/usr/lib/lv2</code> a Debian.",
+      "rescan": "Torna a escanejar els plugins al teu host i busca els plugins omx.",
+      "names": "Els noms dels paquets de capçaleres, de desenvolupament i de la resta de peces són a la {names}.",
+      "namesLink": "referència de noms"
+    }
+  }
+}

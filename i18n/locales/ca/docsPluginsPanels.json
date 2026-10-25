@@ -1,0 +1,55 @@
+{
+  "docsPluginsPanels": {
+    "seo": {
+      "title": "Un panell per a qualsevol plugin | OpenMixer",
+      "description": "Com omx-panel dona un panell a un plugin LV2 o CLAP sense dibuixar-lo: una MOD GUI, pàgines de controlador i una disposició per a un host, a partir del que el plugin declara."
+    },
+    "hero": {
+      "eyebrow": "Plugins | panells",
+      "title": "Un panell per a qualsevol plugin, sense dibuixar-lo.",
+      "lede": "omx-panel llegeix el que un plugin declara de si mateix i en produeix el panell: els controls, els seus marges i la seva agrupació. Ningú el dibuixa a mà."
+    },
+    "pitch": {
+      "title": "Què obtens.",
+      "what": "Dona un panell a qualsevol plugin LV2 o CLAP, a partir de la declaració del mateix plugin:",
+      "modgui": "una <strong>MOD GUI</strong>, el format que dibuixen MOD i Zynthian;",
+      "controller": "pàgines per a un controlador, vuit controls per pàgina;",
+      "host": "una disposició per a un host que dibuixa el seu propi panell.",
+      "look": "Cada panell duu l'aspecte omx, vintage o modern."
+    },
+    "steps": {
+      "title": "Els tres passos.",
+      "step": "Pas {n}",
+      "declare": {
+        "title": "El plugin es declara.",
+        "text": "Un plugin diu quins controls té: símbol, recorregut, valor per defecte, etiqueta i grup. Aquesta declaració, el descriptor, és l'única entrada. Un descriptor surt d'escanejar el plugin o d'un paquet que l'instal·la, com <code>omx-plugins</code>. El panell mai no té un marge propi."
+      },
+      "layout": {
+        "title": "omx-panel el disposa.",
+        "text": "Ordena els controls en seccions, dona un paper a cada un, tria la família que formen tots junts i talla les pàgines de vuit que mostra un controlador. Quan el plugin declara un panell propi, guanya aquest panell."
+      },
+      "write": {
+        "title": "omx-panel escriu el panell.",
+        "text": "Per a MOD i Zynthian escriu una MOD GUI dins el paquet LV2 del plugin: <code>modgui.ttl</code> i un directori <code>modgui/</code>. Un interruptor esdevé un switch, una opció o un recorregut enter curt un selector i qualsevol altre recorregut un potenciòmetre."
+      },
+      "commands": "L'ordre rep un fitxer descriptor i el paquet on ha d'escriure:",
+      "check": "La segona línia no escriu res: compara el paquet amb el que produiria el descriptor i rebutja un fitxer desfasat, absent o sobrant."
+    },
+    "author": {
+      "title": "Per a l'autor d'un plugin.",
+      "skin": "Un plugin que vol el seu propi dibuix porta un <em>paquet de skin</em>: un directori amb el nom del plugin, amb un <code>skin.json</code> que diu com es dibuixa el panell i la llicència de tot el que conté. Els marges, les unitats i les escales es queden a la descripció del plugin; el skin es refereix als controls per id. Comprova un paquet abans d'instal·lar-lo:",
+      "import": "Un plugin que ja porta una MOD GUI no comença de zero: <code>omx-panel import</code> llegeix el paquet i la llicència del plugin i n'escriu un paquet de skin. Un paquet amb la llicència absent o fora de la llista permesa es rebutja amb un codi amb nom i no s'escriu res."
+    },
+    "install": {
+      "title": "Instal·lació.",
+      "fedora": "A Fedora:",
+      "debian": "A Debian i Raspberry Pi OS:",
+      "npm": "Des del registre npm:"
+    },
+    "example": {
+      "title": "Un exemple pas a pas.",
+      "text": "Un exemple pas a pas porta un plugin de tercers LV2 i CLAP des de la seva declaració fins a un panell generat.",
+      "link": "Llegeix l'exemple pas a pas."
+    }
+  }
+}
