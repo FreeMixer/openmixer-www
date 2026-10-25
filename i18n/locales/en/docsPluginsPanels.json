@@ -1,0 +1,55 @@
+{
+  "docsPluginsPanels": {
+    "seo": {
+      "title": "A panel for any plugin | OpenMixer",
+      "description": "How omx-panel gives an LV2 or CLAP plugin a panel without drawing one: a MOD GUI, controller pages and a host layout, from what the plugin declares."
+    },
+    "hero": {
+      "eyebrow": "Plugins | panels",
+      "title": "A panel for any plugin, without drawing one.",
+      "lede": "omx-panel reads what a plugin declares about itself and produces its panel: the controls, their ranges and their grouping. Nobody draws it by hand."
+    },
+    "pitch": {
+      "title": "What you get.",
+      "what": "Give any LV2 or CLAP plugin a panel, from the plugin's own declaration:",
+      "modgui": "a <strong>MOD GUI</strong>, the format MOD and Zynthian draw;",
+      "controller": "pages for a controller, eight controls to a page;",
+      "host": "a layout for a host that draws its own panel.",
+      "look": "Every panel wears the omx look, vintage or modern."
+    },
+    "steps": {
+      "title": "The three steps.",
+      "step": "Step {n}",
+      "declare": {
+        "title": "The plugin declares itself.",
+        "text": "A plugin states its controls: symbol, travel, default, label and group. That statement, the descriptor, is the only input. A descriptor comes from scanning the plugin, or from a package that installs it, such as <code>omx-plugins</code>. The panel never holds a range of its own."
+      },
+      "layout": {
+        "title": "omx-panel lays it out.",
+        "text": "It orders the controls into sections, gives each a role, picks the family the controls make together and cuts the pages of eight a controller shows. When the plugin declares a panel of its own, that panel wins."
+      },
+      "write": {
+        "title": "omx-panel writes the panel.",
+        "text": "For MOD and Zynthian it writes a MOD GUI into the plugin's LV2 bundle: <code>modgui.ttl</code> and a <code>modgui/</code> directory. A toggle becomes a switch, a choice or a short integer travel a selector, and every other travel a knob."
+      },
+      "commands": "The command takes a descriptor file and the bundle to write into:",
+      "check": "The second line writes nothing: it compares the bundle with what the descriptor would produce and refuses a stale, missing or extra file."
+    },
+    "author": {
+      "title": "For a plugin author.",
+      "skin": "A plugin that wants its own drawing ships a <em>skin package</em>: a directory named after the plugin, holding a <code>skin.json</code> that says how the panel is drawn and the licence of everything in it. Ranges, units and scales stay in the plugin's description; the skin refers to controls by id. Check a package before you install it:",
+      "import": "A plugin that already ships a MOD GUI does not start from nothing: <code>omx-panel import</code> reads the bundle and the plugin's licence and writes a skin package from them. A bundle whose licence is missing or not on the allow-list is refused with a named code, and nothing is written."
+    },
+    "install": {
+      "title": "Install.",
+      "fedora": "On Fedora:",
+      "debian": "On Debian and Raspberry Pi OS:",
+      "npm": "From the npm registry:"
+    },
+    "example": {
+      "title": "A worked example.",
+      "text": "A worked example takes a third-party LV2 and CLAP plugin from its declaration to a generated panel.",
+      "link": "Read the worked example."
+    }
+  }
+}
