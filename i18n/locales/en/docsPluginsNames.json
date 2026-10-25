@@ -1,0 +1,28 @@
+{
+  "docsPluginsNames": {
+    "seo": {
+      "title": "Names: repository, package and pkg-config | OpenMixer",
+      "description": "The repository, pkg-config, RPM, DEB and npm name of every OpenMixer piece you can use on its own."
+    },
+    "hero": {
+      "eyebrow": "Reference | plugins",
+      "title": "Names: repository, package and pkg-config.",
+      "lede": "One row per piece. Use it to find the package that holds a piece, or the repository behind a package name."
+    },
+    "table": {
+      "title": "One row per piece.",
+      "intro": "A dash means the piece does not ship in that form."
+    },
+    "columns": {
+      "repo": "Repository",
+      "pkgconfig": "pkg-config",
+      "rpm": "RPM",
+      "deb": "DEB",
+      "npm": "npm"
+    },
+    "suffix": {
+      "title": "How a built package is numbered.",
+      "text": "Packages we build carry the suffix <code>fmx</code> after the release counter (<code>0.10.6-1-fmx</code>), never the word freemixer."
+    }
+  }
+}
