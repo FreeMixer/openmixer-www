@@ -1,0 +1,64 @@
+{
+  "docsPluginsThirdParty": {
+    "seo": {
+      "title": "Third-party plugins | OpenMixer",
+      "description": "Installing LV2 and CLAP plugins from your distribution, how plugin-hostd runs them and what a plugin-qualify verdict means for you."
+    },
+    "hero": {
+      "eyebrow": "Plugins | third party",
+      "title": "Plugins from your distribution, and what the console does with them.",
+      "lede": "The console runs LV2 and CLAP plugins that were not written for it. Each one runs in a process of its own, and each can be measured before a show, so you know in advance whether it is safe to rely on."
+    },
+    "install": {
+      "title": "Install them from the distribution.",
+      "intro": "A third-party plugin installs like any other package. As an example, the LSP plugin suite, in its LV2 and CLAP builds:",
+      "fedora": "On Fedora:",
+      "debian": "On Debian and Raspberry Pi OS:",
+      "where": "The files land in the distribution's plugin directories. On Debian that is <code>/usr/lib/lv2</code> and <code>/usr/lib/clap</code>. On Fedora LV2 goes to <code>/usr/lib64/lv2</code>, and this suite's CLAP file goes to <code>/usr/lib64/clap</code>, not to <code>/usr/lib/clap</code>, where the omx plugins and the qualifier's default search look."
+    },
+    "hostd": {
+      "title": "How the console runs them.",
+      "workers": "<code>plugin-hostd</code> runs LV2 and CLAP plugins, each in a worker process of its own, behind the same socket protocol the console already speaks. Audio never passes through the daemon: every worker is an audio client of its own.",
+      "crash": "If a plugin crashes, only its worker is restarted, with its settings put back, and the other plugins keep playing. A plugin that keeps crashing is singled out and given up on without touching its neighbours.",
+      "pins": "Before a plugin starts, the daemon checks that its files are the ones that were checked: it hashes them and compares them with the plugin's recorded pin. A plugin updated or swapped behind your back is refused until you accept the new files, so a change cannot slip in unchecked. A plugin whose record says it was refused does not start.",
+      "picker": "What the plugin picker offers on a channel is described in the {chapter}.",
+      "chapter": "plugins chapter"
+    },
+    "qualify": {
+      "title": "Measure a plugin before you rely on it.",
+      "what": "plugin-qualify scans a plugin, measures it offline (latency and CPU cost) and runs it under a real host, then gives one verdict. It installs next to plugin-hostd:",
+      "installFedora": "On Fedora, with the FreeMixer repository added as on the page of shipped plugins:",
+      "installDebian": "On Debian and Raspberry Pi OS:",
+      "run": "Name a plugin file, a bundle or a URI:",
+      "output": "The answer is one line per plugin, here for one of the omx plugins:",
+      "exit": "The exit code is <code>0</code> when every plugin qualified, <code>1</code> when some did not and <code>2</code> when something could not be measured.",
+      "path": "<code>--all</code> walks the CLAP search path (<code>CLAP_PATH</code>, then <code>~/.clap</code>, then <code>/usr/lib/clap</code>) and refuses when LV2 bundles are installed, since it does not measure LV2 itself. In that case name the plugins or bundles."
+    },
+    "verdicts": {
+      "title": "What a verdict means for you.",
+      "intro": "Four verdicts. The deciding reason is printed beside it.",
+      "suitable": {
+        "code": "suitable",
+        "text": "Every check was made and passed. The plugin is safe to run inside the console's own engine process. This is the only verdict that counts as qualified.",
+        "do": "Rack it."
+      },
+      "conditional": {
+        "code": "conditional",
+        "text": "It works, with a caution, for example a high cost at small buffer sizes. It is run isolated, and the reason names the caution.",
+        "do": "Rack it if you can live with the reason, and read the reason first."
+      },
+      "unknown": {
+        "code": "unknown",
+        "text": "Something was not measured. An unmeasured plugin is never counted as a pass.",
+        "do": "Measure it again, or leave it off the live rig."
+      },
+      "unsuitable": {
+        "code": "unsuitable",
+        "text": "A measured failure: a crash, a memory error in the plugin's own code, a real-time violation (it allocates memory, takes locks or makes system calls while it processes audio) or a required feature the host does not provide.",
+        "do": "Leave it off the live rig."
+      },
+      "worst": "The worst check decides the verdict.",
+      "host": "A verdict is judged for a particular host. The default is the console itself; the same measurements can be judged for other hosts, so a plugin can be fine in one and refused in another."
+    }
+  }
+}

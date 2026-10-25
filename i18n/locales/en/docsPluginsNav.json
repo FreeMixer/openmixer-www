@@ -1,0 +1,21 @@
+{
+  "docsPluginsNav": {
+    "title": "The rest of the plugins section",
+    "shipped": {
+      "title": "What the packages ship",
+      "blurb": "The omx plugins in LV2 and CLAP, and how to install them on Fedora, Debian and Raspberry Pi OS."
+    },
+    "thirdParty": {
+      "title": "Third-party plugins",
+      "blurb": "Installing LV2 and CLAP plugins from your distribution, and what the console does with them."
+    },
+    "panels": {
+      "title": "A panel for any plugin",
+      "blurb": "How omx-panel draws a panel from what a plugin declares about itself."
+    },
+    "names": {
+      "title": "Names reference",
+      "blurb": "Repository, pkg-config, RPM, DEB and npm names of every piece."
+    }
+  }
+}

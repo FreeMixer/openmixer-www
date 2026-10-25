@@ -1,0 +1,33 @@
+{
+  "docsPluginsShipped": {
+    "seo": {
+      "title": "The plugins the packages ship | OpenMixer",
+      "description": "The omx plugins as LV2 and CLAP, and the install lines for Fedora, Debian and Raspberry Pi OS."
+    },
+    "hero": {
+      "eyebrow": "Plugins | what ships",
+      "title": "The plugins the packages ship.",
+      "lede": "The effects of the console, as plugins you can load in any host that speaks LV2 or CLAP. You do not need the console to use them."
+    },
+    "what": {
+      "title": "Nineteen effects, two formats.",
+      "formats": "The <code>omx-plugins</code> package carries every effect twice: as <strong>CLAP</strong>, for CLAP hosts, and as <strong>LV2</strong>, for LV2 hosts. The LV2 build also carries a MOD GUI.",
+      "same": "The processing inside each one is the console's own, so a plugin sounds the same in a host as on the desk. Each plugin is described once, and its CLAP parameters, its LV2 ports and its MOD GUI come from that one description, so they cannot disagree.",
+      "catalogue": "The set: chorus, comp, deesser, delay, drive, eq8, eq16, eq32, flanger, geq, keyed-gate, limiter, phaser, pitch, reverb, rotary, strip, transient and tremolo. Every plugin, with its CLAP id, its LV2 URI and its parameter ranges, is listed in the <a class=\"text-accent hover:underline\" href=\"https://github.com/FreeMixer/omx-plugins\">omx-plugins README</a>."
+    },
+    "install": {
+      "title": "Install.",
+      "fedora": "On Fedora, add the FreeMixer package repository, then install:",
+      "debian": "On Debian (bookworm or trixie) and Raspberry Pi OS, add the repository's signing key and the repository, then install. The release name is read from your system:",
+      "signed": "The packages and the repository metadata are signed."
+    },
+    "packages": {
+      "title": "Which package, and where the files go.",
+      "split": "<code>omx-plugins</code> installs both formats. To take only the one your host loads, install <code>omx-plugins-clap</code> or <code>omx-plugins-lv2</code> instead.",
+      "where": "The files land where hosts look without configuration: CLAP plugins in <code>/usr/lib/clap</code> on every distribution, LV2 plugins in <code>/usr/lib64/lv2</code> on Fedora and <code>/usr/lib/lv2</code> on Debian.",
+      "rescan": "Rescan plugins in your host, then look for the omx plugins.",
+      "names": "The package names for headers, development files and the other pieces are in the {names}.",
+      "namesLink": "names reference"
+    }
+  }
+}
