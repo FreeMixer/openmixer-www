@@ -45,11 +45,6 @@
       "fedora": "A Fedora:",
       "debian": "A Debian i Raspberry Pi OS:",
       "npm": "Des del registre npm:"
-    },
-    "example": {
-      "title": "Un exemple pas a pas.",
-      "text": "Un exemple pas a pas porta un plugin de tercers LV2 i CLAP des de la seva declaració fins a un panell generat.",
-      "link": "Llegeix l'exemple pas a pas."
     }
   }
 }
