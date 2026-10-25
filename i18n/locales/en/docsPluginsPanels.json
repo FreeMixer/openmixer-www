@@ -45,11 +45,6 @@
       "fedora": "On Fedora:",
       "debian": "On Debian and Raspberry Pi OS:",
       "npm": "From the npm registry:"
-    },
-    "example": {
-      "title": "A worked example.",
-      "text": "A worked example takes a third-party LV2 and CLAP plugin from its declaration to a generated panel.",
-      "link": "Read the worked example."
     }
   }
 }
