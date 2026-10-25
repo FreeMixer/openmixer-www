@@ -1,0 +1,21 @@
+{
+  "docsPluginsNav": {
+    "title": "La resta de la secció de plugins",
+    "shipped": {
+      "title": "Què porten els paquets",
+      "blurb": "Els plugins omx en LV2 i CLAP i com instal·lar-los a Fedora, Debian i Raspberry Pi OS."
+    },
+    "thirdParty": {
+      "title": "Plugins de tercers",
+      "blurb": "Instal·lar plugins LV2 i CLAP des de la distribució i què en fa la taula."
+    },
+    "panels": {
+      "title": "Un panell per a qualsevol plugin",
+      "blurb": "Com omx-panel dibuixa un panell a partir del que el plugin declara de si mateix."
+    },
+    "names": {
+      "title": "Referència de noms",
+      "blurb": "Els noms de repositori, pkg-config, RPM, DEB i npm de cada peça."
+    }
+  }
+}
