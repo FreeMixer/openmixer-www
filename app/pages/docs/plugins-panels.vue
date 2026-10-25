@@ -7,6 +7,9 @@ useSeoMeta({
   description: () => t('docsPluginsPanels.seo.description'),
 });
 
+/** The worked example's document; the link below shows only when this is set. */
+const WORKED_EXAMPLE_HREF = 'https://github.com/FreeMixer/omx-panel/blob/main/docs/worked-example.md';
+
 const steps = ['declare', 'layout', 'write'] as const;
 
 const generate = [
@@ -90,6 +93,18 @@ const npm = ['npm install @openmixer/omx-panel'];
           <CodeBlock :lines="debian" />
           <p>{{ t('docsPluginsPanels.install.npm') }}</p>
           <CodeBlock :lines="npm" />
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge">
+      <div class="mx-auto max-w-4xl px-6 py-16">
+        <SectionHead eyebrow="05" :title="t('docsPluginsPanels.example.title')" />
+        <div class="space-y-4 text-base leading-relaxed text-ink-dim">
+          <p>{{ t('docsPluginsPanels.example.text') }}</p>
+          <p v-if="WORKED_EXAMPLE_HREF">
+            <a :href="WORKED_EXAMPLE_HREF" class="text-accent hover:underline">{{ t('docsPluginsPanels.example.link') }}</a>
+          </p>
         </div>
       </div>
     </section>
