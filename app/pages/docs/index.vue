@@ -35,6 +35,10 @@ const siteChapters = computed(() =>
     ['history', '/docs/history'],
     ['templates', '/docs/templates'],
     ['plugins', '/docs/plugins'],
+    ['pluginsShipped', '/docs/plugins-shipped'],
+    ['pluginsThirdParty', '/docs/plugins-third-party'],
+    ['pluginsPanels', '/docs/plugins-panels'],
+    ['pluginsNames', '/docs/plugins-names'],
     ['reacRole', '/docs/reac-role'],
     ['control24', '/docs/control24'],
   ] as const).map(([k, to]) => ({
