@@ -26,7 +26,7 @@
     "limitations": {
       "title": "Les limitacions conegudes",
       "tag": "honestedat",
-      "text": "La matrix encara no porta àudio, carregar una actuació no equival a reiniciar la taula, l'alineació de delay no es desa i cap superfície de control no s'ha verificat en maquinari.",
+      "text": "De les superfícies de control, només l'X-Touch s'ha provat amb maquinari i la taula en si encara no està empaquetada.",
       "link": "La llista completa és a la pàgina de funcions."
     }
   }

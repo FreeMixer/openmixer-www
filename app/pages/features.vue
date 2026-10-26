@@ -150,7 +150,7 @@ const alignRows = [
           </div>
         </FeatureRow>
 
-        <FeatureRow :title="t('features.surfaces.title')" state="building">
+        <FeatureRow :title="t('features.surfaces.title')" state="live">
           <div class="space-y-3">
             <p>{{ t('features.surfaces.p1') }}</p>
           </div>
@@ -164,7 +164,7 @@ const alignRows = [
           </div>
         </FeatureRow>
 
-        <FeatureRow :title="t('features.recorder.title')" state="building">
+        <FeatureRow :title="t('features.recorder.title')" state="live">
           <div class="space-y-3">
             <p>{{ t('features.recorder.p1') }}</p>
           </div>
@@ -182,34 +182,12 @@ const alignRows = [
         <div class="grid gap-8 lg:grid-cols-2">
           <div class="space-y-4 text-base leading-relaxed text-ink-dim">
             <p>{{ t('features.limits.intro') }}</p>
-            <ul class="space-y-3">
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">{{ t('features.limits.showHead') }}</span>
-                {{ t('features.limits.showBody') }}
-              </li>
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">{{ t('features.limits.alignHead') }}</span>
-                {{ t('features.limits.alignBody') }}
-              </li>
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">{{ t('features.limits.matrixHead') }}</span>
-                {{ t('features.limits.matrixBody') }}
-              </li>
-            </ul>
           </div>
           <div class="space-y-4 text-base leading-relaxed text-ink-dim">
             <ul class="space-y-3">
               <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">{{ t('features.limits.surfacesHead') }}</span>
                 {{ t('features.limits.surfacesBody') }}
-              </li>
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">{{ t('features.limits.rateHead') }}</span>
-                {{ t('features.limits.rateBody') }}
-              </li>
-              <li class="border-l-2 border-edge-strong pl-4">
-                <span class="text-ink">{{ t('features.limits.recHead') }}</span>
-                {{ t('features.limits.recBody') }}
               </li>
               <li class="border-l-2 border-edge-strong pl-4">
                 <span class="text-ink">{{ t('features.limits.packageHead') }}</span>
