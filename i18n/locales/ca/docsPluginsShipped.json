@@ -17,8 +17,8 @@
     },
     "install": {
       "title": "Instal·lació.",
-      "fedora": "A Fedora, instal·la el paquet de publicació d'OpenMixer, que afegeix el repositori i la seva clau, i després instal·la:",
-      "debian": "A Debian (bookworm o trixie) i Raspberry Pi OS, instal·la el paquet de publicació d'OpenMixer, que afegeix el repositori i la seva clau, i després instal·la:",
+      "fedora": "A Fedora, instal·la el paquet de publicació d'OpenMixer (afegeix el repositori i la seva clau) i després els paquets:",
+      "debian": "A Debian (bookworm o trixie) i Raspberry Pi OS, instal·la el paquet de publicació d'OpenMixer (afegeix el repositori i la seva clau) i després els paquets:",
       "signed": "Els paquets i les metadades del repositori estan signats."
     },
     "packages": {
