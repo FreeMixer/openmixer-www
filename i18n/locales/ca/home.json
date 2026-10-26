@@ -74,7 +74,7 @@
       "eyebrow": "On som",
       "lead": "El motor natiu mescla actuacions reals des del juliol del 2026.",
       "rig": "Funciona en un equip real, amb un stagebox Roland i una RME Babyface Pro. El Phantom 48V s'ha comprovat als pins de l'XLR, dos stageboxes han funcionat alhora i la freqüència de mostratge s'ha canviat entre 48 i 96 kHz amb el sistema en marxa.",
-      "missing": "Algunes parts encara no hi són. L'enregistrament no ha capturat mai cap actuació, el suport per a X-Touch no s'ha provat mai amb maquinari real i la matrix no porta àudio. Els amfitrions de plugins ja estan empaquetats; la taula en si encara no s'ha publicat.",
+      "missing": "Algunes parts encara no hi són. De les superfícies de control, només l'X-Touch s'ha provat amb maquinari real. Els amfitrions de plugins ja estan empaquetats; la taula en si encara no s'ha publicat.",
       "features": "{link} indica fins on s'ha provat cada element i enumera les limitacions conegudes.",
       "featuresLink": "La pàgina de funcions"
     },
