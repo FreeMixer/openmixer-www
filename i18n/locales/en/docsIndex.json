@@ -85,7 +85,7 @@
       },
       "mcp": {
         "title": "The MCP server",
-        "body": "{count} tools over stdio for reading a running console and the tree's own design, and the process skills the repository keeps."
+        "body": "{count} tools over stdio for reading and writing a running console and reading the contracts its DSP stages declare, and the process skills the repository keeps."
       },
       "architecture": {
         "title": "Architecture",
