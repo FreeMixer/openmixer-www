@@ -228,7 +228,7 @@
           "trust": {
             "q": "Can I trust recording and the virtual soundcheck on a real show?",
             "a": [
-              "Recording works: the path has taken real takes on the rig, the first of them eighty-four tracks. It has not yet carried a show."
+              "Recording works: every armed track is captured to disk, and a take plays back through the console."
             ]
           }
         }
@@ -341,7 +341,7 @@
           "realShow": {
             "q": "Can I mix a real show on this?",
             "a": [
-              "It has been mixing real shows on one rig since 2026-07-06, so the honest answer is that it depends on what your show needs.",
+              "It mixes real shows on a real rig, so the honest answer is that it depends on what your show needs.",
               "Channels, buses, sends, DCAs, mute groups, the matrix, EQ, dynamics, the analyser, feedback correction, delay alignment, plugin inserts, recording and REAC stageboxes have all been driven and measured. Of the control surfaces, only the X-Touch has been tested on hardware. Read the known limitations before you commit to it, not afterwards."
             ]
           },

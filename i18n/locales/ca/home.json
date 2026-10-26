@@ -72,7 +72,7 @@
     },
     "stands": {
       "eyebrow": "On som",
-      "lead": "El motor natiu mescla actuacions reals des del juliol del 2026.",
+      "lead": "El motor natiu mescla actuacions reals.",
       "rig": "Funciona en un equip real, amb un stagebox Roland i una RME Babyface Pro. El Phantom 48V s'ha comprovat als pins de l'XLR, dos stageboxes han funcionat alhora i la freqüència de mostratge s'ha canviat entre 48 i 96 kHz amb el sistema en marxa.",
       "missing": "Algunes parts encara no hi són. De les superfícies de control, només l'X-Touch s'ha provat amb maquinari real. Els amfitrions de plugins ja estan empaquetats; la taula en si encara no s'ha publicat.",
       "features": "{link} indica fins on s'ha provat cada element i enumera les limitacions conegudes.",
@@ -157,7 +157,7 @@
       "dbText": "Quant s'han mogut tots els altres canals mentre un plugin queia i tornava.",
       "workerUnit": "worker",
       "workerText": "Només s'ha reiniciat el worker que tenia el plugin defectuós i només s'ha tornat a carregar aquell plugin.",
-      "measured": "Mesurat a la taula de desenvolupament d'OpenMixer el 30 de setembre de 2026."
+      "measured": "Mesurat a la taula de desenvolupament d'OpenMixer."
     },
     "open": {
       "eyebrow": "Components oberts",

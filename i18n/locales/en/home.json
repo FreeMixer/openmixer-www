@@ -72,7 +72,7 @@
     },
     "stands": {
       "eyebrow": "Where it stands",
-      "lead": "The native engine has mixed real shows since July 2026.",
+      "lead": "The native engine mixes real shows.",
       "rig": "It runs on a real rig, a Roland stagebox and an RME Babyface Pro. Phantom power was confirmed at the XLR pins, two stageboxes have run at once, and the rate has been switched between 48 and 96 kHz with the house up.",
       "missing": "Some parts are not there yet. Of the control surfaces, only the X-Touch has been tested on real hardware. The plugin hosts are packaged today; the console itself is not published yet.",
       "features": "{link} marks each item by how far it has been proven and lists the known limitations.",
@@ -157,7 +157,7 @@
       "dbText": "How far every other strip moved while one plugin crashed and came back.",
       "workerUnit": "worker",
       "workerText": "Only the worker holding the faulty plugin restarted, and only that plugin was loaded again.",
-      "measured": "Measured on the OpenMixer development console, 30 September 2026."
+      "measured": "Measured on the OpenMixer development console."
     },
     "open": {
       "eyebrow": "Open components",
