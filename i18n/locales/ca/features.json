@@ -74,7 +74,7 @@
       "p1": "Les Behringer X-Touch i X-Touch Mini estan implementades com a client bidireccional: els gestos de la superfície es converteixen en operacions canòniques; l'estat canònic, al seu torn, mou els faders motoritzats, els LED, els anells dels V-Pot, les pantalles de nom i els vúmetres. Està connectat a l'arrel de composició de producció.",
       "p2": "L'X-Touch s'ha fet anar en una superfície real: els faders i els motors, el mute, el solo, els V-Pot, la selecció, el fader màster, les tires de text, l'escala del vúmetre, una apagada i encesa i un reinici de la taula. Els errors que s'hi van trobar estan corregits. L'X-Touch Mini i els adaptadors per a Midas, X32/M32 i Roland no s'han fet anar en una superfície real.",
       "control24": {
-        "text": "La Digidesign Control{'|'}24 i la ProControl parlen DigiNet per Ethernet. La biblioteca del seu protocol, libdiginet, està publicada i encara no ha funcionat amb una taula real; la taula de mescles encara no en controla cap. {link}",
+        "text": "La Digidesign Control{'|'}24 i la ProControl parlen DigiNet per Ethernet. La biblioteca del seu protocol, libdiginet, està publicada; la taula de mescles encara no en controla cap. {link}",
         "link": "Connectar una Control{'|'}24"
       }
     },
