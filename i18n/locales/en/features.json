@@ -74,7 +74,7 @@
       "p1": "The Behringer X-Touch and X-Touch Mini are implemented as a bidirectional client: surface gestures become canonical operations, and canonical state drives the motor faders, the LEDs, the V-Pot rings, the scribble strips and the meters. It is wired into the production composition root.",
       "p2": "The X-Touch has been run on a real surface: the faders and motors, mute, solo, the V-Pots, SELECT, the master fader, the scribble strips, the meter ladder, a power-cycle and a console restart. The bugs that run found are fixed. The X-Touch Mini and the adapters for Midas, X32/M32 and Roland have not been run on a real surface.",
       "control24": {
-        "text": "The Digidesign Control{'|'}24 and ProControl talk DigiNet over Ethernet. Their protocol library, libdiginet, is released and has not yet met a real desk; the console does not drive one. {link}",
+        "text": "The Digidesign Control{'|'}24 and ProControl talk DigiNet over Ethernet. Their protocol library, libdiginet, is released; the console does not drive one. {link}",
         "link": "Connecting a Control{'|'}24"
       }
     },
