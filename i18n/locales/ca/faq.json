@@ -108,7 +108,7 @@
             "q": "Quines freqüències de mostratge funcionen?",
             "a": [
               "S'han fet servir tant 48 kHz com 96 kHz a l'equip, incloent-hi un canvi d'una a l'altra amb la taula en directe.",
-              "Els 44,1 kHz no s'han provat amb un stagebox i no es donen per bons. Per provar-ho cal una taula real que funcioni a 44,1 per marcar-ne la cadència."
+              "Els 44,1 kHz també s'han fet servir a l'equip: un S-0808 ha canviat la cadència a 44,1 kHz i ha tornat a 48, amb un to escoltat a través seu."
             ]
           },
           "lv2": {
@@ -228,7 +228,7 @@
           "trust": {
             "q": "Em puc refiar de l'enregistrament i de la prova de so virtual en una actuació real?",
             "a": [
-              "Encara no. El camí ha fet la seva primera presa real a l'equip (vuitanta-quatre pistes), que és més del que tenia, però no és una actuació. Considereu la funció inacabada fins que n'hagi passat una sencera, igual que ja ho indica la pàgina de funcions."
+              "L'enregistrament funciona: el camí ha fet preses reals a l'equip, la primera de vuitanta-quatre pistes. Encara no ha cobert cap actuació."
             ]
           }
         }
@@ -342,7 +342,7 @@
             "q": "Puc mesclar una actuació real amb això?",
             "a": [
               "Fa actuacions reals en un equip des del 2026-07-06; per tant, la resposta honesta és que depèn del que necessiti la vostra actuació.",
-              "Els canals, els busos, els sends, els DCA, els grups de mute, l'EQ, les dinàmiques, l'analitzador, la correcció d'acoblaments, l'alineació de retard, els inserts de plugins i els stageboxes REAC s'han fet anar i s'han mesurat. La matrix encara no porta àudio, l'enregistrament no està acabat i cap superfície de control no s'ha verificat amb maquinari. Llegiu les limitacions conegudes abans de comprometre-us-hi, no després."
+              "Els canals, els busos, els sends, els DCA, els grups de mute, la matrix, l'EQ, les dinàmiques, l'analitzador, la correcció d'acoblaments, l'alineació de retard, els inserts de plugins, l'enregistrament i els stageboxes REAC s'han fet anar i s'han mesurat. De les superfícies de control, només l'X-Touch s'ha provat amb maquinari. Llegiu les limitacions conegudes abans de comprometre-us-hi, no després."
             ]
           },
           "reachAudio": {

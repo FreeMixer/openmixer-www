@@ -26,7 +26,7 @@
     "limitations": {
       "title": "The known limitations",
       "tag": "honesty",
-      "text": "The matrix does not carry audio yet, a show load is not a reset, delay alignment is not saved, and no control surface has been verified on hardware.",
+      "text": "Of the control surfaces, only the X-Touch has been tested on hardware, and the console itself is not packaged yet.",
       "link": "The full list is on the features page."
     }
   }
