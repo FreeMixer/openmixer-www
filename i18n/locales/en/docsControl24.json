@@ -59,7 +59,7 @@
     },
     "status": {
       "title": "Status.",
-      "p1": "The library is released: libdiginet 0.1.0 holds the protocol, the transport and the probe, and its tests run against a desk emulator."
+      "p1": "The library is released: libdiginet 0.1.0 holds the protocol, the transport and the probe."
     }
   }
 }
