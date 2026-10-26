@@ -59,7 +59,7 @@
     },
     "status": {
       "title": "Estat.",
-      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova. Les proves s'executen contra un emulador de la taula."
+      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova."
     }
   }
 }
