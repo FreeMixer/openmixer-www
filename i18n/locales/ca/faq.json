@@ -228,7 +228,7 @@
           "trust": {
             "q": "Em puc refiar de l'enregistrament i de la prova de so virtual en una actuació real?",
             "a": [
-              "L'enregistrament funciona: el camí ha fet preses reals a l'equip, la primera de vuitanta-quatre pistes. Encara no ha cobert cap actuació."
+              "L'enregistrament funciona: cada pista armada es grava al disc i una presa es reprodueix a través de la taula."
             ]
           }
         }
@@ -341,7 +341,7 @@
           "realShow": {
             "q": "Puc mesclar una actuació real amb això?",
             "a": [
-              "Fa actuacions reals en un equip des del 2026-07-06; per tant, la resposta honesta és que depèn del que necessiti la vostra actuació.",
+              "Fa actuacions reals en un equip real; per tant, la resposta honesta és que depèn del que necessiti la vostra actuació.",
               "Els canals, els busos, els sends, els DCA, els grups de mute, la matrix, l'EQ, les dinàmiques, l'analitzador, la correcció d'acoblaments, l'alineació de retard, els inserts de plugins, l'enregistrament i els stageboxes REAC s'han fet anar i s'han mesurat. De les superfícies de control, només l'X-Touch s'ha provat amb maquinari. Llegiu les limitacions conegudes abans de comprometre-us-hi, no després."
             ]
           },
