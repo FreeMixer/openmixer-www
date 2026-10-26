@@ -24,7 +24,7 @@
     "rta": {
       "title": "Analitzador en temps real",
       "p1": "Una FFT nativa amb un nivell de zoom multiresolució: bins d'uns 0,73 Hz per sota d'una freqüència de transició de 300 Hz, on un analitzador de banda ampla no diu res útil. Retenció de pics, superposició pre-EQ i post-EQ i una traça de diferència per banda.",
-      "p2": "Res no calcula si ningú no ho mira. L'analitzador només funciona a demanda per a cada canal i l'activació sobreviu a una recàrrega perquè va lligada a la sessió, no al navegador. Els busos van tenir el seu analitzador el 2026-09-01; es va provar injectant un to en un bus i llegint el pic de l'espectre a la freqüència injectada, mentre que un bus sense send mostrava un fons sense cap pic.",
+      "p2": "Res no calcula si ningú no ho mira. L'analitzador només funciona a demanda per a cada canal i l'activació sobreviu a una recàrrega perquè va lligada a la sessió, no al navegador. Els busos tenen el seu analitzador; es va provar injectant un to en un bus i llegint el pic de l'espectre a la freqüència injectada, mentre que un bus sense send mostrava un fons sense cap pic.",
       "shotAlt": "L'analitzador a tota alçada: un espectre en directe de 20 Hz a 20 kHz amb retenció de pics i quatre controls de banda d'EQ sobre la corba.",
       "shotCaption": "L'analitzador funcionant amb una entrada en directe, amb els controls de les bandes d'EQ del canal sobre la mateixa corba."
     },
@@ -39,7 +39,7 @@
       "p1": "Dos micròfons sobre una mateixa font capten el so en moments diferents. Trieu la referència, mireu com puja la coherència i apliqueu. L'ajust llegeix el pendent de la fase al llarg de la freqüència; per això necessita material de programa: un to pur no pot mesurar un retard, perquè un sinus ocupa un sol bin.",
       "p2": "Corregeix amb delay i polaritat i <em class=\"text-ink\">informa</em> del residu en lloc de corregir-lo d'amagat. Un control que diu «137°» sense dir a quina freqüència convida l'operador a descobrir que, si canvia la banda d'anàlisi, canvia la resposta.",
       "p3": "Una actuació desada conté l'alineació i carregar l'actuació la recupera. Carregar una actuació que no ha tingut mai alineació l'esborra.",
-      "measuredOn": "Mesurat a l'equip, 2026-08-31",
+      "measuredOn": "Mesurat a l'equip",
       "colDialled": "Valor introduït",
       "colMeasured": "Mesurat",
       "colCoherence": "Coherència",
@@ -47,7 +47,7 @@
     },
     "lv2": {
       "title": "Inserts de plugins LV2",
-      "p1": "Cadenes d'inserts per canal i per sortida allotjades a <code class=\"font-mono text-sm text-ink\">mod-host</code>, amb un selector de plugins i un editor generat a partir dels ports del mateix plugin.",
+      "p1": "Cadenes d'inserts per canal i per sortida per a plugins LV2 i CLAP, amb un selector de plugins i un editor generat a partir dels ports del mateix plugin.",
       "p2": "El catàleg classifica cada plugin per la latència d'anada i tornada <em class=\"text-ink\">mesurada</em>: directe fins a 5 ms, estudi per sobre d'aquest valor i, els dubtosos, en quarantena. Després, dins de cada nivell, els ordena per selecció i cost de CPU, de manera que l'opció segura per al directe és la que surt per defecte.",
       "p3": "L'àudio dels inserts es verifica mesurant, no mirant: un to a través d'un graf real, un notch carregat com a LV2 i una lectura a l'altre extrem. La mesura de referència: una base de −12,04 dBFS; el mateix notch a través de la porta del plugin, −100,56 dBFS; i el bypass, que torna exactament a −12,04. Són 88,52 dB de tall a través del plugin, no pas per fora.",
       "p4": "La compensació de latència dels plugins s'aplica: els canals que alimenten un mateix bus es retarden fins a igualar l'entrada amb més latència d'inserts i a l'equip un canal amb un insert fora de procés mesura 0 mostres de desfasament respecte de la seva parella."
@@ -57,7 +57,7 @@
       "p1": "Els stageboxes Roland de la sèrie S es detecten, s'enruten i es controlen, inclòs el control del previ, que és el que en fa un stagebox i no només un flux d'àudio. A l'equip s'han establert dos stageboxes alhora amb els 128 enllaços intactes després d'una revinculació. També s'ha fet un canvi de cadència en directe de 48 a 96 kHz amb el PA de sala en marxa.",
       "p2": "El Phantom 48V s'ha confirmat físicament als pins de l'XLR en dues entrades, amb la taula indicant el mateix de manera independent. Tres fonts, una sola resposta: és l'única mena de confirmació que pot tenir una afirmació sobre el Phantom 48V.",
       "p3": "El transport és als projectes germans FreeREAC, no en aquest. OpenMixer s'encarrega del camí de control: la detecció, el previ, el patch i la banda de l'adaptador.",
-      "p4": "Obert i datat: a l'S-1608, el patch d'àudio i l'adreçament del previ fan servir dos desplaçaments diferents dins d'una mateixa caixa; i el conjunt de capacitats de previ conegudes que s'informa en declara més de les reals, de manera que no prova que un canvi de previ hagi arribat. Els 44,1 kHz s'han fet servir a l'equip: un S-0808 ha canviat la cadència a 44,1 i ha tornat a 48 kHz, amb un to escoltat a través seu.",
+      "p4": "Els 44,1 kHz també funcionen: un stagebox canvia la cadència a 44,1 kHz i torna a 48 kHz amb el senyal passant-hi.",
       "shotAlt": "El patchbay: una graella de punts de creuament de fonts i canals, amb els stageboxes detectats agrupats a la vora esquerra.",
       "shotCaption": "El patchbay. Les fonts al lateral, els canals a dalt; els stageboxes detectats, agrupats i comptats."
     },
@@ -81,13 +81,13 @@
     "recorder": {
       "title": "Enregistrador i targeta de so virtual",
       "p1": "Captura multipista en preses RF64 a 48 kHz, una biblioteca de preses i una targeta de so virtual perquè una altra aplicació de la mateixa màquina pugui ser una font o una destinació a la taula.",
-      "p2": "El disseny es va decidir el 2026-09-01 i el codi ja hi és: els camins de captura i reproducció en C, l'escriptor RF64 amb les seves proves contra oracle i les files del servidor. El conjunt de canals armats es deriva en lloc de desar-se. El camí de reproducció en directe no té remostrejador, de manera que una presa enregistrada a una altra freqüència de mostratge es converteix fora de línia, al disc, abans que comenci la reproducció.",
-      "p3": "L'enregistrament funciona: la primera presa real a l'equip, el 2026-09-01, va escriure vuitanta-quatre pistes i una prova d'anada i tornada enregistra una presa i la reprodueix a través del graf d'àudio."
+      "p2": "El codi ja hi és: els camins de captura i reproducció en C, l'escriptor RF64 amb les seves proves contra oracle i les files del servidor. El conjunt de canals armats es deriva en lloc de desar-se. El camí de reproducció en directe no té remostrejador, de manera que una presa enregistrada a una altra freqüència de mostratge es converteix fora de línia, al disc, abans que comenci la reproducció.",
+      "p3": "L'enregistrament funciona: una presa real a l'equip va escriure vuitanta-quatre pistes i una prova d'anada i tornada enregistra una presa i la reprodueix a través del graf d'àudio."
     },
     "limits": {
       "eyebrow": "Abans de planificar una actuació",
       "title": "Limitacions conegudes.",
-      "intro": "Una pàgina de producte que només enumera el que funciona no descriu una taula de mescles. Aquests són els límits que convé conèixer abans de confiar a OpenMixer res que no us podeu permetre perdre. És la mateixa llista que recull el manual.",
+      "intro": "Una pàgina de producte que només enumera el que funciona no descriu una taula de mescles. Aquests són els límits que convé conèixer abans de confiar a OpenMixer res que no us podeu permetre perdre.",
       "surfacesHead": "Només l'X-Touch s'ha provat amb maquinari.",
       "surfacesBody": "L'X-Touch Mini i els adaptadors per a Midas, X32/M32 i Roland no s'han fet anar en una superfície real.",
       "packageHead": "La taula encara no està empaquetada.",
