@@ -56,6 +56,13 @@
     "tiles": {
       "tested": "Tested"
     },
+    "inventory": {
+      "caption": "Beside this run: what the catalog holds, and what the test machine had installed.",
+      "catalogLv2": "In the catalog, LV2",
+      "catalogClap": "In the catalog, CLAP",
+      "installedLv2": "Installed, LV2",
+      "installedClap": "Installed, CLAP"
+    },
     "effects": {
       "eyebrow": "Effects",
       "title": "{count} effects",

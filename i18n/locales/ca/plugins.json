@@ -56,6 +56,13 @@
     "tiles": {
       "tested": "Provats"
     },
+    "inventory": {
+      "caption": "Al costat d’aquesta mesura: què conté el catàleg i què tenia instal·lat la màquina de prova.",
+      "catalogLv2": "Al catàleg, LV2",
+      "catalogClap": "Al catàleg, CLAP",
+      "installedLv2": "Instal·lats, LV2",
+      "installedClap": "Instal·lats, CLAP"
+    },
     "effects": {
       "eyebrow": "Efectes",
       "title": "{count} efectes",

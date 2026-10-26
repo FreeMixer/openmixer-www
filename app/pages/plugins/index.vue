@@ -20,6 +20,21 @@ const tiles = computed(() => [
   ...VERDICT_ORDER.map((v) => ({ label: verdictLabel(v), value: count(v) })),
 ]);
 
+/** What the catalog and the test machine held beside this run, when the run recorded it. */
+const inventory = run.run.inventory ?? null;
+const inventoryTiles = computed(() => inventory
+  ? [
+    ...(inventory.catalog
+      ? [
+        { label: t('plugins.inventory.catalogLv2'), value: inventory.catalog.entries.lv2 },
+        { label: t('plugins.inventory.catalogClap'), value: inventory.catalog.entries.clap },
+      ]
+      : []),
+    { label: t('plugins.inventory.installedLv2'), value: inventory.installed.lv2 },
+    { label: t('plugins.inventory.installedClap'), value: inventory.installed.clap },
+  ]
+  : []);
+
 const day = runDay(run.run.date);
 const source = computed(() => run.run.source === 'qualify'
   ? t('plugins.source.qualify')
@@ -79,6 +94,15 @@ useSeoMeta({
           <dd class="mt-1 font-display text-3xl font-semibold text-ink">{{ tile.value }}</dd>
         </div>
       </dl>
+      <div v-if="inventory" class="mt-6">
+        <p class="font-mono text-xs text-ink-faint">{{ t('plugins.inventory.caption') }}</p>
+        <dl class="mt-3 grid grid-cols-2 gap-px overflow-hidden rounded border border-edge bg-edge sm:grid-cols-4">
+          <div v-for="tile in inventoryTiles" :key="tile.label" class="bg-surface px-4 py-3">
+            <dt class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">{{ tile.label }}</dt>
+            <dd class="mt-1 font-display text-2xl font-semibold text-ink">{{ tile.value }}</dd>
+          </div>
+        </dl>
+      </div>
     </PageHero>
 
     <section class="border-b border-edge">
