@@ -2,8 +2,8 @@
 # that holds the private checkout, attached to a release of THIS repository, pinned here by its
 # sha256. Read by scripts/fetch-docs-tree.sh. BUILDING.md, "The documentation tree", says how to
 # make a new one; the pages in it are the ones deploy/public-docs.txt names, and no others.
-release docs-5791a4b66
+release docs-ac3d218ab
 asset docs-tree.tar.gz
-sha256 a93d9c51647f6d6b97c50848635b9821afd9d06cc1e547bcc6fec9a121aee5c3
+sha256 627f2bb8dc0155e66d757992cb36a6715e8d644532469afc8445b20779c9c639
 # the openmixer revision the tree was built from
-openmixer 5791a4b66
+openmixer ac3d218ab
