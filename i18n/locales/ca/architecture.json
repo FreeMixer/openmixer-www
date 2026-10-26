@@ -82,7 +82,7 @@
       },
       "onTop": {
         "title": "Per sobre",
-        "body": "Els inserts de plugins LV2 els allotja <code class=\"font-mono text-xs text-ink\">mod-host</code> i s'encadenen a la frontera d'aquest node, per canal i per sortida. Són dues capes de processament de senyal que no són intercanviables: una és la taula; l'altra, el que hi munteu al rack."
+        "body": "Els inserts de plugins LV2 i CLAP es munten dins d'aquest node amb un sol amfitrió CLAP, un plugin LV2 a través de l'adaptador <code class=\"font-mono text-xs text-ink\">libomx-clap-lv2</code>, per canal i per sortida. Són dues capes de processament de senyal que no són intercanviables: una és la taula; l'altra, el que hi munteu al rack."
       }
     },
     "s6": {

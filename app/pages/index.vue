@@ -80,8 +80,8 @@ const native = computed(() =>
 const tiers = computed(() =>
   ([
     { id: 'native', formats: [], status: 'live', tone: 'live', featured: false },
-    { id: 'open', formats: ['LV2 · mod-host', 'CLAP · omx-clap-host'], status: 'liveLv2', tone: 'live', featured: false },
-    { id: 'hostd', formats: [], status: 'landing', tone: 'land', featured: true },
+    { id: 'open', formats: ['LV2 · libomx-clap-lv2', 'CLAP · libomx-clap-core'], status: 'liveLv2', tone: 'live', featured: false },
+    { id: 'hostd', formats: [], status: 'released', tone: 'rel', featured: true },
   ] as const satisfies readonly { tone: Tone }[]).map((tier) => ({
     n: t(`home.tiers.${tier.id}.n`),
     title: t(`home.tiers.${tier.id}.title`),
@@ -122,8 +122,8 @@ const repos = computed(() =>
     {
       id: 'protocol',
       name: 'libmod-host-protocol',
-      href: 'https://github.com/mod-audio/mod-host/pull/103',
-      go: 'mod-audio/mod-host#103',
+      href: 'https://github.com/mod-audio/mod-host/pull/107',
+      go: 'mod-audio/mod-host#107',
       status: 'proposed',
       tone: 'land',
     },

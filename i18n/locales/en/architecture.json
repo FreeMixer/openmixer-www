@@ -82,7 +82,7 @@
       },
       "onTop": {
         "title": "On top of it",
-        "body": "LV2 plugin inserts are hosted by <code class=\"font-mono text-xs text-ink\">mod-host</code> and threaded into that node's boundary, per strip and per output. Two layers of signal processing, and they are not interchangeable: one is the desk, the other is what you rack into it."
+        "body": "LV2 and CLAP plugin inserts are racked in that node through one CLAP host, an LV2 plugin through the adapter <code class=\"font-mono text-xs text-ink\">libomx-clap-lv2</code>, per strip and per output. Two layers of signal processing, and they are not interchangeable: one is the desk, the other is what you rack into it."
       }
     },
     "s6": {
