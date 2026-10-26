@@ -14,7 +14,7 @@
       "p1": "Canals d'entrada amb guany del previ, trim, pan, polaritat, Phantom 48V i pad; un rack de processament complet a cada canal; busos, sends auxiliars amb punt de presa pre i post, DCA, una matrix, mix-minus, enllaç estèreo de canals i inserts de sortida.",
       "p2": "Les sessions es conserven i es tornen a carregar en arrencar. Les escenes es poden recuperar. Grups de mute, solo (PFL, AFL i solo-in-place amb un pas d'armat), un dim i dos botons de pànic: un per a les sortides principals i un altre per a tota la taula.",
       "p3": "El mix-minus és un tipus de ple dret amb les seves pròpies adreces, no un pedaç basat en desplaçaments d'índex. Els busos i el MAIN són canals com qualsevol altre: no hi ha mecanismes exclusius del màster amagats darrere d'un camí de codi diferent.",
-      "p4": "Carregar una actuació deixa la taula neta: si carregueu l'actuació B sobre l'A, tots els canals i tots els ajustos que B no esmenta tornen al que porta un canal acabat de construir. L'única excepció és el previ, perquè un fitxer d'actuació no imposa mai Phantom 48V, pad ni guany a un previ real. La matrix porta àudio: un grup a −10,04 dBFS a través d'un punt de creuament a 0,8 dona −11,98 dBFS a la matrix."
+      "p4": "Carregar una actuació deixa la taula neta: si carregueu l'actuació B sobre l'A, tots els canals i tots els ajustos que B no esmenta tornen al que porta un canal acabat de construir. L'única excepció és el previ, perquè un fitxer d'actuació no imposa mai Phantom 48V, pad ni guany a un previ real."
     },
     "native": {
       "title": "Processament natiu",
