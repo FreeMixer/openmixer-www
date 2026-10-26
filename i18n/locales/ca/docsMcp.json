@@ -2,7 +2,7 @@
   "docsMcp": {
     "seo": {
       "title": "El servidor MCP — OpenMixer",
-      "description": "Un servidor MCP per stdio que permet a un agent de programació llegir i escriure una taula de mescles en marxa a través del contracte de la mateixa taula, i llegir els contractes que declaren les seves etapes de DSP."
+      "description": "Un servidor MCP per stdio que permet a un agent de programació llegir i escriure una taula de mescles en marxa a través del contracte de la mateixa taula i llegir els contractes que declaren les seves etapes de DSP."
     },
     "family": {
       "console": "La taula de mescles",
@@ -32,7 +32,7 @@
     "hero": {
       "eyebrow": "Documentació tècnica — la porta dels agents",
       "title": "Una taula de mescles que un agent pot llegir i escriure amb el mateix contracte que fan servir tots els altres clients.",
-      "lede": "OpenMixer inclou un servidor MCP per stdio. Les seves eines llegeixen i escriuen una taula de mescles en marxa a través del contracte REST de la mateixa taula, i llegeixen els contractes que declara cada etapa del canal en el moment en què se'ls demana. No decideix res: cada resposta són dades que la taula o l'arbre ja tenen, amb l'indicació d'on surten."
+      "lede": "OpenMixer inclou un servidor MCP per stdio. Les seves eines llegeixen i escriuen una taula de mescles en marxa a través del contracte REST de la mateixa taula i llegeixen els contractes que declara cada etapa del canal en el moment en què se'ls demana. No decideix res: cada resposta són dades que la taula o l'arbre ja tenen, amb l'indicació d'on surten."
     },
     "s1": {
       "title": "Com s'executa.",
