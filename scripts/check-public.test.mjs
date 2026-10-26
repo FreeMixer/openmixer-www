@@ -200,9 +200,10 @@ function runMcp(list, answer) {
         `| \`rules\` | design | — | reads | ${answer} |`, '<!-- tools:end -->', ''].join('\n'),
     );
     const out = join(dir, 'mcp-tools.json');
+    writeFileSync(join(dir, 'public-mcp.txt'), 'tool rules\n');
     const r = spawnSync('node', [join(here, 'gen-mcp-tools.mjs')], {
       encoding: 'utf8',
-      env: { ...process.env, [LIST_ENV]: path, OPENMIXER_SRC: src, MCP_TOOLS_OUT: out },
+      env: { ...process.env, [LIST_ENV]: path, OPENMIXER_SRC: src, MCP_TOOLS_OUT: out, MCP_PUBLIC_LIST: join(dir, 'public-mcp.txt') },
     });
     return { r, json: r.status === 0 ? readFileSync(out, 'utf8') : null };
   });

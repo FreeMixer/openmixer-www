@@ -19,7 +19,7 @@
       "watch": "Add it to a <code class=\"font-mono text-xs text-ink\">GET</code> and it becomes a server-sent event stream emitting exactly what that <code class=\"font-mono text-xs text-ink\">GET</code> returns, snapshot first. A handful of rows — marked <span class=\"text-ink\">on demand</span> below — only compute while at least one client is watching them.",
       "genTitle": "Generated, so it dates itself",
       "genTag": "provenance",
-      "gen": "Built from an OpenMixer checkout's <code class=\"font-mono text-xs text-ink\">travel-sheet.json</code>, <code class=\"font-mono text-xs text-ink\">engine-ui-rows.json</code> and <code class=\"font-mono text-xs text-ink\">message-code.ts</code> — {rows} rows across {families} families, generated {date}."
+      "gen": "Built from an OpenMixer checkout: the travel sheet its core declares, the rows a booted console registers and <code class=\"font-mono text-xs text-ink\">message-code.ts</code>. {rows} rows across {families} families, generated {date}."
     },
     "family": {
       "eyebrow": "By family",

@@ -6,9 +6,16 @@
 // catalog all come from source files an openmixer checkout already carries.
 //
 // Inputs (read from OPENMIXER_SRC, default ../openmixer):
-//   docs/design/travel-sheet.json        — per-field ranges, enums and per-instance limits
-//   docs/design/engine-ui-rows.json      — every addressable row, its fields and a live sample
+//   consoleTravelSheet() from packages/core/dist — per-field ranges, enums and per-instance limits
+//                                         (needs @freemixer/core built in the checkout)
+//   generated/engine-ui-rows.json        — every addressable row, its fields and a live sample,
+//                                         written by a booted console: `pnpm --filter @freemixer/server corpus`
 //   packages/core/src/message-code.ts    — every refusal/undo-label code, doc'd in TSDoc
+//   packages/core/src/message-codes-listed.ts — the list of codes message-code.ts spreads in
+//
+// Both of the first two were committed files under docs/design/ until openmixer deleted them
+// (2026-09-16). A checkout without them is refused, never answered with the committed snapshot:
+// the snapshot is for a machine with no checkout at all.
 //
 // Outputs (consumed by app/pages/docs/rest/*.vue and app/pages/docs/refusal-codes.vue):
 //   app/data/rest-reference.json
@@ -17,7 +24,7 @@
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { resolve, dirname } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
@@ -32,12 +39,26 @@ const src = resolve(wwwRoot, process.env.OPENMIXER_SRC || '../openmixer');
 const REST_OUT = resolve(wwwRoot, 'app/data/rest-reference.json');
 const REFUSALS_OUT = resolve(wwwRoot, 'app/data/refusal-codes.json');
 const OPENAPI_OUT = resolve(wwwRoot, 'public/openapi.json');
-if (!existsSync(resolve(src, 'docs/design/travel-sheet.json'))) {
+const MESSAGE_CODE = 'packages/core/src/message-code.ts';
+const MESSAGE_CODES_LISTED = 'packages/core/src/message-codes-listed.ts';
+const CORE_DIST = 'packages/core/dist/index.js';
+const ROWS = 'generated/engine-ui-rows.json';
+if (!existsSync(resolve(src, MESSAGE_CODE))) {
   if (existsSync(REST_OUT) && existsSync(REFUSALS_OUT) && existsSync(OPENAPI_OUT)) {
     console.log(`[gen-rest-reference] no checkout at ${src} — keeping the committed snapshot`);
     process.exit(0);
   }
   console.error(`[gen-rest-reference] no checkout at ${src} and no committed snapshot to fall back to`);
+  process.exit(1);
+}
+// A checkout is here, so a missing input is a refusal: publishing the old snapshot from a
+// checkout that cannot produce a new one reads exactly like a regeneration that worked.
+if (!existsSync(resolve(src, CORE_DIST))) {
+  console.error(`[gen-rest-reference] ${src} has no ${CORE_DIST}: build core there (pnpm -r --filter "@freemixer/server..." build)`);
+  process.exit(1);
+}
+if (!existsSync(resolve(src, ROWS))) {
+  console.error(`[gen-rest-reference] ${src} has no ${ROWS}: produce it there (pnpm --filter @freemixer/server corpus)`);
   process.exit(1);
 }
 
@@ -80,8 +101,16 @@ function extractArrayStrings(text, arrayStartRe) {
   return [...body.matchAll(/'([^']+)'/g)].map((mm) => mm[1]);
 }
 
-function parseMessageCode(text) {
-  const listedCodes = extractArrayStrings(text, /const LISTED_CODES = \[/);
+function parseMessageCode(text, listedText) {
+  // The listed codes live in their own union-merged file since 2026-10-19
+  // (LISTED_MESSAGE_CODES, which message-code.ts spreads into its typed list); an older checkout
+  // still carries them inline as LISTED_CODES.
+  const listedCodes = listedText
+    ? extractArrayStrings(listedText, /export const LISTED_MESSAGE_CODES = \[/)
+    : extractArrayStrings(text, /const LISTED_CODES = \[/);
+  if (listedCodes.length === 0) {
+    throw new Error('message-code: no listed codes found (neither LISTED_MESSAGE_CODES nor LISTED_CODES)');
+  }
   const undoSetParams = extractArrayStrings(text, /const UNDO_SET_PARAMS = \[/);
   const undoSetCodes = undoSetParams.map((p) => `undo.label.set.${p}`);
 
@@ -239,7 +268,7 @@ function parseMessageCode(text) {
 }
 
 // ---------------------------------------------------------------------------
-// travel-sheet.json + engine-ui-rows.json → the address space
+// travel sheet + row corpus → the address space
 // ---------------------------------------------------------------------------
 
 function familyOf(path) {
@@ -337,13 +366,24 @@ function buildOpenApi(rest, refusals, meta) {
 // main
 // ---------------------------------------------------------------------------
 
+// The travel sheet is a function of core's declarations, so it is asked of core's build, through
+// the same kind of child process as buildOpenApi above: this site has no dependency on core.
+function consoleTravelSheet() {
+  const coreUrl = pathToFileURL(resolve(src, CORE_DIST)).href;
+  const program = `const { consoleTravelSheet } = await import(${JSON.stringify(coreUrl)});
+process.stdout.write(JSON.stringify(consoleTravelSheet()));`;
+  const stdout = execFileSync('node', ['--input-type=module', '-e', program], { encoding: 'utf8', cwd: src, maxBuffer: 64 * 1024 * 1024 });
+  return JSON.parse(stdout);
+}
+
 function main() {
-  const travelSheet = readJson('docs/design/travel-sheet.json');
-  const rowsDoc = readJson('docs/design/engine-ui-rows.json');
-  const messageCodeText = readText('packages/core/src/message-code.ts');
+  const travelSheet = consoleTravelSheet();
+  const rowsDoc = readJson(ROWS);
+  const messageCodeText = readText(MESSAGE_CODE);
+  const listedText = existsSync(resolve(src, MESSAGE_CODES_LISTED)) ? readText(MESSAGE_CODES_LISTED) : null;
 
   const rest = buildRestReference(travelSheet, rowsDoc);
-  const refusals = parseMessageCode(messageCodeText);
+  const refusals = parseMessageCode(messageCodeText, listedText);
 
   // No checkoutPath in meta: it is the generating machine's local absolute path,
   // never a fact this site's reader needs, and published content carries no trace

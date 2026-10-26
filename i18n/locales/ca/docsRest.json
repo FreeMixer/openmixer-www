@@ -19,7 +19,7 @@
       "watch": "Afegiu-lo a un <code class=\"font-mono text-xs text-ink\">GET</code> i es converteix en un flux d'esdeveniments enviats pel servidor que emet exactament el que retorna aquell <code class=\"font-mono text-xs text-ink\">GET</code>, primer amb una instantània. Unes quantes files, marcades més avall amb <span class=\"text-ink\">a demanda</span>, només es calculen mentre almenys un client les observa.",
       "genTitle": "Generada, de manera que porta la seva data",
       "genTag": "procedència",
-      "gen": "Construïda a partir de <code class=\"font-mono text-xs text-ink\">travel-sheet.json</code>, <code class=\"font-mono text-xs text-ink\">engine-ui-rows.json</code> i <code class=\"font-mono text-xs text-ink\">message-code.ts</code> d'una còpia d'OpenMixer: {rows} files en {families} famílies, generada el {date}."
+      "gen": "Construïda a partir d'una còpia d'OpenMixer: el full de recorreguts que declara el seu nucli, les files que registra una consola arrencada i <code class=\"font-mono text-xs text-ink\">message-code.ts</code>. {rows} files en {families} famílies, generada el {date}."
     },
     "family": {
       "eyebrow": "Per família",
