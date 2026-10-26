@@ -12,11 +12,17 @@
 // verdicts, in the same shape (plugin-catalog/schema/plugin-catalog.v1.schema.json).
 //
 //   node scripts/plugin-catalog-from-console.mjs [--console http://127.0.0.1:8800] [--revision <git rev>]
+//                                                 [--catalog <catalog.json>]
+//
+// Beside the verdicts, the file records what the machine held when it was written (run.inventory):
+// the LV2 plugins lilv lists, the CLAP binaries on disk and, with --catalog, the entries of the
+// console's packaged catalog by format. Counted, never typed.
 //
 // Writes plugin-catalog/runs/<YYYY-MM-DD>.json and prints its path.
 
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -29,6 +35,7 @@ const opt = (name, fallback) => {
 };
 const consoleUrl = opt('--console', 'http://127.0.0.1:8800').replace(/\/+$/, '');
 const revision = opt('--revision', null);
+const catalogPath = opt('--catalog', null);
 
 const texts = JSON.parse(readFileSync(resolve(root, 'plugin-catalog/schema/reason-texts.en.json'), 'utf8'));
 
@@ -94,6 +101,15 @@ function lv2Kind(cls) {
   return 'effect';
 }
 
+/**
+ * A CLAP row's KIND. The console's roster gives every plugin it admits a mixer role (eq, dynamics,
+ * gate, reverb, …: packages/catalog curation, a vocabulary of effects only), so a CLAP row with a
+ * role is an effect; one without stays "other". The qualify job reads the CLAP features instead.
+ */
+function clapKind(role) {
+  return role ? 'effect' : 'other';
+}
+
 /** The verdict a reader sees, from the console's rating (see plugin-catalog/README.md). */
 const VERDICT = { suitable: 'in-process', conditional: 'isolated', unsuitable: 'isolated', unknown: 'unknown' };
 
@@ -114,6 +130,42 @@ const CRASH_CODES = new Set([
   'hosting.stability.crashed-live-on-this-rig',
   'hosting.stability.crash-unattributed',
 ]);
+
+/** `*.clap` files under a directory, recursively; 0 when the directory is absent. */
+function clapFilesUnder(dir) {
+  if (!existsSync(dir)) return 0;
+  let n = 0;
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) n += clapFilesUnder(resolve(dir, entry.name));
+    else if (entry.name.endsWith('.clap')) n += 1;
+  }
+  return n;
+}
+
+/**
+ * What the machine holds beside what the console measured, counted as this runs: the LV2 plugins
+ * lilv lists (lv2ls, over LV2_PATH), the CLAP binaries under CLAP_PATH or the standard directories,
+ * and, when --catalog names the console's packaged catalog, its entries by URI scheme (urn:clap: is
+ * CLAP, anything else LV2).
+ */
+function inventory() {
+  const lv2 = execFileSync('lv2ls', [], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
+    .split('\n')
+    .filter((line) => line.trim()).length;
+  const clapDirs = process.env.CLAP_PATH
+    ? process.env.CLAP_PATH.split(':').filter(Boolean)
+    : ['/usr/lib64/clap', '/usr/lib/clap', resolve(homedir(), '.clap')];
+  const clap = [...new Set(clapDirs)].reduce((n, dir) => n + clapFilesUnder(dir), 0);
+  const out = { installed: { lv2, clap } };
+  if (catalogPath) {
+    const entries = JSON.parse(readFileSync(catalogPath, 'utf8'));
+    const isClap = (e) => /^urn:clap:/i.test(e.uri);
+    out.catalog = {
+      entries: { lv2: entries.filter((e) => !isClap(e)).length, clap: entries.filter(isClap).length },
+    };
+  }
+  return out;
+}
 
 const roster = await get('/plugins');
 const plugins = [];
@@ -139,7 +191,7 @@ for (const uri of roster.plugins) {
     name: row.name,
     vendor: info.Author ?? null,
     format: row.format,
-    kind: row.format === 'lv2' ? lv2Kind(row.lv2Class) : 'other',
+    kind: row.format === 'lv2' ? lv2Kind(row.lv2Class) : clapKind(row.role),
     declaredClass: row.lv2Class ? [row.lv2Class] : [],
     package: binary ? owningPackage(binary) : null,
     pluginVersion: null,
@@ -178,6 +230,7 @@ const run = {
       soakSeconds: basis.soakSeconds,
       coreFractionCeiling: basis.coreFractionCeiling,
     },
+    inventory: inventory(),
   },
   plugins,
 };
