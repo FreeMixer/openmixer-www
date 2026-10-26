@@ -51,9 +51,9 @@ const path = computed(() =>
 const cards = computed(() =>
   ([
     { id: 'engine', icon: 'i-lucide-activity', status: 'live', tone: 'live' },
-    { id: 'stagebox', icon: 'i-lucide-server', status: 'progress', tone: 'prog' },
+    { id: 'stagebox', icon: 'i-lucide-server', status: 'live', tone: 'live' },
     { id: 'surface', icon: 'i-lucide-monitor-smartphone', status: 'live', tone: 'live' },
-    { id: 'xtouch', icon: 'i-lucide-sliders-vertical', status: 'progress', tone: 'prog' },
+    { id: 'xtouch', icon: 'i-lucide-sliders-vertical', status: 'live', tone: 'live' },
   ] as const satisfies readonly { tone: Tone }[]).map((c) => ({
     icon: c.icon,
     title: t(`home.cards.${c.id}.title`),
