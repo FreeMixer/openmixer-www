@@ -108,7 +108,7 @@
             "q": "Which sample rates work?",
             "a": [
               "48 kHz and 96 kHz have both been run on the rig, including a change between them with the console live.",
-              "44.1 kHz has not been proven with a stagebox, and is not claimed. Proving it needs a real desk running at 44.1 to pace against."
+              "44.1 kHz has been run on the rig too: an S-0808 re-paced to 44.1 kHz and back to 48, with a tone heard through it."
             ]
           },
           "lv2": {
@@ -228,7 +228,7 @@
           "trust": {
             "q": "Can I trust recording and the virtual soundcheck on a real show?",
             "a": [
-              "Not yet. The path has taken its first real take on the rig — eighty-four tracks — which is more than it had, and it is not a show. Treat the feature as unfinished until one has been carried through it, the same way the features page already labels it."
+              "Recording works: the path has taken real takes on the rig, the first of them eighty-four tracks. It has not yet carried a show."
             ]
           }
         }
@@ -342,7 +342,7 @@
             "q": "Can I mix a real show on this?",
             "a": [
               "It has been mixing real shows on one rig since 2026-07-06, so the honest answer is that it depends on what your show needs.",
-              "Channels, buses, sends, DCAs, mute groups, EQ, dynamics, the analyser, feedback correction, delay alignment, plugin inserts and REAC stageboxes have all been driven and measured. The matrix does not carry audio yet, recording is unfinished, and no control surface has been verified on hardware. Read the known limitations before you commit to it, not afterwards."
+              "Channels, buses, sends, DCAs, mute groups, the matrix, EQ, dynamics, the analyser, feedback correction, delay alignment, plugin inserts, recording and REAC stageboxes have all been driven and measured. Of the control surfaces, only the X-Touch has been tested on hardware. Read the known limitations before you commit to it, not afterwards."
             ]
           },
           "reachAudio": {

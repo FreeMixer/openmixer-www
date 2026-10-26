@@ -14,7 +14,7 @@
       "p1": "Input channels with head gain, trim, pan, polarity, phantom and pad; a full processing rack per strip; buses, aux sends with pre and post tap points, DCAs, a matrix, mix-minus, stereo channel linking and output inserts.",
       "p2": "Sessions persist and reload at boot. Scenes recall. Mute groups, solo (PFL, AFL, solo-in-place with an arming step), a dim, and two panic buttons that separate the mains from the whole console.",
       "p3": "Mix-minus is a first-class kind with its own addresses rather than an index-offset hack. Buses and MAIN are strips like any other — there are no master-only mechanisms hiding behind a different code path.",
-      "p4": "Two honest exceptions worth knowing before you plan a show around them: the matrix has been measured digitally silent with a crosspoint open, and a show load is not a clean slate — loading show B over show A leaves A's curves, dynamics and tails running on every channel B does not mention. Both are open, and both are listed under known limitations below."
+      "p4": "A show load is a clean slate: loading show B over show A returns every channel and every setting B does not mention to what a freshly built strip carries. The one exception is the head-amp, because a show file never asserts phantom, pad or gain onto a real preamp. The matrix carries audio: a group at −10.04 dBFS through a crosspoint at 0.8 reads −11.98 dBFS on the matrix."
     },
     "native": {
       "title": "Native processing",
@@ -32,13 +32,13 @@
       "title": "Feedback detection and correction",
       "p1": "The detector watches for the signature of a ringing room and the corrector plants notches into the channel EQ. Two modes with genuinely different behaviour: a ring-out pass plants a true full-cut notch at a very high Q, while live mode plants a gain-carrying bell whose depth comes from the signal's peak-to-average ratio.",
       "p2": "Live-mode notches lift again in staged ramps as the room settles — two thirds, one third, gone — and re-clamp with a doubled hold if the frequency comes back. It never touches an operator's own bands; only its own tagged ones.",
-      "p3": "It is declared input-only by design. Feedback correction on aux, mix and matrix strips is not offered yet."
+      "p3": "It is offered on inputs and on every bus strip, aux, mix, matrix and MAIN alike: a single detector on MAIN, planting its notches in MAIN's own EQ, is a sanctioned way to work."
     },
     "align": {
       "title": "Smart alignment",
       "p1": "Two microphones on one source arrive at different times. Pick the reference, watch coherence rise, apply. The fit reads the phase slope across frequency, which is why it needs programme material — a pure tone cannot measure delay, because a sine occupies one bin.",
       "p2": "It corrects with delay and polarity, and <em class=\"text-ink\">reports</em> the residual rather than silently correcting it. A control that says \"137°\" without naming the frequency invites the operator to discover that changing the analysis band changes the answer.",
-      "p3": "Known limitation: a saved show does not carry the alignment, and loading one clears it. Do not rely on a show file to restore it.",
+      "p3": "A saved show carries the alignment, and loading the show restores it. Loading a show that never had an alignment clears it.",
       "measuredOn": "Measured on the rig, 2026-08-31",
       "colDialled": "Dialled in",
       "colMeasured": "Measured",
@@ -50,14 +50,14 @@
       "p1": "Per-strip and per-output insert chains hosted by <code class=\"font-mono text-sm text-ink\">mod-host</code>, with a plugin picker and an editor generated from the plugin's own ports.",
       "p2": "The catalog tiers a plugin by <em class=\"text-ink\">measured</em> round-trip latency — live at 5 ms or under, studio above it, ambiguous ones quarantined — and then ranks within a tier by curation and CPU cost, so the live-safe choice wins by default.",
       "p3": "Insert audio is verified by measurement rather than by inspection: a tone through a real graph, a notch racked as an LV2, and a reading at the other end. The reference measurement is a baseline of −12.04 dBFS, the same notch through the plugin door at −100.56 dBFS, and bypass returning to −12.04 exactly — 88.52 dB of cut, through the plugin and not around it.",
-      "p4": "Known limitations: plugin delay compensation is computed and reported but not yet applied, so a chain with differing insert latencies is not time-aligned for you; and removing a plugin from a running chain is unreliable on some <code class=\"font-mono text-xs\">mod-host</code> builds."
+      "p4": "Plugin delay compensation is applied: the channels that feed one bus are delayed to match the feed with the most insert latency, and on the rig a strip with an out-of-process insert racked measures 0 samples of lag against its pair. Known limitation: removing a plugin from a running chain is unreliable on some <code class=\"font-mono text-xs\">mod-host</code> builds."
     },
     "reac": {
       "title": "REAC stageboxes",
       "p1": "Roland S-series stageboxes are discovered, patched and driven — including head-amp control, which is what makes them a stagebox rather than a stream. Two boxes have been established at once on the rig with all 128 links intact across a rebind, and a live 48 to 96 kHz re-pace has been run with the house up.",
       "p2": "Phantom power has been confirmed physically at the XLR pins on two inputs with the console independently agreeing. Three sources, one answer — which is the only kind of confirmation a phantom claim is allowed to have.",
       "p3": "The transport lives in the sibling FreeREAC projects, not in this project. OpenMixer holds the control path: discovery, head-amp, the patch and the adapter side.",
-      "p4": "Open and dated: on the S-1608 the audio patch and the head-amp addressing use two different offsets in one box; the reported set of known head-amp capabilities over-reports, so it is not proof a head-amp landed; the upper bank of a 16-input box can stay at the converter floor when it is not enrolled; and 44.1 kHz pacing has never been proven, because that needs a real desk running at 44.1.",
+      "p4": "Open and dated: on the S-1608 the audio patch and the head-amp addressing use two different offsets in one box; and the reported set of known head-amp capabilities over-reports, so it is not proof a head-amp landed. 44.1 kHz has been run on the rig: an S-0808 re-paced to 44.1 and back to 48 kHz, with a tone heard through it.",
       "shotAlt": "The patchbay: a crosspoint grid of sources against channels, with detected stageboxes grouped down the left edge.",
       "shotCaption": "The patchbay. Sources down the side, channels across the top, detected stageboxes grouped and counted."
     },
@@ -72,34 +72,24 @@
     "surfaces": {
       "title": "Control surfaces",
       "p1": "The Behringer X-Touch and X-Touch Mini are implemented as a bidirectional client: surface gestures become canonical operations, and canonical state drives the motor faders, the LEDs, the V-Pot rings, the scribble strips and the meters. It is wired into the production composition root.",
-      "p2": "It is not marked proven because none of it has been driven on a real surface: not a replug, not select, not a fader sweep, not the encoders, not the meter ladders. The code is built; the hardware verification is owed. Adapters for Midas, X32/M32 and Roland stand on the same footing — real implementations, no hardware proof.",
+      "p2": "The X-Touch has been run on a real surface: the faders and motors, mute, solo, the V-Pots, SELECT, the master fader, the scribble strips, the meter ladder, a power-cycle and a console restart. The bugs that run found are fixed. The X-Touch Mini and the adapters for Midas, X32/M32 and Roland have not been run on a real surface.",
       "control24": {
-        "text": "The Digidesign Control{'|'}24 and ProControl talk DigiNet over Ethernet. Their protocol library, libdiginet, is released and has not yet met a real desk; the console does not drive one. {link}",
+        "text": "The Digidesign Control{'|'}24 and ProControl talk DigiNet over Ethernet. Their protocol library, libdiginet, is released; the console does not drive one. {link}",
         "link": "Connecting a Control{'|'}24"
       }
     },
     "recorder": {
       "title": "Recorder and virtual soundcard",
       "p1": "Multitrack capture to RF64 takes at 48 kHz, a take library, and a virtual soundcard so another application on the same machine can be a source or a destination on the desk.",
-      "p2": "The design was ruled on 2026-09-01 and the code is landing now: the C capture and playback paths, the RF64 writer and its oracle tests, and the server rows are in. The arm set is derived rather than stored, and playback is refused outright when the graph rate does not match the take's, because there is no resampler on that path.",
-      "p3": "There is no rig proof yet. Treat it as unfinished."
+      "p2": "The design was ruled on 2026-09-01 and the code is in: the C capture and playback paths, the RF64 writer and its oracle tests, and the server rows. The arm set is derived rather than stored. The live playback path has no resampler, so a take recorded at another rate is converted offline, on disk, before playback starts.",
+      "p3": "Recording works: the first real take on the rig, on 2026-09-01, wrote eighty-four tracks, and a round-trip test records a take and plays it back through the audio graph."
     },
     "limits": {
       "eyebrow": "Before you plan a show",
       "title": "Known limitations.",
       "intro": "A product page that lists only what works is not a description of a console. These are the limits worth knowing before OpenMixer carries anything you cannot afford to lose, and they are the same list the manual carries.",
-      "showHead": "Loading a show is not a reset.",
-      "showBody": "Loading a second show over a first leaves the first show’s curves, dynamics, delay tails and feedback notches running on every channel the second does not mention.",
-      "alignHead": "Alignment does not survive a show load.",
-      "alignBody": "Delay alignment is not stored in the show file, and loading one clears it.",
-      "matrixHead": "The matrix does not carry audio yet.",
-      "matrixBody": "The addresses, the surface and the crosspoints are there; the audio is not. Do not test it by ear and conclude something else is broken.",
-      "surfacesHead": "Control surfaces are unverified on hardware.",
-      "surfacesBody": "The X-Touch implementation is complete and wired in, and no part of it has been walked on a real surface.",
-      "rateHead": "44.1 kHz is unproven with stageboxes.",
-      "rateBody": "48 and 96 kHz have been run on the rig, including a live change between them. 44.1 has not.",
-      "recHead": "Recording is not finished.",
-      "recBody": "The capture path, the file writer and the take library are landing now and nothing has recorded a show through them.",
+      "surfacesHead": "Only the X-Touch has been tested on hardware.",
+      "surfacesBody": "The X-Touch Mini and the adapters for Midas, X32/M32 and Roland have not been run on a real surface.",
       "packageHead": "The console is not packaged yet.",
       "packageBody": "The plugin hosts are: {link}.",
       "packageLink": "install them from our packages",
