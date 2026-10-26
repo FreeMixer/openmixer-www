@@ -13,6 +13,7 @@ import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { scanDir, scanText } from './check-public.mjs';
 import { loadPrivateList, listPath, DEFAULT_LIST, LIST_ENV, PrivateListError } from './private-list.mjs';
+import { BRANCH_NAMES, scrubBranchNames } from './branch-names.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const script = join(here, 'check-public.mjs');
@@ -114,6 +115,35 @@ test('the command: a clean site passes with 0', () => {
     assert.equal(r.status, 0, r.stderr);
     assert.match(r.stdout, /clean: 1 text files/);
   });
+});
+
+/** The version line a docs tree printed when its nearest tag was an archived working branch. */
+const ARCHIVED_VERSION = '<p data-manual-build-version>Build archive/2026-09-24/lane/shadow-in-pod-8789-gac3d218ab</p>';
+
+test('the command: an archive tag or a working-branch ref fails with 1, whatever the list says', () => {
+  withList(SYNTHETIC, (path) => {
+    const tagged = runGuard(path, ARCHIVED_VERSION);
+    assert.equal(tagged.status, 1, tagged.stderr);
+    assert.match(tagged.stderr, /\[archive tag\]/);
+    const branch = runGuard(path, '<p>Found by lane/docs-drift-gate.</p>');
+    assert.equal(branch.status, 1, branch.stderr);
+    assert.match(branch.stderr, /\[working branch\]/);
+  });
+});
+
+test('the command: the same page with the revision instead passes with 0', () => {
+  withList(SYNTHETIC, (path) => {
+    const r = runGuard(path, scrubBranchNames(ARCHIVED_VERSION, 'ac3d218ab'));
+    assert.equal(r.status, 0, r.stderr);
+  });
+});
+
+test('the docs build replaces archive tags with the revision and branch refs with development', () => {
+  assert.equal(scrubBranchNames(ARCHIVED_VERSION, 'ac3d218ab'), '<p data-manual-build-version>Build ac3d218ab</p>');
+  assert.equal(scrubBranchNames('Found by lane/docs-drift-gate.', 'ac3d218ab'), 'Found by development.');
+  const untouched = 'a plane/x route, a sub-lane/y id, v0.1.0-11607-gac3d218ab';
+  assert.equal(scrubBranchNames(untouched, 'ac3d218ab'), untouched);
+  assert.deepEqual(scanText(untouched, BRANCH_NAMES), []);
 });
 
 test('the command: a missing list fails closed with 3', () => {
