@@ -85,7 +85,7 @@
       },
       "mcp": {
         "title": "El servidor MCP",
-        "body": "{count} eines per stdio per llegir una taula en execució i el disseny del mateix arbre de codi, a més de les habilitats de procés que guarda el repositori."
+        "body": "{count} eines per stdio per llegir i escriure una taula en execució i llegir els contractes que declaren les seves etapes de DSP, a més de les habilitats de procés que guarda el repositori."
       },
       "architecture": {
         "title": "Arquitectura",

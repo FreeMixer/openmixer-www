@@ -32,13 +32,22 @@ cat "$tmp" > "$pin"
 if [ -n "${DRY_RUN:-}" ]; then echo "pin-docs-tree: $pin now pins $tag ($sha)"; exit 0; fi
 
 cd "$here"
-gh release view "$tag" -R "$repo" >/dev/null 2>&1 || \
+# A second tree from the same revision (a fix to the build, not to openmixer) replaces the asset of
+# the release that revision already has, and moves the same branch and pull request to it.
+if gh release view "$tag" -R "$repo" >/dev/null 2>&1; then
+  gh release upload "$tag" "$tarball" -R "$repo" --clobber
+else
   gh release create "$tag" "$tarball" -R "$repo" --prerelease --title "Docs tree from openmixer $rev" \
     --notes "The documentation tree built from FreeMixer/openmixer at $rev."
+fi
 branch="docs-tree-$rev"
-git switch -c "$branch"
+git switch -C "$branch"
 git add "$pin"
 git commit -S -m "Docs tree from openmixer $rev"
-git push -u origin "$branch"
-gh pr create -R "$repo" --title "Docs tree from openmixer $rev" \
-  --body "Moves deploy/docs-tree.txt to release $tag (sha256 $sha). The run of this pull request is the dry run of the whole site."
+git push --force-with-lease -u origin "$branch"
+body="Moves deploy/docs-tree.txt to release $tag (sha256 $sha). The run of this pull request is the dry run of the whole site."
+if gh pr view "$branch" -R "$repo" >/dev/null 2>&1; then
+  gh pr edit "$branch" -R "$repo" --body "$body"
+else
+  gh pr create -R "$repo" --title "Docs tree from openmixer $rev" --body "$body"
+fi
