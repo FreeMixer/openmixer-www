@@ -20,12 +20,11 @@ const needs = computed(() =>
 );
 
 const fedora = [
-  'sudo dnf config-manager addrepo --from-repofile=https://freemixer.github.io/rpm/freemixer.repo',
+  'sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm',
   'sudo dnf install diginet-tools',
 ];
 const debian = [
-  'curl -fsSL https://freemixer.github.io/deb/freemixer.asc | sudo tee /usr/share/keyrings/freemixer.asc >/dev/null',
-  'echo "deb [signed-by=/usr/share/keyrings/freemixer.asc] https://freemixer.github.io/deb/debian/$(. /etc/os-release; echo $VERSION_CODENAME) ./" | sudo tee /etc/apt/sources.list.d/freemixer.list',
+  'curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb && sudo apt install ./openmixer-release.deb',
   'sudo apt update && sudo apt install diginet-tools',
 ];
 const tabs = [

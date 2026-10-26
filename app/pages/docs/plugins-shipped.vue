@@ -9,13 +9,11 @@ useSeoMeta({
 });
 
 const fedora = [
-  'sudo dnf config-manager addrepo --from-repofile=https://freemixer.github.io/rpm/freemixer.repo',
+  'sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm',
   'sudo dnf install omx-plugins',
 ];
 const debian = [
-  'sudo install -d /etc/apt/keyrings',
-  'sudo curl -fsSL -o /etc/apt/keyrings/freemixer.asc https://freemixer.github.io/deb/freemixer.asc',
-  'echo "deb [signed-by=/etc/apt/keyrings/freemixer.asc] https://freemixer.github.io/deb/debian/$(. /etc/os-release && echo $VERSION_CODENAME) ./" | sudo tee /etc/apt/sources.list.d/freemixer.list',
+  'curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb && sudo apt install ./openmixer-release.deb',
   'sudo apt update',
   'sudo apt install omx-plugins',
 ];
