@@ -68,7 +68,9 @@ whatever the release holds today. To publish new docs:
    repository (`docs-<openmixer revision>`, a pre-release) and opens the pull request that changes
    `deploy/docs-tree.txt` to the new release, asset, sha256 and openmixer revision (`DRY_RUN=1` only rewrites
    the file). The pull request's run is the dry run of the whole site. It needs `gh` and this repository, and
-   nothing from the private checkout, so the desk or a job on the openmixer side can run it.
+   nothing from the private checkout, so the desk or a job on the openmixer side can run it. Run again for
+   a revision that already has a release, it replaces that release's tarball and moves the same branch and
+   pull request to it.
 
 **The list.** Only the pages named in `deploy/public-docs.txt` are published, and it stays the one
 list. The tree is built on a sparse copy of the checkout that holds only those pages (the docs
@@ -77,7 +79,11 @@ design notes, 2026-10-01); a new page in the openmixer repo stays private until 
 the list. The tree records a hash of the list it was built from, and the publish step refuses a
 tree built from another one: a change to the list is a new tree and a new pin.
 `scripts/check-public.mjs` then reads every text file of the built site and fails on a home path,
-agent notes, an internal host name or a private address.
+agent notes, an internal host name or a private address, and on an archive tag
+(`archive/<date>/...`) or a working-branch ref (`lane/<name>`). The manual's version line is
+`git describe --tags`, so the build keeps only the release tags in its copy of the checkout and
+replaces any such name left in the built tree with the revision (an archive tag) or the word
+development (a branch ref); `scripts/branch-names.mjs` holds both shapes.
 
 **The private list.** What the guard looks for, what the staged copy leaves out and what the MCP
 table redacts are names of the private tree, so they are not in this repository: the scripts read
@@ -86,6 +92,12 @@ them from a JSON file at `PUBLIC_GUARD_LIST`, by default `../openmixer-ops/ops/p
 it `check-public.mjs` exits 3, and the docs build and the MCP generator refuse; none of them passes
 on an empty list. The guard's own tests use a neutral list of planted markers, so they run anywhere.
 In CI the list comes from the `PUBLIC_GUARD_LIST_JSON` secret.
+
+**The MCP list.** `/docs/mcp` publishes the MCP tools and environment variables named in
+`deploy/public-mcp.txt` and no others: `scripts/gen-mcp-tools.mjs` reads every row the package
+registers and writes only the listed ones to `app/data/mcp-tools.json`. A tool the package gains
+stays off the page until a line adds it, and a line naming a row the package no longer has is
+refused. `node --test scripts/gen-mcp-tools.test.mjs` holds both rules.
 
 `scripts/build-docs-tree.mjs` does both steps. It refuses rather than delivering less than it
 claims: no tree, no publish (there is deliberately no snapshot to fall back on); a tree built for
