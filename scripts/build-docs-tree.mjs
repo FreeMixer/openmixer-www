@@ -75,9 +75,11 @@ import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, 
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { tmpdir } from 'node:os';
-import { dirname, join, relative, resolve } from 'node:path';
+import { dirname, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadPrivateList } from './private-list.mjs';
+import { scrubBranchNames } from './branch-names.mjs';
+import { BINARY } from './check-public.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
@@ -238,6 +240,12 @@ function buildFromCheckout() {
   // stamps the manual's version line, reads it as the revision it is.
   git(['sparse-checkout', 'set', '--no-cone', '/*', '!/docs/', ...privateList.exclude.map((p) => `!/${p}`), ...allow.pages.map((p) => `/docs/${p}`), ...allow.dirs.map((d) => `/docs/${d}`)]);
   git(['checkout', '--quiet', '--detach', git(['rev-parse', 'HEAD'], src).trim()]);
+  // That line is `git describe --tags`, and the nearest tag of ANY name wins: the checkout carries
+  // its archived working branches as tags, and one of them named a whole tree (archive/<date>/lane/
+  // <name>-g<sha>). The copy keeps only the release tags, so the line is a release and a distance
+  // from it, or the bare revision.
+  const workTags = git(['tag', '--list']).split('\n').filter((t) => t !== '' && !/^v\d/.test(t));
+  if (workTags.length > 0) git(['tag', '--delete', ...workTags]);
 
   for (const e of allow.edits) {
     const file = join(stage, 'docs', e.path);
@@ -287,6 +295,22 @@ function buildFromCheckout() {
   if (!existsSync(join(built, 'docs/manual/index.html'))) {
     die(`the docs build produced no ${built}/docs/manual/index.html — nothing to publish`);
   }
+
+  // Whatever else stamped the build (an installed package, a tag the copy did not drop), no archive
+  // tag or working-branch ref leaves the desk: each becomes the revision, or the word development.
+  // check-public.mjs refuses one that survives.
+  let scrubbed = 0;
+  for (const rel of readdirSync(built, { recursive: true }).map(String)) {
+    const file = join(built, rel);
+    if (BINARY.has(extname(rel).toLowerCase()) || !statSync(file).isFile()) continue;
+    const text = readFileSync(file, 'utf8');
+    const clean = scrubBranchNames(text, revision);
+    if (clean !== text) {
+      writeFileSync(file, clean);
+      scrubbed++;
+    }
+  }
+  console.log(`[build-docs-tree] branch and tag names replaced in ${scrubbed} file(s)`);
 
   return { built, revision };
 }

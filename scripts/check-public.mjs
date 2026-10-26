@@ -2,7 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
 // Fails when the built site contains anything that belongs to the private development
-// tree: a home directory, the agent notes, internal host names, private addresses.
+// tree: a home directory, the agent notes, internal host names, private addresses, the name of
+// a working branch or an archive tag.
 //
 // It reads the OUTPUT, every text file under the published tree (HTML, JS bundles,
 // payloads, JSON), because that is what a visitor can fetch. The docs bundle that leaked
@@ -17,14 +18,16 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadPrivateList } from './private-list.mjs';
+import { BRANCH_NAMES } from './branch-names.mjs';
 
 // WHAT must never be published comes from the private list (private-list.mjs), not from this
 // file: spelled out here, the names this guard keeps off the site would be published by the guard
 // itself. Each entry is a name for the report and a pattern; the functions below take them as an
-// argument, so a test hands them a list of its own.
+// argument, so a test hands them a list of its own. The one addition is a SHAPE, not a name: an
+// archive tag or a working-branch ref (branch-names.mjs), which the command adds to the list.
 
 /** Files read as text. Images and fonts are skipped; an unknown extension is read too. */
-const BINARY = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico', '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.gz', '.br', '.zip']);
+export const BINARY = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.avif', '.ico', '.woff', '.woff2', '.ttf', '.otf', '.pdf', '.gz', '.br', '.zip']);
 
 /** Every hit of `forbidden` ([{ name, re }]) in one text, as { name, line, excerpt }. */
 export function scanText(text, forbidden) {
@@ -75,7 +78,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     console.error(`[check-public] ${e.message}: nothing was checked, and that is a failure`);
     process.exit(3);
   }
-  const { files, hits } = scanDir(dir, list.forbidden);
+  const { files, hits } = scanDir(dir, [...list.forbidden, ...BRANCH_NAMES]);
   if (files === 0) {
     console.error(`[check-public] ${dir} holds no text files: nothing was checked`);
     process.exit(2);
