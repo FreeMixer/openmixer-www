@@ -30,7 +30,7 @@ test('install lines and prose pass', () => {
   const clean = [
     'To make a mix you build it from strips; npm run generate in prose is not code.',
     '```',
-    'sudo dnf config-manager addrepo --from-repofile=https://freemixer.github.io/rpm/freemixer.repo',
+    'sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm',
     'sudo dnf install plugin-hostd omx-clap-host',
     '```',
     'then `sudo apt install plugin-hostd omx-clap-host`. Building from source: see [BUILDING.md](BUILDING.md).',
