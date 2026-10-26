@@ -8,8 +8,7 @@
       "live": "Live",
       "liveLv2": "Live · LV2",
       "progress": "In progress",
-      "landing": "Landing in the console",
-      "released": "Released · 0.1.0",
+      "released": "Released",
       "proposed": "Proposed upstream"
     },
     "hero": {
@@ -131,14 +130,14 @@
       "open": {
         "n": "02 · The open plugin world",
         "title": "LV2 and CLAP",
-        "text": "LV2 plugins run in mod-host, the host behind MOD Audio's devices. CLAP plugins run in omx-clap-host, which speaks mod-host's own protocol, so the console drives both the same way. Each plugin's controls come from its own metadata, and a catalog ranks plugins by measured latency so the live-safe choice comes first.",
+        "text": "The engine racks LV2 and CLAP plugins through one CLAP host: the adapter libomx-clap-lv2 presents each LV2 plugin as a CLAP plugin, so the console drives both formats the same way. Each plugin's controls come from its own metadata, and a catalog ranks plugins by measured latency so the live-safe choice comes first.",
         "costLabel": "Added latency",
         "cost": "one buffer"
       },
       "hostd": {
         "n": "03 · The safety net",
         "title": "plugin-hostd",
-        "text": "A supervisor between the console and its plugin hosts, each host running as a worker process. When a plugin crashes, plugin-hostd restarts only that worker and restores its plugins and every setting. That strip passes dry audio meanwhile, and every other channel carries on.",
+        "text": "A supervisor between the console and its plugin hosts, each host running as a worker process: omx-clap-host for CLAP and for LV2 through its adapter, and mod-host for an LV2 plugin the adapter refuses. When a plugin crashes, plugin-hostd restarts only that worker and restores its plugins and every setting. That strip passes dry audio meanwhile, and every other channel carries on.",
         "costLabel": "A crash costs",
         "cost": "one strip, briefly dry"
       }
@@ -165,8 +164,8 @@
       "title": "Built in the open, for everyone who hosts plugins.",
       "lede": "The pieces OpenMixer uses to load outside plugins are projects of their own, packaged for Fedora and Debian, including Raspberry Pi OS and Zynthian. Any host that already speaks mod-host's protocol can use them.",
       "repos": {
-        "clapHost": "A CLAP plugin host for JACK, driven over mod-host's socket protocol. It hosts effects and instruments with MIDI in, runs on its own the way jalv does for LV2, and ships omx-clap-scan to list what a CLAP bundle holds.",
-        "hostd": "The plugin supervisor. It speaks mod-host's protocol to its clients and runs mod-host for LV2 and omx-clap-host for CLAP as workers, with crash isolation, restart with back-off and state replay.",
+        "clapHost": "A CLAP and LV2 plugin host for JACK, driven over mod-host's socket protocol. It runs LV2 plugins natively through lilv, with the adapter libomx-clap-lv2 mapping them to CLAP ports. It hosts effects and instruments with MIDI in, runs on its own the way jalv does for LV2, and ships omx-clap-scan to list what a CLAP bundle holds.",
+        "hostd": "The plugin supervisor. It speaks mod-host's protocol to its clients and runs each plugin in a worker of a native host: omx-clap-host for CLAP, and for LV2 the adapter first, with mod-host only for a plugin the adapter refuses. It brings crash isolation, restart with back-off and state replay.",
         "protocol": "mod-host's socket protocol as a shared library, so a second host can speak it without carrying a copy. Proposed to mod-host and packaged for Fedora; both hosts above link it."
       }
     },

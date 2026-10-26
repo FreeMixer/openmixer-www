@@ -53,7 +53,7 @@
     "install": {
       "fedora": "Fedora 44, x86_64 or aarch64.",
       "debian": "Debian bookworm or trixie, amd64 or arm64. The same packages install on Raspberry Pi OS and Zynthian.",
-      "pkgClapHost": "The CLAP host and omx-clap-scan, with the omx-clap-core library.",
+      "pkgClapHost": "The CLAP and LV2 host and omx-clap-scan, with the omx-clap-core library.",
       "pkgHostd": "The plugin supervisor and its manual page.",
       "pkgDevel": "Headers and pkg-config files, to build your own host against the same libraries.",
       "signed": "The repositories and every package are signed with one key:",
