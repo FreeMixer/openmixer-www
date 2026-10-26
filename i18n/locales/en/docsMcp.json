@@ -11,7 +11,8 @@
       "rulings": "The design corpus",
       "traps": "The traps",
       "compliance": "Before an edit",
-      "jobs": "The job ledger"
+      "jobs": "The job ledger",
+      "lane": "Before a lane starts"
     },
     "col": {
       "tool": "Tool",
@@ -51,7 +52,7 @@
     },
     "s3": {
       "title": "One tool writes, and it writes once.",
-      "p1": "Fifteen of the sixteen tools read. The sixteenth, <code class=\"font-mono text-sm text-ink\">console_patch</code>, sends a real write to a real desk — so it sends exactly one request, never retries it, and hands back the console’s status, its <code class=\"font-mono text-sm text-ink\">Allow</code> header and its body as they arrived. A refusal is the desk’s ruling and is returned verbatim rather than interpreted, which is the same contract every other client works under: the console decides, and what comes back is what it decided.",
+      "p1": "Every tool but two reads. <code class=\"font-mono text-sm text-ink\">write_scaffold</code> writes files only into a linked git worktree, each one checked before it counts as written, and never into the main tree. <code class=\"font-mono text-sm text-ink\">console_patch</code> sends a real write to a real desk, so it sends exactly one request, never retries it, and hands back the console’s status, its <code class=\"font-mono text-sm text-ink\">Allow</code> header and its body as they arrived. A refusal is the desk’s ruling and is returned verbatim rather than interpreted, which is the same contract every other client works under: the console decides, and what comes back is what it decided.",
       "p2": "The tool holds nothing back on its own account. A write that fires an operation the console’s own <code class=\"font-mono text-sm text-ink\">confirms</code> sheet gates — a channel-config apply that would move gain, trim or pan is the example — is sent, and the console refuses it with <code class=\"font-mono text-sm text-ink\">CONFIRM_REQUIRED</code> while the preview lists moves and the operator’s sign-off is on. The refusal comes back with the preview in the body, like any other answer. Calling again with <code class=\"font-mono text-sm text-ink\">confirm: true</code> — which rides the delta as the row’s own confirm argument — applies it, because the agent has now been shown what it is agreeing to. The gate is the desk’s, so an agent, a browser and an OSC surface are refused identically and answer identically; there is no client-side policy to keep in step.",
       "p3": "The metered row is the one place a read is not simply a GET. A pump-fed row measures only while something is watching it, so an unmeasured frame is followed by a single watch that closes the moment the first measured frame lands. No stream is left open.",
       "p4": "The tools stand on a fake console with the real console’s shapes, checked across the wire on values rather than on shapes — a −20 dBFS reading has to decode to −20. A live desk is not part of that suite."
