@@ -14,7 +14,7 @@
       "p1": "Input channels with head gain, trim, pan, polarity, phantom and pad; a full processing rack per strip; buses, aux sends with pre and post tap points, DCAs, a matrix, mix-minus, stereo channel linking and output inserts.",
       "p2": "Sessions persist and reload at boot. Scenes recall. Mute groups, solo (PFL, AFL, solo-in-place with an arming step), a dim, and two panic buttons that separate the mains from the whole console.",
       "p3": "Mix-minus is a first-class kind with its own addresses rather than an index-offset hack. Buses and MAIN are strips like any other — there are no master-only mechanisms hiding behind a different code path.",
-      "p4": "A show load is a clean slate: loading show B over show A returns every channel and every setting B does not mention to what a freshly built strip carries. The one exception is the head-amp, because a show file never asserts phantom, pad or gain onto a real preamp. The matrix carries audio: a group at −10.04 dBFS through a crosspoint at 0.8 reads −11.98 dBFS on the matrix."
+      "p4": "A show load is a clean slate: loading show B over show A returns every channel and every setting B does not mention to what a freshly built strip carries. The one exception is the head-amp, because a show file never asserts phantom, pad or gain onto a real preamp."
     },
     "native": {
       "title": "Native processing",
