@@ -17,8 +17,8 @@
     },
     "install": {
       "title": "Install.",
-      "fedora": "On Fedora, add the FreeMixer package repository, then install:",
-      "debian": "On Debian (bookworm or trixie) and Raspberry Pi OS, add the repository's signing key and the repository, then install. The release name is read from your system:",
+      "fedora": "On Fedora, install the OpenMixer release package, which adds the repository and its key, then install:",
+      "debian": "On Debian (bookworm or trixie) and Raspberry Pi OS, install the OpenMixer release package, which adds the repository and its key, then install:",
       "signed": "The packages and the repository metadata are signed."
     },
     "packages": {

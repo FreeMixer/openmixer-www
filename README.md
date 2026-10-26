@@ -34,11 +34,15 @@ packages.
 Fedora:
 
 ```
-sudo dnf config-manager addrepo --from-repofile=https://freemixer.github.io/rpm/freemixer.repo
+sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm
 sudo dnf install plugin-hostd omx-clap-host
 ```
 
-Debian and Raspberry Pi OS: add the apt line from <https://freemixer.github.io>, then
-`sudo apt install plugin-hostd omx-clap-host`.
+Debian and Raspberry Pi OS:
+
+```
+curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb && sudo apt install ./openmixer-release.deb
+sudo apt update && sudo apt install plugin-hostd omx-clap-host
+```
 
 Building from source: see [BUILDING.md](BUILDING.md).
