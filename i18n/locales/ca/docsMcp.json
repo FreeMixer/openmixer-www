@@ -2,17 +2,11 @@
   "docsMcp": {
     "seo": {
       "title": "El servidor MCP — OpenMixer",
-      "description": "Un servidor MCP per stdio que permet a un agent de programació llegir una taula de mescles en marxa a través del contracte de la mateixa taula i consultar els registres de disseny del repositori en el moment de la crida."
+      "description": "Un servidor MCP per stdio que permet a un agent de programació llegir i escriure una taula de mescles en marxa a través del contracte de la mateixa taula, i llegir els contractes que declaren les seves etapes de DSP."
     },
     "family": {
       "console": "La taula de mescles",
-      "rig": "L'equip",
-      "law": "El disseny que governa",
-      "rulings": "El corpus de disseny",
-      "traps": "Els paranys",
-      "compliance": "Abans d'una edició",
-      "jobs": "El registre de feines",
-      "lane": "Abans que comenci un carril"
+      "law": "Els contractes declarats"
     },
     "col": {
       "tool": "Eina",
@@ -37,22 +31,22 @@
     },
     "hero": {
       "eyebrow": "Documentació tècnica — la porta dels agents",
-      "title": "Una taula de mescles que un agent d'edició pot llegir i un arbre que respon amb la seva pròpia llei.",
-      "lede": "OpenMixer inclou un servidor MCP per stdio. Les seves eines llegeixen una taula de mescles en marxa a través del contracte REST de la mateixa taula i llegeixen el disseny que governa el repositori (el mapa d'especificacions, les decisions, els paranys, les bateries de conformitat, el registre de feines) en el moment en què se'ls demana. No decideix res: cada resposta són dades que la taula o l'arbre ja tenen, amb l'indicació d'on surten."
+      "title": "Una taula de mescles que un agent pot llegir i escriure amb el mateix contracte que fan servir tots els altres clients.",
+      "lede": "OpenMixer inclou un servidor MCP per stdio. Les seves eines llegeixen i escriuen una taula de mescles en marxa a través del contracte REST de la mateixa taula, i llegeixen els contractes que declara cada etapa del canal en el moment en què se'ls demana. No decideix res: cada resposta són dades que la taula o l'arbre ja tenen, amb l'indicació d'on surten."
     },
     "s1": {
       "title": "Com s'executa.",
       "p1": "És un paquet de l'espai de treball, <code class=\"font-mono text-sm text-ink\">{'@'}openmixer/mcp-server</code>. Parla MCP per stdio: un client MCP engega el procés i s'hi comunica per la canonada. No hi ha cap port ni cap dimoni, ni res que calgui deixar en marxa.",
-      "p2": "El servidor puja des del seu directori de treball fins a l'arrel de l'espai de treball i llegeix les lleis d'<span class=\"text-ink\">aquell</span> arbre. Així, una segona còpia de treball respon amb els seus propis registres de disseny i no hi ha res empaquetat dins el paquet."
+      "p2": "El servidor puja des del seu directori de treball fins a l'arrel de l'espai de treball i llegeix els contractes d'<span class=\"text-ink\">aquell</span> arbre. Així, una segona còpia de treball respon amb les seves pròpies declaracions i no hi ha res empaquetat dins el paquet."
     },
     "s2": {
-      "title": "{count} eines, en dues meitats.",
-      "p1": "Una meitat és la porta REST de les entitats tal com és ara: la llista, una fila, els seus recorreguts declarats, un fotograma d'una fila amb mesura. L'altra meitat és el material de disseny del mateix arbre. La taula següent es genera a partir de la taula d'eines registrades del paquet, no s'escriu a mà. La prova del mateix paquet rebutja qualsevol descripció que s'hagi desviat del registre.",
+      "title": "{count} eines, en dues famílies.",
+      "p1": "Una família és la porta REST de les entitats tal com és ara: la llista, una fila, els seus recorreguts declarats, un fotograma d'una fila amb mesura i una escriptura. L'altra llegeix els contractes que declaren les etapes de DSP d'un canal: les lleis, els paràmetres i els seus límits. La taula següent es genera a partir de la taula d'eines registrades del paquet, no s'escriu a mà. La prova del mateix paquet rebutja qualsevol descripció que s'hagi desviat del registre.",
       "writes": "escriu"
     },
     "s3": {
       "title": "Només una eina escriu i ho fa una sola vegada.",
-      "p1": "Totes les eines llegeixen menys dues. <code class=\"font-mono text-sm text-ink\">write_scaffold</code> escriu fitxers només en un worktree de git enllaçat i mai a l'arbre principal; cadascun es comprova abans de donar-lo per escrit. <code class=\"font-mono text-sm text-ink\">console_patch</code> envia una escriptura real a una taula real. Per això envia exactament una petició, no la reintenta mai i retorna l'estat de la taula de mescles, la seva capçalera <code class=\"font-mono text-sm text-ink\">Allow</code> i el cos tal com han arribat. Un refús és la decisió de la taula i es retorna literalment, sense interpretar-lo: és el mateix contracte amb què treballen tots els altres clients. La taula de mescles decideix i el que torna és el que ha decidit.",
+      "p1": "Totes les eines llegeixen menys una. <code class=\"font-mono text-sm text-ink\">console_patch</code> envia una escriptura real a una taula real. Per això envia exactament una petició, no la reintenta mai i retorna l'estat de la taula de mescles, la seva capçalera <code class=\"font-mono text-sm text-ink\">Allow</code> i el cos tal com han arribat. Un refús és la decisió de la taula i es retorna literalment, sense interpretar-lo: és el mateix contracte amb què treballen tots els altres clients. La taula de mescles decideix i el que torna és el que ha decidit.",
       "p2": "L'eina no retén res pel seu compte. Una escriptura que dispara una operació controlada per la fitxa <code class=\"font-mono text-sm text-ink\">confirms</code> de la mateixa taula (l'exemple és aplicar una configuració de canal que mouria el guany, el trim o el pan) s'envia igualment. La taula la refusa amb <code class=\"font-mono text-sm text-ink\">CONFIRM_REQUIRED</code> mentre la previsualització mostri moviments i la conformitat de l'operador estigui activada. El refús torna amb la previsualització al cos, com qualsevol altra resposta. Si es torna a cridar amb <code class=\"font-mono text-sm text-ink\">confirm: true</code> (que viatja dins el delta com a argument de confirmació de la mateixa fila), s'aplica, perquè ara a l'agent ja se li ha mostrat què accepta. El control és de la taula, de manera que un agent, un navegador i una superfície OSC reben el mateix refús i responen de la mateixa manera: no hi ha cap política al costat del client que calgui mantenir sincronitzada.",
       "p3": "La fila amb mesura és l'únic cas en què una lectura no és un simple GET. Una fila alimentada per bombament només mesura mentre algú l'observa. Per això, a un fotograma sense mesurar el segueix una sola observació que es tanca en el moment en què arriba el primer fotograma mesurat. No queda cap flux obert.",
       "p4": "Les eines es proven sobre una taula de mescles falsa amb les formes de la real. Es comproven a través del cable amb valors, no amb formes: una lectura de −20 dBFS s'ha de descodificar com a −20. Una taula en directe no forma part d'aquesta bateria de proves."

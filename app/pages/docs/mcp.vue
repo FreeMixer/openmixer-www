@@ -9,7 +9,7 @@ useSeoMeta({
   description: () => t('docsMcp.seo.description'),
 });
 
-const FAMILIES = ['console', 'rig', 'law', 'rulings', 'traps', 'compliance', 'jobs', 'lane'];
+const FAMILIES = ['console', 'law'];
 
 interface McpTool {
   name: string;

@@ -1,7 +1,7 @@
 {
   "meta": {
-    "generatedAt": "2026-10-26T10:22:01.216Z",
-    "toolCount": 14
+    "generatedAt": "2026-10-26T12:42:34.510Z",
+    "toolCount": 6
   },
   "tools": [
     {
@@ -57,59 +57,6 @@
       "answers": "PATCH one row with a JSON delta. A REAL WRITE to a desk, sent exactly once and never retried; the console's answer — status, Allow, and the body with its fault, refusal and reason — is returned verbatim. A fire on a confirm-gated row (a channel-config apply that would move gain/trim/pan) is REFUSED BY THE CONSOLE with 409 CONFIRM_REQUIRED while its preview lists moves and the operator's sign-off is on; the body carries the preview. Re-call with confirm: true — it rides the delta as the row's own confirm argument — to apply anyway."
     },
     {
-      "name": "law_governs",
-      "family": "law",
-      "args": [
-        "paths"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "The governing spec and the law line for each path, from the design gate's own spec map, matched the way its guard script matches it (a shell glob as a prefix, first row wins). An ungoverned path is reported as such. A sibling repo's path in the repo: form (plugin-hostd:protocol/plugin-hostd.json) is ungoverned here and names its repo: this map holds no sibling's law."
-    },
-    {
-      "name": "rulings_search",
-      "family": "rulings",
-      "args": [
-        "query",
-        "limit",
-        "mode"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "Search the design corpus (specs, notes, manual, architecture, CONTRIBUTING.md, job-proofs.md; archive excluded) and, in mode \"hybrid\", the declared sibling repos' docs, man pages and protocol JSON (OPENMIXER_SIBLING_ROOTS, else packages/mcp-server/sibling-roots.json; a sibling hit's file is repo:path, and every hit names its repo and commit). Mode \"hybrid\" (default) ranks heading-chunked paragraphs by BM25, blended with embeddings when a cluster embedder is configured; \"local\" is the original paragraph scorer; \"rag\" asks the knowledge MCP on the cluster when it is reachable AND indexes an openmixer source, falling back to \"local\" otherwise. Every result names its mode and what searched; hybrid also names each root's commit, dirt and freshness, and warns on a root more than 7 days behind its remote or missing."
-    },
-    {
-      "name": "traps_recall",
-      "family": "traps",
-      "args": [
-        "query",
-        "limit"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "The traps that have cost real time, from the \"traps\" section of the traps file (OPENMIXER_TRAPS_FILE locates it), ranked against the query (empty query: all of them). Read at call time; when the setting is unset or the file cannot be found the answer is available:false naming the setting and the path tried."
-    },
-    {
-      "name": "compliance_preflight",
-      "family": "compliance",
-      "args": [
-        "paths"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "Before editing: for each path, the governing spec and law, the traps its words recall, and the conformance/ratchet suites that reach it (with the evidence: an import, a named prefix, or a tree walk). The suites listed are the ones to run after the edit."
-    },
-    {
-      "name": "jobs_proofs",
-      "family": "jobs",
-      "args": [
-        "job"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "The job-level round-trip ledger as data, row by row, with the tier number, whether the job is proven (tier 1) or owed, the test a proven row cites and the shadow probe the deploy gate runs for it."
-    },
-    {
       "name": "contract_laws",
       "family": "law",
       "args": [
@@ -118,43 +65,6 @@
       "writes": false,
       "effect": "read",
       "answers": "The declared DSP contracts for a channel fact (eq, gate, dynamics, delay, reverb, drive, pan, toMain) or a raw C function name: the closed-vocabulary laws with their operator-facing sentence, the parameters and their declared limits where the fact resolves to a numeric table, the C file:line where a contract sits, and whether the rt_contracts.test.c battery exercises it. Read from CHANNEL_CONTRACT and rt-callgraph.mjs's own function map at call time -- never a second copy."
-    },
-    {
-      "name": "lane_brief_context",
-      "family": "lane",
-      "args": [
-        "task",
-        "paths"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "Before a lane's first edit: the governing law for the given paths, the top hybrid rulings for the task sentence, the matching traps (the traps file OPENMIXER_TRAPS_FILE locates; unset, none), the open rulings from the newest continuation note (the directory OPENMIXER_CONTINUATION_DIR locates; the opt-in OPENMIXER_MEMORY_DIR is read only when that holds none), and the last job-proof rows touching those paths. Trimmed to about 2000 tokens; every item carries file:line."
-    },
-    {
-      "name": "bulk_read",
-      "family": "rulings",
-      "args": [
-        "path",
-        "glob",
-        "grep",
-        "question",
-        "maxTokens"
-      ],
-      "writes": false,
-      "effect": "read",
-      "answers": "Read a file, a glob, or a grep across paths — LOCALLY, never sending secret-shaped paths (*.env, *token*, *.key, *.sops.*, VALIDATION.md, any .config, .ssh, .gnupg or secrets directory, a file git-crypt encrypts, a symlink, or a path outside every allowed read root) — and hand the content to the cluster's model at OPENMIXER_WORKER_URL (default model code-dense = qwen2.5-coder:32b, the biggest local Qwen the router serves; tiny-fast stays selectable) demanding quoted file:line:quote citations. Every citation is MECHANICALLY re-checked against the file on disk (±1 line) before it is trusted; fewer than 2 survive and the answer is notFound with the top 12 locally-ranked lines instead of a fabricated summary. Unreachable, or OPENMIXER_WORKER_URL unset (no request made at all): the top 20 locally-ranked lines, same rule — never the whole file, never an unverified claim. A declared sibling repo is read as repo:path (plugin-hostd:protocol/plugin-hostd.json), and only the files it contributes to the corpus: its docs, man pages and protocol JSON, never its source."
-    },
-    {
-      "name": "write_scaffold",
-      "family": "rulings",
-      "args": [
-        "worktree",
-        "files",
-        "maxTokensPerFile"
-      ],
-      "writes": true,
-      "effect": "writes",
-      "answers": "Have the cluster's cheap coder write tests (*.test.ts/*.test.c), fixtures (__fixtures__/*), i18n catalog entries (i18n/locales/*/*.json, merged not overwritten), type stubs (*.d.ts) or doc skeletons (docs//*.md, never a design spec — that is a ruling, not a scaffold) into a LINKED git worktree — never the main tree, never production source. Each file is gated (tsc --noEmit / gcc -fsyntax-only / JSON parse + cross-locale key parity / markdownlint if configured), retried once on failure with the gate error, then reported written/refused/failed. Never returns a file body — review the diff, not this tool's output. OPENMIXER_WORKER_URL unset: worker \"unset\", nothing written."
     }
   ],
   "env": [
@@ -162,51 +72,6 @@
       "name": "OPENMIXER_CONSOLE",
       "meaning": "base URL of the console the console_*/rig_* tools talk to; named in every result",
       "default": "http://127.0.0.1:8080 (core's DEFAULT_WEB_PORT)"
-    },
-    {
-      "name": "OPENMIXER_KNOWLEDGE_MCP",
-      "meaning": "Streamable-HTTP URL of a knowledge MCP (exposing docs_search/docs_list) that rulings_search mode rag asks",
-      "default": "unset — mode rag answers locally and says why"
-    },
-    {
-      "name": "OPENMIXER_TRAPS_FILE",
-      "meaning": "absolute path of the traps file traps_recall, compliance_preflight and lane_brief_context read",
-      "default": "unset — the tools report the traps unavailable, naming this variable; an absent file is reported the same, naming the path"
-    },
-    {
-      "name": "OPENMIXER_READ_ALLOW",
-      "meaning": "colon-separated directories bulk_read may also read absolute paths under (logs, scratch, another checkout), beside this tree, the sibling roots, the ops checkout OPENMIXER_OPS_ROOT names and the openmixer-wt-*/wt-* worktrees beside the tree; every other guard still holds inside them",
-      "default": "unset — only those roots; a path under none is refused, naming them"
-    },
-    {
-      "name": "OPENMIXER_OPS_ROOT",
-      "meaning": "the ops checkout (briefs, traps, continuation notes) bulk_read may read by absolute or ../ path; relative entries are taken against the repo root; /, $HOME and ancestors of the tree's parent are refused",
-      "default": "unset — no ops root"
-    },
-    {
-      "name": "OPENMIXER_SIBLING_ROOTS",
-      "meaning": "path of a JSON file declaring the sibling repos hybrid search also reads (name, path, optional include globs; relative paths taken against the repo root); each contributes its tracked docs, man pages and protocol JSON only, and every hit names its repo and commit",
-      "default": "unset — packages/mcp-server/sibling-roots.json, the eight sibling repos beside the checkout; a missing one is reported, never an error"
-    },
-    {
-      "name": "OPENMIXER_CONTINUATION_DIR",
-      "meaning": "absolute path of the ops continuation directory lane_brief_context reads its open rulings from (newest file by mtime carrying an open-rulings heading)",
-      "default": "unset — no open-rulings section; a missing directory is the same"
-    },
-    {
-      "name": "OPENMIXER_EMBEDDINGS_MCP",
-      "meaning": "OpenAI-compatible base URL for hybrid mode's optional embedding blend (a local LiteLLM, Ollama or any server with /v1/embeddings)",
-      "default": "unset — hybrid runs BM25-only"
-    },
-    {
-      "name": "OPENMIXER_EMBEDDINGS_MODEL",
-      "meaning": "the model name to ask for at that URL",
-      "default": "embeddings-default (an alias the endpoint maps, e.g. to nomic-embed-text)"
-    },
-    {
-      "name": "OPENMIXER_MEMORY_DIR",
-      "meaning": "opt-in: a directory of markdown continuation notes (e.g. a per-project memory directory); its *.md files fold into hybrid search, and lane_brief_context's open-rulings section reads it only when the continuation directory holds none (MEMORY.md itself excluded)",
-      "default": "unset — memory is never read"
     }
   ]
 }
