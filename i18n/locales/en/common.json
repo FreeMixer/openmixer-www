@@ -4,6 +4,7 @@
       "architecture": "Architecture",
       "features": "Features",
       "plugins": "Plugins",
+      "benchmarks": "Benchmarks",
       "docs": "Docs",
       "faq": "FAQ",
       "get-it": "Get it",

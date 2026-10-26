@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://openmixer.org/benchmarks/omx-bench.v1.schema.json",
+  "title": "omx-bench/1",
+  "description": "One benchmark run: the same scenarios measured on up to four plugin hosts on one machine. Values are measured, never typed; a scenario a host cannot run is status unsupported with the reason in note.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "id", "machine", "software", "scenarios"],
+  "properties": {
+    "schema": { "const": "omx-bench/1" },
+    "id": { "type": "string", "pattern": "^(rpi5|desk|ci)-[0-9]{8}-[0-9]+$" },
+    "machine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "model", "os"],
+      "properties": {
+        "class": { "enum": ["rpi5", "desk", "ci"] },
+        "model": { "type": "string", "minLength": 1 },
+        "cpu": { "type": "string" },
+        "cores": { "type": "integer", "minimum": 1 },
+        "ram_mb": { "type": "integer", "minimum": 1 },
+        "os": { "type": "string", "minLength": 1 },
+        "kernel": { "type": "string" },
+        "governor": { "type": "string" }
+      }
+    },
+    "software": {
+      "type": "object",
+      "description": "Version strings of what was measured; a program not present in the run has no entry.",
+      "additionalProperties": false,
+      "properties": {
+        "plugin-hostd": { "type": "string" },
+        "omx-clap-host": { "type": "string" },
+        "mod-host": { "type": "string" },
+        "jalv": { "type": "string" },
+        "jack": { "type": "string" }
+      }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/scenario" }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["set"],
+      "properties": {
+        "set": { "type": "string", "minLength": 1 },
+        "jalv": { "type": "integer", "minimum": 0 },
+        "mod-host": { "type": "integer", "minimum": 0 },
+        "omx-clap-lv2": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "qualification": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plugins", "seconds"],
+      "properties": {
+        "plugins": { "type": "integer", "minimum": 0 },
+        "seconds": { "type": "number", "minimum": 0 },
+        "rates": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+        "quanta": { "type": "array", "items": { "type": "integer", "minimum": 1 } },
+        "suitable": { "type": "integer", "minimum": 0 },
+        "unsuitable": { "type": "integer", "minimum": 0 }
+      }
+    }
+  },
+  "$defs": {
+    "nullableNumber": { "type": ["number", "null"], "minimum": 0 },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "title", "host", "rate", "frames", "status"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "host": { "enum": ["H1", "H2", "H3", "H4"] },
+        "rate": { "type": "integer", "minimum": 1 },
+        "frames": { "type": "integer", "minimum": 1 },
+        "plugins": { "type": "array", "items": { "type": "string" } },
+        "dsp_load_avg": { "$ref": "#/$defs/nullableNumber" },
+        "dsp_load_max": { "$ref": "#/$defs/nullableNumber" },
+        "samples": { "type": "integer", "minimum": 1 },
+        "rss_mb": { "$ref": "#/$defs/nullableNumber" },
+        "add_ms": { "$ref": "#/$defs/nullableNumber" },
+        "recover_ms": { "$ref": "#/$defs/nullableNumber" },
+        "mode": { "enum": ["individual", "chain", "shared-process"] },
+        "processes": { "type": "integer", "minimum": 0 },
+        "rss_mb_total": { "$ref": "#/$defs/nullableNumber" },
+        "pss_mb_total": { "$ref": "#/$defs/nullableNumber" },
+        "cpu_pct": { "$ref": "#/$defs/nullableNumber" },
+        "ctx_switches": { "type": ["integer", "null"], "minimum": 0 },
+        "status": { "enum": ["ok", "unsupported", "failed"] },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "ok" } }, "required": ["status"] },
+          "then": { "required": ["dsp_load_avg"], "properties": { "dsp_load_avg": { "type": "number" } } }
+        },
+        {
+          "if": { "properties": { "status": { "enum": ["unsupported", "failed"] } }, "required": ["status"] },
+          "then": { "required": ["note"], "properties": { "note": { "minLength": 1 } } }
+        }
+      ]
+    }
+  }
+}

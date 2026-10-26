@@ -114,6 +114,17 @@ navigation. `nuxt.config.ts` declares those `/docs/<section>` routes `prerender:
 they arrive after this build, and the crawler would otherwise fail the generate on a link
 into them.
 
+## The benchmark data
+
+`/benchmarks` is rendered from `benchmarks/runs/*.json`, documents of format `omx-bench/1` written by
+the bench harness of `plugin-hostd`: committed data, and the page derives every figure and table from it at
+build time, the way `/plugins/` does from `plugin-catalog/`. `benchmarks/schema/omx-bench.v1.schema.json`
+is the contract and `npm run benchmarks:check` (wired into `predev`, `prebuild` and `pregenerate`) fails the
+build on a file that does not match it. The page shows the newest run of each machine class (`rpi5`, `desk`,
+`ci`) and states the run id and software versions of the data it shows. The format, the four hosts, the
+chains-versus-processes modes and how to add a run are in `benchmarks/README.md`;
+`node --test scripts/check-benchmarks.test.mjs` holds the refusals and the derivations.
+
 ## Publishing
 
 ### GitHub Pages

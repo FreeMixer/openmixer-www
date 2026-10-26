@@ -1,0 +1,71 @@
+{
+  "schema": "omx-bench/1",
+  "id": "rpi5-20261026-1",
+  "machine": {
+    "class": "rpi5",
+    "model": "Zynthian Pi 5",
+    "cores": 4,
+    "ram_mb": 4045,
+    "os": "Debian 13",
+    "governor": "performance"
+  },
+  "software": {
+    "mod-host": "0.10.6.f14a230-11.1"
+  },
+  "scenarios": [
+    {
+      "id": "chain3",
+      "title": "three plugins in a chain, sine in",
+      "host": "H2",
+      "rate": 48000,
+      "frames": 256,
+      "plugins": ["omx-comp (CLAP)", "Calf Compressor (LV2)", "omx-delay (CLAP)"],
+      "dsp_load_avg": 0.4,
+      "status": "ok"
+    },
+    {
+      "id": "chain3",
+      "title": "three plugins in a chain, sine in",
+      "host": "H2",
+      "rate": 96000,
+      "frames": 256,
+      "plugins": ["omx-comp (CLAP)", "Calf Compressor (LV2)", "omx-delay (CLAP)"],
+      "dsp_load_avg": 0.8,
+      "status": "ok"
+    },
+    {
+      "id": "pianoteq",
+      "title": "Pianoteq 9, five-note chords",
+      "host": "H2",
+      "rate": 48000,
+      "frames": 256,
+      "plugins": ["Pianoteq 9 (LV2)"],
+      "dsp_load_avg": 12.4,
+      "dsp_load_max": 15.5,
+      "status": "ok"
+    },
+    {
+      "id": "pianoteq",
+      "title": "Pianoteq 9, five-note chords",
+      "host": "H2",
+      "rate": 96000,
+      "frames": 256,
+      "plugins": ["Pianoteq 9 (LV2)"],
+      "dsp_load_avg": 20.5,
+      "dsp_load_max": 24.0,
+      "status": "ok"
+    }
+  ],
+  "coverage": {
+    "set": "979 installed LV2 plugins",
+    "jalv": 977,
+    "mod-host": 975,
+    "omx-clap-lv2": 979
+  },
+  "qualification": {
+    "plugins": 247,
+    "seconds": 271,
+    "rates": [48000],
+    "quanta": [256]
+  }
+}
