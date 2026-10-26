@@ -94,6 +94,15 @@ function lv2Kind(cls) {
   return 'effect';
 }
 
+/**
+ * A CLAP row's KIND. The console's roster gives every plugin it admits a mixer role (eq, dynamics,
+ * gate, reverb, …: packages/catalog curation, a vocabulary of effects only), so a CLAP row with a
+ * role is an effect; one without stays "other". The qualify job reads the CLAP features instead.
+ */
+function clapKind(role) {
+  return role ? 'effect' : 'other';
+}
+
 /** The verdict a reader sees, from the console's rating (see plugin-catalog/README.md). */
 const VERDICT = { suitable: 'in-process', conditional: 'isolated', unsuitable: 'isolated', unknown: 'unknown' };
 
@@ -139,7 +148,7 @@ for (const uri of roster.plugins) {
     name: row.name,
     vendor: info.Author ?? null,
     format: row.format,
-    kind: row.format === 'lv2' ? lv2Kind(row.lv2Class) : 'other',
+    kind: row.format === 'lv2' ? lv2Kind(row.lv2Class) : clapKind(row.role),
     declaredClass: row.lv2Class ? [row.lv2Class] : [],
     package: binary ? owningPackage(binary) : null,
     pluginVersion: null,
