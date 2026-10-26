@@ -3,12 +3,11 @@
 /** Installing the OpenMixer packages and a first run. Shared by the home page and /get-it. */
 const { t } = useI18n();
 const fedora = [
-  'sudo dnf config-manager addrepo --from-repofile=https://freemixer.github.io/rpm/freemixer.repo',
+  'sudo dnf install https://www.openmixer.org/rpm/openmixer-release.noarch.rpm',
   'sudo dnf install omx-clap-host plugin-hostd',
 ];
 const debian = [
-  'curl -fsSL https://freemixer.github.io/deb/freemixer.asc | sudo tee /usr/share/keyrings/freemixer.asc >/dev/null',
-  'echo "deb [signed-by=/usr/share/keyrings/freemixer.asc] https://freemixer.github.io/deb/debian/$(. /etc/os-release; echo $VERSION_CODENAME) ./" | sudo tee /etc/apt/sources.list.d/freemixer.list',
+  'curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb && sudo apt install ./openmixer-release.deb',
   'sudo apt update && sudo apt install omx-clap-host plugin-hostd',
 ];
 const tryIt = computed(() => [
@@ -64,8 +63,8 @@ onMounted(() => {
     </div>
     <p class="mt-4 text-sm leading-relaxed text-ink-faint">
       {{ t('common.install.signed') }}
-      <a href="https://freemixer.github.io/rpm/RPM-GPG-KEY-freemixer" class="text-accent hover:underline">RPM-GPG-KEY-freemixer</a>,
-      <a href="https://freemixer.github.io/deb/freemixer.asc" class="text-accent hover:underline">freemixer.asc</a>.
+      <a href="https://www.openmixer.org/rpm/RPM-GPG-KEY-openmixer" class="text-accent hover:underline">RPM-GPG-KEY-openmixer</a>,
+      <a href="https://www.openmixer.org/deb/openmixer.asc" class="text-accent hover:underline">openmixer.asc</a>.
     </p>
 
     <div class="mt-14">
