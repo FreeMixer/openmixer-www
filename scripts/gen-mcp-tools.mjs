@@ -10,7 +10,9 @@
 //
 // Input  (from OPENMIXER_SRC, default ../openmixer):
 //   packages/mcp-server/README.md
-// and the private list (PUBLIC_GUARD_LIST, see private-list.mjs) for the redactions.
+// and the private list (PUBLIC_GUARD_LIST, see private-list.mjs) for the redactions,
+// and deploy/public-mcp.txt (MCP_PUBLIC_LIST in tests), the tools and variables the page
+// publishes: a row that file does not name stays out of the output.
 // Output (consumed by app/pages/docs/mcp.vue):
 //   app/data/mcp-tools.json
 
@@ -24,6 +26,25 @@ const wwwRoot = resolve(here, '..');
 const src = resolve(wwwRoot, process.env.OPENMIXER_SRC || '../openmixer');
 const OUT = resolve(wwwRoot, process.env.MCP_TOOLS_OUT || 'app/data/mcp-tools.json'); // tests point it elsewhere
 const readmePath = resolve(src, 'packages/mcp-server/README.md');
+const PUBLIC_LIST = resolve(wwwRoot, process.env.MCP_PUBLIC_LIST || 'deploy/public-mcp.txt');
+
+/** Parse deploy/public-mcp.txt into { tools, env }, two sets of names. */
+function readPublicList(file) {
+  const tools = new Set();
+  const env = new Set();
+  readFileSync(file, 'utf8')
+    .split('\n')
+    .forEach((raw, i) => {
+      const line = raw.trim();
+      if (line === '' || line.startsWith('#')) return;
+      const [kind, name, extra] = line.split(/\s+/);
+      if (!name || extra !== undefined || (kind !== 'tool' && kind !== 'env')) {
+        throw new Error(`${file}:${i + 1}: a line is "tool <name>" or "env <NAME>", got "${line}"`);
+      }
+      (kind === 'tool' ? tools : env).add(name);
+    });
+  return { tools, env };
+}
 
 // Same rule as the other generators: the Pages runner has no openmixer checkout,
 // so the output IS committed and a missing checkout publishes the snapshot.
@@ -122,6 +143,34 @@ if (envSection) {
     env.push({ name: plain(cells[0]), meaning: redactInternalPaths(plain(cells[1])), default: fallback });
   }
 }
+
+// Only what deploy/public-mcp.txt names is published. A name the list keeps and the README no
+// longer has is a list that has drifted from the registry: refused, like an edit that changes
+// nothing in deploy/public-docs.txt.
+let publicList;
+try {
+  publicList = readPublicList(PUBLIC_LIST);
+} catch (e) {
+  console.error(`[gen-mcp-tools] ${e.message} — refusing to publish a table without the list of what is public`);
+  process.exit(1);
+}
+const gone = [
+  ...[...publicList.tools].filter((n) => !rows.some((r) => r.name === n)).map((n) => `tool ${n}`),
+  ...[...publicList.env].filter((n) => !env.some((v) => v.name === n)).map((n) => `env ${n}`),
+];
+if (gone.length > 0) {
+  console.error(`[gen-mcp-tools] ${relative(wwwRoot, PUBLIC_LIST)} names rows the README does not have: ${gone.join(', ')}`);
+  process.exit(1);
+}
+const heldTools = rows.filter((r) => !publicList.tools.has(r.name)).map((r) => r.name);
+const heldEnv = env.filter((v) => !publicList.env.has(v.name)).map((v) => v.name);
+rows.splice(0, rows.length, ...rows.filter((r) => publicList.tools.has(r.name)));
+env.splice(0, env.length, ...env.filter((v) => publicList.env.has(v.name)));
+if (rows.length === 0) {
+  console.error(`[gen-mcp-tools] ${relative(wwwRoot, PUBLIC_LIST)} lets no tool through — nothing to publish`);
+  process.exit(1);
+}
+console.log(`[gen-mcp-tools] kept off the page (not in ${relative(wwwRoot, PUBLIC_LIST)}): ${heldTools.length} tools, ${heldEnv.length} variables`);
 
 // A redaction nobody checks is decoration: refuse to write a file that still
 // carries what the rule above exists to keep off the site.

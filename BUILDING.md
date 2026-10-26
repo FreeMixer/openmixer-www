@@ -87,6 +87,12 @@ it `check-public.mjs` exits 3, and the docs build and the MCP generator refuse; 
 on an empty list. The guard's own tests use a neutral list of planted markers, so they run anywhere.
 In CI the list comes from the `PUBLIC_GUARD_LIST_JSON` secret.
 
+**The MCP list.** `/docs/mcp` publishes the MCP tools and environment variables named in
+`deploy/public-mcp.txt` and no others: `scripts/gen-mcp-tools.mjs` reads every row the package
+registers and writes only the listed ones to `app/data/mcp-tools.json`. A tool the package gains
+stays off the page until a line adds it, and a line naming a row the package no longer has is
+refused. `node --test scripts/gen-mcp-tools.test.mjs` holds both rules.
+
 `scripts/build-docs-tree.mjs` does both steps. It refuses rather than delivering less than it
 claims: no tree, no publish (there is deliberately no snapshot to fall back on); a tree built for
 another base URL or from another list is refused; any file that would overwrite one of this

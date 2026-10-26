@@ -1,0 +1,19 @@
+# The MCP tools and environment variables /docs/mcp publishes, and no others. Read by
+# scripts/gen-mcp-tools.mjs: the package's README registers every tool, and only the names this
+# file lists reach app/data/mcp-tools.json. A tool the README gains is private until a line here
+# adds it, the same rule deploy/public-docs.txt keeps for the manual pages.
+#
+#   tool <name>   a row of the README's tools table
+#   env <NAME>    a row of its "Running it" table
+#
+# The page is for the person at a console: the tools that read and write a running desk through
+# its REST contract, and the one knowledge tool that answers what a channel's DSP stages declare.
+
+tool console_discover
+tool console_meters
+tool console_get
+tool console_options
+tool console_patch
+tool contract_laws
+
+env OPENMIXER_CONSOLE
