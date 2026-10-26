@@ -8,8 +8,7 @@
       "live": "Operatiu",
       "liveLv2": "Operatiu · LV2",
       "progress": "En curs",
-      "landing": "S'està integrant a la taula",
-      "released": "Publicat · 0.1.0",
+      "released": "Publicat",
       "proposed": "Proposat al projecte original"
     },
     "hero": {
@@ -131,14 +130,14 @@
       "open": {
         "n": "02 · El món dels plugins oberts",
         "title": "LV2 i CLAP",
-        "text": "Els plugins LV2 funcionen a mod-host, l'amfitrió que hi ha darrere dels dispositius de MOD Audio. Els plugins CLAP funcionen a omx-clap-host, que parla el mateix protocol que mod-host, de manera que la taula els controla tots dos igual. Els controls de cada plugin surten de les seves pròpies metadades i un catàleg ordena els plugins per la latència mesurada perquè l'opció segura per al directe surti primer.",
+        "text": "El motor munta els plugins LV2 i CLAP amb un sol amfitrió CLAP: l'adaptador libomx-clap-lv2 presenta cada plugin LV2 com un plugin CLAP, de manera que la taula controla tots dos formats igual. Els controls de cada plugin surten de les seves pròpies metadades i un catàleg ordena els plugins per la latència mesurada perquè l'opció segura per al directe surti primer.",
         "costLabel": "Latència afegida",
         "cost": "un buffer"
       },
       "hostd": {
         "n": "03 · La xarxa de seguretat",
         "title": "plugin-hostd",
-        "text": "Un supervisor entre la taula i els seus amfitrions de plugins, cadascun dels quals funciona com un procés worker. Quan un plugin falla, plugin-hostd reinicia només aquell worker i en restaura els plugins i tots els ajustos. Mentrestant, aquell canal deixa passar l'àudio sec i tots els altres canals continuen funcionant.",
+        "text": "Un supervisor entre la taula i els seus amfitrions de plugins, cadascun dels quals funciona com un procés worker: omx-clap-host per a CLAP i per a LV2 a través del seu adaptador; mod-host per a un plugin LV2 que l'adaptador rebutja. Quan un plugin falla, plugin-hostd reinicia només aquell worker i en restaura els plugins i tots els ajustos. Mentrestant, aquell canal deixa passar l'àudio sec i tots els altres canals continuen funcionant.",
         "costLabel": "Una fallada costa",
         "cost": "un canal, sec uns instants"
       }
@@ -165,8 +164,8 @@
       "title": "Fets en obert, per a tothom que allotgi plugins.",
       "lede": "Les peces que fa servir OpenMixer per carregar plugins externs són projectes independents, empaquetats per a Fedora i Debian, inclosos Raspberry Pi OS i Zynthian. Qualsevol amfitrió que ja parli el protocol de mod-host les pot fer servir.",
       "repos": {
-        "clapHost": "Un amfitrió de plugins CLAP per a JACK, controlat amb el protocol de sòcol de mod-host. Allotja efectes i instruments amb entrada MIDI, funciona de manera autònoma com ho fa jalv per a LV2 i inclou omx-clap-scan per llistar el contingut d'un paquet CLAP.",
-        "hostd": "El supervisor de plugins. Parla el protocol de mod-host amb els seus clients i executa mod-host per a LV2 i omx-clap-host per a CLAP com a workers, amb aïllament de fallades, reinici amb espera progressiva (back-off) i restitució de l'estat.",
+        "clapHost": "Un amfitrió de plugins CLAP i LV2 per a JACK, controlat amb el protocol de sòcol de mod-host. Executa els plugins LV2 de manera nativa amb lilv; l'adaptador libomx-clap-lv2 els fa correspondre amb ports CLAP. Allotja efectes i instruments amb entrada MIDI, funciona de manera autònoma com ho fa jalv per a LV2 i inclou omx-clap-scan per llistar el contingut d'un paquet CLAP.",
+        "hostd": "El supervisor de plugins. Parla el protocol de mod-host amb els seus clients i executa cada plugin en un worker d'un amfitrió natiu: omx-clap-host per a CLAP i, per a LV2, primer l'adaptador i mod-host només per a un plugin que l'adaptador rebutja. Ofereix aïllament de fallades, reinici amb espera progressiva (back-off) i restitució de l'estat.",
         "protocol": "El protocol de sòcol de mod-host com a biblioteca compartida, perquè un segon amfitrió el pugui parlar sense dur-ne una còpia. S'ha proposat a mod-host i està empaquetat per a Fedora; els dos amfitrions anteriors s'hi enllacen."
       }
     },
