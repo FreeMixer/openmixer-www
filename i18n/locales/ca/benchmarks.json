@@ -1,0 +1,101 @@
+{
+  "benchmarks": {
+    "seo": {
+      "title": "Mesuraments — OpenMixer",
+      "description": "Càrrega de DSP, memòria i CPU dels mateixos escenaris de plugins en quatre amfitrions: omx-clap-host sol, plugin-hostd, mod-host i jalv."
+    },
+    "hero": {
+      "eyebrow": "Mesuraments",
+      "title": "Els mateixos plugins en quatre amfitrions",
+      "lede": "Cada escenari executa els mateixos plugins amb la mateixa freqüència de mostreig i la mateixa mida de buffer en quatre amfitrions. La càrrega és la càrrega de DSP del servidor JACK que els fa sonar, llegida mentre l'escenari sona. Les màquines són una Zynthian Pi 5, un PC d'escriptori i el clúster de CI.",
+      "reproduce": "El banc de proves del repositori plugin-hostd escriu cada execució d'aquesta pàgina i la repeteix en qualsevol màquina.",
+      "readme": "Llegiu el README."
+    },
+    "hosts": {
+      "H1": "omx-clap-host sol",
+      "H2": "plugin-hostd",
+      "H3": "mod-host",
+      "H4": "jalv"
+    },
+    "hostMeaning": {
+      "H1": "L'amfitrió CLAP governat directament pel protocol de mod-host al seu propi port. Tots els plugins comparteixen el seu únic procés.",
+      "H2": "El dimoni de plugins amb omx-clap-host com a treballador. Els plugins s'executen en treballadors aïllats i una cadena és un sol treballador.",
+      "H3": "El programa mod-host. Només plugins LV2.",
+      "H4": "Un procés jalv per plugin, tal com s'executen avui els plugins en una Zynthian."
+    },
+    "classes": {
+      "rpi5": "Pi 5 (Zynthian)",
+      "desk": "Escriptori (x86_64)",
+      "ci": "Clúster de CI"
+    },
+    "classLabel": "Classe de màquina",
+    "noRun": "Cap execució no està desada per a aquesta classe de màquina.",
+    "machine": "{model}, {os}",
+    "where": "{rate}, {frames} mostres de buffer",
+    "status": {
+      "unsupported": "No admès",
+      "failed": "Ha fallat"
+    },
+    "family": {
+      "eyebrow": "Escenari",
+      "lede": "Cada cel·la és la càrrega de DSP mitjana amb la lectura més alta en text petit. La barra s'escala a la lectura més alta d'aquesta taula.",
+      "scenario": "Escenari",
+      "max": "màx. {max}",
+      "unit": "Càrrega de DSP en percentatge del cicle d'àudio, tal com la informa el servidor JACK.",
+      "notMeasured": "No mesurat en aquesta execució"
+    },
+    "cvp": {
+      "eyebrow": "Cadenes i processos",
+      "title": "Una cadena o un procés per plugin",
+      "lede": "Els mateixos plugins s'executen com a processos individuals, com a instàncies dins d'un sol procés i com una sola cadena. Cada fila és una manera d'executar-los.",
+      "group": "{n} plugins, {where}",
+      "mode": "Mode",
+      "host": "Amfitrió",
+      "processes": "Processos",
+      "rss": "RSS MB",
+      "pss": "PSS MB",
+      "cpu": "CPU %",
+      "ctx": "Canvis de context",
+      "add": "Afegir ms",
+      "dsp": "Càrrega DSP %",
+      "units": "Els processos són el dimoni més els seus treballadors. RSS i PSS se sumen sobre aquests processos. La CPU és el temps que han fet servir en una finestra de deu segons, en percentatge d'un nucli. Els canvis de context són els voluntaris més els involuntaris en la mateixa finestra.",
+      "ratioProcesses": "Els treballadors individuals executen {n} vegades els processos d'una cadena.",
+      "ratioPss": "Els treballadors individuals ocupen {n} vegades la memòria proporcional d'una cadena.",
+      "ratioCpu": "Els treballadors individuals fan servir {n} vegades el temps de CPU d'una cadena."
+    },
+    "mode": {
+      "individual": "Processos individuals",
+      "shared-process": "Instàncies en un sol procés",
+      "chain": "Una cadena"
+    },
+    "isolation": {
+      "eyebrow": "Aïllament",
+      "title": "Què costa i què dona l'aïllament",
+      "lede": "Les dues xifres surten de les files de les taules anteriors: la càrrega de plugin-hostd menys la càrrega d'omx-clap-host sol, i el temps que plugin-hostd triga a tornar a sonar quan es mata el procés que té un plugin.",
+      "costTitle": "Càrrega",
+      "difference": "Diferència",
+      "noPair": "Cap escenari d'aquesta execució no s'ha mesurat alhora amb omx-clap-host sol i amb plugin-hostd.",
+      "buysTitle": "Recuperació",
+      "recover": "L'àudio torna a sonar després de",
+      "others": "Altres amfitrions",
+      "noRecover": "En aquesta execució no s'ha mesurat cap temps de recuperació."
+    },
+    "coverage": {
+      "eyebrow": "Cobertura LV2",
+      "title": "Plugins LV2 que carrega cada amfitrió",
+      "lede": "Dels {set} a {machine}, el nombre que carrega cadascun.",
+      "jalv": "jalv",
+      "mod-host": "mod-host",
+      "omx-clap-lv2": "Adaptador LV2"
+    },
+    "qualification": {
+      "eyebrow": "Qualificació",
+      "title": "Qualificar els plugins instal·lats",
+      "fact": "Qualificar {plugins} plugins CLAP triga {seconds} segons a {machine}.",
+      "at": "Freqüències {rates}, mides de buffer {quanta}.",
+      "split": "{suitable} adequats i {unsuitable} inadequats."
+    },
+    "footer": "Execució {id} a {machine}. Programari: {software}.",
+    "data": "Els fitxers d'execució i el seu format."
+  }
+}
