@@ -50,6 +50,41 @@
             "soakSeconds": { "description": "Soak length required before stability counts as measured.", "type": "number", "minimum": 0 },
             "coreFractionCeiling": { "description": "Per-instance CPU limit, as a fraction of one core at the 95th percentile.", "type": "number", "minimum": 0 }
           }
+        },
+        "inventory": {
+          "description": "What the machine the run was taken on held beside the plugins measured, counted when the file was written, never typed. Optional: runs written before it was recorded lack it.",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["installed"],
+          "properties": {
+            "installed": {
+              "description": "Plugins installed on that machine: lv2 as lilv lists them (lv2ls, over LV2_PATH); clap as the .clap binaries under CLAP_PATH or the standard directories.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["lv2", "clap"],
+              "properties": {
+                "lv2": { "type": "integer", "minimum": 0 },
+                "clap": { "type": "integer", "minimum": 0 }
+              }
+            },
+            "catalog": {
+              "description": "The console's packaged plugin catalog (openmixer packages/catalog/data/catalog.json) by URI scheme: urn:clap: is clap, anything else lv2.",
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["entries"],
+              "properties": {
+                "entries": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["lv2", "clap"],
+                  "properties": {
+                    "lv2": { "type": "integer", "minimum": 0 },
+                    "clap": { "type": "integer", "minimum": 0 }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },

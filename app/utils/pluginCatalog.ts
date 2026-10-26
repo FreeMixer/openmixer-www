@@ -54,6 +54,11 @@ export interface CatalogRun {
     readonly producer: { readonly name: string; readonly revision: string | null };
     readonly rig: { readonly rate: number; readonly quantum: number };
     readonly policy: { readonly cycleFloor: number; readonly soakSeconds: number; readonly coreFractionCeiling: number };
+    /** What the machine held when the run was written; absent from runs written before it was recorded. */
+    readonly inventory?: {
+      readonly installed: { readonly lv2: number; readonly clap: number };
+      readonly catalog?: { readonly entries: { readonly lv2: number; readonly clap: number } };
+    };
   };
   readonly plugins: readonly CatalogPlugin[];
 }

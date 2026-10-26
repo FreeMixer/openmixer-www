@@ -34,6 +34,7 @@ its own.
 | `vendor`, `declaredClass` (LV2) | lilv: the plugin's author and class |
 | `package` | the package database entry owning the plugin binary |
 | `incidents` | crash reasons, the CLAP qualifier's load refusal and timeouts |
+| `run.inventory` | counted when the file is written: `lv2ls` for the LV2 plugins installed, the `.clap` files under `CLAP_PATH` or the standard directories, and the console's packaged `catalog.json` by URI scheme when `--catalog` names it |
 
 ## Verdict
 
@@ -49,7 +50,9 @@ its own.
 From the plugin's own declared class, never from its name. LV2: `lv2:InstrumentPlugin` is
 `instrument`; the generator and utility classes and a bare `lv2:Plugin` are `other`; every
 processing class is `effect`. CLAP: feature `instrument` is `instrument`, else `audio-effect` is
-`effect`, else `other`.
+`effect`, else `other`. A file taken from a console (`source: console`) has no CLAP features to
+read: there a CLAP row is `effect` when the console's roster gives it a mixer role (a vocabulary
+of effects only), else `other`.
 
 ## One row per plugin
 
@@ -63,5 +66,6 @@ The qualify job writes these files. `scripts/plugin-catalog-from-console.mjs` ta
 running console instead (its `/api/plugins` verdicts, lilv and rpm on the same machine):
 
 ```
-node scripts/plugin-catalog-from-console.mjs --console http://127.0.0.1:8800 --revision <git rev>
+node scripts/plugin-catalog-from-console.mjs --console http://127.0.0.1:8800 --revision <git rev> \
+    --catalog <openmixer>/packages/catalog/data/catalog.json
 ```
