@@ -50,7 +50,7 @@
       "p1": "Per-strip and per-output insert chains hosted by <code class=\"font-mono text-sm text-ink\">mod-host</code>, with a plugin picker and an editor generated from the plugin's own ports.",
       "p2": "The catalog tiers a plugin by <em class=\"text-ink\">measured</em> round-trip latency — live at 5 ms or under, studio above it, ambiguous ones quarantined — and then ranks within a tier by curation and CPU cost, so the live-safe choice wins by default.",
       "p3": "Insert audio is verified by measurement rather than by inspection: a tone through a real graph, a notch racked as an LV2, and a reading at the other end. The reference measurement is a baseline of −12.04 dBFS, the same notch through the plugin door at −100.56 dBFS, and bypass returning to −12.04 exactly — 88.52 dB of cut, through the plugin and not around it.",
-      "p4": "Plugin delay compensation is applied: the channels that feed one bus are delayed to match the feed with the most insert latency, and on the rig a strip with an out-of-process insert racked measures 0 samples of lag against its pair. Known limitation: removing a plugin from a running chain is unreliable on some <code class=\"font-mono text-xs\">mod-host</code> builds."
+      "p4": "Plugin delay compensation is applied: the channels that feed one bus are delayed to match the feed with the most insert latency, and on the rig a strip with an out-of-process insert racked measures 0 samples of lag against its pair."
     },
     "reac": {
       "title": "REAC stageboxes",

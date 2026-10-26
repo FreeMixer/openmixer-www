@@ -50,7 +50,7 @@
       "p1": "Cadenes d'inserts per canal i per sortida allotjades a <code class=\"font-mono text-sm text-ink\">mod-host</code>, amb un selector de plugins i un editor generat a partir dels ports del mateix plugin.",
       "p2": "El catàleg classifica cada plugin per la latència d'anada i tornada <em class=\"text-ink\">mesurada</em>: directe fins a 5 ms, estudi per sobre d'aquest valor i, els dubtosos, en quarantena. Després, dins de cada nivell, els ordena per selecció i cost de CPU, de manera que l'opció segura per al directe és la que surt per defecte.",
       "p3": "L'àudio dels inserts es verifica mesurant, no mirant: un to a través d'un graf real, un notch carregat com a LV2 i una lectura a l'altre extrem. La mesura de referència: una base de −12,04 dBFS; el mateix notch a través de la porta del plugin, −100,56 dBFS; i el bypass, que torna exactament a −12,04. Són 88,52 dB de tall a través del plugin, no pas per fora.",
-      "p4": "La compensació de latència dels plugins s'aplica: els canals que alimenten un mateix bus es retarden fins a igualar l'entrada amb més latència d'inserts i a l'equip un canal amb un insert fora de procés mesura 0 mostres de desfasament respecte de la seva parella. Limitació coneguda: treure un plugin d'una cadena en marxa no és fiable en algunes compilacions de <code class=\"font-mono text-xs\">mod-host</code>."
+      "p4": "La compensació de latència dels plugins s'aplica: els canals que alimenten un mateix bus es retarden fins a igualar l'entrada amb més latència d'inserts i a l'equip un canal amb un insert fora de procés mesura 0 mostres de desfasament respecte de la seva parella."
     },
     "reac": {
       "title": "Stageboxes REAC",
