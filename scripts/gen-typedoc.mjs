@@ -68,10 +68,14 @@ console.log(`[gen-typedoc] json → ${jsonOut}`);
 // inside the `tsd-signature-type` span it uses for an actual literal value, so a
 // real string constant like JOB_LEDGER_PATH's value is left untouched); redact the
 // span's content rather than the surrounding sentence, so the prose still parses.
+// A citation written as plain prose, with no backticks, renders as text in a <p>; it is redacted
+// down to its path characters, so the parenthesis or the tag that follows it survives.
 function redactCodeSpans(html) {
   return html
     .replace(/<code>[^<]*docs\/design[^<]*<\/code>/g, '<code>an internal spec</code>')
-    .replace(/<code>[^<]*~\/Devel[^<]*<\/code>/g, '<code>an internal checkout</code>');
+    .replace(/<code>[^<]*~\/Devel[^<]*<\/code>/g, '<code>an internal checkout</code>')
+    .replace(/docs\/design\/[\w.\/-]*\w/g, 'an internal spec')
+    .replace(/~\/Devel\/[\w.\/-]*\w/g, 'an internal checkout');
 }
 
 function walkHtml(dir) {
