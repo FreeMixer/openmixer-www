@@ -59,7 +59,7 @@
     },
     "status": {
       "title": "Estado.",
-      "p1": "La biblioteca está publicada: libdiginet 0.1.0 incluye el protocolo, el transporte y la herramienta de prueba. Sus pruebas se ejecutan contra un emulador de la mesa."
+      "p1": "La biblioteca está publicada: libdiginet 0.1.0 incluye el protocolo, el transporte y la herramienta de prueba."
     }
   }
 }
