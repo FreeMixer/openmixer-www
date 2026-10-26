@@ -49,7 +49,9 @@ its own.
 From the plugin's own declared class, never from its name. LV2: `lv2:InstrumentPlugin` is
 `instrument`; the generator and utility classes and a bare `lv2:Plugin` are `other`; every
 processing class is `effect`. CLAP: feature `instrument` is `instrument`, else `audio-effect` is
-`effect`, else `other`.
+`effect`, else `other`. A file taken from a console (`source: console`) has no CLAP features to
+read: there a CLAP row is `effect` when the console's roster gives it a mixer role (a vocabulary
+of effects only), else `other`.
 
 ## One row per plugin
 
