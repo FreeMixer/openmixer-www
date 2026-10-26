@@ -17,8 +17,8 @@
     },
     "install": {
       "title": "Instal·lació.",
-      "fedora": "A Fedora, afegeix el repositori de paquets de FreeMixer i instal·la:",
-      "debian": "A Debian (bookworm o trixie) i Raspberry Pi OS, afegeix la clau de signatura del repositori i el repositori i instal·la. El nom de la versió es llegeix del teu sistema:",
+      "fedora": "A Fedora, instal·la el paquet de publicació d'OpenMixer, que afegeix el repositori i la seva clau, i després instal·la:",
+      "debian": "A Debian (bookworm o trixie) i Raspberry Pi OS, instal·la el paquet de publicació d'OpenMixer, que afegeix el repositori i la seva clau, i després instal·la:",
       "signed": "Els paquets i les metadades del repositori estan signats."
     },
     "packages": {
