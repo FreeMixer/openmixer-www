@@ -39,6 +39,7 @@ const siteChapters = computed(() =>
     ['pluginsThirdParty', '/docs/plugins-third-party'],
     ['pluginsPanels', '/docs/plugins-panels'],
     ['pluginsNames', '/docs/plugins-names'],
+    ['groupedVsProcesses', '/docs/grouped-vs-processes'],
     ['reacRole', '/docs/reac-role'],
     ['control24', '/docs/control24'],
   ] as const).map(([k, to]) => ({
