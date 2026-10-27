@@ -21,6 +21,8 @@
       "workers": "<code>plugin-hostd</code> executa plugins LV2 i CLAP, cada un en un procés de treball propi, darrere del mateix protocol de socket que la taula ja parla. L'àudio no passa mai pel dimoni: cada procés de treball és un client d'àudio propi.",
       "crash": "Si un plugin es penja, només es reinicia el seu procés de treball, amb els ajustos tornats al lloc i els altres plugins segueixen sonant. Un plugin que es penja una vegada i una altra queda assenyalat i s'abandona sense tocar els veïns.",
       "pins": "Abans que un plugin arrenqui, el dimoni comprova que els seus fitxers són els que es van comprovar: en calcula el hash i el compara amb el pin registrat del plugin. Un plugin actualitzat o canviat d'amagat es rebutja fins que acceptes els fitxers nous, de manera que un canvi no es pot colar sense comprovar. Un plugin que el registre diu que es va rebutjar no arrenca.",
+      "grouped": "Quanta memòria, quanta CPU i quants canvis de context estalvia una cadena en un sol procés de treball davant d'un procés per plugin es mesura a {page}.",
+      "groupedLink": "una pàgina pròpia",
       "picker": "El que ofereix el selector de plugins en un canal es descriu al {chapter}.",
       "chapter": "capítol de plugins"
     },
