@@ -54,6 +54,11 @@ const verdicts = ['suitable', 'conditional', 'unknown', 'unsuitable'] as const;
           <p v-html="t('docsPluginsThirdParty.hostd.workers')" />
           <p>{{ t('docsPluginsThirdParty.hostd.crash') }}</p>
           <p>{{ t('docsPluginsThirdParty.hostd.pins') }}</p>
+          <i18n-t keypath="docsPluginsThirdParty.hostd.grouped" tag="p" scope="global">
+            <template #page>
+              <NuxtLink :to="sitePath('/docs/grouped-vs-processes')" class="text-accent hover:underline">{{ t('docsPluginsThirdParty.hostd.groupedLink') }}</NuxtLink>
+            </template>
+          </i18n-t>
           <i18n-t keypath="docsPluginsThirdParty.hostd.picker" tag="p" scope="global">
             <template #chapter>
               <NuxtLink :to="sitePath('/docs/plugins')" class="text-accent hover:underline">{{ t('docsPluginsThirdParty.hostd.chapter') }}</NuxtLink>
