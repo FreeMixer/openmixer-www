@@ -46,6 +46,10 @@
         "title": "Names reference",
         "blurb": "Repository, pkg-config, RPM, DEB and npm names of every piece you can use on its own."
       },
+      "groupedVsProcesses": {
+        "title": "Grouped against one process per plugin",
+        "blurb": "One measurement on a Raspberry Pi 5: memory, CPU, context switches and xruns, with every row and what was not measured."
+      },
       "reacRole": {
         "title": "The REAC segment role",
         "blurb": "Which end of a REAC wire the console presents as — mixer, recorder or automatic — what automatic decides from, and the sentences it gives when it will not take a role."
