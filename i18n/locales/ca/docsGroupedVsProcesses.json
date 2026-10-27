@@ -1,0 +1,67 @@
+{
+  "docsGroupedVsProcesses": {
+    "seo": {
+      "title": "Un worker per cadena o un procés per plugin | OpenMixer",
+      "description": "Memòria, CPU, canvis de context i xruns d'una cadena de plugins omx en un sol worker o en un procés per plugin, mesurats en una Raspberry Pi 5."
+    },
+    "hero": {
+      "eyebrow": "Plugins - mesurat",
+      "title": "Un worker per cadena o un procés per plugin.",
+      "lede": "plugin-hostd pot executar una cadena de plugins dins d'un sol procés worker o donar un procés a cada plugin. Aquesta pàgina és una mesura dels dos modes en una Raspberry Pi 5 amb totes les files i amb el que no s'ha mesurat."
+    },
+    "result": {
+      "title": "Què ha sortit.",
+      "rss": "Memòria: amb 16 plugins la memòria resident (RSS) és 14 vegades més petita agrupada (125,4 MB contra 1764,6 MB a 48 kHz) i la memòria proporcional (PSS) és 2,8 vegades més petita (42,9 MB contra 118,2 MB).",
+      "cpu": "CPU: d'1,2 a 1,9 vegades menys agrupada amb 3, 8 i 16 plugins a 48 i 96 kHz.",
+      "ctx": "Canvis de context: fins a unes 14 vegades menys agrupada, 13,9 a 48 kHz i 14,8 a 96 kHz amb 16 plugins.",
+      "xruns": "Xruns en les 12 mesures de cada mode: 10 agrupat contra 41 amb un procés per plugin.",
+      "why": "La RSS compta una biblioteca compartida una vegada per cada procés que la mapa, de manera que un disseny amb molts processos sembla més gran del que és. La PSS reparteix les pàgines compartides entre els processos que les fan servir, així que és la xifra honesta i es mostren totes dues. No llegeixis la proporció de RSS com l'estalvi de memòria real.",
+      "xrunCaveat": "Cada mesura és una finestra de 10 segons i els xruns que hi surten són pocs i mal repartits, de manera que el 10 contra 41 és un indici i no una prova. Llegeix-lo com un recompte i no com una taxa."
+    },
+    "method": {
+      "title": "Com s'ha mesurat.",
+      "setup": "Raspberry Pi 5 de 4 nuclis amb Zynthian i el governador de CPU en performance durant les mesures. plugin-hostd 0.12.0 amb omx-clap-host 0.22.1 com a worker. N instàncies de plugins omx en sèrie (chorus, comp, deesser, delay, drive, eq8, flanger i geq, per torn), una sinusoide a l'entrada, 256 frames, en un servidor JACK privat amb driver dummy. No s'ha tocat el JACK del sistema en marxa. Els dos modes donen el mateix senyal de sortida (pics iguals dins l'1%).",
+      "window": "Cada mesura és una finestra de 10 segons després d'1 segon d'escalfament. N és 3, 8 o 16, la freqüència 48 o 96 kHz i cada combinació amb estrès i sense (8 processos que giren en buit sobre els 4 nuclis). Són 12 mesures de cada mode.",
+      "columns": "La memòria i la CPU se sumen sobre plugin-hostd i els seus workers. La CPU és un percentatge d'un nucli. Els canvis de context són els voluntaris més els involuntaris de tots els seus fils dins la finestra. DSP és la càrrega de JACK, mitjana i màxima, llegida un cop per segon. Els xruns són les crides de xrun de JACK dins la finestra."
+    },
+    "notMeasured": {
+      "title": "Què no s'ha mesurat.",
+      "frames": "Només 256 frames. No s'han fet 128 frames.",
+      "hosts": "Només plugin-hostd amb plugins omx. En aquestes xifres no hi ha cap altre host de plugins ni cap plugin de tercers.",
+      "planner": "El planificador d'agrupació que decidirà quins plugins comparteixen worker no forma part d'aquest resultat. Les xifres comparen els dos modes fixos i cap valor per defecte no ha canviat per elles.",
+      "hardware": "La càrrega DSP i els xruns són els del driver dummy de JACK. No es fa cap afirmació sobre maquinari d'àudio real."
+    },
+    "ratios": {
+      "title": "Les proporcions.",
+      "intro": "Un procés per plugin dividit per agrupat, sense estrès. Els processos es mostren com individual / agrupat. En CPU i canvis de context una proporció superior a 1 vol dir que la mesura agrupada n'ha fet servir menys."
+    },
+    "raw": {
+      "title": "Totes les files.",
+      "intro": "Les 24 mesures tal com han sortit. Memòria en MB, CPU en percentatge d'un nucli, DSP com a mitjana / màxim en percentatge.",
+      "more": "Els plugins mateixos es descriuen a {shipped}.",
+      "shippedLink": "la pàgina dels plugins que porten els paquets"
+    },
+    "cols": {
+      "rate": "Freqüència (Hz)",
+      "n": "Plugins",
+      "stress": "Estrès",
+      "mode": "Mode",
+      "processes": "Processos",
+      "clients": "Clients JACK",
+      "rss": "RSS",
+      "pss": "PSS",
+      "cpu": "CPU",
+      "ctx": "Canvis de context",
+      "rssMb": "RSS MB",
+      "pssMb": "PSS MB",
+      "cpuPct": "CPU %",
+      "ctxCount": "Canvis de context",
+      "dsp": "DSP mitjana / màx. %",
+      "xruns": "Xruns"
+    },
+    "yes": "sí",
+    "no": "no",
+    "grouped": "agrupat",
+    "individual": "un per plugin"
+  }
+}

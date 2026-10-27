@@ -46,6 +46,10 @@
         "title": "Referència de noms",
         "blurb": "Els noms de repositori, pkg-config, RPM, DEB i npm de cada peça que es pot fer servir per separat."
       },
+      "groupedVsProcesses": {
+        "title": "Agrupat contra un procés per plugin",
+        "blurb": "Una mesura en una Raspberry Pi 5: memòria, CPU, canvis de context i xruns, amb totes les files i el que no s'ha mesurat."
+      },
       "reacRole": {
         "title": "El paper al segment REAC",
         "blurb": "Quin extrem d'un cable REAC fa la taula (taula de mescles, enregistrador o automàtic), en què es basa el mode automàtic per decidir i les frases que dona quan no accepta un paper."
