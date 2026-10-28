@@ -1,17 +1,26 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
 /**
- * The masthead. The wordmark is the console's own mark; the nav is the seven pages,
- * nothing hidden behind a menu on desktop, then the language switch: the same page in the
- * other language.
+ * The masthead. The wordmark is the console's own mark; the nav is the seven pages and the
+ * Zynthian use case, nothing hidden behind a menu on desktop, then the language switch: the same
+ * page in the other language.
  */
 const { t, locale, locales } = useI18n();
 const sitePath = useSitePath();
 const switchLocalePath = useSwitchLocalePath();
 const links = computed(() =>
-  (['architecture', 'features', 'plugins', 'docs', 'faq', 'get-it', 'links'] as const).map((page) => ({
-    to: sitePath(`/${page}`),
-    label: t(`common.nav.${page}`),
+  ([
+    ['architecture', '/architecture'],
+    ['features', '/features'],
+    ['plugins', '/plugins'],
+    ['docs', '/docs'],
+    ['zynthian', '/docs/zynthian'],
+    ['faq', '/faq'],
+    ['get-it', '/get-it'],
+    ['links', '/links'],
+  ] as const).map(([key, path]) => ({
+    to: sitePath(path),
+    label: t(`common.nav.${key}`),
   })),
 );
 /** The other languages this page exists in, each a link to the same page in it. */

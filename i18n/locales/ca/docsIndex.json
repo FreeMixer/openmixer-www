@@ -123,6 +123,15 @@
       "siteTitle": "Escrits també per a aquest web",
       "siteNote": "Capítols redactats aquí i no a l'arbre del manual. Tracten temes que el manual encara no inclou; a quin dels dos hauria de pertànyer cadascun és una qüestió oberta."
     },
+    "technical": {
+      "eyebrow": "Tècnic",
+      "title": "Casos d'ús, en breu.",
+      "intro": "Aquí, un resum d'una feina publicada sencera en un altre lloc, amb l'enllaç a on és.",
+      "zynthian": {
+        "title": "Zynthian: plugin-hostd com a amfitrió de plugins",
+        "body": "Zynthian executant els seus plugins LV2 i CLAP sota plugin-hostd: què és, les xifres principals amb la seva data i on són els canvis a Zynthian."
+      }
+    },
     "faq": {
       "eyebrow": "Preguntes freqüents",
       "title": "Preguntes amb respostes directes.",

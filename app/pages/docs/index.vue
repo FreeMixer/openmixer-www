@@ -125,6 +125,21 @@ const faqGroups = computed(() =>
     </section>
 
     <section class="border-b border-edge">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead :eyebrow="t('docsIndex.technical.eyebrow')" :title="t('docsIndex.technical.title')">
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
+            {{ t('docsIndex.technical.intro') }}
+          </p>
+        </SectionHead>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <LinkCard :title="t('docsIndex.technical.zynthian.title')" :href="sitePath('/docs/zynthian')" label="/docs/zynthian">
+            <p>{{ t('docsIndex.technical.zynthian.body') }}</p>
+          </LinkCard>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge">
       <div class="mx-auto max-w-3xl px-6 py-16">
         <SectionHead :eyebrow="t('docsIndex.faq.eyebrow')" :title="t('docsIndex.faq.title')" />
         <p class="mb-6 text-base leading-relaxed text-ink-dim">
