@@ -5,6 +5,7 @@
       "features": "Funcions",
       "plugins": "Plugins",
       "docs": "Documentació",
+      "zynthian": "Zynthian",
       "faq": "Preguntes",
       "get-it": "Instal·lar",
       "links": "Enllaços"
@@ -21,7 +22,7 @@
       "page": {
         "architecture": "Arquitectura",
         "features": "Funcions",
-      "plugins": "Plugins",
+        "plugins": "Plugins",
         "docs": "Documentació",
         "faq": "Preguntes freqüents",
         "get-it": "Instal·lar",
