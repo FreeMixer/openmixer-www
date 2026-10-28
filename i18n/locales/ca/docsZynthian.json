@@ -11,7 +11,7 @@
     },
     "what": {
       "title": "Què és.",
-      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes sobre una Raspberry Pi. Executa plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de sòcol de mod-host i executa cada plugin, LV2 o CLAP, en un procés treballador propi, de manera que un plugin que falla només fa caure el seu treballador (que es torna a posar amb els seus ajustos) i res més.",
+      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes sobre una Raspberry Pi. Executa plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de sòcol de mod-host i executa cada plugin, LV2 o CLAP, en un procés treballador propi, de manera que un plugin que falla només fa caure el seu treballador (que es torna a posar amb els seus ajustos) i res més. El cas d'ús comença pels instruments (les veus repartides entre els nuclis) i continua amb les mesures, els compromisos i la sèrie per a l'origen.",
       "p2": "Amb ell Zynthian obté un motor plugin-hostd per a plugins LV2 i CLAP en cadenes, plugin-hostd com a substitut commutable de mod-host sota MOD-UI, menús de plugins ordenats a partir dels registres de qualificació de cada plugin i cadenes on el dimoni agrupa els plugins en el mínim de treballadors possible."
     },
     "figures": {
