@@ -1,0 +1,101 @@
+{
+  "benchmarks": {
+    "seo": {
+      "title": "Benchmarks — OpenMixer",
+      "description": "DSP load, memory and CPU of the same plugin scenarios on four hosts: omx-clap-host alone, plugin-hostd, mod-host and jalv."
+    },
+    "hero": {
+      "eyebrow": "Benchmarks",
+      "title": "The same plugins on four hosts",
+      "lede": "Each scenario runs the same plugins at the same sample rate and buffer size on four hosts. The load is the DSP load of the JACK server that drives them, read while the scenario plays. The machines are a Zynthian Pi 5, a desktop PC and the CI cluster.",
+      "reproduce": "The bench harness in the plugin-hostd repository writes every run on this page and reruns it on any machine.",
+      "readme": "Read the README."
+    },
+    "hosts": {
+      "H1": "omx-clap-host alone",
+      "H2": "plugin-hostd",
+      "H3": "mod-host",
+      "H4": "jalv"
+    },
+    "hostMeaning": {
+      "H1": "The CLAP host driven directly through the mod-host protocol on its own port. All plugins share its one process.",
+      "H2": "The plugin daemon with omx-clap-host as its worker. Plugins run in isolated workers, and a chain is one worker.",
+      "H3": "The mod-host program. LV2 plugins only.",
+      "H4": "One jalv process per plugin, the way plugins run on a Zynthian today."
+    },
+    "classes": {
+      "rpi5": "Pi 5 (Zynthian)",
+      "desk": "Desk (x86_64)",
+      "ci": "CI cluster"
+    },
+    "classLabel": "Machine class",
+    "noRun": "No run is committed for this machine class.",
+    "machine": "{model}, {os}",
+    "where": "{rate}, {frames} frames",
+    "status": {
+      "unsupported": "Unsupported",
+      "failed": "Failed"
+    },
+    "family": {
+      "eyebrow": "Scenario",
+      "lede": "Each cell is the average DSP load, with the highest reading in small text. The bar is scaled to the highest reading of this table.",
+      "scenario": "Scenario",
+      "max": "max {max}",
+      "unit": "DSP load in percent of the audio cycle, as reported by the JACK server.",
+      "notMeasured": "Not measured in this run"
+    },
+    "cvp": {
+      "eyebrow": "Chains and processes",
+      "title": "One chain or one process per plugin",
+      "lede": "The same plugins run as individual processes, as instances inside one process, and as one chain. Each row is one way of running them.",
+      "group": "{n} plugins, {where}",
+      "mode": "Mode",
+      "host": "Host",
+      "processes": "Processes",
+      "rss": "RSS MB",
+      "pss": "PSS MB",
+      "cpu": "CPU %",
+      "ctx": "Context switches",
+      "add": "Add ms",
+      "dsp": "DSP load %",
+      "units": "Processes are the daemon plus its workers. RSS and PSS are summed over those processes. CPU is the time they used over a ten second window, in percent of one core. Context switches are voluntary plus involuntary over the same window.",
+      "ratioProcesses": "Individual workers run {n} times the processes of one chain.",
+      "ratioPss": "Individual workers hold {n} times the proportional memory of one chain.",
+      "ratioCpu": "Individual workers use {n} times the CPU time of one chain."
+    },
+    "mode": {
+      "individual": "Individual processes",
+      "shared-process": "Instances in one process",
+      "chain": "One chain"
+    },
+    "isolation": {
+      "eyebrow": "Isolation",
+      "title": "What isolation costs and buys",
+      "lede": "Both figures come from the table rows above: the load of plugin-hostd minus the load of omx-clap-host alone, and the time plugin-hostd takes to run again after the process that holds a plugin is killed.",
+      "costTitle": "Load",
+      "difference": "Difference",
+      "noPair": "No scenario of this run was measured on both omx-clap-host alone and plugin-hostd.",
+      "buysTitle": "Recovery",
+      "recover": "Audio runs again after",
+      "others": "Other hosts",
+      "noRecover": "No recovery time was measured in this run."
+    },
+    "coverage": {
+      "eyebrow": "LV2 coverage",
+      "title": "LV2 plugins each host loads",
+      "lede": "Of the {set} on {machine}, the number each one loads.",
+      "jalv": "jalv",
+      "mod-host": "mod-host",
+      "omx-clap-lv2": "LV2 adapter"
+    },
+    "qualification": {
+      "eyebrow": "Qualification",
+      "title": "Qualifying the installed plugins",
+      "fact": "Qualifying {plugins} CLAP plugins takes {seconds} seconds on {machine}.",
+      "at": "Rates {rates}, buffer sizes {quanta}.",
+      "split": "{suitable} suitable and {unsuitable} unsuitable."
+    },
+    "footer": "Run {id} on {machine}. Software: {software}.",
+    "data": "The run files and their format."
+  }
+}
