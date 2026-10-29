@@ -1,0 +1,42 @@
+{
+  "docsZynthian": {
+    "seo": {
+      "title": "Zynthian: plugin-hostd com a amfitrió de plugins — OpenMixer",
+      "description": "Zynthian executant els seus plugins LV2 i CLAP sota plugin-hostd: què és, les xifres mesurades amb la seva data i on són els canvis a Zynthian. El cas d'ús complet és a les pàgines de plugin-hostd."
+    },
+    "hero": {
+      "eyebrow": "Tècnic",
+      "title": "Zynthian: plugin-hostd com a amfitrió de plugins.",
+      "lede": "Un resum breu. El cas d'ús complet, amb totes les figures i captures, el publica el mateix plugin-hostd i està enllaçat al final d'aquesta pàgina."
+    },
+    "what": {
+      "title": "Què és.",
+      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes sobre una Raspberry Pi. Executa plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de sòcol de mod-host i executa cada plugin, LV2 o CLAP, en un procés treballador propi, de manera que un plugin que falla només fa caure el seu treballador (que es torna a posar amb els seus ajustos) i res més. El cas d'ús comença pels instruments (les veus repartides entre els nuclis) i continua amb les mesures, els compromisos i la sèrie per a l'origen.",
+      "p2": "Amb ell Zynthian obté un motor plugin-hostd per a plugins LV2 i CLAP en cadenes, plugin-hostd com a substitut commutable de mod-host sota MOD-UI, menús de plugins ordenats a partir dels registres de qualificació de cada plugin i cadenes on el dimoni agrupa els plugins en el mínim de treballadors possible."
+    },
+    "figures": {
+      "title": "Les xifres principals.",
+      "intro": "Una mesura en una Raspberry Pi 5 amb Zynthian, publicada el 2026-10-27: una cadena de plugins en un sol treballador contra un procés per plugin, plugin-hostd 0.12.0 amb omx-clap-host 0.22.1, 256 mostres a 48 i 96 kHz.",
+      "pss": "Memòria: amb 16 plugins, la memòria proporcional (PSS) és 2,8 vegades menor agrupada, 42,9 MB contra 118,2 MB a 48 kHz.",
+      "cpu": "CPU: d'1,2 a 1,9 vegades menys agrupada, amb 3, 8 i 16 plugins.",
+      "xruns": "Xruns en 12 execucions de cada mode: 10 agrupada contra 41 amb un procés per plugin; són pocs i repartits de manera desigual, per tant és un recompte i no una taxa.",
+      "more": "Totes les files, el mètode i el que no es va mesurar"
+    },
+    "series": {
+      "title": "On són els canvis a Zynthian.",
+      "forks": "Comprovat el 2026-10-28. El motor i els canvis de sistema són a les bifurcacions de zynthian-ui i zynthian-sys de FreeMixer: onze canvis integrats a zynthian-ui (el motor plugin-hostd, plugin-hostd per defecte amb un convertidor d'instantànies, menús a partir de la qualificació, cadenes segons el planificador del dimoni) i set integrats i un d'obert a zynthian-sys (el repositori d'OpenMixer, plugin-hostd com a mod-host de MOD-UI, interfícies MOD des d'omx-panel, OpenMixer a la instal·lació per defecte).",
+      "upstream": "A l'origen, de moment s'ha proposat un sol canvi: la petició d'integració 228 de zynthian-sys, que construeix l'entorn de MOD-UI amb Python 3.13, oberta. La resta encara no s'ha proposat als mantenidors de Zynthian."
+    },
+    "read": {
+      "title": "Llegiu el cas d'ús.",
+      "pages": {
+        "title": "Les pàgines de plugin-hostd",
+        "body": "El cas d'ús complet tal com el publica plugin-hostd: les mesures, els compromisos, la sèrie per a l'origen i l'informe d'acceptació, amb totes les figures i captures."
+      },
+      "source": {
+        "title": "Les fonts",
+        "body": "Les mateixes pàgines en markdown al repositori de plugin-hostd, amb els registres en brut de cada execució a evidence/."
+      }
+    }
+  }
+}

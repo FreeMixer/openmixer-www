@@ -1,0 +1,42 @@
+{
+  "docsZynthian": {
+    "seo": {
+      "title": "Zynthian: plugin-hostd as its plugin host — OpenMixer",
+      "description": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, the measured figures with their date, and where the changes to Zynthian stand. The full use case is on the plugin-hostd pages."
+    },
+    "hero": {
+      "eyebrow": "Technical",
+      "title": "Zynthian: plugin-hostd as its plugin host.",
+      "lede": "A short summary. The full use case, with every figure and capture, is published by plugin-hostd itself and linked at the end of this page."
+    },
+    "what": {
+      "title": "What it is.",
+      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through jalv, and through mod-host behind MOD-UI. plugin-hostd speaks mod-host's socket protocol and runs each plugin, LV2 or CLAP, in a worker process of its own, so a plugin that crashes takes down its own worker, which is put back with its settings, and nothing else. The use case opens with instruments: voices across the cores. It goes on to benchmarks, trade-offs and the upstream series.",
+      "p2": "With it Zynthian gets a plugin-hostd engine for LV2 and CLAP plugins in chains, plugin-hostd as a switchable replacement for mod-host under MOD-UI, plugin menus ordered from per-plugin qualification records, and chains whose plugins the daemon groups into as few workers as it can."
+    },
+    "figures": {
+      "title": "The headline figures.",
+      "intro": "One measurement on a Raspberry Pi 5 running Zynthian, published 2026-10-27: a chain of plugins in one worker against one process per plugin, plugin-hostd 0.12.0 with omx-clap-host 0.22.1, 256 frames at 48 and 96 kHz.",
+      "pss": "Memory: with 16 plugins, proportional memory (PSS) is 2.8x smaller grouped, 42.9 MB against 118.2 MB at 48 kHz.",
+      "cpu": "CPU: 1.2 to 1.9x less when grouped, across 3, 8 and 16 plugins.",
+      "xruns": "Xruns over 12 runs of each mode: 10 grouped against 41 with one process per plugin; few and unevenly spread, so a count and not a rate.",
+      "more": "Every row, the method and what was not measured"
+    },
+    "series": {
+      "title": "Where the changes to Zynthian stand.",
+      "forks": "Checked 2026-10-28. The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys: eleven changes merged in zynthian-ui (the plugin-hostd engine, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner), and seven merged with one open in zynthian-sys (the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install).",
+      "upstream": "Upstream, one change is proposed so far: zynthian-sys pull request 228, building MOD-UI's environment on Python 3.13, open. The rest has not been proposed to Zynthian's maintainers yet."
+    },
+    "read": {
+      "title": "Read the use case.",
+      "pages": {
+        "title": "The plugin-hostd pages",
+        "body": "The full use case as plugin-hostd publishes it: the benchmarks, the trade-offs, the upstream series and the acceptance report, with every figure and capture."
+      },
+      "source": {
+        "title": "The sources",
+        "body": "The same pages as markdown in the plugin-hostd repository, with the raw logs of every run under evidence/."
+      }
+    }
+  }
+}

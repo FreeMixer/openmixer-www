@@ -123,6 +123,15 @@
       "siteTitle": "Also written for this site",
       "siteNote": "Chapters authored here rather than in the manual tree. They cover subjects the manual does not carry yet; which of the two should own each is an open question."
     },
+    "technical": {
+      "eyebrow": "Technical",
+      "title": "Use cases, in short.",
+      "intro": "A summary here of work published in full elsewhere, with the link to where it lives.",
+      "zynthian": {
+        "title": "Zynthian: plugin-hostd as its plugin host",
+        "body": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, the headline figures with their date, and where the changes to Zynthian stand."
+      }
+    },
     "faq": {
       "eyebrow": "FAQ",
       "title": "Questions with straight answers.",
