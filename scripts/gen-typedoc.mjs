@@ -62,7 +62,7 @@ console.log(`[gen-typedoc] json → ${jsonOut}`);
 // design gate reads `docs/design/specs/…` back out of the code, and TSDoc carries
 // the same citations). typedoc reproduces the comment verbatim, so left alone this
 // pass ships internal spec paths and the operator's own checkout paths straight
-// into the published HTML — exactly the content the publish ruling excludes
+// into the published HTML — exactly the content the publish decision excludes
 // (never link or reproduce docs/design/*, plans, ledgers or findings files).
 // typedoc renders such a citation inside a plain `<code>…</code>` span (never
 // inside the `tsd-signature-type` span it uses for an actual literal value, so a
