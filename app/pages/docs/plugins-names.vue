@@ -9,20 +9,59 @@ useSeoMeta({
 
 const ORG = 'https://github.com/FreeMixer/';
 
-/** One row per piece; a null cell is a form the piece does not ship in. */
+/**
+ * One row per piece; an empty list is a form the piece does not ship in. `path` is where the piece lives when it is
+ * not a repository of its own (it is built from FreeMixer/.github).
+ */
 const PIECES = [
+  {
+    repo: 'clap-headers',
+    path: '.github/tree/main/.github/workflows/clap-headers-deb.yml',
+    pkgconfig: [],
+    rpm: [],
+    deb: ['clap-headers'],
+    npm: [],
+  },
+  {
+    repo: 'libdiginet',
+    pkgconfig: ['libdiginet', 'libdiginet-transport'],
+    rpm: ['libdiginet', 'libdiginet-devel', 'diginet-tools'],
+    deb: ['libdiginet0', 'libdiginet-transport0', 'libdiginet-dev', 'diginet-tools'],
+    npm: [],
+  },
+  {
+    repo: 'libmackie',
+    pkgconfig: ['libmackie'],
+    rpm: ['libmackie', 'libmackie-devel'],
+    deb: ['libmackie0', 'libmackie-dev'],
+    npm: [],
+  },
+  {
+    repo: 'libsurface',
+    pkgconfig: ['libsurface', 'libsurface-diginet'],
+    rpm: ['libsurface', 'libsurface-devel', 'libsurface-diginet', 'libsurface-diginet-devel', 'surface-c24'],
+    deb: ['libsurface0', 'libsurface-dev', 'libsurface-diginet0', 'libsurface-diginet-dev', 'surface-c24'],
+    npm: [],
+  },
+  {
+    repo: 'mod-host',
+    pkgconfig: ['mod-host-protocol'],
+    rpm: ['mod-host', 'mod-host-protocol', 'mod-host-protocol-devel'],
+    deb: ['libmod-host-protocol0', 'libmod-host-protocol-dev'],
+    npm: [],
+  },
   {
     repo: 'omx-clap-core',
     pkgconfig: ['omx-clap-core', 'omx-clap-lv2'],
-    rpm: ['omx-clap-host', 'omx-clap-core', 'omx-clap-core-devel', 'omx-clap-lv2-devel'],
-    deb: ['omx-clap-host', 'libomx-clap-core0', 'libomx-clap-core-dev', 'libomx-clap-lv2-dev'],
+    rpm: ['omx-clap-host', 'omx-clap-core', 'omx-clap-core-devel', 'omx-clap-lv2-devel', 'omx-clap-core-contract', 'omx-clap-host-tests'],
+    deb: ['omx-clap-host', 'libomx-clap-core1', 'libomx-clap-core-dev', 'libomx-clap-lv2-dev', 'omx-clap-core-contract', 'omx-clap-host-tests'],
     npm: [],
   },
   {
     repo: 'omx-contract',
     pkgconfig: ['omx-contract'],
-    rpm: ['omx-contract-devel'],
-    deb: ['libomx-contract-dev'],
+    rpm: ['omx-contract', 'omx-contract-data', 'omx-contract-devel'],
+    deb: ['omx-contract', 'omx-contract-data', 'libomx-contract-dev'],
     npm: ['@openmixer/omx-contract'],
   },
   {
@@ -42,15 +81,30 @@ const PIECES = [
   {
     repo: 'omx-plugins',
     pkgconfig: [],
-    rpm: ['omx-plugins', 'omx-plugins-clap', 'omx-plugins-lv2', 'omx-plugins-devel'],
-    deb: ['omx-plugins', 'omx-plugins-clap', 'omx-plugins-lv2', 'omx-plugins-dev'],
+    rpm: ['omx-plugins', 'omx-plugins-clap', 'omx-plugins-lv2', 'omx-plugins-devel', 'omx-plugins-contract', 'omx-plugins-test'],
+    deb: ['omx-plugins', 'omx-plugins-clap', 'omx-plugins-lv2', 'omx-plugins-dev', 'omx-plugins-contract', 'omx-plugins-test'],
+    npm: [],
+  },
+  {
+    repo: 'omx-qualification-records',
+    pkgconfig: [],
+    rpm: [],
+    deb: ['omx-qualification-rpi5-zynthian-vangelis'],
+    npm: [],
+  },
+  {
+    repo: 'openmixer-release',
+    path: '.github/tree/main/packaging/openmixer-release',
+    pkgconfig: [],
+    rpm: ['openmixer-release'],
+    deb: ['openmixer-release'],
     npm: [],
   },
   {
     repo: 'plugin-hostd',
     pkgconfig: [],
-    rpm: ['plugin-hostd', 'plugin-hostd-devel'],
-    deb: ['plugin-hostd', 'plugin-hostd-dev'],
+    rpm: ['plugin-hostd', 'plugin-hostd-devel', 'plugin-hostd-contract', 'plugin-hostd-tests'],
+    deb: ['plugin-hostd', 'plugin-hostd-dev', 'plugin-hostd-contract', 'plugin-hostd-tests'],
     npm: [],
   },
   {
@@ -85,7 +139,7 @@ const columns = computed(() => [
         <p class="mb-6 max-w-3xl text-base leading-relaxed text-ink-dim">{{ t('docsPluginsNames.table.intro') }}</p>
         <RefTable :columns="columns" :rows="PIECES as unknown as Record<string, unknown>[]">
           <template #repo="{ row }">
-            <a :href="ORG + String(row.repo)" class="font-mono text-xs text-accent hover:underline">{{ row.repo }}</a>
+            <a :href="ORG + String(row.path ?? row.repo)" class="font-mono text-xs text-accent hover:underline">{{ row.repo }}</a>
           </template>
           <template v-for="k in (['pkgconfig', 'rpm', 'deb', 'npm'] as const)" #[k]="{ row }" :key="k">
             <ul v-if="(row[k] as string[]).length" class="space-y-1">
