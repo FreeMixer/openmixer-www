@@ -22,7 +22,7 @@
     },
     "suffix": {
       "title": "How a built package is numbered.",
-      "text": "Packages we build carry the suffix <code>fmx</code> after the release counter (<code>0.10.6-1-fmx</code>), never the word freemixer."
+      "text": "Packages built from our own sources carry no suffix (<code>0.15.1-1</code>). A package we rebuild from another project's source carries <code>omx</code> after its release counter, so it never takes the place of the distribution's own build: <code>0.1.0-7~omx</code> as a DEB, <code>11.2.omx</code> in an RPM's release."
     }
   }
 }
