@@ -50,7 +50,7 @@ const install = computed(() => [
 
 const SKILLS = [
   'design-first',
-  'design-ruling',
+  'design-decision',
   'false-signals',
   'round-trip-proof',
   'openmixer-dev-discipline',

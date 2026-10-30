@@ -30,7 +30,7 @@ const CATALOG_KINDS = new Set([128, 256, 2097152, 64, 8]);
 
 // Source TSDoc comments cite their governing spec by path (house convention: the
 // design gate reads `docs/design/specs/…` back out of the code). That citation is
-// exactly the internal-notes content the publish ruling excludes — never link or
+// exactly the internal-notes content the publish decision excludes — never link or
 // reproduce docs/design/*, plans, ledgers or findings files. Strip a citation's path
 // down to a neutral phrase rather than the summary's whole clause, so the sentence
 // a reader sees still parses.
