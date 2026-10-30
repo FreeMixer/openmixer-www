@@ -16,7 +16,7 @@
     },
     "figures": {
       "title": "Les xifres principals.",
-      "intro": "Una mesura en una Raspberry Pi 5 amb Zynthian, publicada el 2026-10-27: una cadena de plugins en un sol treballador contra un procés per plugin, plugin-hostd 0.12.0 amb omx-clap-host 0.22.1, 256 mostres a 48 i 96 kHz.",
+      "intro": "Una mesura en una Raspberry Pi 5 amb Zynthian: una cadena de plugins en un sol treballador contra un procés per plugin, plugin-hostd 0.12.0 amb omx-clap-host 0.22.1, 256 mostres a 48 i 96 kHz.",
       "pss": "Memòria: amb 16 plugins, la memòria proporcional (PSS) és 2,8 vegades menor agrupada, 42,9 MB contra 118,2 MB a 48 kHz.",
       "cpu": "CPU: d'1,2 a 1,9 vegades menys agrupada, amb 3, 8 i 16 plugins.",
       "xruns": "Xruns en 12 execucions de cada mode: 10 agrupada contra 41 amb un procés per plugin; són pocs i repartits de manera desigual, per tant és un recompte i no una taxa.",
