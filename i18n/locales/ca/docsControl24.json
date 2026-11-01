@@ -47,7 +47,7 @@
     },
     "install": {
       "title": "Instal·lació.",
-      "intro": "libdiginet 0.1.0 és als repositoris de paquets de FreeMixer: RPM per a Fedora (x86_64, aarch64) i DEB per a Debian bookworm i trixie (amd64, arm64). Afegiu el repositori com a les altres pàgines i instal·leu diginet-tools, que porta la biblioteca.",
+      "intro": "libdiginet és als repositoris de paquets de FreeMixer: RPM per a Fedora (x86_64, aarch64) i DEB per a Debian bookworm i trixie (amd64, arm64). Afegiu el repositori com a les altres pàgines i instal·leu diginet-tools, que porta la biblioteca.",
       "pkgLib": "La biblioteca del protocol i el seu transport: el descobriment, l'inici de sessió, els acusaments de recepció, el keepalive i les retransmissions.",
       "pkgTools": "diginet-probe, l'eina de línia d'ordres per provar una taula.",
       "pkgDevel": "Capçaleres, fitxers pkg-config i la gramàtica del protocol, per compilar un programa sobre la biblioteca.",
@@ -59,7 +59,7 @@
     },
     "status": {
       "title": "Estat.",
-      "p1": "La biblioteca està publicada: libdiginet 0.1.0 inclou el protocol, el transport i l'eina de prova."
+      "p1": "La biblioteca està publicada: inclou el protocol, el transport i l'eina de prova."
     }
   }
 }
