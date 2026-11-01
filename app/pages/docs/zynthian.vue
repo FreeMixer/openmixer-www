@@ -45,6 +45,12 @@ useSeoMeta({
           <li>{{ t('docsZynthian.figures.cpu') }}</li>
           <li>{{ t('docsZynthian.figures.xruns') }}</li>
         </ul>
+        <p class="mb-4 mt-6 text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.figures.modHostIntro') }}</p>
+        <ul class="list-disc space-y-3 pl-6 text-base leading-relaxed text-ink-dim">
+          <li>{{ t('docsZynthian.figures.modHostMemory') }}</li>
+          <li>{{ t('docsZynthian.figures.modHostAdd') }}</li>
+          <li>{{ t('docsZynthian.figures.modHostCpu') }}</li>
+        </ul>
         <p class="mt-6 text-base leading-relaxed text-ink-dim">
           <NuxtLink :to="sitePath('/docs/grouped-vs-processes')" class="text-accent hover:underline">{{ t('docsZynthian.figures.more') }}</NuxtLink>
         </p>
