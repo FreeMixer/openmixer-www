@@ -2,7 +2,7 @@
   "docsZynthian": {
     "seo": {
       "title": "Zynthian: plugin-hostd as its plugin host — OpenMixer",
-      "description": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, the measured figures with their date, and where the changes to Zynthian stand. The full use case is on the plugin-hostd pages."
+      "description": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, the measured figures, and where the changes to Zynthian stand. The full use case is on the plugin-hostd pages."
     },
     "hero": {
       "eyebrow": "Technical",
@@ -28,7 +28,7 @@
     },
     "series": {
       "title": "Where the changes to Zynthian stand.",
-      "forks": "Checked 2026-10-28. The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys: eleven changes merged in zynthian-ui (the plugin-hostd engine, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner), and seven merged with one open in zynthian-sys (the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install).",
+      "forks": "The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys. In zynthian-ui: the plugin-hostd engine, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner. In zynthian-sys: the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install. Merged and open pull requests are listed on each fork.",
       "upstream": "Upstream, one change is proposed so far: zynthian-sys pull request 228, building MOD-UI's environment on Python 3.13, open. The rest has not been proposed to Zynthian's maintainers yet."
     },
     "read": {
