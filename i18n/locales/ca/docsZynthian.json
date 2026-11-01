@@ -22,7 +22,7 @@
       "xruns": "Xruns en 12 execucions de cada mode: 10 agrupada contra 41 amb un procés per plugin; són pocs i repartits de manera desigual, per tant és un recompte i no una taxa.",
       "modHostIntro": "Davant del mod-host propi de Zynthian, mesurat digitalment a la Pi 5 a 48 kHz i 256 mostres amb omx-clap-core 0.26.1 i plugin-hostd 0.15.8 (versions de mesura), amb 0 xruns a totes les files:",
       "modHostMemory": "Memòria: uns 45 MB menys que mod-host amb 24 plugins, 147 MB contra 192 MB.",
-      "modHostAdd": "Afegir a una cadena: 422 ms contra 717 ms amb 24 plugins, i 256 ms contra 317 ms amb deu plugins LV2 de tercers.",
+      "modHostAdd": "Afegir a una cadena: 422 ms contra 717 ms amb 24 plugins i 256 ms contra 317 ms amb deu plugins LV2 de tercers.",
       "modHostCpu": "CPU: la cadena de plugin-hostd és una mica més lleugera que mod-host, 12,37 % contra 14,47 % amb els 24. El host de procés compartit, omx-clap-host, continua uns 4 a 7 % més pesat en DSP que mod-host.",
       "more": "Totes les files, el mètode i el que no es va mesurar"
     },
