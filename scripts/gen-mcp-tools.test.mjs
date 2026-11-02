@@ -46,7 +46,7 @@ test('the committed MCP table holds only the rows deploy/public-mcp.txt names', 
 
 test('a development tool in the table is caught', () => {
   const table = JSON.parse(readFileSync(join(root, 'app/data/mcp-tools.json'), 'utf8'));
-  table.tools.push({ name: 'bulk_read', family: 'rulings', args: [], writes: false, effect: '', answers: '' });
+  table.tools.push({ name: 'bulk_read', family: 'decisions', args: [], writes: false, effect: '', answers: '' });
   assert.deepEqual(unlisted(table, publicList()), ['bulk_read']);
 });
 

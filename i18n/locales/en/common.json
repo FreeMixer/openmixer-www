@@ -6,6 +6,7 @@
       "plugins": "Plugins",
       "benchmarks": "Benchmarks",
       "docs": "Docs",
+      "zynthian": "Zynthian",
       "faq": "FAQ",
       "get-it": "Get it",
       "links": "Links"
@@ -22,7 +23,7 @@
       "page": {
         "architecture": "Architecture",
         "features": "Features",
-      "plugins": "Plugins",
+        "plugins": "Plugins",
         "docs": "Documentation",
         "faq": "FAQ",
         "get-it": "Get it",

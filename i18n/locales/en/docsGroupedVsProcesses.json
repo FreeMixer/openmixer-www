@@ -1,0 +1,67 @@
+{
+  "docsGroupedVsProcesses": {
+    "seo": {
+      "title": "One worker per chain against one process per plugin | OpenMixer",
+      "description": "Memory, CPU, context switches and xruns of a chain of omx plugins hosted in one worker or in one process per plugin, measured on a Raspberry Pi 5."
+    },
+    "hero": {
+      "eyebrow": "Plugins - measured",
+      "title": "One worker per chain, or one process per plugin.",
+      "lede": "plugin-hostd can run a chain of plugins inside one worker process, or give every plugin its own process. This page is one measurement of the two on a Raspberry Pi 5, with every row, and with what was not measured."
+    },
+    "result": {
+      "title": "What came out.",
+      "rss": "Memory: with 16 plugins, resident memory (RSS) is 14x smaller grouped (125.4 MB against 1764.6 MB at 48 kHz) and proportional memory (PSS) is 2.8x smaller (42.9 MB against 118.2 MB).",
+      "cpu": "CPU: 1.2 to 1.9x less when grouped, across 3, 8 and 16 plugins at 48 and 96 kHz.",
+      "ctx": "Context switches: up to about 14x fewer when grouped, 13.9x at 48 kHz and 14.8x at 96 kHz with 16 plugins.",
+      "xruns": "Xruns over the 12 runs of each mode: 10 grouped against 41 with one process per plugin.",
+      "why": "RSS counts a shared library once for every process that maps it, so a design with many processes looks larger than it is. PSS divides shared pages between the processes that use them, so it is the honest figure, and both are shown. Do not read the RSS ratio as the saving in real memory.",
+      "xrunCaveat": "Each run is one window of 10 seconds and the xruns in it are few and unevenly spread, so the 10 against 41 is suggestive and not proof. Read it as a count and not as a rate."
+    },
+    "method": {
+      "title": "How it was measured.",
+      "setup": "Raspberry Pi 5 with 4 cores running Zynthian, CPU governor on performance during the runs. plugin-hostd 0.12.0 with omx-clap-host 0.22.1 as the worker. N instances of omx plugins in series (chorus, comp, deesser, delay, drive, eq8, flanger and geq, in turn), a sine in, 256 frames, on a private JACK server with a dummy driver. The JACK server of the live system was not touched. Both modes produce the same output signal (peaks equal within 1%).",
+      "window": "Each run is one window of 10 seconds after 1 second of warm-up. N is 3, 8 or 16, the rate 48 or 96 kHz, each with and without stress (8 busy-loop processes on the 4 cores). That is 12 runs of each mode.",
+      "columns": "Memory and CPU are summed over plugin-hostd and its workers. CPU is a percentage of one core. Context switches are voluntary plus involuntary ones of all their threads in the window. DSP is the JACK load, average and maximum, read once a second. Xruns are the JACK xrun callbacks in the window."
+    },
+    "notMeasured": {
+      "title": "What was not measured.",
+      "frames": "Only 256 frames. 128 frames were not run.",
+      "hosts": "Only plugin-hostd, with omx plugins. No other plugin host, and no third-party plugin, is in these numbers.",
+      "planner": "The grouping planner that will decide which plugins share a worker is not part of this result. The numbers compare the two fixed modes and no default has been changed because of them.",
+      "hardware": "DSP load and xruns are those of the JACK dummy driver. No claim about real audio hardware is made."
+    },
+    "ratios": {
+      "title": "The ratios.",
+      "intro": "One process per plugin divided by grouped, without stress. Processes are shown as individual / grouped. For CPU and context switches a ratio above 1 means the grouped run used less."
+    },
+    "raw": {
+      "title": "Every row.",
+      "intro": "The 24 runs as measured. Memory in MB, CPU as percent of one core, DSP as average / maximum percent.",
+      "more": "The plugins themselves are described on {shipped}.",
+      "shippedLink": "the page on the shipped plugins"
+    },
+    "cols": {
+      "rate": "Rate (Hz)",
+      "n": "Plugins",
+      "stress": "Stress",
+      "mode": "Mode",
+      "processes": "Processes",
+      "clients": "JACK clients",
+      "rss": "RSS",
+      "pss": "PSS",
+      "cpu": "CPU",
+      "ctx": "Context switches",
+      "rssMb": "RSS MB",
+      "pssMb": "PSS MB",
+      "cpuPct": "CPU %",
+      "ctxCount": "Context switches",
+      "dsp": "DSP avg / max %",
+      "xruns": "Xruns"
+    },
+    "yes": "yes",
+    "no": "no",
+    "grouped": "grouped",
+    "individual": "one per plugin"
+  }
+}

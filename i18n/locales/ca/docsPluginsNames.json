@@ -22,7 +22,7 @@
     },
     "suffix": {
       "title": "Com es numera un paquet construït.",
-      "text": "Els paquets que construïm duen el sufix <code>fmx</code> després del número de versió (<code>0.10.6-1-fmx</code>), mai la paraula freemixer."
+      "text": "Els paquets construïts a partir de les nostres fonts no duen cap sufix (<code>0.15.1-1</code>). Un paquet que reconstruïm a partir de les fonts d'un altre projecte duu <code>omx</code> després del número de versió, perquè mai no ocupi el lloc del paquet de la distribució: <code>0.1.0-7~omx</code> en un DEB, <code>11.2.omx</code> a la versió d'un RPM."
     }
   }
 }

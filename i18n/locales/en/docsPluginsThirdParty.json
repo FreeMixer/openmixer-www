@@ -21,6 +21,8 @@
       "workers": "<code>plugin-hostd</code> runs LV2 and CLAP plugins, each in a worker process of its own, behind the same socket protocol the console already speaks. Audio never passes through the daemon: every worker is an audio client of its own.",
       "crash": "If a plugin crashes, only its worker is restarted, with its settings put back, and the other plugins keep playing. A plugin that keeps crashing is singled out and given up on without touching its neighbours.",
       "pins": "Before a plugin starts, the daemon checks that its files are the ones that were checked: it hashes them and compares them with the plugin's recorded pin. A plugin updated or swapped behind your back is refused until you accept the new files, so a change cannot slip in unchecked. A plugin whose record says it was refused does not start.",
+      "grouped": "How much memory, CPU and how many context switches a chain in one worker saves against one process per plugin is measured on {page}.",
+      "groupedLink": "a page of its own",
       "picker": "What the plugin picker offers on a channel is described in the {chapter}.",
       "chapter": "plugins chapter"
     },
