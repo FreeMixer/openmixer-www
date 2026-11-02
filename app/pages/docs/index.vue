@@ -39,6 +39,7 @@ const siteChapters = computed(() =>
     ['pluginsThirdParty', '/docs/plugins-third-party'],
     ['pluginsPanels', '/docs/plugins-panels'],
     ['pluginsNames', '/docs/plugins-names'],
+    ['groupedVsProcesses', '/docs/grouped-vs-processes'],
     ['reacRole', '/docs/reac-role'],
     ['control24', '/docs/control24'],
   ] as const).map(([k, to]) => ({
@@ -120,6 +121,21 @@ const faqGroups = computed(() =>
           :note="t('docsIndex.manual.siteNote')"
           :items="siteChapters"
         />
+      </div>
+    </section>
+
+    <section class="border-b border-edge">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead :eyebrow="t('docsIndex.technical.eyebrow')" :title="t('docsIndex.technical.title')">
+          <p class="mt-4 max-w-3xl text-base leading-relaxed text-ink-dim">
+            {{ t('docsIndex.technical.intro') }}
+          </p>
+        </SectionHead>
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <LinkCard :title="t('docsIndex.technical.zynthian.title')" :href="sitePath('/docs/zynthian')" label="/docs/zynthian">
+            <p>{{ t('docsIndex.technical.zynthian.body') }}</p>
+          </LinkCard>
+        </div>
       </div>
     </section>
 
