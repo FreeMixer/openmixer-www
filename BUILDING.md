@@ -122,7 +122,7 @@ build time, the way `/plugins/` does from `plugin-catalog/`. `benchmarks/schema/
 is the contract and `npm run benchmarks:check` (wired into `predev`, `prebuild` and `pregenerate`) fails the
 build on a file that does not match it. The page shows the newest run of each machine class (`rpi5`, `desk`,
 `ci`) and states the run id and software versions of the data it shows. The format, the four hosts, the
-chains-versus-processes modes and how to add a run are in `benchmarks/README.md`;
+the scenario modes and how to add a run are in `benchmarks/README.md`;
 `node --test scripts/check-benchmarks.test.mjs` holds the refusals and the derivations.
 
 ## Publishing
