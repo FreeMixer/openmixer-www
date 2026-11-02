@@ -1,7 +1,7 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <script setup lang="ts">
 /**
- * The masthead. The wordmark is the console's own mark; the nav is the seven pages and the
+ * The masthead. The wordmark is the console's own mark; the nav is the pages and the
  * Zynthian use case, nothing hidden behind a menu on desktop, then the language switch: the same
  * page in the other language.
  */
@@ -13,6 +13,7 @@ const links = computed(() =>
     ['architecture', '/architecture'],
     ['features', '/features'],
     ['plugins', '/plugins'],
+    ['benchmarks', '/benchmarks'],
     ['docs', '/docs'],
     ['zynthian', '/docs/zynthian'],
     ['faq', '/faq'],
