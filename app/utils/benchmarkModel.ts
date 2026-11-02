@@ -10,7 +10,7 @@
 
 export type HostId = 'H1' | 'H2' | 'H3' | 'H4';
 export type MachineClass = 'rpi5' | 'desk' | 'ci';
-export type Mode = 'individual' | 'chain' | 'shared-process';
+export type Mode = 'individual' | 'chain' | 'chain-add' | 'shared-process';
 
 export interface BenchScenario {
   readonly id: string;
@@ -33,6 +33,40 @@ export interface BenchScenario {
   readonly ctx_switches?: number | null;
   readonly status: 'ok' | 'unsupported' | 'failed';
   readonly note?: string;
+  readonly stress?: string;
+  readonly xruns?: number | null;
+  readonly repeats?: number | null;
+  readonly jack_clients?: number | null;
+  readonly latency_frames?: number | null;
+  /** Versions that differ from the run's own, for this row. */
+  readonly software?: Readonly<Record<string, string>>;
+  /** Per measure, [lowest, highest] over the repeats; the figure beside it is the median. */
+  readonly spread?: Readonly<Record<string, readonly [number, number]>>;
+}
+
+export interface AddTime {
+  readonly set?: string;
+  readonly builds?: string;
+  readonly host: HostId;
+  readonly mode: Mode;
+  readonly plugins: number;
+  readonly median_ms: number;
+  readonly min_ms: number;
+  readonly max_ms: number;
+  readonly repeats: number;
+}
+
+export interface Instrument {
+  readonly name: string;
+  readonly host: 'H2' | 'H3' | 'standalone';
+  readonly notes: number;
+  readonly repeats: number;
+  readonly dsp_load_avg: number;
+  readonly pss_mb?: number;
+  readonly peak_db?: number;
+  readonly xruns: number;
+  readonly status: 'ok' | 'failed';
+  readonly spread: Readonly<Record<string, readonly [number, number]>>;
 }
 
 export interface BenchRun {
@@ -56,9 +90,27 @@ export interface BenchRun {
     readonly 'mod-host'?: number;
     readonly 'omx-clap-lv2'?: number;
   };
+  readonly sources?: readonly string[];
+  readonly add_times?: { readonly cold?: readonly AddTime[]; readonly warm?: readonly AddTime[] };
+  readonly instruments?: readonly Instrument[];
+  readonly profile?: {
+    readonly audio_thread_shares: readonly { readonly where: string; readonly cvp24_lv2: string; readonly cvp24: string }[];
+  };
   readonly qualification?: {
     readonly plugins: number;
-    readonly seconds: number;
+    readonly seconds?: number;
+    readonly lv2?: number;
+    readonly clap?: number;
+    readonly qualified_in_process?: number;
+    readonly qualified_isolated?: number;
+    readonly crashed?: number;
+    readonly hung?: number;
+    readonly refused?: number;
+    readonly unmeasured?: number;
+    readonly no_pin?: number;
+    readonly records_package?: string;
+    readonly packages_installed?: number;
+    readonly packages_verified?: number;
     readonly rates?: readonly number[];
     readonly quanta?: readonly number[];
     readonly suitable?: number;
@@ -68,9 +120,6 @@ export interface BenchRun {
 
 export const HOSTS: readonly HostId[] = ['H1', 'H2', 'H3', 'H4'];
 export const CLASSES: readonly MachineClass[] = ['rpi5', 'desk', 'ci'];
-/** The scenario family the chains-versus-processes table shows. */
-export const CVP = 'chains-vs-processes';
-const MODE_ORDER: readonly Mode[] = ['individual', 'shared-process', 'chain'];
 
 /** Run ids are `<class>-<yyyymmdd>-<seq>`: newest is the later day, then the higher sequence. */
 export function compareRunIds(a: string, b: string): number {
@@ -99,38 +148,58 @@ export interface Family {
   readonly title: string;
 }
 
-/** The scenario families of a run in the order they first appear, chains-vs-processes apart. */
+/** The scenario families of a run in the order they first appear. */
 export function families(run: BenchRun): Family[] {
   const out = new Map<string, Family>();
-  for (const s of run.scenarios) if (s.id !== CVP && !out.has(s.id)) out.set(s.id, { id: s.id, title: s.title });
+  for (const s of run.scenarios) if (!out.has(s.id)) out.set(s.id, { id: s.id, title: s.title });
   return [...out.values()];
+}
+
+/** A column of the comparison: a host in one mode. */
+export interface Variant {
+  readonly host: HostId;
+  readonly mode: Mode | '';
+}
+
+export const variantKey = (v: { readonly host: HostId; readonly mode?: Mode | '' }): string => `${v.host}|${v.mode ?? ''}`;
+
+const VARIANT_ORDER: readonly string[] = ['H2|chain-add', 'H2|chain', 'H1|shared-process', 'H3|shared-process', 'H2|individual', 'H2|', 'H1|', 'H3|', 'H4|'];
+
+/** The columns of a family: every host and mode a row of it was measured in (or failed in), in a fixed order. */
+export function variants(run: BenchRun, id: string): Variant[] {
+  const seen = new Map<string, Variant>();
+  for (const s of run.scenarios) if (s.id === id) seen.set(variantKey(s), { host: s.host, mode: s.mode ?? '' });
+  const rank = (k: string) => { const i = VARIANT_ORDER.indexOf(k); return i < 0 ? VARIANT_ORDER.length : i; };
+  return [...seen.entries()].sort((a, b) => rank(a[0]) - rank(b[0]) || a[0].localeCompare(b[0])).map(([, v]) => v);
 }
 
 export interface CompareRow {
   readonly rate: number;
   readonly frames: number;
-  readonly cells: Readonly<Partial<Record<HostId, BenchScenario>>>;
+  readonly stress: string;
+  readonly cells: Readonly<Record<string, BenchScenario>>;
 }
 
-/** One row per rate and frames of a family, the four hosts as columns. */
+/** One row per rate, frames and stress of a family, one cell per host and mode. No row is dropped for its status. */
 export function compareRows(run: BenchRun, id: string): CompareRow[] {
-  const rows = new Map<string, { rate: number; frames: number; cells: Partial<Record<HostId, BenchScenario>> }>();
+  const rows = new Map<string, { rate: number; frames: number; stress: string; cells: Record<string, BenchScenario> }>();
   for (const s of run.scenarios) {
     if (s.id !== id) continue;
-    const key = `${s.rate}|${s.frames}`;
-    const row = rows.get(key) ?? { rate: s.rate, frames: s.frames, cells: {} };
-    row.cells[s.host] ??= s;
+    const stress = s.stress ?? 'none';
+    const key = `${s.rate}|${s.frames}|${stress}`;
+    const row = rows.get(key) ?? { rate: s.rate, frames: s.frames, stress, cells: {} };
+    row.cells[variantKey(s)] ??= s;
     rows.set(key, row);
   }
-  return [...rows.values()].sort((a, b) => a.rate - b.rate || a.frames - b.frames);
+  return [...rows.values()].sort((a, b) => a.rate - b.rate || a.frames - b.frames || a.stress.localeCompare(b.stress));
 }
 
-/** The largest load of a family's rows, the length of a full bar: the maximum when measured, else the average. */
+/** The largest load of a family's rows, the length of a full bar: the highest repeat when measured, else the median. */
 export function barScale(rows: readonly CompareRow[]): number {
   let top = 0;
   for (const r of rows) {
     for (const s of Object.values(r.cells)) {
-      const v = s?.status === 'ok' ? (s.dsp_load_max ?? s.dsp_load_avg ?? 0) : 0;
+      const v = s.status === 'ok' ? (s.spread?.dsp_load_avg?.[1] ?? s.dsp_load_max ?? s.dsp_load_avg ?? 0) : 0;
       if (v > top) top = v;
     }
   }
@@ -142,114 +211,57 @@ export function barPercent(value: number | null | undefined, scale: number): num
   return value && scale > 0 ? (value / scale) * 100 : 0;
 }
 
-/** A difference of two measured numbers, without floating-point noise. */
-export function diff(a: number, b: number): number {
-  return Number((a - b).toPrecision(12));
+/** "lowest to highest" of a measure over the repeats, as measured; null when the row has no spread for it. */
+export function spreadOf(s: BenchScenario | Instrument, key: string): readonly [number, number] | null {
+  return s.spread?.[key] ?? null;
 }
 
-export interface IsolationLoad {
-  readonly id: string;
-  readonly title: string;
-  readonly rate: number;
-  readonly frames: number;
-  readonly h1: number;
-  readonly h2: number;
-  /** H2 load minus H1 load. */
-  readonly delta: number;
+export type Failure = 'failed' | 'xruns';
+
+export interface Acceptance {
+  readonly pass: boolean;
+  readonly reasons: readonly Failure[];
 }
 
-export interface IsolationRecover {
-  readonly id: string;
-  readonly title: string;
-  readonly rate: number;
-  readonly frames: number;
-  readonly recoverMs: number;
-  /** The hosts that lost the process and recovered nothing, with their own note. */
-  readonly lost: readonly { readonly host: HostId; readonly note: string }[];
+/**
+ * The acceptance a row must meet: it ran (a host that was asked and did not is a failure, a host
+ * that cannot run the scenario is declared unsupported and is not) and not one repeat had an xrun.
+ * The median alone would hide a repeat with 21 xruns behind a 0, so the highest repeat decides.
+ */
+export function acceptance(s: Pick<BenchScenario, 'status' | 'xruns' | 'spread'>): Acceptance {
+  const reasons: Failure[] = [];
+  if (s.status === 'failed') reasons.push('failed');
+  const worst = Math.max(s.xruns ?? 0, s.spread?.xruns?.[1] ?? 0);
+  if (s.status === 'ok' && worst > 0) reasons.push('xruns');
+  return { pass: reasons.length === 0, reasons };
 }
 
-/** What isolation costs: H2 load minus H1 load wherever both ran the same scenario. */
-export function isolationLoads(run: BenchRun): IsolationLoad[] {
-  const out: IsolationLoad[] = [];
-  for (const f of families(run)) {
-    for (const row of compareRows(run, f.id)) {
-      const [h1, h2] = [row.cells.H1, row.cells.H2];
-      if (h1?.status !== 'ok' || h2?.status !== 'ok') continue;
-      if (h1.dsp_load_avg == null || h2.dsp_load_avg == null) continue;
-      out.push({ id: f.id, title: f.title, rate: row.rate, frames: row.frames, h1: h1.dsp_load_avg, h2: h2.dsp_load_avg, delta: diff(h2.dsp_load_avg, h1.dsp_load_avg) });
+export interface FailingRow {
+  readonly runId: string;
+  readonly scenario: BenchScenario;
+  readonly reasons: readonly Failure[];
+}
+
+/** Every row of the given runs that fails the acceptance, in run and row order. Nothing is filtered by version or host. */
+export function failingRows(runs: readonly BenchRun[]): FailingRow[] {
+  const out: FailingRow[] = [];
+  for (const run of runs) {
+    for (const scenario of run.scenarios) {
+      const a = acceptance(scenario);
+      if (!a.pass) out.push({ runId: run.id, scenario, reasons: a.reasons });
     }
   }
   return out;
 }
 
-/** What isolation buys: the time H2 takes to run again after the worker is killed, against the hosts that are lost. */
-export function isolationRecovers(run: BenchRun): IsolationRecover[] {
-  const out: IsolationRecover[] = [];
-  for (const f of families(run)) {
-    for (const row of compareRows(run, f.id)) {
-      const h2 = row.cells.H2;
-      if (h2?.recover_ms == null) continue;
-      const lost = HOSTS.filter((h) => h !== 'H2' && row.cells[h]?.status === 'failed')
-        .map((host) => ({ host, note: row.cells[host]?.note ?? '' }));
-      out.push({ id: f.id, title: f.title, rate: row.rate, frames: row.frames, recoverMs: h2.recover_ms, lost });
-    }
-  }
-  return out;
+/** Rows measured under a stress other than none. */
+export function stressRows(run: BenchRun): BenchScenario[] {
+  return run.scenarios.filter((s) => s.stress !== undefined && s.stress !== 'none');
 }
 
-export interface CvpGroup {
-  readonly n: number;
-  readonly rate: number;
-  readonly frames: number;
-  /** One scenario per mode and host, for the same plugins. */
-  readonly rows: readonly BenchScenario[];
-}
-
-/** The chains-versus-processes rows grouped by plugin count, rate and frames. */
-export function cvpGroups(run: BenchRun): CvpGroup[] {
-  const groups = new Map<string, { n: number; rate: number; frames: number; rows: BenchScenario[] }>();
-  for (const s of run.scenarios) {
-    if (s.id !== CVP) continue;
-    const n = s.plugins?.length ?? 0;
-    const key = `${n}|${s.rate}|${s.frames}`;
-    const g = groups.get(key) ?? { n, rate: s.rate, frames: s.frames, rows: [] };
-    g.rows.push(s);
-    groups.set(key, g);
-  }
-  const modeRank = (s: BenchScenario) => (s.mode ? MODE_ORDER.indexOf(s.mode) : MODE_ORDER.length);
-  return [...groups.values()]
-    .map((g) => ({ ...g, rows: [...g.rows].sort((a, b) => modeRank(a) - modeRank(b) || a.host.localeCompare(b.host)) }))
-    .sort((a, b) => a.n - b.n || a.rate - b.rate || a.frames - b.frames);
-}
-
-export interface CvpRatio {
-  readonly n: number;
-  readonly rate: number;
-  readonly frames: number;
-  /** Individual processes over the one chain, under plugin-hostd; null when either figure is missing or zero. */
-  readonly processes: number | null;
-  readonly pss: number | null;
-  readonly cpu: number | null;
-}
-
-const ratio = (a: number | null | undefined, b: number | null | undefined): number | null =>
-  a == null || b == null || b === 0 ? null : Number((a / b).toPrecision(2));
-
-/** For each group that has H2 both as individual workers and as one chain: how many times the chain's figures the individual mode uses. */
-export function cvpRatios(run: BenchRun): CvpRatio[] {
-  const out: CvpRatio[] = [];
-  for (const g of cvpGroups(run)) {
-    const ind = g.rows.find((s) => s.host === 'H2' && s.mode === 'individual' && s.status === 'ok');
-    const chain = g.rows.find((s) => s.host === 'H2' && s.mode === 'chain' && s.status === 'ok');
-    if (!ind || !chain) continue;
-    out.push({
-      n: g.n,
-      rate: g.rate,
-      frames: g.frames,
-      processes: ratio(ind.processes, chain.processes),
-      pss: ratio(ind.pss_mb_total, chain.pss_mb_total),
-      cpu: ratio(ind.cpu_pct, chain.cpu_pct),
-    });
-  }
-  return out;
+/** The runs of the same machine class and the same day as `run`, `run` first, the others by sequence, newest first. */
+export function sameDayRuns(runs: readonly BenchRun[], run: BenchRun): BenchRun[] {
+  const day = run.id.split('-')[1];
+  const others = runs.filter((r) => r.id !== run.id && r.machine.class === run.machine.class && r.id.split('-')[1] === day);
+  return [run, ...others.sort((a, b) => compareRunIds(b.id, a.id))];
 }
