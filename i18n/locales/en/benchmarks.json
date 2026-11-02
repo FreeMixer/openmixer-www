@@ -1,0 +1,146 @@
+{
+  "benchmarks": {
+    "seo": {
+      "title": "Benchmarks — OpenMixer",
+      "description": "DSP load, memory, xruns and time to add for the same plugins on plugin-hostd, omx-clap-host and mod-host, measured on a Raspberry Pi 5."
+    },
+    "hero": {
+      "eyebrow": "Benchmarks",
+      "title": "The same plugins on three hosts",
+      "lede": "Each scenario runs the same plugins at the same sample rate and buffer size on each host. The load is the DSP load of the JACK server that drives them, read while the scenario plays. Levels, where this page gives them, are measured digitally at JACK ports.",
+      "reproduce": "The bench harness in the plugin-hostd repository writes the runs on this page and repeats them on any machine.",
+      "readme": "Read the README."
+    },
+    "hosts": {
+      "H1": "omx-clap-host, one process",
+      "H2": "plugin-hostd",
+      "H3": "mod-host",
+      "H4": "jalv"
+    },
+    "hostMeaning": {
+      "H1": "The CLAP host driven directly through the mod-host protocol on its own port. All plugins share its one process.",
+      "H2": "The plugin daemon with omx-clap-host as its worker. Plugins run in isolated workers, and a chain is one worker.",
+      "H3": "The mod-host program as Zynthian ships it. LV2 plugins only.",
+      "H4": "One jalv process per plugin, the way plugins ran on a Zynthian before."
+    },
+    "variant": {
+      "H2_chain-add": "plugin-hostd, added into one chain",
+      "H2_chain": "plugin-hostd, chain built after the adds",
+      "H2_individual": "plugin-hostd, one worker per plugin",
+      "H2_default": "plugin-hostd",
+      "H1_shared-process": "omx-clap-host, one process",
+      "H1_default": "omx-clap-host",
+      "H3_shared-process": "mod-host",
+      "H3_default": "mod-host",
+      "H4_default": "jalv",
+      "H4_individual": "jalv, one process per plugin"
+    },
+    "classes": {
+      "rpi5": "Pi 5 (Zynthian)",
+      "desk": "Desktop PC (x86_64)",
+      "ci": "CI cluster"
+    },
+    "classLabel": "Machine class",
+    "noRun": "No run is committed for this machine class.",
+    "machine": "{model}, {os}",
+    "where": "{rate}, {frames} frames",
+    "method": {
+      "title": "How it was measured",
+      "text": "{machine}, governor {governor}, a private JACK server on the dummy driver at {rate}, {frames} frames. Every figure is the median of {repeats} repeats, with the lowest and the highest repeat beside it. Nothing is rounded; a figure is shown as the harness wrote it.",
+      "versions": "Rows marked omx-clap-core ran on the version named in the row. The omx-clap-host rows ran on omx-clap-core 0.26.3 and the plugin-hostd rows on 0.26.4, because on 0.26.3 the plugin-hostd chains did not form (see the rows that did not pass)."
+    },
+    "scenario": {
+      "cvp24": "24 plugins, CLAP builds (Calf as LV2; mod-host runs the LV2 builds)",
+      "cvp24-lv2": "The same 24 plugins, LV2 builds on every host",
+      "tp10": "Ten third-party LV2 plugins"
+    },
+    "status": {
+      "unsupported": "Unsupported",
+      "failed": "Failed"
+    },
+    "acceptance": {
+      "fail": "Fails acceptance",
+      "failed": "the host did not run the scenario",
+      "xruns": "an xrun in at least one repeat"
+    },
+    "family": {
+      "eyebrow": "Scenario",
+      "lede": "Each cell shows the median DSP load, the proportional memory (PSS) of the host processes and the xruns, each with the lowest and highest repeat. A cell that fails acceptance is marked and stays in the table.",
+      "scenario": "Rate and frames",
+      "dsp": "DSP",
+      "pss": "PSS",
+      "xruns": "xruns",
+      "range": "{low} to {high}",
+      "notMeasured": "Not measured in this run",
+      "unit": "DSP load in percent of the audio cycle, as reported by the JACK server. PSS in MB. Acceptance is 0 xruns in every repeat."
+    },
+    "failing": {
+      "eyebrow": "Acceptance",
+      "title": "Rows that did not pass",
+      "lede": "Every row of this day's runs that failed to run or had an xrun in a repeat. They are the results too; none is left out.",
+      "none": "No row of this run failed.",
+      "row": "{run}, {title}, {variant}, {where}",
+      "xrunsOf": "xruns: median {median}, repeats from {low} to {high}",
+      "cause": "On omx-clap-core 0.26.3 none of the plugin-hostd chains formed: Calf and the DPF plugins set the flush-to-zero bit of the FPCR register when their library is opened, and the register guard took it for theirs and moved each such plugin to a worker of its own. 0.26.4 logs that change and no longer isolates the plugin for it.",
+      "cost": "One worker per plugin is the heavy mode: 24 processes and 24 JACK clients on four cores. It is not the default."
+    },
+    "stress": {
+      "eyebrow": "Stress",
+      "title": "Rows under stress",
+      "none": "Not measured. Every row of this run ran with no added load.",
+      "row": "{title}, {variant}, stress {stress}"
+    },
+    "add": {
+      "eyebrow": "Time to add",
+      "title": "How long it takes to add the plugins",
+      "lede": "Cold is a host just started, then every plugin of the set added, until the last one runs. Warm is the same plugins added to a host that is already running. The lowest median of a row is in bold; the range is the lowest and highest repeat.",
+      "coldTitle": "Cold",
+      "warmTitle": "Warm",
+      "set": "Set",
+      "plugins": "Plugins",
+      "unit": "Milliseconds, median of the repeats. Warm rows are chains of omx comp, delay and drive in their LV2 builds, so every host runs the same plugins.",
+      "missing": "—"
+    },
+    "instruments": {
+      "eyebrow": "Instruments",
+      "title": "One instrument, 1, 8 and 16 notes",
+      "lede": "DSP load and PSS for one instance. The standalone rows run as their own JACK programs, as Zynthian runs them, and do not go through either host.",
+      "name": "Instrument",
+      "host": "Host",
+      "notes": "Notes: {n}",
+      "standalone": "standalone",
+      "peak": "peak {db} dBFS",
+      "unit": "Percent of the audio cycle, then MB, then xruns as median and highest repeat. Peak is measured digitally at the JACK ports.",
+      "cell": "{dsp} %, {pss} MB"
+    },
+    "profile": {
+      "eyebrow": "Where the time goes",
+      "title": "The worker's audio thread, 24 plugins in one chain",
+      "lede": "Shares of the samples of the audio thread of the plugin-hostd worker, from perf. The profiled library was built on the Pi from the same tag, because the shipped one has no symbols; a share can move by a point.",
+      "where": "Where",
+      "lv2": "Every plugin LV2",
+      "clap": "CLAP builds, Calf LV2"
+    },
+    "qualification": {
+      "eyebrow": "Qualification",
+      "title": "Qualification and installed packages",
+      "fact": "The device holds {plugins} plugins ({lv2} LV2, {clap} CLAP) on the records package {records}.",
+      "split": "{inProcess} qualified in-process and {isolated} isolated; {crashed} crashed, {hung} hung and {refused} refused; {unmeasured} unmeasured and {noPin} rated suitable with no pin.",
+      "packages": "{verified} of {installed} installed packages verify with nothing changed.",
+      "seconds": "Qualifying {plugins} CLAP plugins takes {seconds} seconds.",
+      "at": "Rates {rates}, buffer sizes {quanta}.",
+      "suitable": "{suitable} suitable and {unsuitable} unsuitable."
+    },
+    "coverage": {
+      "eyebrow": "LV2 coverage",
+      "title": "LV2 plugins each host loads",
+      "lede": "Of the {set} on {machine}, the number each one loads.",
+      "jalv": "jalv",
+      "mod-host": "mod-host",
+      "omx-clap-lv2": "LV2 adapter"
+    },
+    "footer": "Run {id} on {machine}. Software: {software}.",
+    "sources": "Figures read from these records in the plugin-hostd repository: {sources}.",
+    "data": "The run files and their format."
+  }
+}
