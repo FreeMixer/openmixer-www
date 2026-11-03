@@ -2671,11 +2671,11 @@
     ]
   },
   "sources": [
-    "plugin-hostd docs/zynthian/evidence/pi5-matrix-2026-11-02 (rpi5-20261102-1.json, h2-occ-0.26.4/rpi5-20261102-1.json)",
-    "plugin-hostd docs/zynthian/evidence/pi5-add-times-2026-11-02",
-    "plugin-hostd docs/zynthian/evidence/pi5-instruments-2026-11-02",
-    "plugin-hostd docs/zynthian/evidence/pi5-acceptance-2026-11-02",
-    "plugin-hostd docs/zynthian/evidence/pi5-qualification-2026-11-02",
-    "plugin-hostd docs/zynthian/evidence/pi5-profile-2026-11-02"
+    "the bench harness on the device, all hosts on omx-clap-core 0.26.3 (run rpi5-20261102-1) and plugin-hostd rerun on 0.26.4; method: openmixer.org/notes/plugin-hostd-on-a-raspberry-pi-5",
+    "the time-to-add runs on the device, cold and warm",
+    "the instrument runs on the device, 1, 8 and 16 notes",
+    "the acceptance run on the device: packages installed from the channel, each instrument sounding",
+    "the device's qualification state on the records package of 1 November 2026",
+    "perf on the worker's audio thread, 24 plugins in one chain"
   ]
 }
