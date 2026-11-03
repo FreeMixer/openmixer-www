@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "seo": {
+      "title": "La documentació dels projectes | OpenMixer",
+      "description": "El README, la guia de compilació i les referències de cada projecte d'OpenMixer, tal com les escriu cada projecte."
+    },
+    "hero": {
+      "eyebrow": "Projectes",
+      "title": "La documentació de cada projecte.",
+      "lede": "El README de cada projecte i les guies i referències que acompanyaven els seus paquets. Els paquets no instal·len documentació: és aquí. El text és el de cada projecte, en anglès, a la revisió que indica l'enllaç a la font de cada pàgina."
+    },
+    "page": {
+      "description": "La documentació de {repo}, tal com l'escriu el projecte.",
+      "asWritten": "El text del projecte, en anglès.",
+      "source": "La font d'aquesta pàgina",
+      "contents": "Contingut",
+      "more": "Més de {repo}",
+      "all": "Tots els projectes"
+    }
+  }
+}

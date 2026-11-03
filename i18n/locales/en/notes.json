@@ -1,0 +1,24 @@
+{
+  "notes": {
+    "seo": {
+      "title": "Technical notes | OpenMixer",
+      "description": "How the parts of OpenMixer were measured and decided: plugin qualification, the plugin host, Zynthian on a Raspberry Pi 5 and the host core, one note each."
+    },
+    "hero": {
+      "eyebrow": "Technical notes",
+      "title": "How it was measured, and why it is built this way.",
+      "lede": "Each note explains one part: the method, the numbers, the versions and the date of the measurement. The reference of each project is on its own page; these notes are the reasoning behind it."
+    },
+    "topics": {
+      "qualify": "Qualifying plugins",
+      "host": "The plugin host",
+      "zynthian": "Zynthian on a Raspberry Pi 5",
+      "core": "The host core"
+    },
+    "page": {
+      "eyebrow": "Technical note",
+      "contents": "Contents",
+      "all": "All the technical notes"
+    }
+  }
+}

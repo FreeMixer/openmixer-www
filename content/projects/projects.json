@@ -1,0 +1,145 @@
+{
+  "projects": [
+    {
+      "repo": "omx-dsp",
+      "commit": "f5c279a980a76a9b2ca53df5a9000f9416cb6cc3",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "BUILDING.md"
+        }
+      ]
+    },
+    {
+      "repo": "omx-contract",
+      "commit": "c241fd47a68d4de548a1cd415f967b211da6475e",
+      "pages": [
+        {
+          "src": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "omx-clap-core",
+      "commit": "d53f42b8689dc42669552b8518feef626ea9c828",
+      "pages": [
+        {
+          "src": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "omx-plugins",
+      "commit": "6d452d917352f7134be9937c71f6ecc89d43b916",
+      "pages": [
+        {
+          "src": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "omx-panel",
+      "commit": "edaf4f48de7e57496ead1b949f754b7e111867e3",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "docs/compare.md"
+        },
+        {
+          "src": "docs/group-inference.md"
+        },
+        {
+          "src": "docs/lv2-complement.md"
+        },
+        {
+          "src": "docs/modgui.md"
+        },
+        {
+          "src": "docs/panel-layout.md"
+        },
+        {
+          "src": "docs/skin-package.md"
+        },
+        {
+          "src": "docs/worked-example.md"
+        }
+      ]
+    },
+    {
+      "repo": "plugin-hostd",
+      "commit": "6efc13c49555a682dda47554839a0ccfb25cbac9",
+      "pages": [
+        {
+          "src": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "plugin-hostd-protocol",
+      "commit": "5e12b959fa098ee4800a4a8485d5c6ce1ffada2c",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "doc/protocol.md"
+        }
+      ]
+    },
+    {
+      "repo": "plugin-qualify",
+      "commit": "949bed5011c9f3660cacb211725aea4647a0072d",
+      "pages": [
+        {
+          "src": "README.md"
+        }
+      ]
+    },
+    {
+      "repo": "libdiginet",
+      "commit": "084e09f8eaea72a275f583b8ae148b565aa6a548",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "BUILDING.md"
+        },
+        {
+          "src": "docs/protocol.md"
+        },
+        {
+          "src": "docs/probe.md"
+        }
+      ]
+    },
+    {
+      "repo": "libsurface",
+      "commit": "a1f337eaafad7faa65f2331027ef2f6aea44d556",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "BUILDING.md"
+        }
+      ]
+    },
+    {
+      "repo": "libmackie",
+      "commit": "3f45d99be73faaa3f2b103c300c42748cd719d99",
+      "pages": [
+        {
+          "src": "README.md"
+        },
+        {
+          "src": "BUILDING.md"
+        }
+      ]
+    }
+  ]
+}

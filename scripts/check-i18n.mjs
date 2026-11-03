@@ -23,6 +23,7 @@ import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { baseCompile } from '@intlify/message-compiler';
+import { catalanStyle } from './catalan-style.mjs';
 import { parse as parseSfc } from '@vue/compiler-sfc';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -63,8 +64,6 @@ const sameOk = new Set(
         .filter((l) => l && !l.startsWith('#'))
     : [],
 );
-const glossary = JSON.parse(readFileSync(join(root, 'i18n/glossary.json'), 'utf8'));
-const refused = [...glossary.keep, ...glossary.use].flatMap((g) => g.refuse.map((form) => ({ form, rule: g.term ?? `${g.en} -> ${g.ca}` })));
 
 /** Text with markup and placeholders taken out, for the style checks. */
 const prose = (s) => s.replace(/<[^>]+>/g, ' ').replace(/\{[^}]*\}/g, ' ');
@@ -111,13 +110,7 @@ for (const locale of TARGETS) {
       if (v === en[k] && words.length >= 4 && !sameOk.has(`${f.replace(/\.json$/, '')}.${k}`)) {
         report(where, 'identical to the English (list the key in i18n/same-as-english.txt if that is right)');
       }
-      const text = prose(v);
-      if (/,\s+[io]\s/u.test(text)) report(where, `comma before "i"/"o": "${text.match(/.{0,30},\s+[io]\s.{0,20}/u)?.[0]}"`);
-      for (const { form, rule } of refused) {
-        if (new RegExp(`(?<![\\p{L}])${form.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}])`, 'iu').test(text)) {
-          report(where, `"${form}" is refused by the glossary (${rule})`);
-        }
-      }
+      for (const finding of catalanStyle(prose(v))) report(where, finding);
     }
     for (const k of Object.keys(tr)) if (!(k in en)) report(`${locale}/${f} ${k}`, 'stale: no such English key');
   }

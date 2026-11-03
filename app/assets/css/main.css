@@ -97,3 +97,26 @@ html.light {
   /* Nuxt UI's solid primary carries white text in light mode; the dark-mode cyan is too pale for it. */
   --ui-primary: var(--color-accent);
 }
+
+/* Rendered markdown: the technical notes and the projects' documents (scripts/gen-pages.mjs). */
+.doc-body { color: var(--color-ink-dim); font-size: 1rem; line-height: 1.75; min-width: 0; }
+.doc-body > * + * { margin-top: 1rem; }
+.doc-body h1 { display: none; }
+.doc-body h2 { margin-top: 2.5rem; color: var(--color-ink); font-family: var(--font-display, inherit); font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; scroll-margin-top: 5rem; }
+.doc-body h3 { margin-top: 2rem; color: var(--color-ink); font-size: 1.15rem; font-weight: 600; scroll-margin-top: 5rem; }
+.doc-body h4 { margin-top: 1.5rem; color: var(--color-ink); font-weight: 600; }
+.doc-body a { color: var(--color-accent); }
+.doc-body a:hover { text-decoration: underline; }
+.doc-body strong { color: var(--color-ink); }
+.doc-body ul { list-style: disc; padding-left: 1.5rem; }
+.doc-body ol { list-style: decimal; padding-left: 1.5rem; }
+.doc-body li + li { margin-top: 0.35rem; }
+.doc-body code { font-family: var(--font-mono, monospace); font-size: 0.875em; color: var(--color-ink); background: var(--color-surface-2); border-radius: 3px; padding: 0.1em 0.3em; }
+.doc-body pre { overflow-x: auto; background: var(--color-well); border: 1px solid var(--color-edge); border-radius: 4px; padding: 1rem; font-size: 0.85rem; line-height: 1.55; }
+.doc-body pre code { background: none; padding: 0; }
+.doc-body blockquote { border-left: 3px solid var(--color-edge-strong); padding-left: 1rem; }
+.doc-body table { display: block; overflow-x: auto; border-collapse: collapse; font-size: 0.875rem; }
+.doc-body th, .doc-body td { border: 1px solid var(--color-edge); padding: 0.4rem 0.7rem; text-align: left; vertical-align: top; }
+.doc-body th { color: var(--color-ink); background: var(--color-surface-2); }
+.doc-body img { max-width: 100%; height: auto; border: 1px solid var(--color-edge); border-radius: 4px; }
+.doc-body hr { border-color: var(--color-edge); }
