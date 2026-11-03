@@ -30,9 +30,12 @@ It is a build input for LINKS as well as assets: a hand-written `<a href="/docs/
 a raw anchor points one level above the mount and 404s, while resolving perfectly in a
 local preview whose root IS the mount. `NuxtLink` and Vite's `?url` apply the prefix
 themselves; anything that cannot goes through `withSiteBase` (`app/utils/site.ts`), and
-`npm run docs:links` fails the build on a site-absolute link that missed it. Ten such
-links were live on 2026-09-07 — the favicon, the home page's screenshot and five cards on
-/docs — and the checker passed them all until it learned this rule.
+`npm run docs:links` fails the build on a site-absolute link that missed it.
+
+The technical notes (`content/notes/<slug>.<lang>.md`, English and Catalan) and the projects' documents
+(`content/projects/`, each copied at the commit `content/projects/projects.json` records) are rendered by
+`npm run pages:gen` before every build. `node scripts/gen-pages.mjs --sync <repo> <commit>` copies a project's
+documents at a new commit; `npm run pages:verify` checks every copy against its project.
 
 ## The documentation tree
 
