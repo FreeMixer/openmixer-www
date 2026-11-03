@@ -8,7 +8,7 @@ const { t } = useI18n();
 const sitePath = useSitePath();
 
 /** The captures, shared with the note that walks a plugin from its file to these screens. */
-const SHOTS = '/notes/from-a-plugin-file-to-a-page';
+const SHOTS = '/technical-notes/from-a-plugin-file-to-a-page';
 
 const fromRelease = [
   '# the image is published in parts: join them, check the sum, then flash',

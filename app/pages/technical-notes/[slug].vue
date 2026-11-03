@@ -5,6 +5,8 @@
  * scripts/gen-pages.mjs renders from content/notes/<slug>.<lang>.md; the page loads that note alone.
  */
 const route = useRoute();
+definePageMeta({ path: '/notes/:slug' });
+
 const { t, locale } = useI18n();
 const sitePath = useSitePath();
 const slug = String(route.params.slug);

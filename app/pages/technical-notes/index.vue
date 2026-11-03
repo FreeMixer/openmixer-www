@@ -6,6 +6,8 @@
  */
 import notesIndex from '~/data/notes-index.json';
 
+definePageMeta({ path: '/notes' });
+
 const { t, locale } = useI18n();
 const sitePath = useSitePath();
 

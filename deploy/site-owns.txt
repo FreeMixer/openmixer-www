@@ -28,5 +28,6 @@ ca
 openmixer-www
 plugin-hostd
 notes
+technical-notes
 projects
 _i18n

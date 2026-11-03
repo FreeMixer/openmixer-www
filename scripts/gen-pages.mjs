@@ -3,7 +3,7 @@
 //
 // Renders the site's markdown pages to the data the app reads:
 //
-//   content/notes/<slug>.<lang>.md     -> app/data/notes/<slug>.json, notes-index.json        the technical notes, /notes/<slug>
+//   content/technical-notes/<slug>.<lang>.md     -> app/data/notes/<slug>.json, notes-index.json        the technical notes, /notes/<slug>
 //   content/projects/<repo>/...        -> app/data/projects/<repo>.json, projects-index.json  each project's documents, /projects/<repo>/<page>
 //
 // A note is written here, in English and in Catalan: the two files of a slug must both be there, carry a
@@ -28,7 +28,7 @@ import MarkdownIt from 'markdown-it';
 import { catalanStyle } from './catalan-style.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const NOTES = join(root, 'content/notes');
+const NOTES = join(root, 'content/technical-notes');
 const PROJECTS = join(root, 'content/projects');
 const PROJECTS_LIST = join(PROJECTS, 'projects.json');
 export const LANGS = ['en', 'ca'];
@@ -113,14 +113,14 @@ function renderNotes() {
   for (const f of files) {
     const m = /^([a-z0-9-]+)\.([a-z]{2})\.md$/.exec(f);
     if (!m || !LANGS.includes(m[2])) {
-      errors.push(`content/notes/${f}: not <slug>.<${LANGS.join('|')}>.md`);
+      errors.push(`content/technical-notes/${f}: not <slug>.<${LANGS.join('|')}>.md`);
       continue;
     }
     const text = readFileSync(join(NOTES, f), 'utf8');
     try {
-      const note = parseNote(text, `content/notes/${f}`);
-      for (const r of noteRefusals(text)) errors.push(`content/notes/${f}: carries ${r}`);
-      if (m[2] === 'ca') for (const s of catalanStyle(proseOf(`${note.meta.title}\n${note.meta.summary}\n${note.body}`))) errors.push(`content/notes/${f}: ${s}`);
+      const note = parseNote(text, `content/technical-notes/${f}`);
+      for (const r of noteRefusals(text)) errors.push(`content/technical-notes/${f}: carries ${r}`);
+      if (m[2] === 'ca') for (const s of catalanStyle(proseOf(`${note.meta.title}\n${note.meta.summary}\n${note.body}`))) errors.push(`content/technical-notes/${f}: ${s}`);
       if (!bySlug.has(m[1])) bySlug.set(m[1], {});
       bySlug.get(m[1])[m[2]] = note;
     } catch (e) {
@@ -294,7 +294,7 @@ const pagesKnown = new Set([
   ...projects.flatMap((p) => p.pages.map((pg) => `/projects/${p.repo}${pg.slug ? `/${pg.slug}` : ''}`)),
 ]);
 const linked = [
-  ...LANGS.flatMap((l) => notes[l].map((n) => [`content/notes/${n.slug}.${l}.md`, n.html])),
+  ...LANGS.flatMap((l) => notes[l].map((n) => [`content/technical-notes/${n.slug}.${l}.md`, n.html])),
   ...projects.flatMap((p) => p.pages.map((pg) => [`content/projects/${p.repo}/${pg.src}`, pg.html])),
 ];
 for (const [where, html] of linked) {

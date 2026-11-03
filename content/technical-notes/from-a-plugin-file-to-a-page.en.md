@@ -14,7 +14,7 @@ reads that artefact and nothing else.
 The running example is an instrument: [Kars](https://github.com/DISTRHO/Kars), an LV2 plucked-string synth, in the
 captures from the device; Surge XT (CLAP) where its figures matter; and an effect once, to show where the layout differs.
 
-![The five stages, the artefact each writes and the surfaces that read them](/notes/from-a-plugin-file-to-a-page/from-file-to-page.svg)
+![The five stages, the artefact each writes and the surfaces that read them](/technical-notes/from-a-plugin-file-to-a-page/from-file-to-page.svg)
 
 ## 1. Scan and describe
 
@@ -85,19 +85,19 @@ the descriptor for parameters, the record for figures, the pin for permission, t
 
 On the device, for Kars, the plugin menu row with its tier, latency (measured and declared frames) and real-time safety:
 
-![The plugin menu, sorted by tier](/notes/from-a-plugin-file-to-a-page/list-by-tier.png)
+![The plugin menu, sorted by tier](/technical-notes/from-a-plugin-file-to-a-page/list-by-tier.png)
 
 the engine's controller page:
 
-![The controller page of Kars](/notes/from-a-plugin-file-to-a-page/controller-page-1-controls.png)
+![The controller page of Kars](/technical-notes/from-a-plugin-file-to-a-page/controller-page-1-controls.png)
 
 the MOD GUI from the same layout:
 
-![The MOD GUI of Kars on a pedalboard](/notes/from-a-plugin-file-to-a-page/modgui-pedalboard.png)
+![The MOD GUI of Kars on a pedalboard](/technical-notes/from-a-plugin-file-to-a-page/modgui-pedalboard.png)
 
 and the chain with the instrument:
 
-![A chain with Kars and a compressor](/notes/from-a-plugin-file-to-a-page/chain-view-kars-zamcomp.png)
+![A chain with Kars and a compressor](/technical-notes/from-a-plugin-file-to-a-page/chain-view-kars-zamcomp.png)
 
 A fresh device does not repeat the long stage. A package ships the records and pins of a known plugin set, keyed by
 checksums, so a fresh device applies them and probes only what differs.

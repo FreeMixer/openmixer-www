@@ -32,7 +32,7 @@ local preview whose root IS the mount. `NuxtLink` and Vite's `?url` apply the pr
 themselves; anything that cannot goes through `withSiteBase` (`app/utils/site.ts`), and
 `npm run docs:links` fails the build on a site-absolute link that missed it.
 
-The technical notes (`content/notes/<slug>.<lang>.md`, English and Catalan) and the projects' documents
+The technical notes (`content/technical-notes/<slug>.<lang>.md`, English and Catalan) and the projects' documents
 (`content/projects/`, each copied at the commit `content/projects/projects.json` records) are rendered by
 `npm run pages:gen` before every build. `node scripts/gen-pages.mjs --sync <repo> <commit>` copies a project's
 documents at a new commit; `npm run pages:verify` checks every copy against its project.

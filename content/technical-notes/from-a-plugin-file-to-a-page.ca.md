@@ -14,7 +14,7 @@ artefacte en un lloc fix i el que ve després llegeix aquest artefacte i res mé
 L'exemple és un instrument: [Kars](https://github.com/DISTRHO/Kars), un sintetitzador LV2 de corda pinçada, a les captures
 de l'aparell; Surge XT (CLAP) on importen les seves xifres; i un efecte una vegada, per mostrar on canvia la disposició.
 
-![Les cinc etapes, l'artefacte que escriu cadascuna i les superfícies que els llegeixen](/notes/from-a-plugin-file-to-a-page/from-file-to-page.svg)
+![Les cinc etapes, l'artefacte que escriu cadascuna i les superfícies que els llegeixen](/technical-notes/from-a-plugin-file-to-a-page/from-file-to-page.svg)
 
 ## 1. Explorar i descriure
 
@@ -90,19 +90,19 @@ l'empremta per al permís, la disposició per a les pàgines.
 A l'aparell, per a Kars, la fila del menú de plugins amb el seu nivell, la latència (mostres mesurades i declarades) i la
 seguretat en temps real:
 
-![El menú de plugins, ordenat per nivell](/notes/from-a-plugin-file-to-a-page/list-by-tier.png)
+![El menú de plugins, ordenat per nivell](/technical-notes/from-a-plugin-file-to-a-page/list-by-tier.png)
 
 la pàgina de controls del motor:
 
-![La pàgina de controls de Kars](/notes/from-a-plugin-file-to-a-page/controller-page-1-controls.png)
+![La pàgina de controls de Kars](/technical-notes/from-a-plugin-file-to-a-page/controller-page-1-controls.png)
 
 la MOD GUI a partir de la mateixa disposició:
 
-![La MOD GUI de Kars en un pedalboard](/notes/from-a-plugin-file-to-a-page/modgui-pedalboard.png)
+![La MOD GUI de Kars en un pedalboard](/technical-notes/from-a-plugin-file-to-a-page/modgui-pedalboard.png)
 
 i la cadena amb l'instrument:
 
-![Una cadena amb Kars i un compressor](/notes/from-a-plugin-file-to-a-page/chain-view-kars-zamcomp.png)
+![Una cadena amb Kars i un compressor](/technical-notes/from-a-plugin-file-to-a-page/chain-view-kars-zamcomp.png)
 
 Un aparell nou no repeteix l'etapa llarga. Un paquet porta els registres i les empremtes d'un conjunt de plugins conegut,
 indexats per resums, de manera que un aparell nou els aplica i només sondeja el que és diferent.
