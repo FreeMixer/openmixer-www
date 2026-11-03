@@ -286,6 +286,22 @@ if (args[0] === '--verify') process.exit(await verify());
 const { notes, errors: e1 } = renderNotes();
 const { projects, errors: e2 } = renderProjects();
 const errors = [...e1, ...e2];
+// every link a note or a document makes to a note or a project page names one that is published
+const pagesKnown = new Set([
+  ...notes.en.map((n) => `/notes/${n.slug}`),
+  '/notes',
+  '/projects',
+  ...projects.flatMap((p) => p.pages.map((pg) => `/projects/${p.repo}${pg.slug ? `/${pg.slug}` : ''}`)),
+]);
+const linked = [
+  ...LANGS.flatMap((l) => notes[l].map((n) => [`content/notes/${n.slug}.${l}.md`, n.html])),
+  ...projects.flatMap((p) => p.pages.map((pg) => [`content/projects/${p.repo}/${pg.src}`, pg.html])),
+];
+for (const [where, html] of linked) {
+  for (const [, href] of html.matchAll(/href="((?:\/ca)?\/(?:notes|projects)[^"#]*)/g)) {
+    if (!pagesKnown.has(href.replace(/^\/ca(?=\/)/, '').replace(/\/$/, ''))) errors.push(`${where}: links ${href}, which is no page`);
+  }
+}
 if (errors.length) {
   for (const e of errors) console.error(`[gen-pages] ${e}`);
   process.exit(1);
