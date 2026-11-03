@@ -1,46 +1,129 @@
 {
   "docsZynthian": {
     "seo": {
-      "title": "Zynthian: plugin-hostd as its plugin host — OpenMixer",
-      "description": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, the measured figures, and where the changes to Zynthian stand. The full use case is on the plugin-hostd pages."
+      "title": "Zynthian: plugin-hostd as its plugin host | OpenMixer",
+      "description": "Zynthian running its LV2 and CLAP plugins under plugin-hostd: what it is, what it changes, how to install and use it, the measured figures and where it stands."
     },
     "hero": {
-      "eyebrow": "Technical",
+      "eyebrow": "Zynthian",
       "title": "Zynthian: plugin-hostd as its plugin host.",
-      "lede": "A short summary. The full use case, with every figure and capture, is published by plugin-hostd itself and linked at the end of this page."
+      "lede": "How to install it, how to use it, what it changes in Zynthian and where it stands. The method and every table are in the technical notes linked at the end."
     },
     "what": {
       "title": "What it is.",
-      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through jalv, and through mod-host behind MOD-UI. plugin-hostd speaks mod-host's socket protocol and runs each plugin, LV2 or CLAP, in a worker process of its own, so a plugin that crashes takes down its own worker, which is put back with its settings, and nothing else. The use case opens with instruments: voices across the cores. It goes on to benchmarks, trade-offs and the upstream series.",
-      "p2": "With it Zynthian gets a plugin-hostd engine for LV2 and CLAP plugins in chains, plugin-hostd as a switchable replacement for mod-host under MOD-UI, plugin menus ordered from per-plugin qualification records, and chains whose plugins the daemon groups into as few workers as it can."
+      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through jalv, and through mod-host behind MOD-UI. plugin-hostd speaks mod-host's protocol and runs each plugin, LV2 or CLAP, in a worker process, so a plugin that crashes takes down only its own worker, which is put back with its settings. A whole chain can run in one worker instead of one process per plugin, and plugin-qualify measures each plugin on the device first, so the menus are built from what it found.",
+      "p2": "With it Zynthian gets a plugin-hostd engine beside jalv for LV2 and CLAP plugins in chains, plugin-hostd as a switchable replacement for mod-host under MOD-UI, plugin menus ordered and tagged from per-plugin qualification records, and chains whose plugins the daemon groups into as few workers as their pins allow."
+    },
+    "changes": {
+      "title": "How much it changes in Zynthian.",
+      "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
+      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default engine and MOD-UI's default backend, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
+      "p3": "What runs when nobody uses it: the interface starts a daemon only when a chain holds a plugin-hostd plugin. What stays enabled is the qualification sync, two minutes after boot at the lowest CPU and disk priority, skipping every plugin whose files have not changed, and omx-panel's MOD GUI and complement syncs. All of them can be disabled; the first sync on a device with many plugins is long."
+    },
+    "install": {
+      "title": "Install it.",
+      "image": {
+        "title": "The image",
+        "where": "ZynthianOS Vangelis for the Raspberry Pi 4 and 5, with the forks of zynthian-ui and zynthian-sys, the OpenMixer apt repository, and plugin-hostd, omx-clap-host, omx-plugins, omx-panel and plugin-qualify installed and made the default. It is a release asset of FreeMixer's zynthian-sys fork, named after the upstream image and the fork's commit, with its sum and an inspection report in the release notes. It is larger than GitHub's limit for one asset, so it comes in parts:",
+        "firstBoot": "The first boot does what any Zynthian card does once: it detects the kit, regenerates the SSH keys and the web certificate, creates the Wi-Fi access point, grows the file system to the card, and reboots once. Two minutes after boot the qualification sync starts in the background, at the lowest priority, and does not hold the boot; with the qualification records package installed it only checks that the plugin files are the ones the records describe."
+      },
+      "existing": {
+        "title": "On an existing Vangelis",
+        "p1": "A Vangelis system already running needs no new image. As root, add the OpenMixer repository and install the packages:",
+        "p2": "openmixer-release carries the signing key and the apt source of the running Debian release. This enables no service: mod-host, MOD-UI, jalv and the menus stay as they were until you switch them."
+      },
+      "switch": {
+        "title": "Turn it on, and back off",
+        "p1": "Three settings, each undone by setting it back:"
+      }
+    },
+    "use": {
+      "title": "Use it.",
+      "intro": "With the plugin-hostd engine on, a plugin's menu entry ends in \"(PH)\". Select a chain, open its options and use Add Audio-FX processor; the plugin's controller pages follow its own sections.",
+      "group": {
+        "title": "A group: plugins in series in one worker",
+        "p1": "With grouping on, a run of plugins in series in a chain shares one worker process and one JACK client instead of one process each. A group is what the chain has in series with nothing between: a parallel slot, the mixer strip or a jalv plugin ends it. A processor that runs alone has a Grouping entry in its options saying why.",
+        "p2": "Grouping is off unless you set it. It saves most of the memory of one process per plugin: 24 plugins in one chain take about 64 MB, against about 110 MB under mod-host."
+      },
+      "strip": {
+        "title": "A channel strip as plugins",
+        "p1": "EQ and dynamics per chain are ordinary effects in that chain; Zynthian's mixer keeps its level, pan and sends. Either add separate plugins (omx keyed-gate, omx eq8, omx comp: you choose each one and its order, and eq8 has eight bands), or one plugin, omx strip: input trim, filters, a gate, four EQ bands and a compressor in stereo, in one load and one worker, its five stages in any order.",
+        "p2": "At 48 kHz and 512 frames, omx strip costs about 5.9 µs per block; omx eq8 and omx comp together about 11.4 µs, with eight EQ bands against four."
+      }
+    },
+    "mixbus": {
+      "title": "Shared effects on a Mixbus",
+      "p1": "One effect on a bus instead of one per chain, fed from each chain with Zynthian's own sends:",
+      "step1": "Add a chain and choose Mixbus. In its options, Add Audio-FX processor: omx reverb, then omx delay, each \"(PH)\".",
+      "step2": "In each chain that should feed it, open the mixer processor's controller page and raise the send level for that Mixbus, pre or post fader.",
+      "p2": "A plugin-hostd plugin behaves in a Mixbus as in any chain. A slot holds one processor or several, and several are parallel; a worker runs its plugins in series in one JACK client, so with grouping on:",
+      "cols": {
+        "slots": "Slots of the chain",
+        "runs": "What runs"
+      },
+      "rows": {
+        "series": { "slots": "A, B", "runs": "A and B in one worker, one JACK client" },
+        "parallel": { "slots": "A, [B, C]", "runs": "a worker each: B and C are parallel, three clients" },
+        "mixed": { "slots": "A, B, [C, D], E, F", "runs": "A with B, a worker each for C and D, E with F: four clients" },
+        "strip": { "slots": "A, mixer strip, B", "runs": "a worker each: the strip is in the signal's way" },
+        "jalv": { "slots": "A, a jalv plugin, B", "runs": "a worker each, and the jalv plugin's own client" }
+      },
+      "p3": "Send levels, pre and post fader, and pinning or moving a Mixbus are Zynthian's mixer and chain manager: none of them sends anything to the daemon. Measured at JACK ports, series, parallel and Mixbus chains give the levels they should: unity in series, +6.02 dB for two in parallel, the strip's -20 dB where it sits."
+    },
+    "shots": {
+      "menu": { "alt": "The Zynthian plugin menu sorted by tier, with latency and real-time safety tags", "caption": "The plugin menu, sorted by qualification tier" },
+      "page": { "alt": "The controller page of an instrument in Zynthian", "caption": "A controller page, from the plugin's own sections" },
+      "modgui": { "alt": "An instrument's MOD GUI on a MOD-UI pedalboard", "caption": "The same instrument's MOD GUI, from the same layout" },
+      "chain": { "alt": "A Zynthian chain with an instrument and a compressor", "caption": "A chain with an instrument and an effect" }
     },
     "figures": {
       "title": "The headline figures.",
-      "intro": "One measurement on a Raspberry Pi 5 running Zynthian: a chain of plugins in one worker against one process per plugin, plugin-hostd 0.12.0 with omx-clap-host 0.22.1, 256 frames at 48 and 96 kHz.",
-      "pss": "Memory: with 16 plugins, proportional memory (PSS) is 2.8x smaller grouped, 42.9 MB against 118.2 MB at 48 kHz.",
-      "cpu": "CPU: 1.2 to 1.9x less when grouped, across 3, 8 and 16 plugins.",
-      "xruns": "Xruns over 12 runs of each mode: 10 grouped against 41 with one process per plugin; few and unevenly spread, so a count and not a rate.",
-      "modHostIntro": "Against Zynthian's own mod-host, measured digitally on the Pi 5 at 48 kHz and 256 frames with omx-clap-core 0.26.1 and plugin-hostd 0.15.8 (measurement builds), 0 xruns in every row:",
-      "modHostMemory": "Memory: about 45 MB less than mod-host for 24 plugins, 147 MB against 192 MB.",
-      "modHostAdd": "Adding to a chain: 422 ms against 717 ms for 24 plugins, and 256 ms against 317 ms for ten third-party LV2 plugins.",
-      "modHostCpu": "CPU: plugin-hostd's chain is a little lighter than mod-host, 12.37 % against 14.47 % for the 24. The shared-process host, omx-clap-host, is still about 4 to 7 % heavier on DSP than mod-host.",
-      "more": "Every row, the method and what was not measured"
+      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with the packages of November 2026 (plugin-hostd 0.15.9, omx-clap-core 0.26.4), against Zynthian's own mod-host:",
+      "dsp": "DSP load: a plugin-hostd chain has the lowest of the three hosts measured, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
+      "memory": "Memory: 41 to 49 % less than mod-host, 64 MB against 109 MB for the 24.",
+      "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s; on a running host mod-host adds two plugins faster, and from four on the chain does.",
+      "instruments": "Instruments: the same DSP load as mod-host, and about 43 MB less memory each.",
+      "qualified": "Qualification: of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own.",
+      "more": "Every table and the method",
+      "bench": "The benchmarks, row by row"
+    },
+    "status": {
+      "title": "Where it stands.",
+      "proven": {
+        "title": "Proven on the device",
+        "engine": "The plugin-hostd engine runs Zynthian chains, LV2 and CLAP side by side, with the plugin menus built from the qualification records.",
+        "pages": "Controller pages follow the plugin's own sections and are named by what they hold.",
+        "play": "Instruments and effects play through the engine, read digitally at JACK ports with 0 xruns; factory and user presets load.",
+        "grouping": "Grouping through Zynthian's own engine passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
+        "recover": "A lost worker comes back: after a killed worker, the daemon puts it back with its settings and the links it made itself in about 350 ms."
+      },
+      "released": {
+        "title": "Released, to be checked on the device",
+        "guard": "Every plugin call saves and checks the registers a function must keep; a plugin that changes one is moved to a worker of its own.",
+        "clients": "A chain shares one JACK client per worker, and a mono plugin runs inside a stereo chain.",
+        "adds": "Plugins are added straight into a chain's worker, which is what makes a chain faster to build than mod-host."
+      },
+      "open": {
+        "title": "Still open",
+        "menu": "Chains built from Zynthian's menu with grouping on, measured as the daemon's chains were.",
+        "listen": "A listening test through the audio interface: the figures so far are read digitally at the JACK ports.",
+        "presets": "Preset listing and loading for every instrument from the menu, and on CLAP.",
+        "snapshot": "The round trip of a snapshot that holds a plugin-hostd instrument.",
+        "mixbus": "Mixbus chains and parallel slots measured with Zynthian's own mixer in the path on the device."
+      }
     },
     "series": {
       "title": "Where the changes to Zynthian stand.",
       "forks": "The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys. In zynthian-ui: the plugin-hostd engine, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner. In zynthian-sys: the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install. Merged and open pull requests are listed on each fork.",
-      "upstream": "Upstream, one change is proposed so far: zynthian-sys pull request 228, building MOD-UI's environment on Python 3.13, open. The rest has not been proposed to Zynthian's maintainers yet."
+      "upstream": "Upstream, one change is proposed so far: building MOD-UI's environment on Python 3.13, in zynthian-sys. The rest has not been proposed to Zynthian's maintainers yet."
     },
     "read": {
-      "title": "Read the use case.",
-      "pages": {
-        "title": "The plugin-hostd pages",
-        "body": "The full use case as plugin-hostd publishes it: the benchmarks, the trade-offs, the upstream series and the acceptance report, with every figure and capture."
-      },
-      "source": {
-        "title": "The sources",
-        "body": "The same pages as markdown in the plugin-hostd repository, with the raw logs of every run under evidence/."
-      }
+      "title": "Read more.",
+      "bench": { "title": "plugin-hostd on a Raspberry Pi 5", "body": "The device, the method and every table: the three hosts, time to add, instruments, where a chain's time goes." },
+      "tradeoffs": { "title": "One worker per chain or one process per plugin", "body": "What grouping buys and what it costs, CLAP hosting, qualification and mod-host compatibility." },
+      "instruments": { "title": "Instruments on a Pi 5", "body": "Why voices need cores, what the host does about it, and Surge XT measured." },
+      "page": { "title": "From a plugin file to a page", "body": "The five stages from a plugin file to a menu row, controller pages and a MOD GUI." },
+      "groups": { "title": "Inferred port groups", "body": "Why most LV2 plugins on a Zynthian need port groups they do not declare, and how they get them." }
     }
   }
 }

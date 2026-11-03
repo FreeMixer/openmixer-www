@@ -94,6 +94,14 @@
       "architecture": {
         "title": "Architecture",
         "body": "How the console is built and why: the one summing bus, the row grammar, native DSP against hosted inserts, and the decision records."
+      },
+      "projects": {
+        "title": "The projects' documentation",
+        "body": "Each project's README, build guide and references: the libraries, the plugins, the plugin host and its protocol."
+      },
+      "notes": {
+        "title": "Technical notes",
+        "body": "How the parts were measured and decided: qualification, the plugin host, Zynthian on a Pi 5, the host core."
       }
     },
     "manual": {

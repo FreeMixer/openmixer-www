@@ -75,6 +75,21 @@
       "pages": [
         {
           "src": "README.md"
+        },
+        {
+          "src": "docs/formats.md"
+        },
+        {
+          "src": "docs/own-host.md"
+        },
+        {
+          "src": "docs/panel.md"
+        },
+        {
+          "src": "docs/placement.md"
+        },
+        {
+          "src": "docs/presets.md"
         }
       ]
     },

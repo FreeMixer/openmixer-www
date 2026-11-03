@@ -1,45 +1,170 @@
 {
   "docsZynthian": {
     "seo": {
-      "title": "Zynthian: plugin-hostd com a amfitrió de plugins — OpenMixer",
-      "description": "Zynthian executant els seus plugins LV2 i CLAP sota plugin-hostd: què és, les xifres mesurades i on són els canvis a Zynthian. El cas d'ús complet és a les pàgines de plugin-hostd."
+      "title": "Zynthian: plugin-hostd com a amfitrió de plugins | OpenMixer",
+      "description": "Zynthian fent córrer els seus plugins LV2 i CLAP amb plugin-hostd: què és, què canvia, com s'instal·la i es fa servir, les xifres mesurades i on és."
     },
     "hero": {
-      "eyebrow": "Tècnic",
+      "eyebrow": "Zynthian",
       "title": "Zynthian: plugin-hostd com a amfitrió de plugins.",
-      "lede": "Un resum breu. El cas d'ús complet, amb totes les figures i captures, el publica el mateix plugin-hostd i està enllaçat al final d'aquesta pàgina."
+      "lede": "Com instal·lar-lo, com fer-lo servir, què canvia a Zynthian i on és. El mètode i totes les taules són a les notes tècniques enllaçades al final."
     },
     "what": {
       "title": "Què és.",
-      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes sobre una Raspberry Pi. Executa plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de sòcol de mod-host i executa cada plugin, LV2 o CLAP, en un procés treballador propi, de manera que un plugin que falla només fa caure el seu treballador (que es torna a posar amb els seus ajustos) i res més. El cas d'ús comença pels instruments (les veus repartides entre els nuclis) i continua amb les mesures, els compromisos i la sèrie per a l'origen.",
-      "p2": "Amb ell Zynthian obté un motor plugin-hostd per a plugins LV2 i CLAP en cadenes, plugin-hostd com a substitut commutable de mod-host sota MOD-UI, menús de plugins ordenats a partir dels registres de qualificació de cada plugin i cadenes on el dimoni agrupa els plugins en el mínim de treballadors possible."
+      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes en una Raspberry Pi. Fa córrer plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de mod-host i fa córrer cada plugin, LV2 o CLAP, en un procés worker, de manera que un plugin que falla només s'endú el seu worker, que es torna a posar amb els seus valors. Una cadena sencera pot córrer en un sol worker en lloc d'un procés per plugin i plugin-qualify mesura cada plugin a l'aparell abans, de manera que els menús es fan a partir del que ha trobat.",
+      "p2": "Amb ell Zynthian té un motor plugin-hostd al costat de jalv per a plugins LV2 i CLAP en cadenes, plugin-hostd com a substitut commutable de mod-host darrere de MOD-UI, menús de plugins ordenats i etiquetats a partir dels registres de qualificació de cada plugin i cadenes els plugins de les quals el dimoni agrupa en tan pocs workers com permeten les seves empremtes."
+    },
+    "changes": {
+      "title": "Quant canvia Zynthian.",
+      "p1": "Res de Zynthian no en depèn. Continua amb jackd: no canvia cap fitxer de configuració de JACK i no hi intervé PipeWire. Tal com s'ofereix a Zynthian, el motor queda desactivat fins que un usuari l'activa i MOD-UI conserva mod-host fins que un usuari en canvia el motor; tornar enrere és el mateix paràmetre.",
+      "p2": "Els forks de zynthian-ui i zynthian-sys de FreeMixer el tenen activat: plugin-hostd és el motor per defecte i el motor per defecte de MOD-UI i la sincronització de qualificació està activada. Un plugin que plugin-hostd refusa es queda a jalv, llistat al seu menú, de manera que no desapareix res del que té l'usuari.",
+      "p3": "Què corre quan ningú no el fa servir: la interfície només engega un dimoni quan una cadena té un plugin de plugin-hostd. El que queda activat és la sincronització de qualificació, dos minuts després d'arrencar amb la prioritat de CPU i de disc més baixa, que se salta cada plugin els fitxers del qual no han canviat i les sincronitzacions de MOD GUI i de complements d'omx-panel. Totes es poden desactivar; la primera sincronització en un aparell amb molts plugins és llarga."
+    },
+    "install": {
+      "title": "Instal·lar-lo.",
+      "image": {
+        "title": "La imatge",
+        "where": "ZynthianOS Vangelis per a la Raspberry Pi 4 i 5, amb els forks de zynthian-ui i zynthian-sys, el repositori apt d'OpenMixer i plugin-hostd, omx-clap-host, omx-plugins, omx-panel i plugin-qualify instal·lats i per defecte. És un fitxer de les versions del fork de zynthian-sys de FreeMixer, amb el nom de la imatge original i de la revisió del fork, amb el seu resum i un informe d'inspecció a les notes de la versió. És més gran que el límit de GitHub per a un sol fitxer, de manera que es distribueix en parts:",
+        "firstBoot": "La primera arrencada fa el que fa una vegada qualsevol targeta de Zynthian: detecta el kit, torna a generar les claus SSH i el certificat web, crea el punt d'accés Wi-Fi, fa créixer el sistema de fitxers fins a omplir la targeta i reinicia una vegada. Dos minuts després d'arrencar, la sincronització de qualificació comença en segon pla, amb la prioritat més baixa i no retarda l'arrencada; amb el paquet de registres de qualificació instal·lat, només comprova que els fitxers dels plugins són els que descriuen els registres."
+      },
+      "existing": {
+        "title": "En un Vangelis que ja funciona",
+        "p1": "Un sistema Vangelis que ja funciona no necessita cap imatge nova. Com a root, afegiu el repositori d'OpenMixer i instal·leu-ne els paquets:",
+        "p2": "openmixer-release porta la clau de signatura i la font apt de la versió de Debian en marxa. No activa cap servei: mod-host, MOD-UI, jalv i els menús es queden com estaven fins que els canvieu."
+      },
+      "switch": {
+        "title": "Activar-lo i desactivar-lo",
+        "p1": "Tres paràmetres; cadascun es desfà tornant-lo al valor d'abans:"
+      }
+    },
+    "use": {
+      "title": "Fer-lo servir.",
+      "intro": "Amb el motor plugin-hostd activat, l'entrada d'un plugin al menú acaba en \"(PH)\". Seleccioneu una cadena, obriu-ne les opcions i feu servir Add Audio-FX processor; les pàgines de controls del plugin segueixen les seves pròpies seccions.",
+      "group": {
+        "title": "Un grup: plugins en sèrie en un sol worker",
+        "p1": "Amb l'agrupació activada, una tirada de plugins en sèrie dins d'una cadena comparteix un sol procés worker i un sol client JACK en lloc d'un procés cadascun. Un grup és el que la cadena té en sèrie sense res entremig: un espai en paral·lel, el canal del mesclador o un plugin de jalv l'acaba. Un processador que corre sol té una entrada Grouping a les seves opcions que en diu el motiu.",
+        "p2": "L'agrupació està desactivada si no l'activeu. Estalvia la major part de la memòria d'un procés per plugin: 24 plugins en una cadena ocupen uns 64 MB, contra uns 110 MB amb mod-host."
+      },
+      "strip": {
+        "title": "Un canal fet de plugins",
+        "p1": "L'EQ i la dinàmica de cada cadena són efectes normals d'aquella cadena; el mesclador de Zynthian conserva el nivell, el pan i els envíos. O bé afegiu plugins separats (omx keyed-gate, omx eq8, omx comp: trieu cadascun i el seu ordre i eq8 té vuit bandes) o bé un sol plugin, omx strip: guany d'entrada, filtres, una gate, quatre bandes d'EQ i un compressor en estèreo, en una sola càrrega i un sol worker, amb les seves cinc etapes en qualsevol ordre.",
+        "p2": "A 48 kHz i 512 mostres, omx strip costa uns 5,9 µs per bloc; omx eq8 i omx comp junts uns 11,4 µs, amb vuit bandes d'EQ contra quatre."
+      }
+    },
+    "mixbus": {
+      "title": "Efectes compartits en un Mixbus",
+      "p1": "Un efecte en un bus en lloc d'un per cadena, alimentat des de cada cadena amb els envíos del mateix Zynthian:",
+      "step1": "Afegiu una cadena i trieu Mixbus. A les seves opcions, Add Audio-FX processor: omx reverb i després omx delay, tots dos \"(PH)\".",
+      "step2": "A cada cadena que l'hagi d'alimentar, obriu la pàgina de controls del processador del mesclador i pugeu el nivell d'envío d'aquell Mixbus, abans o després del fader.",
+      "p2": "Un plugin de plugin-hostd es comporta en un Mixbus com en qualsevol cadena. Un espai té un processador o diversos i si en té diversos són en paral·lel; un worker fa córrer els seus plugins en sèrie en un sol client JACK, de manera que, amb l'agrupació activada:",
+      "cols": {
+        "slots": "Espais de la cadena",
+        "runs": "Què corre"
+      },
+      "rows": {
+        "series": {
+          "slots": "A, B",
+          "runs": "A i B en un sol worker, un client JACK"
+        },
+        "parallel": {
+          "slots": "A, [B, C]",
+          "runs": "un worker cadascun: B i C són en paral·lel, tres clients"
+        },
+        "mixed": {
+          "slots": "A, B, [C, D], E, F",
+          "runs": "A amb B, un worker cadascun per a C i D, E amb F: quatre clients"
+        },
+        "strip": {
+          "slots": "A, canal del mesclador, B",
+          "runs": "un worker cadascun: el canal és al camí del senyal"
+        },
+        "jalv": {
+          "slots": "A, un plugin de jalv, B",
+          "runs": "un worker cadascun i el client propi del plugin de jalv"
+        }
+      },
+      "p3": "Els nivells d'envío, abans i després del fader i fixar o moure un Mixbus són cosa del mesclador i del gestor de cadenes de Zynthian: cap no envia res al dimoni. Mesurades als ports de JACK, les cadenes en sèrie, en paral·lel i de Mixbus donen els nivells que toca: guany unitari en sèrie, +6,02 dB per a dos en paral·lel, els -20 dB del canal allà on és."
+    },
+    "shots": {
+      "menu": {
+        "alt": "El menú de plugins de Zynthian ordenat per nivell, amb etiquetes de latència i de seguretat en temps real",
+        "caption": "El menú de plugins, ordenat pel nivell de qualificació"
+      },
+      "page": {
+        "alt": "La pàgina de controls d'un instrument a Zynthian",
+        "caption": "Una pàgina de controls, a partir de les seccions del mateix plugin"
+      },
+      "modgui": {
+        "alt": "La MOD GUI d'un instrument en un pedalboard de MOD-UI",
+        "caption": "La MOD GUI del mateix instrument, a partir de la mateixa disposició"
+      },
+      "chain": {
+        "alt": "Una cadena de Zynthian amb un instrument i un compressor",
+        "caption": "Una cadena amb un instrument i un efecte"
+      }
     },
     "figures": {
       "title": "Les xifres principals.",
-      "intro": "Una mesura en una Raspberry Pi 5 amb Zynthian: una cadena de plugins en un sol treballador contra un procés per plugin, plugin-hostd 0.12.0 amb omx-clap-host 0.22.1, 256 mostres a 48 i 96 kHz.",
-      "pss": "Memòria: amb 16 plugins, la memòria proporcional (PSS) és 2,8 vegades menor agrupada, 42,9 MB contra 118,2 MB a 48 kHz.",
-      "cpu": "CPU: d'1,2 a 1,9 vegades menys agrupada, amb 3, 8 i 16 plugins.",
-      "xruns": "Xruns en 12 execucions de cada mode: 10 agrupada contra 41 amb un procés per plugin; són pocs i repartits de manera desigual, per tant és un recompte i no una taxa.",
-      "modHostIntro": "Davant del mod-host propi de Zynthian, mesurat digitalment a la Pi 5 a 48 kHz i 256 mostres amb omx-clap-core 0.26.1 i plugin-hostd 0.15.8 (versions de mesura), amb 0 xruns a totes les files:",
-      "modHostMemory": "Memòria: uns 45 MB menys que mod-host amb 24 plugins, 147 MB contra 192 MB.",
-      "modHostAdd": "Afegir a una cadena: 422 ms contra 717 ms amb 24 plugins i 256 ms contra 317 ms amb deu plugins LV2 de tercers.",
-      "modHostCpu": "CPU: la cadena de plugin-hostd és una mica més lleugera que mod-host, 12,37 % contra 14,47 % amb els 24. El host de procés compartit, omx-clap-host, continua uns 4 a 7 % més pesat en DSP que mod-host.",
-      "more": "Totes les files, el mètode i el que no es va mesurar"
+      "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb els paquets del novembre del 2026 (plugin-hostd 0.15.9, omx-clap-core 0.26.4), contra el mod-host del mateix Zynthian:",
+      "dsp": "Càrrega DSP: una cadena de plugin-hostd té la més baixa dels tres amfitrions mesurats, un 12,5 % per a 24 plugins contra el 15,0 % de mod-host, amb 0 xruns a cada repetició.",
+      "memory": "Memòria: entre un 41 i un 49 % menys que mod-host, 64 MB contra 109 MB per als 24.",
+      "add": "Temps d'addició: en fred, 24 plugins són a punt en 0,55 s contra 1,46 s; amb l'amfitrió en marxa mod-host afegeix dos plugins més de pressa i a partir de quatre ho fa la cadena.",
+      "instruments": "Instruments: la mateixa càrrega DSP que mod-host i uns 43 MB menys de memòria cadascun.",
+      "qualified": "Qualificació: dels 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi.",
+      "more": "Totes les taules i el mètode",
+      "bench": "Els bancs de proves, fila per fila"
+    },
+    "status": {
+      "title": "On és.",
+      "proven": {
+        "title": "Demostrat a l'aparell",
+        "engine": "El motor plugin-hostd fa córrer cadenes de Zynthian, LV2 i CLAP colze a colze, amb els menús de plugins fets a partir dels registres de qualificació.",
+        "pages": "Les pàgines de controls segueixen les seccions del mateix plugin i porten el nom del que contenen.",
+        "play": "Els instruments i els efectes sonen a través del motor, llegits digitalment als ports de JACK amb 0 xruns; es carreguen els presets de fàbrica i d'usuari.",
+        "grouping": "L'agrupació a través del motor del mateix Zynthian supera la seva prova: una tirada en sèrie s'agrupa en un sol client i un espai en paral·lel, el canal o un altre client l'acaben.",
+        "recover": "Un worker perdut torna: després de matar un worker, el dimoni el torna a posar amb els seus valors i els enllaços que ell mateix havia fet en uns 350 ms."
+      },
+      "released": {
+        "title": "Publicat, per comprovar a l'aparell",
+        "guard": "Cada crida a un plugin desa i comprova els registres que una funció ha de preservar; un plugin que en canvia un passa a un worker propi.",
+        "clients": "Una cadena comparteix un sol client JACK per worker i un plugin mono corre dins d'una cadena estèreo.",
+        "adds": "Els plugins s'afegeixen directament al worker d'una cadena, que és el que fa que una cadena es construeixi més de pressa que amb mod-host."
+      },
+      "open": {
+        "title": "Encara obert",
+        "menu": "Cadenes fetes des del menú de Zynthian amb l'agrupació activada, mesurades com es van mesurar les cadenes del dimoni.",
+        "listen": "Una prova d'escolta a través de la interfície d'àudio: fins ara les xifres es llegeixen digitalment als ports de JACK.",
+        "presets": "Llistar i carregar els presets de cada instrument des del menú, també en CLAP.",
+        "snapshot": "L'anada i tornada d'una instantània que conté un instrument de plugin-hostd.",
+        "mixbus": "Cadenes de Mixbus i espais en paral·lel mesurats amb el mesclador del mateix Zynthian al camí, a l'aparell."
+      }
     },
     "series": {
       "title": "On són els canvis a Zynthian.",
-      "forks": "El motor i els canvis de sistema són a les bifurcacions de zynthian-ui i zynthian-sys de FreeMixer. A zynthian-ui: el motor plugin-hostd, plugin-hostd per defecte amb un convertidor d'instantànies, menús a partir de la qualificació, cadenes segons el planificador del dimoni. A zynthian-sys: el repositori d'OpenMixer, plugin-hostd com a mod-host de MOD-UI, interfícies MOD des d'omx-panel, OpenMixer a la instal·lació per defecte. Les sol·licituds d'integració, integrades i obertes, són a cada bifurcació.",
-      "upstream": "A l'origen, de moment s'ha proposat un sol canvi: la petició d'integració 228 de zynthian-sys, que construeix l'entorn de MOD-UI amb Python 3.13, oberta. La resta encara no s'ha proposat als mantenidors de Zynthian."
+      "forks": "El motor i els canvis del sistema són als forks de zynthian-ui i zynthian-sys de FreeMixer. A zynthian-ui: el motor plugin-hostd, plugin-hostd per defecte amb un convertidor d'instantànies, menús a partir de la qualificació, cadenes a partir del planificador del dimoni. A zynthian-sys: el repositori d'OpenMixer, plugin-hostd com el mod-host de MOD-UI, MOD GUI generades per omx-panel, OpenMixer a la instal·lació per defecte. Les peticions d'integració acceptades i obertes són a cada fork.",
+      "upstream": "Al projecte original, fins ara només s'ha proposat un canvi: construir l'entorn de MOD-UI amb Python 3.13, a zynthian-sys. La resta encara no s'ha proposat als responsables de Zynthian."
     },
     "read": {
-      "title": "Llegiu el cas d'ús.",
-      "pages": {
-        "title": "Les pàgines de plugin-hostd",
-        "body": "El cas d'ús complet tal com el publica plugin-hostd: les mesures, els compromisos, la sèrie per a l'origen i l'informe d'acceptació, amb totes les figures i captures."
+      "title": "Per saber-ne més.",
+      "bench": {
+        "title": "plugin-hostd en una Raspberry Pi 5",
+        "body": "L'aparell, el mètode i totes les taules: els tres amfitrions, el temps d'addició, els instruments, on se'n va el temps d'una cadena."
       },
-      "source": {
-        "title": "Les fonts",
-        "body": "Les mateixes pàgines en markdown al repositori de plugin-hostd, amb els registres en brut de cada execució a evidence/."
+      "tradeoffs": {
+        "title": "Un worker per cadena o un procés per plugin",
+        "body": "Què hi guanyes agrupant i què costa, l'allotjament CLAP, la qualificació i la compatibilitat amb mod-host."
+      },
+      "instruments": {
+        "title": "Instruments en una Pi 5",
+        "body": "Per què les veus necessiten nuclis, què hi fa l'amfitrió i Surge XT mesurat."
+      },
+      "page": {
+        "title": "D'un fitxer de plugin a una pàgina",
+        "body": "Les cinc etapes d'un fitxer de plugin a una fila de menú, unes pàgines de controls i una MOD GUI."
+      },
+      "groups": {
+        "title": "Grups de ports inferits",
+        "body": "Per què la majoria dels plugins LV2 d'un Zynthian necessiten grups de ports que no declaren i com els obtenen."
       }
     }
   }

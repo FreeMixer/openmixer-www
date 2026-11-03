@@ -94,6 +94,14 @@
       "architecture": {
         "title": "Arquitectura",
         "body": "Com està construïda la taula i per què: el bus de suma únic, la gramàtica de les files, el DSP natiu enfront dels inserts allotjats i els registres de decisions."
+      },
+      "projects": {
+        "title": "La documentació dels projectes",
+        "body": "El README, la guia de compilació i les referències de cada projecte: les biblioteques, els plugins, l'amfitrió de plugins i el seu protocol."
+      },
+      "notes": {
+        "title": "Notes tècniques",
+        "body": "Com s'han mesurat i decidit les parts: la qualificació, l'amfitrió de plugins, Zynthian en una Pi 5, el nucli de l'amfitrió."
       }
     },
     "manual": {
