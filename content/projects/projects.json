@@ -71,7 +71,7 @@
     },
     {
       "repo": "plugin-hostd",
-      "commit": "6efc13c49555a682dda47554839a0ccfb25cbac9",
+      "commit": "b4ea6a9",
       "pages": [
         {
           "src": "README.md"
