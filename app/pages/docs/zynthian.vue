@@ -29,6 +29,20 @@ const switches = [
   'grouping on',
 ];
 
+const poolOptions = [
+  '# omx-clap-host: helper threads for the plugins that split their voices into tasks',
+  'omx-clap-host --thread-pool=qualified   # the default',
+  'omx-clap-host --thread-pool=on',
+  'omx-clap-host --thread-pool=off',
+];
+
+/** The test plugin's mean block cost with the helper threads off and on, 48 kHz, 256 frames. */
+const poolRows = [
+  { voices: '8', off: '527.9', on: '155.9', gain: '3.4x' },
+  { voices: '24', off: '1583.4', on: '418.7', gain: '3.8x' },
+  { voices: '48', off: '3335.5', on: '857.9', gain: '3.9x' },
+];
+
 const notes = computed(() =>
   ([
     ['bench', 'plugin-hostd-on-a-raspberry-pi-5'],
@@ -156,7 +170,59 @@ useSeoMeta({
 
     <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="05" :title="t('docsZynthian.figures.title')" />
+        <SectionHead eyebrow="05" :title="t('docsZynthian.voices.title')" />
+        <div class="space-y-4 text-base leading-relaxed text-ink-dim">
+          <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.voices.why.title') }}</h3>
+          <p>{{ t('docsZynthian.voices.why.p1') }}</p>
+          <p>{{ t('docsZynthian.voices.why.p2') }}</p>
+          <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.voices.how.title') }}</h3>
+          <p>{{ t('docsZynthian.voices.how.p1') }}</p>
+          <p>{{ t('docsZynthian.voices.how.p2') }}</p>
+          <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.voices.gate.title') }}</h3>
+          <p>{{ t('docsZynthian.voices.gate.p1') }}</p>
+          <p>{{ t('docsZynthian.voices.gate.p2') }}</p>
+          <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.voices.switch.title') }}</h3>
+          <p>{{ t('docsZynthian.voices.switch.p1') }}</p>
+          <CodeBlock :lines="poolOptions" />
+          <ul class="list-disc space-y-2 pl-6">
+            <li>{{ t('docsZynthian.voices.switch.qualified') }}</li>
+            <li>{{ t('docsZynthian.voices.switch.on') }}</li>
+            <li>{{ t('docsZynthian.voices.switch.off') }}</li>
+          </ul>
+          <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.voices.measured.title') }}</h3>
+          <p>{{ t('docsZynthian.voices.measured.p1') }}</p>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse text-sm">
+              <thead>
+                <tr>
+                  <th class="border border-edge bg-surface-2 px-3 py-2 text-left text-ink">{{ t('docsZynthian.voices.measured.cols.voices') }}</th>
+                  <th class="border border-edge bg-surface-2 px-3 py-2 text-left text-ink">{{ t('docsZynthian.voices.measured.cols.off') }}</th>
+                  <th class="border border-edge bg-surface-2 px-3 py-2 text-left text-ink">{{ t('docsZynthian.voices.measured.cols.on') }}</th>
+                  <th class="border border-edge bg-surface-2 px-3 py-2 text-left text-ink">{{ t('docsZynthian.voices.measured.cols.gain') }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="r in poolRows" :key="r.voices">
+                  <td class="border border-edge px-3 py-2 font-mono">{{ r.voices }}</td>
+                  <td class="border border-edge px-3 py-2 font-mono">{{ r.off }}</td>
+                  <td class="border border-edge px-3 py-2 font-mono">{{ r.on }}</td>
+                  <td class="border border-edge px-3 py-2 font-mono">{{ r.gain }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>{{ t('docsZynthian.voices.measured.p2') }}</p>
+          <p>{{ t('docsZynthian.voices.measured.p3') }}</p>
+          <p>
+            <NuxtLink :to="sitePath('/notes/instruments-on-a-pi-5')" class="text-accent hover:underline">{{ t('docsZynthian.voices.measured.more') }}</NuxtLink>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-edge bg-surface/40">
+      <div class="mx-auto max-w-4xl px-6 py-16">
+        <SectionHead eyebrow="06" :title="t('docsZynthian.figures.title')" />
         <p class="mb-4 text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.figures.intro') }}</p>
         <ul class="list-disc space-y-3 pl-6 text-base leading-relaxed text-ink-dim">
           <li>{{ t('docsZynthian.figures.dsp') }}</li>
@@ -172,9 +238,9 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-b border-edge bg-surface/40">
+    <section class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="06" :title="t('docsZynthian.status.title')" />
+        <SectionHead eyebrow="07" :title="t('docsZynthian.status.title')" />
         <div class="space-y-6 text-base leading-relaxed text-ink-dim">
           <div>
             <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.proven.title') }}</h3>
@@ -198,9 +264,9 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-b border-edge">
+    <section class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
-        <SectionHead eyebrow="07" :title="t('docsZynthian.series.title')" />
+        <SectionHead eyebrow="08" :title="t('docsZynthian.series.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
           <p>{{ t('docsZynthian.series.forks') }}</p>
           <p>{{ t('docsZynthian.series.upstream') }}</p>
@@ -210,7 +276,7 @@ useSeoMeta({
 
     <section>
       <div class="mx-auto max-w-6xl px-6 py-16">
-        <SectionHead eyebrow="08" :title="t('docsZynthian.read.title')" />
+        <SectionHead eyebrow="09" :title="t('docsZynthian.read.title')" />
         <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           <LinkCard v-for="n in notes" :key="n.label" :title="n.title" :href="n.href" :label="n.label">
             <p>{{ n.body }}</p>

@@ -76,6 +76,44 @@
       "modgui": { "alt": "An instrument's MOD GUI on a MOD-UI pedalboard", "caption": "The same instrument's MOD GUI, from the same layout" },
       "chain": { "alt": "A Zynthian chain with an instrument and a compressor", "caption": "A chain with an instrument and an effect" }
     },
+    "voices": {
+      "title": "Instruments: voices across the cores.",
+      "why": {
+        "title": "Why",
+        "p1": "A Pi 5 has four cores. A synth plays many voices at once, and every block of audio has a deadline: all the voices must be computed before it is due. Run one after another, they all use one core. That core sets how many notes you can play, however idle the other three are.",
+        "p2": "Some synths split their voices into tasks and ask the host to run them (CLAP's thread-pool extension). Tasks like that can run side by side, if the host lets them."
+      },
+      "how": {
+        "title": "How it works",
+        "p1": "omx-clap-host starts helper threads: one for each core the plugin's worker may use, minus one, because the audio thread takes the last core. Each helper is pinned to its core, runs at the audio thread's real-time priority and sleeps between blocks.",
+        "p2": "When the plugin asks for its tasks, the helpers and the audio thread take them one by one, and the call returns when the last is done. If the priority cannot be set, there are no helpers and the tasks run as before, in turn."
+      },
+      "gate": {
+        "title": "Who gets helpers",
+        "p1": "Not every plugin. Helper threads are given plugin by plugin, never everywhere. A plugin gets them only if its qualification found it real-time safe, with the helpers watched too, and faster with them. A task that allocates or waits on a lock would make every core miss the deadline.",
+        "p2": "Any other plugin runs as before: its tasks one after another on the audio thread. A plugin that gets helpers runs in a worker of its own, which plugin-hostd starts with the pool on."
+      },
+      "switch": {
+        "title": "How to switch it",
+        "p1": "It is an option of omx-clap-host:",
+        "qualified": "qualified (the default): only plugins whose qualification grants it get helpers. plugin-hostd gives each worker the right setting, so on Zynthian you do not set it.",
+        "on": "on: every plugin that uses the extension gets helpers.",
+        "off": "off: every plugin runs its tasks in turn."
+      },
+      "measured": {
+        "title": "What it gives",
+        "p1": "Measured on a Raspberry Pi 5 at 48 kHz and 256 frames, so the block is due in 5333 µs. The plugin is a test plugin that splits each block into 16 tasks, because no plugin on the Pi asks for tasks yet, Surge XT included. The time is the mean cost of one block, with the helpers off and on:",
+        "cols": {
+          "voices": "Voices in each task",
+          "off": "Off (µs)",
+          "on": "On (µs)",
+          "gain": "Faster by"
+        },
+        "p2": "At 512 frames, the 48-voice load takes 6.6 ms of the 10.7 ms block with the helpers off and 1.7 ms with them on. No block went over its deadline in any run.",
+        "p3": "This is the best case: equal tasks that share nothing. A real instrument has not been measured with it, so there is no Surge XT figure. Surge XT does not split its voices, and for it the cores come from running each instrument in a worker of its own: four instances with 16 notes each ran at 14 to 15 % of a core each.",
+        "more": "Surge XT measured, in full"
+      }
+    },
     "figures": {
       "title": "The headline figures.",
       "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with the packages of November 2026 (plugin-hostd 0.15.9, omx-clap-core 0.26.4), against Zynthian's own mod-host:",
