@@ -34,6 +34,26 @@ const tables = computed(() => {
   });
 });
 
+const lowestGroups = computed(() => (run.value ? lowestBuffers(run.value) : []));
+const lowestTitle = (g: { family: string; title: string }) => familyTitle({ id: g.family, title: g.title });
+const lowestHostName = (h: { host: HostId; mode?: string }) => variantLabel(h.host, h.mode);
+const num = (n: number) => String(Number.isInteger(n) ? n : Math.round(n * 100) / 100);
+/** "Half the buffer of mod-host" only when the data says exactly that; otherwise the plain ratio. */
+const versus = (ratio: number | null, ref: string) => {
+  if (ratio === null) return '—';
+  const r = { ref };
+  if (ratio === 1) return t('benchmarks.lowest.same');
+  if (ratio === 2) return t('benchmarks.lowest.half', r);
+  if (ratio === 4) return t('benchmarks.lowest.quarter', r);
+  return ratio > 1 ? t('benchmarks.lowest.smaller', { ...r, n: num(ratio) }) : t('benchmarks.lowest.larger', { ...r, n: num(1 / ratio) });
+};
+const lowestText = (c: LowestCell) => {
+  if (c.kind === 'none') return t('benchmarks.lowest.none', { frames: c.smallest, ms: num(Math.round(c.ms * 100) / 100) });
+  if (c.kind === 'unsupported') return t('benchmarks.lowest.unsupported', { note: c.note || t('benchmarks.lowest.noReason') });
+  if (c.kind === 'failed') return t('benchmarks.lowest.failed', { note: c.note || t('benchmarks.lowest.noReason') });
+  return t('benchmarks.lowest.notMeasured');
+};
+
 const failing = computed(() => {
   const r = run.value;
   return r ? failingRows(sameDayRuns(all, r)) : [];
@@ -123,6 +143,43 @@ useSeoMeta({
     </section>
 
     <template v-else>
+      <section v-if="lowestGroups.length" class="border-b border-edge">
+        <div class="mx-auto max-w-6xl px-6 py-16">
+          <SectionHead :eyebrow="t('benchmarks.lowest.eyebrow')" :title="t('benchmarks.lowest.title')">
+            <p class="mt-3 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ t('benchmarks.lowest.lede') }}</p>
+          </SectionHead>
+          <div class="overflow-x-auto rounded border border-edge">
+            <table class="w-full text-left text-sm">
+              <thead class="bg-surface font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+                <tr>
+                  <th scope="col" class="px-4 py-3 font-normal">{{ t('benchmarks.lowest.host') }}</th>
+                  <th scope="col" class="px-4 py-3 font-normal">{{ t('benchmarks.lowest.frames') }}</th>
+                  <th scope="col" class="px-4 py-3 font-normal">{{ t('benchmarks.lowest.ms') }}</th>
+                  <th scope="col" class="px-4 py-3 font-normal">{{ t('benchmarks.lowest.vsMod') }}</th>
+                  <th scope="col" class="px-4 py-3 font-normal">{{ t('benchmarks.lowest.vsJalv') }}</th>
+                </tr>
+              </thead>
+              <tbody v-for="g in lowestGroups" :key="`${g.family}-${g.rate}`" class="divide-y divide-edge border-t border-edge">
+                <tr class="bg-surface">
+                  <th scope="colgroup" colspan="5" class="px-4 py-2 text-left font-medium text-ink">{{ lowestTitle(g) }}, {{ khz(g.rate) }}</th>
+                </tr>
+                <tr v-for="l in g.lines" :key="l.host.key" class="align-top">
+                  <th scope="row" class="px-4 py-3 font-normal text-ink">{{ lowestHostName(l.host) }}</th>
+                  <template v-if="l.cell.kind === 'clean'">
+                    <td class="px-4 py-3 font-medium text-ink">{{ l.cell.frames }}</td>
+                    <td class="px-4 py-3 text-ink">{{ num(Math.round(l.cell.ms * 100) / 100) }} ms</td>
+                    <td class="px-4 py-3 text-ink-dim">{{ l.host.key === 'H3' ? '—' : versus(l.cell.vsModHost, t('benchmarks.hosts.H3')) }}</td>
+                    <td class="px-4 py-3 text-ink-dim">{{ l.host.key === 'H4' ? '—' : versus(l.cell.vsJalv, t('benchmarks.hosts.H4')) }}</td>
+                  </template>
+                  <td v-else colspan="4" class="px-4 py-3 text-ink-faint">{{ lowestText(l.cell) }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="mt-3 max-w-3xl text-xs leading-relaxed text-ink-faint">{{ t('benchmarks.lowest.unit') }}</p>
+        </div>
+      </section>
+
       <section v-if="method" class="border-b border-edge">
         <div class="mx-auto max-w-6xl px-6 py-10">
           <h2 class="font-display text-lg font-semibold text-ink">{{ t('benchmarks.method.title') }}</h2>

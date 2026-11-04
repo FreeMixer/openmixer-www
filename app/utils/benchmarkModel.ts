@@ -265,3 +265,91 @@ export function sameDayRuns(runs: readonly BenchRun[], run: BenchRun): BenchRun[
   const others = runs.filter((r) => r.id !== run.id && r.machine.class === run.machine.class && r.id.split('-')[1] === day);
   return [run, ...others.sort((a, b) => compareRunIds(b.id, a.id))];
 }
+
+/** A host as the headline table names it: the host, and for plugin-hostd the mode it ran in. */
+export interface LowestHost {
+  readonly key: string;
+  readonly host: HostId;
+  readonly mode?: Mode;
+}
+
+/** The hosts of the headline table, in order: plugin-hostd's chain and one-worker-per-plugin modes are apart. */
+export const LOWEST_HOSTS: readonly LowestHost[] = [
+  { key: 'H1', host: 'H1' },
+  { key: 'H2|chain', host: 'H2', mode: 'chain' },
+  { key: 'H2|individual', host: 'H2', mode: 'individual' },
+  { key: 'H3', host: 'H3' },
+  { key: 'H4', host: 'H4' },
+];
+
+export type LowestCell =
+  | { readonly kind: 'clean'; readonly frames: number; readonly ms: number; readonly vsModHost: number | null; readonly vsJalv: number | null }
+  | { readonly kind: 'none'; readonly smallest: number; readonly ms: number }
+  | { readonly kind: 'unsupported' | 'failed'; readonly note: string }
+  | { readonly kind: 'absent' };
+
+export interface LowestLine {
+  readonly host: LowestHost;
+  readonly cell: LowestCell;
+}
+
+export interface LowestGroup {
+  readonly family: string;
+  readonly title: string;
+  readonly rate: number;
+  readonly lines: readonly LowestLine[];
+}
+
+/** Milliseconds of a buffer: frames over the rate. */
+export const bufferMs = (frames: number, rate: number): number => (frames / rate) * 1000;
+
+/** A row is clean when it ran and no repeat had an xrun (the highest repeat decides, as in the acceptance). */
+const isClean = (s: BenchScenario): boolean => s.status === 'ok' && acceptance(s).pass;
+
+function lowestCell(rows: readonly BenchScenario[], rate: number): Exclude<LowestCell, { kind: 'clean' }> | { kind: 'clean'; frames: number; ms: number } {
+  if (rows.length === 0) return { kind: 'absent' };
+  const clean = rows.filter(isClean).map((s) => s.frames);
+  if (clean.length) {
+    const frames = Math.min(...clean);
+    return { kind: 'clean', frames, ms: bufferMs(frames, rate) };
+  }
+  const ran = rows.filter((s) => s.status === 'ok').map((s) => s.frames);
+  if (ran.length) {
+    const smallest = Math.min(...ran);
+    return { kind: 'none', smallest, ms: bufferMs(smallest, rate) };
+  }
+  const failed = rows.find((s) => s.status === 'failed');
+  if (failed) return { kind: 'failed', note: failed.note ?? '' };
+  return { kind: 'unsupported', note: rows[0]!.note ?? '' };
+}
+
+/**
+ * The headline: per scenario family and rate, per host, the smallest frames at which every repeat
+ * had no xrun, with its milliseconds and its ratio to mod-host and to jalv. Read from the rows of
+ * the run (stress none), nothing else.
+ */
+export function lowestBuffers(run: BenchRun): LowestGroup[] {
+  const groups: LowestGroup[] = [];
+  for (const f of families(run)) {
+    const rows = run.scenarios.filter((s) => s.id === f.id && (s.stress ?? 'none') === 'none');
+    const rates = [...new Set(rows.map((s) => s.rate))].sort((a, b) => a - b);
+    for (const rate of rates) {
+      const base = LOWEST_HOSTS.map((h) => ({
+        host: h,
+        cell: lowestCell(rows.filter((s) => s.rate === rate && s.host === h.host && (h.mode === undefined || h.host !== 'H2' || s.mode === h.mode)), rate),
+      }));
+      const framesOf = (key: string) => {
+        const c = base.find((b) => b.host.key === key)?.cell;
+        return c?.kind === 'clean' ? c.frames : null;
+      };
+      const mod = framesOf('H3');
+      const jalv = framesOf('H4');
+      const lines = base.map(({ host, cell }): LowestLine => cell.kind === 'clean'
+        ? { host, cell: { ...cell, vsModHost: mod === null ? null : mod / cell.frames, vsJalv: jalv === null ? null : jalv / cell.frames } }
+        : { host, cell });
+      if (lines.every((l) => l.cell.kind === 'absent')) continue;
+      groups.push({ family: f.id, title: f.title, rate, lines });
+    }
+  }
+  return groups;
+}
