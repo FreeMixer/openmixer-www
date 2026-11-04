@@ -103,6 +103,44 @@
         "caption": "Una cadena amb un instrument i un efecte"
       }
     },
+    "voices": {
+      "title": "Instruments: veus repartides entre els nuclis.",
+      "why": {
+        "title": "Per què",
+        "p1": "Una Pi 5 té quatre nuclis. Un sintetitzador toca moltes veus alhora; i cada bloc d'àudio té una data límit: totes les veus s'han de calcular abans que toqui. Si es calculen una darrere l'altra, fan servir un sol nucli. Aquest nucli decideix quantes notes podeu tocar, per desocupats que estiguin els altres tres.",
+        "p2": "Alguns sintetitzadors reparteixen les veus en tasques i demanen a l'amfitrió que les executi (l'extensió thread-pool de CLAP). Unes tasques així poden córrer en paral·lel, si l'amfitrió ho permet."
+      },
+      "how": {
+        "title": "Com funciona",
+        "p1": "omx-clap-host posa en marxa fils auxiliars: un per cada nucli que el worker del plugin pot fer servir, menys un, perquè el fil d'àudio ocupa l'últim nucli. Cada fil auxiliar queda fixat al seu nucli, corre amb la prioritat de temps real del fil d'àudio i dorm entre bloc i bloc.",
+        "p2": "Quan el plugin demana les tasques, els fils auxiliars i el fil d'àudio les agafen una a una; i la crida torna quan s'ha acabat l'última. Si no es pot fixar la prioritat, no hi ha fils auxiliars i les tasques corren com abans, per torn."
+      },
+      "gate": {
+        "title": "Qui en té",
+        "p1": "No tots els plugins. Els fils auxiliars es donen plugin per plugin, mai a tot arreu. Un plugin només en té si la seva qualificació l'ha trobat segur per a temps real (amb els fils auxiliars també vigilats) i més ràpid amb ells. Una tasca que reserva memòria o espera un bloqueig faria que tots els nuclis arribessin tard.",
+        "p2": "Qualsevol altre plugin corre com abans: les seves tasques una darrere l'altra al fil d'àudio. Un plugin que té fils auxiliars corre en un worker propi, que plugin-hostd posa en marxa amb el pool activat."
+      },
+      "switch": {
+        "title": "Com activar-ho o desactivar-ho",
+        "p1": "És una opció d'omx-clap-host:",
+        "qualified": "qualified (per defecte): només tenen fils auxiliars els plugins que la qualificació hi autoritza. plugin-hostd dona a cada worker el valor adequat, així que a Zynthian no cal que l'indiqueu.",
+        "on": "on: tots els plugins que fan servir l'extensió tenen fils auxiliars.",
+        "off": "off: tots els plugins executen les tasques per torn."
+      },
+      "measured": {
+        "title": "Què en resulta",
+        "p1": "Mesurat en una Raspberry Pi 5 a 48 kHz i 256 mostres, així que el bloc toca en 5333 µs. El plugin és un plugin de prova que reparteix cada bloc en 16 tasques, perquè cap plugin de la Pi demana tasques encara, Surge XT inclòs. El temps és el cost mitjà d'un bloc, amb els fils auxiliars desactivats i activats:",
+        "cols": {
+          "voices": "Veus per tasca",
+          "off": "Desactivats (µs)",
+          "on": "Activats (µs)",
+          "gain": "Més ràpid per"
+        },
+        "p2": "A 512 mostres, la càrrega de 48 veus ocupa 6,6 ms del bloc de 10,7 ms amb els fils auxiliars desactivats i 1,7 ms amb ells activats. Cap bloc va passar de la data límit en cap prova.",
+        "p3": "És el millor cas: tasques iguals que no comparteixen res. No s'ha mesurat un instrument real amb això, així que no hi ha cap xifra de Surge XT. Surge XT no reparteix les veus en tasques; per a ell els nuclis vénen de fer córrer cada instrument en un worker propi: quatre instàncies amb 16 notes cadascuna van treballar al 14-15 % d'un nucli cadascuna.",
+        "more": "Surge XT mesurat, tot"
+      }
+    },
     "figures": {
       "title": "Les xifres principals.",
       "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb plugin-hostd 0.15.9 i omx-clap-core 0.26.4, contra el mod-host del mateix Zynthian:",
