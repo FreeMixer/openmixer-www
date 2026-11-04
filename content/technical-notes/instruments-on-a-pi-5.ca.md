@@ -20,7 +20,7 @@ per grup de veus) i demanar a l'amfitrió que les faci córrer (`request_exec`).
 les reparteix entre fils auxiliars de temps real, un per cada nucli que pot fer servir el worker, cadascun fixat al seu
 nucli i aturat entre cicles; les tasques es reparteixen amb un sol índex atòmic que cada fil incrementa, el fil d'àudio en fa la seva part i
 la crida torna quan s'acaba l'última tasca, sense cap reserva de memòria, bloqueig ni crida al sistema en aquest camí
-(vegeu la [referència del grup de fils](/projects/omx-clap-core)).
+(vegeu la [referència del grup de fils](/projects/omx-clap-core/thread-pool)).
 
 El grup de fils no és un interruptor global. Es dona plugin a plugin, segons la seva qualificació: un plugin segur en temps
 real que demana el grup rep fils auxiliars; un plugin amb violacions de temps real s'allotja aïllat, en un worker propi,
