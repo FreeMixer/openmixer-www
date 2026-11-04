@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 2,
+  "source": {
+    "repo": "omx-qualification-records",
+    "commit": "936923555a593e09791f804368c884e8dfe62fb0"
+  },
+  "platforms": [
+    {
+      "id": "rpi5-zynthian-vangelis",
+      "hostClass": "rpi5",
+      "set": "zynthian-vangelis",
+      "measured": "2026-10-28",
+      "package": {
+        "name": "omx-qualification-rpi5-zynthian-vangelis",
+        "version": "2026.10.29"
+      },
+      "conditions": {
+        "image": "ZynthianOS Vangelis-2610.1 (built 2026-10-15 from Raspberry Pi OS Trixie, aarch64)",
+        "board": "Raspberry Pi 5 Model B Rev 1.0",
+        "hostProfile": "omx-clap-host"
+      },
+      "records": 1886,
+      "tested": 1576,
+      "formats": {
+        "clap": 247,
+        "lv2": 1329
+      },
+      "verdicts": {
+        "accepted": 1187,
+        "conditional": 0,
+        "refused": 389
+      },
+      "byFormat": {
+        "clap": {
+          "accepted": 122,
+          "conditional": 0,
+          "refused": 125
+        },
+        "lv2": {
+          "accepted": 1065,
+          "conditional": 0,
+          "refused": 264
+        }
+      },
+      "reasons": {
+        "conditional": {},
+        "refused": {
+          "hosting.rt-safety.unmeasured": 6,
+          "hosting.rt-safety.violations-in-run": 305,
+          "hosting.rt-safety.violations-under-notes": 3,
+          "probe.crashed": 34,
+          "probe.refused-instantiation": 1,
+          "probe.timeout": 40
+        }
+      }
+    },
+    {
+      "id": "x86-64-fedora44",
+      "hostClass": "x86-64",
+      "set": "fedora44",
+      "measured": "2026-11-01",
+      "package": {
+        "name": "omx-qualification-x86-64-fedora44",
+        "version": "2026110101"
+      },
+      "conditions": {
+        "image": "fedora:44 container (registry.fedoraproject.org/fedora:44, Fedora Linux 44 x86_64) with the OpenMixer worker image's plugin set",
+        "board": "AMD Ryzen 7 PRO 8700GE w/ Radeon 780M Graphics (x86_64, 8 cores, 16 threads), a real machine: cluster node h2, in a Kubernetes pod limited to 3 CPUs",
+        "kernel": "7.2.7-300.fc45.x86_64 (PREEMPT_DYNAMIC)",
+        "hostProfile": "omx-clap-host",
+        "grid": "48000/512",
+        "realtime": "none: the pod has no CAP_SYS_NICE and an RLIMIT_RTPRIO of 0 (pod security baseline), so the probe and the isolated step ran under SCHED_OTHER; memory not locked (RLIMIT_MEMLOCK 8 MiB)",
+        "jack": "jackd 1.9.22, dummy driver at 48000/512, private to the pod, not real-time"
+      },
+      "records": 666,
+      "tested": 440,
+      "formats": {
+        "clap": 218,
+        "lv2": 222
+      },
+      "verdicts": {
+        "accepted": 293,
+        "conditional": 138,
+        "refused": 9
+      },
+      "byFormat": {
+        "clap": {
+          "accepted": 76,
+          "conditional": 134,
+          "refused": 8
+        },
+        "lv2": {
+          "accepted": 217,
+          "conditional": 4,
+          "refused": 1
+        }
+      },
+      "reasons": {
+        "conditional": {
+          "hosting.rt-safety.violations-in-run": 134,
+          "hosting.rt-safety.violations-under-notes": 4
+        },
+        "refused": {
+          "omx-clap-host.silent-under-note": 1,
+          "probe.crashed": 8
+        }
+      }
+    }
+  ]
+}

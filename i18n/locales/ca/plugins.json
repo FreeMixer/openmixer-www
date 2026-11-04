@@ -2,28 +2,47 @@
   "plugins": {
     "seo": {
       "title": "Catàleg de plugins — OpenMixer",
-      "description": "Què ha mesurat OpenMixer de {count} plugins d’àudio el {day}: estabilitat, seguretat en temps real, cost de CPU, latència i si cadascun s’executa dins del procés.",
-      "entryTitle": "{name} — catàleg de plugins — OpenMixer",
-      "entryDescription": "{name}: {verdict} a la mesura del catàleg de plugins d’OpenMixer del {day}.",
-      "entryDescriptionVendor": "{name} de {vendor}: {verdict} a la mesura del catàleg de plugins d’OpenMixer del {day}."
+      "description": "{count} plugins d’àudio provats per a OpenMixer en {platforms} plataformes: quins s’accepten, quins s’accepten amb condicions i quins es refusen, amb el motiu de cada cas."
+    },
+    "hero": {
+      "eyebrow": "Catàleg de plugins",
+      "title": "Què hem mesurat de cada plugin.",
+      "lede": "Cada plugin es carrega, s’executa i es mesura en un dispositiu real abans que OpenMixer l’ofereixi. Es vigila que el callback d’àudio no faci assignacions de memòria, bloquejos ni crides al sistema. També es mesuren el cost de CPU i la latència. Aquests són els registres de {count} plugins en {platforms} plataformes, agrupats segons el que cada plataforma ha pogut acceptar."
+    },
+    "platform": {
+      "rpi5-zynthian-vangelis": {
+        "name": "Raspberry Pi 5, ZynthianOS Vangelis"
+      },
+      "x86-64-fedora44": {
+        "name": "x86-64, Fedora 44"
+      }
     },
     "verdict": {
-      "in-process": {
-        "label": "Dins del procés",
-        "meaning": "Ha superat totes les dimensions mesurades. Qualificat per executar-se dins del procés del motor."
+      "accepted": {
+        "label": "Acceptat",
+        "meaning": "Ha superat totes les mesures en aquesta plataforma i s’ofereix per usar-lo."
       },
-      "isolated": {
-        "label": "Aïllat",
-        "meaning": "S’executa, en un procés a part. El motiu decisiu explica per què no va dins del procés."
-      },
-      "unknown": {
-        "label": "No mesurat del tot",
-        "meaning": "Almenys una dimensió no s’ha mesurat, de manera que no es dona cap veredicte. S’executa en un procés a part."
+      "conditional": {
+        "label": "Acceptat amb condicions",
+        "meaning": "Funciona, però només en un procés a part. El motiu mostrat explica per què no s’ofereix sense aquesta condició."
       },
       "refused": {
         "label": "Refusat",
-        "meaning": "El qualificador no l’ha pogut carregar ni executar."
+        "meaning": "No s’ofereix en aquesta plataforma. El motiu mostrat explica per què."
       }
+    },
+    "tier": {
+      "in-process": "Dins del procés",
+      "isolated": "Aïllat"
+    },
+    "offer": {
+      "default": "Oferta per defecte",
+      "custom": "Oferta personalitzada"
+    },
+    "host": {
+      "openmixer-console": "Host dins del procés",
+      "omx-clap-host": "Host aïllat",
+      "mod-host": "mod-host"
     },
     "dimension": {
       "stability": "Estabilitat",
@@ -31,7 +50,9 @@
       "features": "Funcions del host",
       "cost": "Cost de CPU",
       "latency": "Latència",
-      "topology": "Entrades i sortides"
+      "topology": "Entrades i sortides",
+      "memory": "Memòria",
+      "hostAdmission": "Admissió al host"
     },
     "rating": {
       "suitable": "Superat",
@@ -39,117 +60,127 @@
       "unknown": "No mesurat",
       "unsuitable": "Suspès"
     },
-    "kind": {
-      "effect": "efecte",
-      "instrument": "instrument",
-      "other": "plugin"
-    },
-    "source": {
-      "qualify": "la tasca de qualificació",
-      "console": "els veredictes que tenia una consola en marxa ({producer}) aquell dia"
-    },
-    "hero": {
-      "eyebrow": "Catàleg de plugins",
-      "title": "Què hem mesurat de cada plugin.",
-      "lede": "Cada plugin es carrega, s’executa i es mesura abans que la consola l’allotgi: estabilitat al llarg de cicles de càrrega repetits i una prova llarga, assignacions de memòria, bloquejos i crides al sistema dins del callback d’àudio, cost de CPU, latència i les seves entrades i sortides. Aquests són els resultats de la mesura del {day}, a {rate} Hz i {quantum} mostres, presos de {source}."
+    "platforms": {
+      "eyebrow": "Plataformes",
+      "title": "Què ha acceptat cada plataforma.",
+      "lede": "El mateix plugin pot superar la prova en una plataforma i ser refusat en una altra, de manera que cada plataforma es compta per separat."
     },
     "tiles": {
-      "tested": "Provats"
+      "tested": "Provats",
+      "accepted": "Acceptats",
+      "conditional": "Amb condicions",
+      "refused": "Refusats"
     },
-    "inventory": {
-      "caption": "Al costat d’aquesta mesura: què conté el catàleg i què tenia instal·lat la màquina de prova.",
-      "catalogLv2": "Al catàleg, LV2",
-      "catalogClap": "Al catàleg, CLAP",
-      "installedLv2": "Instal·lats, LV2",
-      "installedClap": "Instal·lats, CLAP"
+    "summary": {
+      "formats": "{lv2} plugins LV2 i {clap} plugins CLAP, a partir de {records} registres.",
+      "measuredOn": "Mesurat el {day}.",
+      "conditions": "Condicions de la mesura",
+      "refusedBy": "Refusats, segons el motiu",
+      "conditionalBy": "Acceptats amb condicions, segons el motiu",
+      "reasonCount": "{count} plugins"
     },
-    "effects": {
-      "eyebrow": "Efectes",
-      "title": "{count} efectes",
-      "lede": "Plugins que processen un canal o un bus. Trieu un plugin per veure tots els motius del seu veredicte.",
-      "search": "Cerca per nom, fabricant o URI",
-      "searchLabel": "Cerca efectes",
-      "verdictLabel": "Filtra per veredicte",
-      "formatLabel": "Filtra per format",
-      "vendorLabel": "Filtra per fabricant",
-      "anyVerdict": "Qualsevol veredicte",
+    "conditions": {
+      "image": "Sistema",
+      "board": "Màquina",
+      "kernel": "Nucli",
+      "hostProfile": "Host",
+      "grid": "Freqüència i mida de bloc",
+      "realtime": "Temps real",
+      "jack": "Servidor d’àudio"
+    },
+    "list": {
+      "eyebrow": "Tots els plugins",
+      "title": "Cada plugin, amb els seus motius.",
+      "lede": "Cerqueu a la llista i redueu-la per plataforma, format, veredicte o paquet. Obriu una fila per llegir tots els motius que hi ha al darrere.",
+      "search": "Cerca per identificador",
+      "searchLabel": "Cerca plugins per identificador",
+      "platformLabel": "Plataforma",
+      "formatLabel": "Format",
+      "verdictLabel": "Veredicte",
+      "packageLabel": "Paquet o fitxer provat",
+      "packagePlaceholder": "Paquet o fitxer, per exemple lsp-plugins.clap",
       "anyFormat": "Qualsevol format",
-      "anyVendor": "Qualsevol fabricant",
-      "unknownVendor": "Desconegut",
-      "shown": "{shown} de {total} mostrats"
-    },
-    "instruments": {
-      "eyebrow": "Instruments",
-      "title": "{count} instruments",
-      "lede": "Els instruments serveixen per tocar parts des de la consola, per exemple una seqüència MIDI amb un rellotge i un tempo fixats. Es llisten amb les mateixes mesures i no es comparen amb els efectes.",
-      "none": "Cap instrument ha participat en aquesta mesura."
-    },
-    "others": {
-      "eyebrow": "Altres",
-      "title": "{count} altres plugins",
-      "lede": "Analitzadors, generadors i utilitats, tal com es declaren els mateixos plugins."
-    },
-    "reading": {
-      "eyebrow": "Com llegir els veredictes",
-      "title": "Què vol dir cada veredicte.",
-      "threshold": "Una dimensió només es considera mesurada per sobre del seu llindar: {cycles} cicles de càrrega, una prova de {hours} hores i un cost de CPU de com a màxim {ceiling} d’un nucli al percentil 95. La pitjor dimensió decideix el veredicte."
-    },
-    "data": {
-      "eyebrow": "Les dades",
-      "title": "D’on surten aquestes xifres.",
-      "one": "Cada xifra d’aquestes pàgines es genera a partir d’un sol fitxer de mesura, publicat amb el seu esquema. El mateix fitxer s’instal·la a les consoles amb el paquet openmixer-plugin-catalog.",
-      "runData": "Les dades d’aquesta mesura ({file})",
-      "schema": "L’esquema i com es dedueixen els camps",
-      "two": "Un resultat val per a la versió del paquet i la data que consten a la pàgina del plugin. Si manteniu un plugin i una entrada és errònia o ha quedat antiquada, cada pàgina de plugin té un enllaç per informar-ne."
+      "anyVerdict": "Qualsevol veredicte",
+      "shown": "{shown} de {total} mostrats",
+      "loading": "S’estan carregant els plugins d’aquesta plataforma.",
+      "loadFailed": "No s’han pogut carregar els plugins d’aquesta plataforma."
     },
     "table": {
       "plugin": "Plugin",
       "verdict": "Veredicte",
-      "deciding": "Motiu decisiu",
+      "reason": "Motiu",
       "format": "Format",
-      "cpu": "CPU p95",
       "package": "Paquet provat",
-      "vendorUndeclared": "Fabricant no declarat",
-      "also": "també {format}",
-      "empty": "Cap plugin coincideix."
+      "cpu": "CPU p95",
+      "empty": "Cap plugin coincideix.",
+      "open": "Mostra els motius de {id}",
+      "close": "Amaga els motius de {id}",
+      "unversioned": "sense versió"
     },
-    "entry": {
-      "notFound": "Aquest plugin no és al catàleg",
-      "heroEyebrow": "Catàleg de plugins · {kind} {format}",
-      "by": "de {vendor}",
-      "factsEyebrow": "Dades",
-      "factsTitle": "Què s’ha provat.",
-      "measEyebrow": "Mesures",
-      "measTitle": "Cada motiu, per dimensió.",
-      "deciding": "Decisiu",
-      "incidents": "Fallades i temps d’espera esgotats",
-      "facts": {
-        "uri": "URI",
-        "vendor": "Fabricant",
-        "vendorNone": "El plugin no el declara",
-        "format": "Format",
-        "formatAlso": "{format} (també disponible com a {other})",
-        "class": "Classe declarada",
-        "classNone": "Cap de declarada",
-        "package": "Paquet provat",
-        "packageNone": "No instal·lat des d’un paquet",
-        "version": "Versió del plugin",
-        "run": "Mesura",
-        "runValue": "{day}, {rate} Hz, quàntum de {quantum} mostres",
-        "io": "Entrades i sortides",
-        "ioValue": "{inputs} entrades, {outputs} sortides",
-        "ioMidi": "{inputs} entrades, {outputs} sortides, entrada MIDI",
-        "latencyClass": "Classe de latència",
-        "notMeasured": "No mesurat",
-        "hosting": "Latència afegida per l’allotjament",
-        "hostingValue": "{quanta} quàntum, {ms} ms",
-        "cpu": "CPU, percentil 95",
-        "cpuValue": "{pct} d’un nucli"
-      },
-      "footerPackage": "Aquesta entrada és per a {what}, mesurat el {day}. Si manteniu aquest plugin i alguna cosa és errònia o antiquada, aviseu-nos.",
-      "footerBinary": "el binari instal·lat a la màquina de proves",
-      "report": "Informa d’un error",
-      "all": "Tots els plugins"
+    "paging": {
+      "label": "Pàgines de la llista de plugins",
+      "previous": "Pàgina anterior",
+      "next": "Pàgina següent",
+      "page": "Pàgina {page} de {pages}"
+    },
+    "detail": {
+      "reasons": "Motius",
+      "hosts": "Jutjat per: {hosts}",
+      "offers": "Ofertes",
+      "offerLine": "{offer}: {verdict}",
+      "facts": "Què s’ha provat",
+      "binary": "Fitxer provat",
+      "version": "Versió del plugin",
+      "tiers": "S’ofereix com a",
+      "tiersNone": "No s’ofereix",
+      "cpu": "CPU, percentil 95",
+      "cpuValue": "{pct} d’un nucli, a {rate} Hz i {quantum} mostres",
+      "latency": "Latència",
+      "latencyValue": "{measured} mostres mesurades, {declared} declarades ({ms} ms)",
+      "notMeasured": "No mesurat",
+      "measuredAt": "Mesurat a",
+      "report": "Informa d’un error"
+    },
+    "reading": {
+      "eyebrow": "Com llegir els veredictes",
+      "title": "Com s’arriba a un veredicte.",
+      "one": "Cada plugin es prova per a cada manera com es pot oferir. S’accepta quan una d’aquestes maneres supera totes les mesures. S’accepta amb condicions quan el millor que pot fer és executar-se en un procés a part. Es refusa quan no es pot oferir de cap manera.",
+      "two": "La prova d’estabilitat de llarga durada no formava part d’aquests registres, de manera que cap plugin s’ha jutjat per aquest motiu ni en un sentit ni en l’altre."
+    },
+    "data": {
+      "eyebrow": "Les dades",
+      "title": "D’on surten aquestes xifres.",
+      "one": "Cada xifra d’aquesta pàgina es llegeix dels registres de qualificació, que són públics. Els registres estan fixats en una versió. Un script regenera les dades de la pàgina a partir d’aquesta versió i comprova que no hi ha cap diferència.",
+      "records": "Els registres de qualificació",
+      "schema": "El format de les dades i com s’actualitzen",
+      "two": "Un resultat val per al fitxer i la versió que consten a la fila. Si manteniu un plugin i una fila és errònia o ha quedat antiquada, cada fila oberta té un enllaç a un formulari per informar-ne."
+    },
+    "reason": {
+      "hosting_rt-safety_clean-under-sweep": "Cap assignació, bloqueig ni crida al sistema dins del callback d’àudio en {blocks} blocs.",
+      "hosting_rt-safety_clean-under-notes": "Cap assignació, bloqueig ni crida al sistema dins del callback d’àudio mentre se tocaven notes, en {blocks} blocs.",
+      "hosting_rt-safety_violations-in-run": "Dins del callback d’àudio: {allocations} assignacions, {locks} bloquejos, {syscalls} crides al sistema.",
+      "hosting_rt-safety_violations-under-notes": "Mentre se tocaven notes, dins del callback d’àudio: {allocations} assignacions, {locks} bloquejos, {syscalls} crides al sistema.",
+      "hosting_rt-safety_unmeasured": "No s’ha pogut mesurar la seguretat en temps real.",
+      "hosting_memory_unmeasured": "No s’ha mesurat l’ús de memòria a {rate} Hz i {quantum} mostres.",
+      "hosting_stability_unsoaked": "No s’ha fet la prova de llarga durada, de manera que l’estabilitat no està mesurada.",
+      "mod-host_no-answer": "mod-host no ha respost al pas {step}.",
+      "mod-host_resp-101": "mod-host no ha volgut agafar el plugin al pas {step} (resposta {resp}).",
+      "mod-host_died": "mod-host ha sortit al pas {step}.",
+      "mod-host_signal-SIGABRT": "mod-host ha avortat al pas {step}.",
+      "omx-clap-host_silent-under-note": "No ha donat so en {notes} notes (pic {peak}). Un sampler sense res carregat també és mut.",
+      "probe_timeout": "La mesura no ha acabat a temps.",
+      "probe_crashed": "El plugin ha fallat durant la mesura.",
+      "probe_refused-instantiation": "El plugin s’ha negat a arrencar."
+    },
+    "reasonShort": {
+      "hosting_rt-safety_violations-in-run": "Assignacions, bloquejos o crides al sistema dins del callback d’àudio",
+      "hosting_rt-safety_violations-under-notes": "Assignacions, bloquejos o crides al sistema mentre se tocaven notes",
+      "hosting_rt-safety_unmeasured": "No s’ha pogut mesurar la seguretat en temps real",
+      "hosting_memory_unmeasured": "No s’ha mesurat l’ús de memòria",
+      "probe_timeout": "La mesura no ha acabat a temps",
+      "probe_crashed": "El plugin ha fallat durant la mesura",
+      "probe_refused-instantiation": "El plugin s’ha negat a arrencar",
+      "omx-clap-host_silent-under-note": "No ha donat so quan se tocaven notes"
     }
   }
 }

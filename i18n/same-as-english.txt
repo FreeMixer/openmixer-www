@@ -1,0 +1,3 @@
+# Catalan values that are right as they stand: product and platform names.
+# A key is the message file, then the key inside it.
+plugins.plugins.platform.rpi5-zynthian-vangelis.name
