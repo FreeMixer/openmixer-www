@@ -101,7 +101,7 @@
           "hosting.rt-safety.violations-under-notes": 4
         },
         "refused": {
-          "hosting.memory.unmeasured": 1,
+          "omx-clap-host.silent-under-note": 1,
           "probe.crashed": 8
         }
       }
