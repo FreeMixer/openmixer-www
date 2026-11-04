@@ -25,6 +25,7 @@ import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync
 import { dirname, join, posix, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import MarkdownIt from 'markdown-it';
+import { stripHtmlComments } from './md-comments.mjs';
 import { catalanStyle } from './catalan-style.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -196,7 +197,7 @@ function renderProjects() {
         t.attrSet('src', rewrite(t.attrGet('src'), true));
         return defaultImage(tokens, idx, opts, env, self);
       };
-      const body = readFileSync(file, 'utf8');
+      const body = stripHtmlComments(readFileSync(file, 'utf8'));
       const title = (/^# (.+)$/m.exec(body)?.[1] ?? pg.title ?? pg.src).trim();
       pages.push({ slug: pageSlug(pg.src), src: pg.src, title: pg.title ?? title, source: `${GITHUB}/${p.repo}/blob/${p.commit}/${pg.src}`, toc: toc(m, body), html: m.render(body) });
     }
