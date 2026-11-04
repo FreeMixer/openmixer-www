@@ -104,7 +104,7 @@ const cpuCell = (v: number | null) => (v === null ? '—' : pct(v));
 const checkWord = (r: CheckResult | null) => (r === null ? '—' : t(`plugins.compare.check.${r}`));
 const betterLine = (key: 'refBetter' | 'oursBetter', b: Better) => {
   const { ids, more } = betterList(b);
-  return t(`plugins.compare.${key}`, { host: b.host, count: b.plugins.length, plugins: ids }) + (more ? ` ${t('plugins.compare.more', { count: more })}` : '');
+  return t(`plugins.compare.${key}`, { host: b.host, count: b.plugins.length, plugins: ids }, b.plugins.length) + (more ? ` ${t('plugins.compare.more', { count: more })}` : '');
 };
 const latencyHidden = (c: Extract<Comparison, { available: true }>) => c.hosts.filter((h) => h.status === 'ran' && !h.latencyObservable).map((h) => h.host);
 
