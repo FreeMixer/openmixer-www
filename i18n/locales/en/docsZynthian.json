@@ -78,13 +78,14 @@
     },
     "figures": {
       "title": "The headline figures.",
-      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with the packages of November 2026 (plugin-hostd 0.15.9, omx-clap-core 0.26.4), against Zynthian's own mod-host:",
+      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with plugin-hostd 0.15.9 and omx-clap-core 0.26.4, against Zynthian's own mod-host:",
       "dsp": "DSP load: a plugin-hostd chain has the lowest of the three hosts measured, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
       "memory": "Memory: 41 to 49 % less than mod-host, 64 MB against 109 MB for the 24.",
       "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s; on a running host mod-host adds two plugins faster, and from four on the chain does.",
       "instruments": "Instruments: the same DSP load as mod-host, and about 43 MB less memory each.",
       "qualified": "Qualification: of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own.",
       "more": "Every table and the method",
+      "footer": "Raspberry Pi 5 running Zynthian · 48 kHz, 256 frames · read digitally at JACK ports · plugin-hostd 0.15.9, omx-clap-core 0.26.4 · 2 November 2026",
       "bench": "The benchmarks, row by row"
     },
     "status": {

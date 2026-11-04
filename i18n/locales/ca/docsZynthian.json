@@ -105,13 +105,14 @@
     },
     "figures": {
       "title": "Les xifres principals.",
-      "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb els paquets del novembre del 2026 (plugin-hostd 0.15.9, omx-clap-core 0.26.4), contra el mod-host del mateix Zynthian:",
+      "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb plugin-hostd 0.15.9 i omx-clap-core 0.26.4, contra el mod-host del mateix Zynthian:",
       "dsp": "Càrrega DSP: una cadena de plugin-hostd té la més baixa dels tres amfitrions mesurats, un 12,5 % per a 24 plugins contra el 15,0 % de mod-host, amb 0 xruns a cada repetició.",
       "memory": "Memòria: entre un 41 i un 49 % menys que mod-host, 64 MB contra 109 MB per als 24.",
       "add": "Temps d'addició: en fred, 24 plugins són a punt en 0,55 s contra 1,46 s; amb l'amfitrió en marxa mod-host afegeix dos plugins més de pressa i a partir de quatre ho fa la cadena.",
       "instruments": "Instruments: la mateixa càrrega DSP que mod-host i uns 43 MB menys de memòria cadascun.",
       "qualified": "Qualificació: dels 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi.",
       "more": "Totes les taules i el mètode",
+      "footer": "Raspberry Pi 5 amb Zynthian · 48 kHz, 256 mostres · llegit digitalment als ports de JACK · plugin-hostd 0.15.9, omx-clap-core 0.26.4 · 2 de novembre del 2026",
       "bench": "Els bancs de proves, fila per fila"
     },
     "status": {
