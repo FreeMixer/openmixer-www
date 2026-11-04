@@ -14,6 +14,19 @@ const familyRoutes: string[] = existsSync(restReferencePath)
   ? (JSON.parse(readFileSync(restReferencePath, 'utf8')).families as { slug: string }[]).map((f) => `/docs/rest/${f.slug}`)
   : [];
 
+// The notes and the projects' documents are dynamic routes too (/notes/[slug], /projects/[repo]/[[page]]), rendered
+// from content/ by scripts/gen-pages.mjs ahead of this config; their routes are named from its indexes.
+const dataFile = (name: string) => fileURLToPath(new URL(`./app/data/${name}`, import.meta.url));
+const noteRoutes: string[] = existsSync(dataFile('notes-index.json'))
+  ? (JSON.parse(readFileSync(dataFile('notes-index.json'), 'utf8')).en as { slug: string }[]).map((n) => `/notes/${n.slug}`)
+  : [];
+const projectRoutes: string[] = existsSync(dataFile('projects-index.json'))
+  ? (JSON.parse(readFileSync(dataFile('projects-index.json'), 'utf8')) as { repo: string; pages: { slug: string }[] }[]).flatMap((p) =>
+      p.pages.map((pg) => `/projects/${p.repo}${pg.slug ? `/${pg.slug}` : ''}`),
+    )
+  : [];
+const pageRoutes = ['/notes', '/projects', ...noteRoutes, ...projectRoutes];
+
 /**
  * The site's languages. English is the default and has no prefix; Catalan lives under /ca/.
  * Each locale is a directory of message files under i18n/locales/, one per page or shared
@@ -66,7 +79,7 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       crawlLinks: true,
-      routes: ['/', '/ca', ...familyRoutes, ...familyRoutes.map((r) => `/ca${r}`)],
+      routes: ['/', '/ca', ...familyRoutes, ...familyRoutes.map((r) => `/ca${r}`), ...pageRoutes, ...pageRoutes.map((r) => `/ca${r}`)],
       failOnError: true,
     },
   },

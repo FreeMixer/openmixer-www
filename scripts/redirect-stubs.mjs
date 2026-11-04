@@ -13,9 +13,12 @@
 // They only answer once the old project site is switched off: until then GitHub serves
 // /openmixer-www/ from that repository's own Pages site.
 //
+// It also writes one under plugin-hostd/ for every page of plugin-hostd's retired documentation site, to where that
+// page lives now (deploy/plugin-hostd-redirects.txt), and fails when a target page of this site is not in the build.
+//
 // Usage: node scripts/redirect-stubs.mjs [dist-dir]   (default .output/public)
 
-import { mkdirSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import { mkdirSync, readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -33,26 +36,47 @@ if (!existsSync(join(root, 'index.html'))) {
 const pages = readdirSync(root, { recursive: true, withFileTypes: true })
   .filter((e) => e.isFile() && e.name.endsWith('.html'))
   .map((e) => relative(root, join(e.parentPath ?? e.path, e.name)).split('\\').join('/'))
-  .filter((rel) => !SKIP.has(rel) && !rel.startsWith(`${OLD_PREFIX}/`));
+  .filter((rel) => !SKIP.has(rel) && !rel.startsWith(`${OLD_PREFIX}/`) && !rel.startsWith('plugin-hostd/'));
 
 const escape = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
-for (const rel of pages) {
-  const target = `/${rel.replace(/(^|\/)index\.html$/, '$1')}`;
+/** A page that sends its visitor to `target` (a path of this site, or a full URL), named canonical there. */
+function stub(target, origin) {
+  const canonical = /^https?:/.test(target) ? target : origin + target;
   const url = escape(target);
-  const html = `<!doctype html>
+  return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
-<title>Moved to ${escape(ORIGIN + target)}</title>
-<link rel="canonical" href="${escape(ORIGIN + target)}">
+<title>Moved to ${escape(canonical)}</title>
+<link rel="canonical" href="${escape(canonical)}">
 <meta name="robots" content="noindex">
 <meta http-equiv="refresh" content="0; url=${url}">
 <script>location.replace(${JSON.stringify(target)} + location.search + location.hash)</script>
-</head><body><p>This page has moved to <a href="${url}">${escape(ORIGIN + target)}</a>.</p></body></html>
+</head><body><p>This page has moved to <a href="${url}">${escape(canonical)}</a>.</p></body></html>
 `;
-  const out = join(root, OLD_PREFIX, rel);
+}
+
+function write(rel, html) {
+  const out = join(root, rel);
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, html);
 }
+
+for (const rel of pages) write(`${OLD_PREFIX}/${rel}`, stub(`/${rel.replace(/(^|\/)index\.html$/, '$1')}`, ORIGIN));
+
+// plugin-hostd's retired site: every old page to its new home, which must be a page of this build
+const HOSTD_MAP = resolve(here, '..', 'deploy/plugin-hostd-redirects.txt');
+const hostd = readFileSync(HOSTD_MAP, 'utf8')
+  .split('\n')
+  .map((l) => l.trim())
+  .filter((l) => l && !l.startsWith('#'))
+  .map((l) => l.split(/\s+/));
+const missing = hostd.filter(([, to]) => !/^https?:/.test(to) && !existsSync(join(root, to.replace(/^\//, ''), 'index.html')));
+if (missing.length) {
+  for (const [from, to] of missing) console.error(`[redirect-stubs] plugin-hostd/${from} -> ${to}: no such page in the build`);
+  process.exit(1);
+}
+for (const [from, to] of hostd) write(`plugin-hostd/${from}`, stub(to, 'https://openmixer.org'));
+console.log(`[redirect-stubs] ${pages.length} pages under ${OLD_PREFIX}/, ${hostd.length} under plugin-hostd/`);
 
 if (pages.length === 0) {
   console.error('[redirect-stubs] the site holds no pages — nothing to redirect, which is not a pass');

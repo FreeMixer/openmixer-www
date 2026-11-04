@@ -1,0 +1,120 @@
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- Copyright (C) 2026 Pau Aliagas <linuxnow@gmail.com> -->
+# The skin package
+
+A skin package is a directory named after the plugin it draws. The plugin id is the name. An id that holds a byte
+outside `A-Z a-z 0-9 . _ -` (an LV2 URI) has each such byte written as `%XX`, and `.` and `..` alone are never a
+name, so the name is always safe in a path. One function writes the name, `encodeSkinId` (`src/skin-package.ts`), and
+`decodeSkinId` reads it back. This package creates `/usr/share/omx/skins` for packages to be installed into; which
+directories a host reads, and in what order, is the host's.
+
+```
+<plugin id>/
+  skin.json          the override file, required, even if it only names the licence
+  view/              optional: a view of the skin's own
+    index.mjs        an ES module, the entry
+  i18n/<lang>.json   optional: label key to text, one file per language
+  art/               optional: the images the override file names
+  modgui/            optional: a MOD GUI, imported from a bundle or generated
+```
+
+## skin.json
+
+One schema, declared twice in one place: `schema/skin-package.schema.json` (JSON Schema, what `omx-panel validate`
+checks) and `parseSkinOverride` (`src/skin-package.ts`, what a reader applies). A test holds the two to the same
+verdict on every broken copy of the example. A file holds:
+
+| Field | Meaning |
+|---|---|
+| `schema` | `1`, the file's schema version; any other value refuses the file |
+| `plugin` | the plugin id; a reader refuses a file whose id is not the directory's decoded name |
+| `licence` | the SPDX expression of everything in the package; required |
+| `source` | where the package came from: `own`, `generated` or `modgui`, with the `bundle` and the `licenceEvidence` an importer read; an imported MOD GUI may name its own icon template and stylesheet, `modgui: { html, css }`, both under `modgui/` |
+| `fingerprint` | the panel description fingerprint the file was written against; a mismatch is a warning, never a refusal |
+| `family` | a panel family; replaces the description's |
+| `roles` | role (`time`, `band_freq[2]`) to control symbol; replaces the description's roles, each checked against the family |
+| `sections` | `[{ key, labelKey?, label?, controls }]`; replaces the sections and their order; a control named nowhere goes to a last section, never hidden |
+| `labels` | control symbol to `{ labelKey?, label? }` |
+| `visibleWhen` | control symbol to `{ param, values }`, the integer values 0 to 63 that show it |
+| `displays` | `[{ kind, section, source, ... }]`, the displays the panel draws |
+| `houseView` | the family of the house view to use |
+| `look` | the default look; a client's own choice still wins |
+| `backdrop` | an image under `art/` |
+| `view` | `{ entry, api }`: the view's entry under `view/` (`view/index.mjs`) and the skin API version it was written for, `MAJOR.MINOR` |
+| `modgui` | `{ entry }` under `modgui/`: the opt-in for a MOD GUI's own script, never beside a `view` |
+
+A path in a skin is relative to the package and stays inside it: no absolute path, no `..` segment, no backslash.
+
+The skin restates no range, unit or scale. The plugin's own description holds those, and the skin binds to a
+control by its symbol and its meaning.
+
+## Applying it
+
+`applySkinOverride(description, override)` applies the file to a panel description field by field. An entry that
+names an unknown symbol, a role the family has no place for or whose unit it does not take, or a display in no
+section is dropped and listed with its reason (`unknown-symbol`, `unknown-section`, `role-not-in-family`,
+`role-unit`, `role-repeats`); the rest of the file stands. The role check reads `ROLES` of
+`tools/panel-description.mjs`; a caller may pass its own. That table is wider than the console's own at five
+roles: `threshold` of gate, dynamics, limiter and deesser and `ceiling` of limiter take `db, dbfs, dbu, lufs` here and
+`db, dbfs` in the console. A console that keeps its own table passes it as the check; one that adopts this table
+accepts a threshold in dBu or LUFS.
+
+## Refusals
+
+Each refusal is a code with named arguments (`SKIN_REFUSAL_CODES`): `SKIN_OVERRIDE_INVALID` (the file does not parse
+or fails the schema, `args.field` the first field that broke it), `SKIN_OVERRIDE_ENTRY_DROPPED`, `SKIN_API_MISMATCH`,
+`SKIN_VIEW_ERROR`, `SKIN_VIEW_LINT`, `SKIN_MODGUI_LICENCE`, and the importer's own ten, `MODGUI_*` (below).
+
+## The licence
+
+`SKIN_LICENCE_ALLOW_LIST` is the one list a MOD GUI's licence must be on: GPL-2.0-or-later, GPL-3.0-or-later,
+LGPL-2.1-or-later, LGPL-3.0-or-later, MIT, BSD-2-Clause, BSD-3-Clause, ISC, Zlib, CC0-1.0 and CC-BY-4.0.
+`spdxFromDoapLicence` reads a plugin's `doap:license` as an SPDX id; mapping is not permission.
+
+## Importing a MOD GUI
+
+`omx-panel import <bundle.lv2> --out <skins dir> [--plugin <uri>]` (`tools/modgui-import.mjs`) reads a bundle's
+`modgui.ttl` and the plugin's `doap:license` and writes a package: one section in `modgui:port` order, each port's
+`lv2:name` as its label, the screenshot as the backdrop under `art/`, the whole resources directory and the TTL
+under `modgui/`, and `source` `{ kind: "modgui", bundle, licenceEvidence }`. It writes no view, no family and no
+roles. It refuses, with a code that names the file it read and nothing written: `MODGUI_NOT_FOUND`,
+`MODGUI_TTL_INVALID`, `MODGUI_NO_LICENCE`, `MODGUI_LICENCE_UNMAPPED`, `MODGUI_LICENCE_REFUSED` (outside the
+allow-list), `MODGUI_UNKNOWN_PROPERTY`, `MODGUI_PORT_UNKNOWN` (a `modgui:port` or `modgui:monitoredOutputs`
+symbol the plugin does not carry), `MODGUI_IMAGE_NOT_FOUND` (a template image the bundle does not hold),
+`MODGUI_PATH_ESCAPE` (a resource, or a template reference, outside the bundle) and `MODGUI_TARGET_EXISTS`.
+
+The known `modgui:gui` properties are mod-ui's whole list, not only the ones a reviewed bundle used:
+`resourcesDirectory`, `iconTemplate`, `settingsTemplate`, `javascript`, `stylesheet`, `screenshot`, `thumbnail`,
+`documentation`, `discussionURL`, `brand`, `label`, `model`, `panel`, `color`, `knob`, `port` and `monitoredOutputs`
+(`MODGUI_GUI_PROPERTIES`). Any other `modgui:` property is `MODGUI_UNKNOWN_PROPERTY`, as is an `lv2:` property on a
+`modgui:port` other than `index`, `symbol` and `name`. The file-valued ones (`iconTemplate`, `settingsTemplate`,
+`javascript`, `stylesheet`, `screenshot`, `thumbnail`, and `documentation` when it names a `file:` IRI;
+`MODGUI_FILE_PROPERTIES`) must resolve inside the bundle and are copied with the package; `discussionURL`, and a
+`documentation` that names a web address, are kept as text and never fetched.
+
+Every `modgui:port` is checked against the plugin's own `lv2:port` declarations in the bundle, the same TTL the
+importer reads for the licence: a `modgui:port` whose `lv2:symbol` names no `lv2:symbol` of the plugin's own ports
+is `MODGUI_PORT_UNKNOWN`, naming the file and the symbol, so a renamed or stale modgui entry is never imported as if
+it controlled a real parameter. A `modgui:monitoredOutputs` entry is checked the same way: its `lv2:symbol` (or the
+literal symbol it names) must be one of the plugin's own ports.
+
+Every image a template names (`MODGUI_TEMPLATE_PROPERTIES`: the icon template and the settings template; an HTML
+`src="..."` or `src='...'` or a CSS `url(...)` inside it) is checked. A Mustache suffix like `{{{ns}}}` (mod-ui's
+`?uri=...`), a query and a fragment are dropped, and the path is percent-decoded once and its dot segments resolved,
+as a browser and mod-ui's server do, before anything else is decided. Under mod-ui's `/resources/` route
+(`MODGUI_RESOURCES_ROUTE`, the bundle's `resourcesDirectory`) a path that climbs out of the resources directory is
+`MODGUI_PATH_ESCAPE`, whether its target exists or not; one that names no file there, the directory itself
+included, is `MODGUI_IMAGE_NOT_FOUND`, naming the template file and the path it names. A web address, any other
+absolute path, or a relative path that climbs out of the bundle is `MODGUI_PATH_ESCAPE`, so a drawn template never
+reaches outside the package. The absolute paths kept are mod-ui's own routes, the directories its static handler
+serves from its html directory, `/fonts/`, `/img/`, `/js/`, `/css/` and `/include/` (`MODGUI_SERVER_ROUTES`): a file
+the drawing supplies or replaces, kept as text and never fetched. A path holding a Mustache tag anywhere cannot be
+checked before mod-ui fills it in, so it is kept; a `data:` address and a value that is only a Mustache tag are left
+as they are too. The stylesheet is not checked this way: MOD's shared pedal stylesheets are one theme file covering
+every knob count and colour a style offers, most of it unused by any one plugin, so most of its `url()`s name no file
+the bundle carries, on purpose.
+
+## What the validator checks
+
+The shape. That every control id exists in the plugin's description and that a role fits its control is
+`applySkinOverride`'s, against the description it is applied to.

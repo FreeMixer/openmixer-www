@@ -1,0 +1,35 @@
+# plugin-hostd's own documentation site, retired into this one. Each line: a page of the old site under
+# /plugin-hostd/, and where it is now (a page of this site, or a full URL). scripts/redirect-stubs.mjs writes a
+# redirect page at every old address and fails when a target page of this site is not in the build. They answer once
+# plugin-hostd's own Pages site is switched off: until then GitHub serves /plugin-hostd/ from that repository.
+index.html                      /projects/plugin-hostd
+start-here.html                 /projects/plugin-hostd
+section/start.html              /projects/plugin-hostd
+section/reference.html          /projects/plugin-hostd
+section/zynthian.html           /docs/zynthian
+section/evidence.html           /notes
+section/project.html            https://github.com/FreeMixer/plugin-hostd
+formats.html                    /projects/plugin-hostd/formats
+own-host.html                   /projects/plugin-hostd/own-host
+panel.html                      /projects/plugin-hostd/panel
+placement.html                  /projects/plugin-hostd/placement
+presets.html                    /projects/plugin-hostd/presets
+contributing.html               https://github.com/FreeMixer/plugin-hostd/blob/main/docs/contributing.md
+from-file-to-page.html          /notes/from-a-plugin-file-to-a-page
+zynthian/README.html            /docs/zynthian
+zynthian/status.html            /docs/zynthian
+zynthian/image.html             /docs/zynthian
+zynthian/captures.html          /docs/zynthian
+zynthian/examples.html          /docs/zynthian
+zynthian/mixbus.html            /docs/zynthian
+zynthian/digital-proofs.html    /docs/zynthian
+zynthian/upstream-series.html   /docs/zynthian
+zynthian/acceptance-report.html /docs/zynthian
+zynthian/chain-profile.html     /docs/zynthian
+zynthian/engine-gaps.html       /docs/zynthian
+zynthian/offer.html             /docs/zynthian
+zynthian/spike-report.html      /docs/zynthian
+zynthian/benchmarks.html        /notes/plugin-hostd-on-a-raspberry-pi-5
+zynthian/stress.html            /notes/plugin-hostd-on-a-raspberry-pi-5
+zynthian/instruments.html       /notes/instruments-on-a-pi-5
+zynthian/tradeoffs.html         /notes/one-worker-per-chain-or-one-process-per-plugin
