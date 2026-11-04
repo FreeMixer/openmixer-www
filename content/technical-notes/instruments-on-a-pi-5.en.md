@@ -19,7 +19,7 @@ CLAP's thread-pool extension (`clap.thread-pool`) lets a plugin split its block 
 voices) and ask the host to run them (`request_exec`). The host decides where they run. omx-clap-core spreads them over
 real-time helper threads, one per core the worker may use, each pinned to its core and parked between cycles; the tasks are
 handed out by one atomic counter, the audio thread takes its share, and the call returns when the last task is done, with
-no allocation, lock or system call on that path (see the [thread pool reference](/projects/omx-clap-core)).
+no allocation, lock or system call on that path (see the [thread pool reference](/projects/omx-clap-core/thread-pool)).
 
 The pool is not a global switch. It is given per plugin, by its qualification: a plugin that is real-time safe and asks for
 the pool gets helper threads; a plugin with real-time violations is hosted isolated, in a worker of its own, on the serial
