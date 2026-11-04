@@ -121,12 +121,24 @@ into them.
 
 `/benchmarks` is rendered from `benchmarks/runs/*.json`, documents of format `omx-bench/1` written by
 the bench harness of `plugin-hostd`: committed data, and the page derives every figure and table from it at
-build time, the way `/plugins/` does from `plugin-catalog/`. `benchmarks/schema/omx-bench.v1.schema.json`
+build time, the way `/plugins/` does from `app/data/plugin-catalog/`. `benchmarks/schema/omx-bench.v1.schema.json`
 is the contract and `npm run benchmarks:check` (wired into `predev`, `prebuild` and `pregenerate`) fails the
 build on a file that does not match it. The page shows the newest run of each machine class (`rpi5`, `desk`,
 `ci`) and states the run id and software versions of the data it shows. The format, the four hosts, the
 the scenario modes and how to add a run are in `benchmarks/README.md`;
 `node --test scripts/check-benchmarks.test.mjs` holds the refusals and the derivations.
+
+## The plugin catalog data
+
+`/plugins/` is rendered from `app/data/plugin-catalog/`, which `scripts/plugin-catalog-from-records.mjs` writes
+from the public qualification records (FreeMixer/omx-qualification-records) at the one commit
+`plugin-catalog/pin.json` names, the way `content/projects/projects.json` pins project documents. The data is
+committed; the build reads it and `npm run catalog:check` (wired into `predev`, `prebuild` and `pregenerate`)
+fails on data that does not match `plugin-catalog/schema/plugin-catalog.v2.schema.json` or that disagrees with
+itself. To take newer records, run `npm run catalog:sync -- <commit>`, then `npm run catalog:verify`, and commit
+the pin with the data; `plugin-catalog/README.md` has the fields and the rules. The generator downloads the
+commit as one archive, so these two steps need network access. `node --test scripts/*.test.mjs` holds the refusals of the
+check and of the generator.
 
 ## Publishing
 

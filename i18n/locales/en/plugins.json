@@ -2,28 +2,47 @@
   "plugins": {
     "seo": {
       "title": "Plugin catalog — OpenMixer",
-      "description": "What OpenMixer measured about {count} audio plugins on {day}: stability, real-time safety, CPU cost, latency, and whether each runs in-process.",
-      "entryTitle": "{name} — plugin catalog — OpenMixer",
-      "entryDescription": "{name}: {verdict} in the OpenMixer plugin catalog run of {day}.",
-      "entryDescriptionVendor": "{name} by {vendor}: {verdict} in the OpenMixer plugin catalog run of {day}."
+      "description": "{count} audio plugins tested for OpenMixer on {platforms} platforms: which are accepted, which come with conditions and which are refused, and why."
+    },
+    "hero": {
+      "eyebrow": "Plugin catalog",
+      "title": "What we measured about each plugin.",
+      "lede": "Every plugin is loaded, run and measured on a real device before OpenMixer offers it: the audio callback is watched for allocations, locks and system calls, and CPU cost and latency are measured. These are the records of {count} plugins on {platforms} platforms, grouped by what each platform could accept."
+    },
+    "platform": {
+      "rpi5-zynthian-vangelis": {
+        "name": "Raspberry Pi 5, ZynthianOS Vangelis"
+      },
+      "x86-64-fedora44": {
+        "name": "x86-64, Fedora 44"
+      }
     },
     "verdict": {
-      "in-process": {
-        "label": "In-process",
-        "meaning": "Passed every measured dimension. Qualified to run inside the engine’s own process."
+      "accepted": {
+        "label": "Accepted",
+        "meaning": "Passed every measurement on this platform and is offered for use."
       },
-      "isolated": {
-        "label": "Isolated",
-        "meaning": "Runs, in a separate process. The deciding reason says why it is not in-process."
-      },
-      "unknown": {
-        "label": "Not fully measured",
-        "meaning": "At least one dimension was not measured, so no verdict is given. Runs in a separate process."
+      "conditional": {
+        "label": "Accepted with conditions",
+        "meaning": "Works, but only in a process of its own. The reason shown is why it is not offered without that condition."
       },
       "refused": {
         "label": "Refused",
-        "meaning": "The qualifier could not load or run it."
+        "meaning": "Not offered on this platform. The reason shown is why."
       }
+    },
+    "tier": {
+      "in-process": "In-process",
+      "isolated": "Isolated"
+    },
+    "offer": {
+      "default": "Default offer",
+      "custom": "Custom offer"
+    },
+    "host": {
+      "openmixer-console": "In-process host",
+      "omx-clap-host": "Isolated host",
+      "mod-host": "mod-host"
     },
     "dimension": {
       "stability": "Stability",
@@ -31,7 +50,9 @@
       "features": "Host features",
       "cost": "CPU cost",
       "latency": "Latency",
-      "topology": "Inputs and outputs"
+      "topology": "Inputs and outputs",
+      "memory": "Memory",
+      "hostAdmission": "Host admission"
     },
     "rating": {
       "suitable": "Passed",
@@ -39,117 +60,127 @@
       "unknown": "Not measured",
       "unsuitable": "Failed"
     },
-    "kind": {
-      "effect": "effect",
-      "instrument": "instrument",
-      "other": "plugin"
-    },
-    "source": {
-      "qualify": "the qualify job",
-      "console": "the verdicts a running console ({producer}) held on that date"
-    },
-    "hero": {
-      "eyebrow": "Plugin catalog",
-      "title": "What we measured about each plugin.",
-      "lede": "Each plugin is loaded, run and measured before the console hosts it: stability over repeated load cycles and a long soak, allocations, locks and system calls in the audio callback, CPU cost, latency and its inputs and outputs. These are the results of the run of {day}, at {rate} Hz and {quantum} frames, taken from {source}."
+    "platforms": {
+      "eyebrow": "Platforms",
+      "title": "What each platform accepted.",
+      "lede": "The same plugin can pass on one platform and be refused on another, so each platform is counted on its own."
     },
     "tiles": {
-      "tested": "Tested"
+      "tested": "Tested",
+      "accepted": "Accepted",
+      "conditional": "With conditions",
+      "refused": "Refused"
     },
-    "inventory": {
-      "caption": "Beside this run: what the catalog holds, and what the test machine had installed.",
-      "catalogLv2": "In the catalog, LV2",
-      "catalogClap": "In the catalog, CLAP",
-      "installedLv2": "Installed, LV2",
-      "installedClap": "Installed, CLAP"
+    "summary": {
+      "formats": "{lv2} LV2 and {clap} CLAP plugins, from {records} records.",
+      "measuredOn": "Measured on {day}.",
+      "conditions": "Conditions of the run",
+      "refusedBy": "Refused, by reason",
+      "conditionalBy": "Accepted with conditions, by reason",
+      "reasonCount": "{count} plugins"
     },
-    "effects": {
-      "eyebrow": "Effects",
-      "title": "{count} effects",
-      "lede": "Plugins that process a channel or a bus. Select a plugin for every reason behind its verdict.",
-      "search": "Search name, vendor, URI",
-      "searchLabel": "Search effects",
-      "verdictLabel": "Filter by verdict",
-      "formatLabel": "Filter by format",
-      "vendorLabel": "Filter by vendor",
-      "anyVerdict": "Any verdict",
+    "conditions": {
+      "image": "System",
+      "board": "Machine",
+      "kernel": "Kernel",
+      "hostProfile": "Host",
+      "grid": "Rate and block size",
+      "realtime": "Real time",
+      "jack": "Audio server"
+    },
+    "list": {
+      "eyebrow": "All plugins",
+      "title": "Every plugin, with its reasons.",
+      "lede": "Search the list, narrow it by platform, format, verdict or package, and open a row to read every reason behind it.",
+      "search": "Search plugin id",
+      "searchLabel": "Search plugins by id",
+      "platformLabel": "Platform",
+      "formatLabel": "Format",
+      "verdictLabel": "Verdict",
+      "packageLabel": "Package or file tested",
+      "packagePlaceholder": "Package or file, such as lsp-plugins.clap",
       "anyFormat": "Any format",
-      "anyVendor": "Any vendor",
-      "unknownVendor": "Unknown",
-      "shown": "{shown} of {total} shown"
-    },
-    "instruments": {
-      "eyebrow": "Instruments",
-      "title": "{count} instruments",
-      "lede": "Instruments are for playing parts from the console, such as a MIDI sequence at a set clock and tempo. They are listed with the same measurements and are not ranked against effects.",
-      "none": "No instrument was part of this run."
-    },
-    "others": {
-      "eyebrow": "Other",
-      "title": "{count} other plugins",
-      "lede": "Analysers, generators and utilities, as the plugins declare themselves."
-    },
-    "reading": {
-      "eyebrow": "Reading the verdicts",
-      "title": "What each verdict means.",
-      "threshold": "A dimension counts as measured only past its threshold: {cycles} load cycles, a {hours}-hour soak, and a CPU cost of at most {ceiling} of one core at the 95th percentile. The worst dimension decides the verdict."
-    },
-    "data": {
-      "eyebrow": "The data",
-      "title": "Where these figures come from.",
-      "one": "Every figure on these pages is generated from one run file, published with its schema. The same file is installed on consoles by the openmixer-plugin-catalog package.",
-      "runData": "This run’s data ({file})",
-      "schema": "The schema and how the fields are derived",
-      "two": "A result is for the package version and date shown on the plugin’s page. If you maintain a plugin and an entry is wrong or out of date, each plugin page has a link to report it."
+      "anyVerdict": "Any verdict",
+      "shown": "{shown} of {total} shown",
+      "loading": "Loading the plugins of this platform.",
+      "loadFailed": "The plugins of this platform could not be loaded."
     },
     "table": {
       "plugin": "Plugin",
       "verdict": "Verdict",
-      "deciding": "Deciding reason",
+      "reason": "Reason",
       "format": "Format",
-      "cpu": "CPU p95",
       "package": "Package tested",
-      "vendorUndeclared": "Vendor not declared",
-      "also": "also {format}",
-      "empty": "No plugin matches."
+      "cpu": "CPU p95",
+      "empty": "No plugin matches.",
+      "open": "Show the reasons for {id}",
+      "close": "Hide the reasons for {id}",
+      "unversioned": "no version"
     },
-    "entry": {
-      "notFound": "No such plugin in the catalog",
-      "heroEyebrow": "Plugin catalog · {format} {kind}",
-      "by": "by {vendor}",
-      "factsEyebrow": "Facts",
-      "factsTitle": "What was tested.",
-      "measEyebrow": "Measurements",
-      "measTitle": "Every reason, by dimension.",
-      "deciding": "Deciding",
-      "incidents": "Crashes and timeouts",
-      "facts": {
-        "uri": "URI",
-        "vendor": "Vendor",
-        "vendorNone": "Not declared by the plugin",
-        "format": "Format",
-        "formatAlso": "{format} (also available as {other})",
-        "class": "Declared class",
-        "classNone": "None declared",
-        "package": "Package tested",
-        "packageNone": "Not installed from a package",
-        "version": "Plugin version",
-        "run": "Run",
-        "runValue": "{day}, {rate} Hz, {quantum}-frame quantum",
-        "io": "Inputs and outputs",
-        "ioValue": "{inputs} in, {outputs} out",
-        "ioMidi": "{inputs} in, {outputs} out, MIDI in",
-        "latencyClass": "Latency class",
-        "notMeasured": "Not measured",
-        "hosting": "Latency added by hosting",
-        "hostingValue": "{quanta} quantum, {ms} ms",
-        "cpu": "CPU, 95th percentile",
-        "cpuValue": "{pct} of one core"
-      },
-      "footerPackage": "This entry is for {what}, measured on {day}. If you maintain this plugin and something here is wrong or out of date, tell us.",
-      "footerBinary": "the binary installed on the test machine",
-      "report": "Report a mistake",
-      "all": "All plugins"
+    "paging": {
+      "label": "Pages of the plugin list",
+      "previous": "Previous page",
+      "next": "Next page",
+      "page": "Page {page} of {pages}"
+    },
+    "detail": {
+      "reasons": "Reasons",
+      "hosts": "Judged by: {hosts}",
+      "offers": "Offers",
+      "offerLine": "{offer}: {verdict}",
+      "facts": "What was tested",
+      "binary": "File tested",
+      "version": "Plugin version",
+      "tiers": "Offered as",
+      "tiersNone": "Not offered",
+      "cpu": "CPU, 95th percentile",
+      "cpuValue": "{pct} of one core, at {rate} Hz and {quantum} frames",
+      "latency": "Latency",
+      "latencyValue": "{measured} frames measured, {declared} declared ({ms} ms)",
+      "notMeasured": "Not measured",
+      "measuredAt": "Measured at",
+      "report": "Report a mistake"
+    },
+    "reading": {
+      "eyebrow": "Reading the verdicts",
+      "title": "How a verdict is reached.",
+      "one": "A plugin is tested once for each way it can be offered. It is accepted when one of those ways passes every measurement, accepted with conditions when the best it can do is to run in a process of its own, and refused when it can be offered in no way.",
+      "two": "The long-run stability test was not part of these records, so no plugin was judged on it either way."
+    },
+    "data": {
+      "eyebrow": "The data",
+      "title": "Where these figures come from.",
+      "one": "Every figure on this page is read from the qualification records, which are public. The records are pinned to one version, and a script regenerates the page's data from it and checks that nothing differs.",
+      "records": "The qualification records",
+      "schema": "The data format and how to refresh it",
+      "two": "A result holds for the file and version shown on the row. If you maintain a plugin and a row is wrong or out of date, each open row links to a form to report it."
+    },
+    "reason": {
+      "hosting_rt-safety_clean-under-sweep": "No allocation, lock or system call in the audio callback over {blocks} blocks.",
+      "hosting_rt-safety_clean-under-notes": "No allocation, lock or system call in the audio callback while notes were played, over {blocks} blocks.",
+      "hosting_rt-safety_violations-in-run": "In the audio callback: {allocations} allocations, {locks} locks, {syscalls} system calls.",
+      "hosting_rt-safety_violations-under-notes": "While notes were played, in the audio callback: {allocations} allocations, {locks} locks, {syscalls} system calls.",
+      "hosting_rt-safety_unmeasured": "Real-time safety could not be measured.",
+      "hosting_memory_unmeasured": "Memory use was not measured at {rate} Hz and {quantum} frames.",
+      "hosting_stability_unsoaked": "The long-run test was not run, so stability is not measured.",
+      "mod-host_no-answer": "mod-host did not answer at the {step} step.",
+      "mod-host_resp-101": "mod-host would not take the plugin at the {step} step (answer {resp}).",
+      "mod-host_died": "mod-host exited at the {step} step.",
+      "mod-host_signal-SIGABRT": "mod-host aborted at the {step} step.",
+      "omx-clap-host_silent-under-note": "Gave no sound for {notes} notes (peak {peak}). A sampler with nothing loaded is silent too.",
+      "probe_timeout": "The measurement did not finish in time.",
+      "probe_crashed": "The plugin crashed during the measurement.",
+      "probe_refused-instantiation": "The plugin refused to start."
+    },
+    "reasonShort": {
+      "hosting_rt-safety_violations-in-run": "Allocations, locks or system calls in the audio callback",
+      "hosting_rt-safety_violations-under-notes": "Allocations, locks or system calls while notes were played",
+      "hosting_rt-safety_unmeasured": "Real-time safety could not be measured",
+      "hosting_memory_unmeasured": "Memory use was not measured",
+      "probe_timeout": "The measurement did not finish in time",
+      "probe_crashed": "The plugin crashed during the measurement",
+      "probe_refused-instantiation": "The plugin refused to start",
+      "omx-clap-host_silent-under-note": "Gave no sound when notes were played"
     }
   }
 }

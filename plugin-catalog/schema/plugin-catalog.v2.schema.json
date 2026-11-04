@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/FreeMixer/openmixer-www/plugin-catalog/schema/plugin-catalog.v2.schema.json",
+  "title": "Plugin catalog data (index and platform files)",
+  "$defs": {
+    "verdict": { "enum": ["accepted", "conditional", "refused"] },
+    "tier": { "enum": ["in-process", "isolated"] },
+    "format": { "enum": ["lv2", "clap"] },
+    "count": { "type": "integer", "minimum": 0 },
+    "counts": { "type": "object", "additionalProperties": { "$ref": "#/$defs/count" } },
+    "verdictCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["accepted", "conditional", "refused"],
+      "properties": {
+        "accepted": { "$ref": "#/$defs/count" },
+        "conditional": { "$ref": "#/$defs/count" },
+        "refused": { "$ref": "#/$defs/count" }
+      }
+    },
+    "reason": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dimension", "rating", "code", "params", "hosts"],
+      "properties": {
+        "dimension": { "enum": ["stability", "rtSafety", "features", "cost", "latency", "topology", "memory", "hostAdmission", null] },
+        "rating": { "enum": ["suitable", "conditional", "unknown", "unsuitable", null] },
+        "code": { "type": "string", "minLength": 1 },
+        "params": { "type": "object", "additionalProperties": { "type": ["string", "number"] } },
+        "hosts": { "type": "array", "minItems": 1, "items": { "type": "string" } }
+      }
+    },
+    "row": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "format", "version", "binary", "verdict", "tiers", "reason", "offers", "reasons", "notMeasured", "cpu", "latency", "measuredAt"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "format": { "$ref": "#/$defs/format" },
+        "version": { "type": ["string", "null"] },
+        "binary": { "type": "string", "minLength": 1 },
+        "verdict": { "$ref": "#/$defs/verdict" },
+        "tiers": { "type": "array", "uniqueItems": true, "items": { "$ref": "#/$defs/tier" } },
+        "reason": { "type": ["string", "null"] },
+        "offers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["offer", "verdict", "reason"],
+            "properties": {
+              "offer": { "type": "string", "minLength": 1 },
+              "verdict": { "$ref": "#/$defs/verdict" },
+              "reason": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "reasons": { "type": "array", "items": { "$ref": "#/$defs/reason" } },
+        "notMeasured": { "type": "array", "items": { "type": "string" } },
+        "cpu": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["rate", "quantum", "median", "p95"],
+          "properties": {
+            "rate": { "type": "integer", "minimum": 1 },
+            "quantum": { "type": "integer", "minimum": 1 },
+            "median": { "type": "number", "minimum": 0 },
+            "p95": { "type": "number", "minimum": 0 }
+          }
+        },
+        "latency": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["rate", "quantum", "declared", "measured"],
+          "properties": {
+            "rate": { "type": "integer", "minimum": 1 },
+            "quantum": { "type": "integer", "minimum": 1 },
+            "declared": { "type": "integer", "minimum": 0 },
+            "measured": { "type": "integer", "minimum": 0 }
+          }
+        },
+        "measuredAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "platformFile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "platform", "rows"],
+      "properties": {
+        "schemaVersion": { "const": 2 },
+        "platform": { "type": "string", "minLength": 1 },
+        "rows": { "type": "array", "items": { "$ref": "#/$defs/row" } }
+      }
+    },
+    "platform": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "hostClass", "set", "measured", "package", "conditions", "records", "tested", "formats", "verdicts", "byFormat", "reasons"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "hostClass": { "type": "string", "minLength": 1 },
+        "set": { "type": "string", "minLength": 1 },
+        "measured": { "type": "string", "format": "date" },
+        "package": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": { "name": { "type": "string" }, "version": { "type": "string" } }
+        },
+        "conditions": { "type": "object", "additionalProperties": { "type": "string" } },
+        "records": { "$ref": "#/$defs/count" },
+        "tested": { "$ref": "#/$defs/count" },
+        "formats": { "$ref": "#/$defs/counts" },
+        "verdicts": { "$ref": "#/$defs/verdictCounts" },
+        "byFormat": { "type": "object", "additionalProperties": { "$ref": "#/$defs/verdictCounts" } },
+        "reasons": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["conditional", "refused"],
+          "properties": {
+            "conditional": { "$ref": "#/$defs/counts" },
+            "refused": { "$ref": "#/$defs/counts" }
+          }
+        }
+      }
+    },
+    "index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "source", "platforms"],
+      "properties": {
+        "schemaVersion": { "const": 2 },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["repo", "commit"],
+          "properties": { "repo": { "type": "string" }, "commit": { "type": "string", "pattern": "^[0-9a-f]{40}$" } }
+        },
+        "platforms": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/platform" } }
+      }
+    }
+  }
+}
