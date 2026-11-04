@@ -30,6 +30,99 @@
         "hosts": { "type": "array", "minItems": 1, "items": { "type": "string" } }
       }
     },
+    "compareHost": {
+      "enum": [
+        "omx-clap-host",
+        "plugin-hostd",
+        "mod-host",
+        "jalv"
+      ]
+    },
+    "checkResult": {
+      "enum": [
+        "pass",
+        "fail",
+        "not-observable",
+        "not-run",
+        null
+      ]
+    },
+    "hostResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "host",
+        "version",
+        "status",
+        "runsClean",
+        "loads",
+        "output",
+        "rtSafe",
+        "crash",
+        "cpu",
+        "latency",
+        "reason"
+      ],
+      "properties": {
+        "host": {
+          "$ref": "#/$defs/compareHost"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "enum": [
+            "ran",
+            "skipped",
+            "not-applicable"
+          ]
+        },
+        "runsClean": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "loads": {
+          "$ref": "#/$defs/checkResult"
+        },
+        "output": {
+          "$ref": "#/$defs/checkResult"
+        },
+        "rtSafe": {
+          "$ref": "#/$defs/checkResult"
+        },
+        "crash": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cpu": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "latency": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 0
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
     "row": {
       "type": "object",
       "additionalProperties": false,
@@ -80,7 +173,8 @@
             "measured": { "type": "integer", "minimum": 0 }
           }
         },
-        "measuredAt": { "type": "string", "format": "date-time" }
+        "measuredAt": { "type": "string", "format": "date-time" },
+        "comparison": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/hostResult" } }
       }
     },
     "platformFile": {
@@ -93,10 +187,278 @@
         "rows": { "type": "array", "items": { "$ref": "#/$defs/row" } }
       }
     },
+    "comparison": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "available",
+            "why"
+          ],
+          "properties": {
+            "available": {
+              "const": false
+            },
+            "why": {
+              "enum": [
+                "no-summary",
+                "not-publishable"
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "available",
+            "measured",
+            "conditions",
+            "records",
+            "common",
+            "hosts",
+            "referencesBetter",
+            "oursBetter"
+          ],
+          "properties": {
+            "available": {
+              "const": true
+            },
+            "measured": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "date"
+            },
+            "conditions": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "rate",
+                "quantum",
+                "cycles",
+                "soakS"
+              ],
+              "properties": {
+                "rate": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "quantum": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "cycles": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "soakS": {
+                  "type": "integer",
+                  "minimum": 1
+                }
+              }
+            },
+            "records": {
+              "$ref": "#/$defs/count"
+            },
+            "common": {
+              "$ref": "#/$defs/count"
+            },
+            "hosts": {
+              "type": "array",
+              "minItems": 2,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "host",
+                  "version",
+                  "status",
+                  "reason",
+                  "plugins",
+                  "loads",
+                  "runsClean",
+                  "rtSafe",
+                  "rtObserved",
+                  "crashes",
+                  "cpuMedianPercent",
+                  "latencyObservable"
+                ],
+                "properties": {
+                  "host": {
+                    "$ref": "#/$defs/compareHost"
+                  },
+                  "version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "status": {
+                    "enum": [
+                      "ran",
+                      "skipped"
+                    ]
+                  },
+                  "reason": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "plugins": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "loads": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "runsClean": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "rtSafe": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "rtObserved": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "crashes": {
+                    "$ref": "#/$defs/count"
+                  },
+                  "cpuMedianPercent": {
+                    "type": [
+                      "number",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "latencyObservable": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            },
+            "referencesBetter": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "host",
+                  "plugins"
+                ],
+                "properties": {
+                  "host": {
+                    "$ref": "#/$defs/compareHost"
+                  },
+                  "plugins": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "format",
+                        "id",
+                        "over",
+                        "on"
+                      ],
+                      "properties": {
+                        "format": {
+                          "$ref": "#/$defs/format"
+                        },
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "over": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "$ref": "#/$defs/compareHost"
+                          }
+                        },
+                        "on": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "enum": [
+                              "runs-clean",
+                              "rt-safe"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "oursBetter": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "host",
+                  "plugins"
+                ],
+                "properties": {
+                  "host": {
+                    "$ref": "#/$defs/compareHost"
+                  },
+                  "plugins": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": false,
+                      "required": [
+                        "format",
+                        "id",
+                        "over",
+                        "on"
+                      ],
+                      "properties": {
+                        "format": {
+                          "$ref": "#/$defs/format"
+                        },
+                        "id": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "over": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "$ref": "#/$defs/compareHost"
+                          }
+                        },
+                        "on": {
+                          "type": "array",
+                          "minItems": 1,
+                          "items": {
+                            "enum": [
+                              "runs-clean",
+                              "rt-safe"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
     "platform": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "hostClass", "set", "measured", "package", "conditions", "records", "tested", "formats", "verdicts", "byFormat", "reasons"],
+      "required": ["id", "hostClass", "set", "measured", "package", "conditions", "records", "tested", "formats", "verdicts", "byFormat", "reasons", "comparison"],
       "properties": {
         "id": { "type": "string", "minLength": 1 },
         "hostClass": { "type": "string", "minLength": 1 },
@@ -122,7 +484,8 @@
             "conditional": { "$ref": "#/$defs/counts" },
             "refused": { "$ref": "#/$defs/counts" }
           }
-        }
+        },
+        "comparison": { "$ref": "#/$defs/comparison" }
       }
     },
     "index": {

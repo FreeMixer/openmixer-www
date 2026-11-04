@@ -22,6 +22,76 @@ export interface CatalogReason {
   readonly hosts: readonly string[];
 }
 
+/** The hosts of the comparison: ours, then the references, mod-host and jalv. */
+export type CompareHost = 'omx-clap-host' | 'plugin-hostd' | 'mod-host' | 'jalv';
+export type CheckResult = 'pass' | 'fail' | 'not-observable' | 'not-run';
+
+/** One host's result on one plugin, from its comparison record. A null check is one the host did not reach. */
+export interface HostResult {
+  readonly host: CompareHost;
+  readonly version: string | null;
+  readonly status: 'ran' | 'skipped' | 'not-applicable';
+  readonly runsClean: boolean | null;
+  readonly loads: CheckResult | null;
+  readonly output: CheckResult | null;
+  readonly rtSafe: CheckResult | null;
+  /** The signal the host died of, when it did. */
+  readonly crash: string | null;
+  /** CPU of the host's processes over the soak, percent of one core. */
+  readonly cpu: number | null;
+  readonly latency: number | null;
+  readonly reason: string | null;
+}
+
+export interface HostTotals {
+  readonly host: CompareHost;
+  readonly version: string | null;
+  readonly status: 'ran' | 'skipped';
+  readonly reason: string | null;
+  readonly plugins: number;
+  readonly loads: number;
+  readonly runsClean: number;
+  readonly rtSafe: number;
+  readonly rtObserved: number;
+  readonly crashes: number;
+  readonly cpuMedianPercent: number | null;
+  readonly latencyObservable: boolean;
+}
+
+/** Plugins one host does better on than the hosts it names. */
+export interface Better {
+  readonly host: CompareHost;
+  readonly plugins: readonly { readonly format: Format; readonly id: string; readonly over: readonly CompareHost[]; readonly on: readonly ('runs-clean' | 'rt-safe')[] }[];
+}
+
+export type Comparison =
+  | { readonly available: false; readonly why: 'no-summary' | 'not-publishable' }
+  | {
+      readonly available: true;
+      readonly measured: string | null;
+      readonly conditions: { readonly rate: number; readonly quantum: number; readonly cycles: number; readonly soakS: number };
+      readonly records: number;
+      readonly common: number;
+      readonly hosts: readonly HostTotals[];
+      /** Where mod-host or jalv do better than our hosts. */
+      readonly referencesBetter: readonly Better[];
+      /** Where our hosts do better than mod-host or jalv. */
+      readonly oursBetter: readonly Better[];
+    };
+
+/** The result word of one host on one plugin. */
+export function hostOutcome(h: HostResult): 'clean' | 'notClean' | 'crashed' | 'skipped' | 'notApplicable' {
+  if (h.status === 'skipped') return 'skipped';
+  if (h.status === 'not-applicable') return 'notApplicable';
+  if (h.crash !== null) return 'crashed';
+  return h.runsClean ? 'clean' : 'notClean';
+}
+
+/** The ids of a `Better` entry, the first `max` of them, and how many more there are. */
+export function betterList(b: Better, max = 8): { readonly ids: string; readonly more: number } {
+  return { ids: b.plugins.slice(0, max).map((p) => p.id).join(', '), more: Math.max(0, b.plugins.length - max) };
+}
+
 export interface CatalogRow {
   readonly id: string;
   readonly format: Format;
@@ -39,6 +109,8 @@ export interface CatalogRow {
   readonly cpu: { readonly rate: number; readonly quantum: number; readonly median: number; readonly p95: number } | null;
   readonly latency: { readonly rate: number; readonly quantum: number; readonly declared: number; readonly measured: number } | null;
   readonly measuredAt: string;
+  /** Each host's result, when the platform's comparison is published. */
+  readonly comparison?: readonly HostResult[];
 }
 
 export interface PlatformSummary {
@@ -54,6 +126,7 @@ export interface PlatformSummary {
   readonly verdicts: Readonly<Record<Verdict, number>>;
   readonly byFormat: Readonly<Record<string, Readonly<Record<Verdict, number>>>>;
   readonly reasons: { readonly conditional: Readonly<Record<string, number>>; readonly refused: Readonly<Record<string, number>> };
+  readonly comparison: Comparison;
 }
 
 export interface CatalogIndex {

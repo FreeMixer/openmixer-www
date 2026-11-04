@@ -13,7 +13,9 @@
 //  - every reason code on a row has its text in English and in Catalan, every parameter that text
 //    names is a parameter of the reason, every code counted in the index has a short text, and every
 //    platform has a name in both languages;
-//  - a 95th percentile cost is not below the median.
+//  - a 95th percentile cost is not below the median;
+//  - a platform's host comparison, when it has one, names both references (mod-host and jalv) as run, no host
+//    counts more than it ran, and its rows carry per-host results only then.
 //
 // Usage: node scripts/check-plugin-catalog.mjs [repo-root]     Exit 0 clean, 1 on any finding.
 
@@ -164,6 +166,15 @@ if (index) {
       for (const code of Object.keys(p.reasons[kind])) needText(where, 'reasonShort', code);
     }
     if (p.records < rows.length) bad(where, `index.json says ${p.records} records for ${rows.length} plugins`);
+
+    const cmp = p.comparison;
+    if (cmp.available) {
+      for (const ref of ['mod-host', 'jalv']) if (!cmp.hosts.some((h) => h.host === ref && h.status === 'ran')) bad(where, `the host comparison is shown without ${ref}`);
+      for (const h of cmp.hosts) {
+        for (const k of ['loads', 'runsClean', 'rtSafe', 'rtObserved', 'crashes']) if (h[k] > h.plugins) bad(where, `${h.host} counts ${h[k]} ${k} of ${h.plugins} plugins`);
+        if (h.rtSafe > h.rtObserved) bad(where, `${h.host} is real-time safe on more plugins than were observed`);
+      }
+    } else if (rows.some((r) => 'comparison' in r)) bad(where, 'rows carry host results but the platform shows no comparison');
   }
 }
 
