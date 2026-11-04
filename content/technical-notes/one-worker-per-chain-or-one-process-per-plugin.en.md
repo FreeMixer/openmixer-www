@@ -14,8 +14,7 @@ measure the daemon directly on a private JACK graph, not through Zynthian's engi
 ## What grouping buys
 
 - **Memory.** 24 plugins in one chain take 64.1 MB of proportional memory, against 183.1 MB with one worker per plugin and
-  109.4 MB under mod-host (plugin-hostd 0.15.9, 2 November 2026). Under jalv, 24 plugins took 993.6 MB (31 October,
-  plugin-hostd 0.15.4). On a 4 GB Pi this is the difference that grows with the chain.
+  109.4 MB under mod-host (plugin-hostd 0.15.9). Under jalv, 24 plugins took 993.6 MB (plugin-hostd 0.15.4). On a 4 GB Pi this is the difference that grows with the chain.
 - **CPU.** The grouped chain has the lowest DSP load of the hosts measured: 12.51 % for the 24, against 17.76 % with one
   worker per plugin and 15.02 % under mod-host.
 - **Fewer wake-ups.** One JACK client runs the whole chain. With 16 plugins, the grouped chain made 6023 context switches in

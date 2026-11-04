@@ -169,6 +169,7 @@ useSeoMeta({
           <NuxtLink :to="sitePath('/notes/plugin-hostd-on-a-raspberry-pi-5')" class="text-accent hover:underline">{{ t('docsZynthian.figures.more') }}</NuxtLink>
           <NuxtLink :to="sitePath('/benchmarks')" class="text-accent hover:underline">{{ t('docsZynthian.figures.bench') }}</NuxtLink>
         </p>
+        <p class="mt-8 font-mono text-xs leading-relaxed text-ink-faint">{{ t('docsZynthian.figures.footer') }}</p>
       </div>
     </section>
 

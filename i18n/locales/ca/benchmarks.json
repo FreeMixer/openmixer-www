@@ -139,7 +139,7 @@
       "mod-host": "mod-host",
       "omx-clap-lv2": "Adaptador LV2"
     },
-    "footer": "Execució {id} a {machine}. Programari: {software}.",
+    "footer": "Execució {id}, {date}, a {machine}. Programari: {software}.",
     "sources": "Xifres llegides d'aquests registres del repositori plugin-hostd: {sources}.",
     "data": "Els fitxers d'execució i el seu format."
   }

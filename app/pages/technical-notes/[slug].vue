@@ -26,13 +26,18 @@ useSeoMeta({
 
 <template>
   <div>
-    <PageHero :eyebrow="t('notes.page.eyebrow')" :title="note.title" :lede="note.summary">
-      <p class="mt-4 font-mono text-xs text-ink-faint">{{ note.measured }}</p>
-    </PageHero>
+    <PageHero :eyebrow="t('notes.page.eyebrow')" :title="note.title" :lede="note.summary" />
     <section>
       <div class="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1fr_16rem]">
         <!-- the note's own text, rendered from this repository's markdown -->
-        <article class="doc-body" v-html="note.html" />
+        <div>
+          <article class="doc-body" v-html="note.html" />
+          <!-- the technical data of the measurement (machine, rates, versions, date): a footer, not text -->
+          <footer class="mt-12 border-t border-edge pt-4">
+            <p class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">{{ t('notes.page.data') }}</p>
+            <p class="mt-1 font-mono text-xs leading-relaxed text-ink-faint">{{ note.measured }}</p>
+          </footer>
+        </div>
         <nav v-if="note.toc.length > 1" class="hidden lg:block" :aria-label="t('notes.page.contents')">
           <p class="font-mono text-xs uppercase tracking-[0.2em] text-accent">{{ t('notes.page.contents') }}</p>
           <ul class="mt-4 space-y-2 text-sm">

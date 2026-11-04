@@ -88,6 +88,8 @@ const instruments = computed(() => {
 const hostName = (h: Instrument['host']) => (h === 'standalone' ? t('benchmarks.instruments.standalone') : t(`benchmarks.hosts.${h}`));
 
 const machineLine = (r: BenchRun) => t('benchmarks.machine', { model: r.machine.model, os: r.machine.os });
+/** The run's date, from its id (<class>-<yyyymmdd>-<n>): data for the footer, never body text. */
+const runDate = (r: BenchRun) => { const m = /-(\d{4})(\d{2})(\d{2})-/.exec(r.id); return m ? `${m[1]}-${m[2]}-${m[3]}` : ''; };
 const softwareLine = (r: BenchRun) => Object.entries(r.software).map(([k, v]) => `${k} ${v}`).join(', ');
 const harnessUrl = 'https://github.com/FreeMixer/plugin-hostd/blob/main/README.md';
 const dataUrl = 'https://github.com/FreeMixer/openmixer-www/tree/main/benchmarks';
@@ -358,7 +360,7 @@ useSeoMeta({
       <section>
         <div class="mx-auto max-w-6xl px-6 py-10">
           <p class="font-mono text-xs leading-relaxed text-ink-faint">
-            {{ t('benchmarks.footer', { id: run.id, machine: machineLine(run), software: softwareLine(run) }) }}
+            {{ t('benchmarks.footer', { id: run.id, date: runDate(run), machine: machineLine(run), software: softwareLine(run) }) }}
             <template v-if="run.sources">{{ t('benchmarks.sources', { sources: run.sources.join('; ') }) }}</template>
             <a :href="dataUrl" class="text-accent hover:underline">{{ t('benchmarks.data') }}</a>
           </p>
