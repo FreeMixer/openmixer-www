@@ -101,6 +101,11 @@ jobs:
       # on the README fails here.
       - run: npm run check:readme
 
+      # The notes in both languages and the projects' documents, each copied file equal to its project's file at the
+      # recorded commit (public repositories, fetched here); then the note rules, each refusal red.
+      - run: npm run pages:verify
+      - run: node scripts/gen-pages.mjs --self-test
+
       - run: npm run generate
 
       # The pinned docs tree: public release, sha256 checked, then added to the generated site.

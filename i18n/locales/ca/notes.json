@@ -1,0 +1,24 @@
+{
+  "notes": {
+    "seo": {
+      "title": "Notes tècniques | OpenMixer",
+      "description": "Com s'han mesurat i decidit les parts d'OpenMixer: la qualificació de plugins, l'amfitrió de plugins, Zynthian en una Raspberry Pi 5 i el nucli de l'amfitrió, una nota per a cada cosa."
+    },
+    "hero": {
+      "eyebrow": "Notes tècniques",
+      "title": "Com s'ha mesurat i per què està fet així.",
+      "lede": "Cada nota explica una part: el mètode, les xifres, les versions i la data de la mesura. La referència de cada projecte és a la seva pàgina; aquestes notes en són el raonament."
+    },
+    "topics": {
+      "qualify": "Qualificar plugins",
+      "host": "L'amfitrió de plugins",
+      "zynthian": "Zynthian en una Raspberry Pi 5",
+      "core": "El nucli de l'amfitrió"
+    },
+    "page": {
+      "eyebrow": "Nota tècnica",
+      "contents": "Contingut",
+      "all": "Totes les notes tècniques"
+    }
+  }
+}
