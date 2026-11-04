@@ -11,13 +11,13 @@
     },
     "what": {
       "title": "What it is.",
-      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through jalv, and through mod-host behind MOD-UI. plugin-hostd speaks mod-host's protocol and runs each plugin, LV2 or CLAP, in a worker process, so a plugin that crashes takes down only its own worker, which is put back with its settings. A whole chain can run in one worker instead of one process per plugin, and plugin-qualify measures each plugin on the device first, so the menus are built from what it found.",
+      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through its own engines: mod-host, behind MOD-UI, which runs its effect chains, and jalv, which runs one plugin per process. plugin-hostd speaks mod-host's protocol and runs each plugin, LV2 or CLAP, in a worker process, so a plugin that crashes takes down only its own worker, which is put back with its settings. A whole chain can run in one worker instead of one process per plugin, and plugin-qualify measures each plugin on the device first, so the menus are built from what it found.",
       "p2": "With it Zynthian gets a plugin-hostd engine beside jalv for LV2 and CLAP plugins in chains, plugin-hostd as a switchable replacement for mod-host under MOD-UI, plugin menus ordered and tagged from per-plugin qualification records, and chains whose plugins the daemon groups into as few workers as their pins allow."
     },
     "changes": {
       "title": "How much it changes in Zynthian.",
-      "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
-      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default engine and MOD-UI's default backend, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
+      "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the plugin-hostd engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
+      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default plugin engine, in place of jalv, and MOD-UI's default backend, in place of mod-host, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
       "p3": "What runs when nobody uses it: the interface starts a daemon only when a chain holds a plugin-hostd plugin. What stays enabled is the qualification sync, two minutes after boot at the lowest CPU and disk priority, skipping every plugin whose files have not changed, and omx-panel's MOD GUI and complement syncs. All of them can be disabled; the first sync on a device with many plugins is long."
     },
     "install": {
@@ -76,13 +76,51 @@
       "modgui": { "alt": "An instrument's MOD GUI on a MOD-UI pedalboard", "caption": "The same instrument's MOD GUI, from the same layout" },
       "chain": { "alt": "A Zynthian chain with an instrument and a compressor", "caption": "A chain with an instrument and an effect" }
     },
+    "voices": {
+      "title": "Instruments: voices across the cores.",
+      "why": {
+        "title": "Why",
+        "p1": "A Pi 5 has four cores. A synth plays many voices at once, and every block of audio has a deadline: all the voices must be computed before it is due. Run one after another, they all use one core. That core sets how many notes you can play, however idle the other three are.",
+        "p2": "Some synths split their voices into tasks and ask the host to run them (CLAP's thread-pool extension). Tasks like that can run side by side, if the host lets them."
+      },
+      "how": {
+        "title": "How it works",
+        "p1": "omx-clap-host starts helper threads: one for each core the plugin's worker may use, minus one, because the audio thread takes the last core. Each helper is pinned to its core, runs at the audio thread's real-time priority and sleeps between blocks.",
+        "p2": "When the plugin asks for its tasks, the helpers and the audio thread take them one by one, and the call returns when the last is done. If the priority cannot be set, there are no helpers and the tasks run as before, in turn."
+      },
+      "gate": {
+        "title": "Who gets helpers",
+        "p1": "Not every plugin. Helper threads are given plugin by plugin, never everywhere. A plugin gets them only if its qualification found it real-time safe, with the helpers watched too, and faster with them. A task that allocates or waits on a lock would make every core miss the deadline.",
+        "p2": "Any other plugin runs as before: its tasks one after another on the audio thread. A plugin that gets helpers runs in a worker of its own, which plugin-hostd starts with the pool on."
+      },
+      "switch": {
+        "title": "How to switch it",
+        "p1": "It is an option of omx-clap-host:",
+        "qualified": "qualified (the default): only plugins whose qualification grants it get helpers. plugin-hostd gives each worker the right setting, so on Zynthian you do not set it.",
+        "on": "on: every plugin that uses the extension gets helpers.",
+        "off": "off: every plugin runs its tasks in turn."
+      },
+      "measured": {
+        "title": "What it gives",
+        "p1": "Measured on a Raspberry Pi 5 at 48 kHz and 256 frames, so the block is due in 5333 µs. The plugin is a test plugin that splits each block into 16 tasks, because no plugin on the Pi asks for tasks yet, Surge XT included. The time is the mean cost of one block, with the helpers off and on:",
+        "cols": {
+          "voices": "Voices in each task",
+          "off": "Off (µs)",
+          "on": "On (µs)",
+          "gain": "Faster by"
+        },
+        "p2": "At 512 frames, the 48-voice load takes 6.6 ms of the 10.7 ms block with the helpers off and 1.7 ms with them on. No block went over its deadline in any run.",
+        "p3": "This is the best case: equal tasks that share nothing. A real instrument has not been measured with it, so there is no Surge XT figure. Surge XT does not split its voices, and for it the cores come from running each instrument in a worker of its own: four instances with 16 notes each ran at 14 to 15 % of a core each.",
+        "more": "Surge XT measured, in full"
+      }
+    },
     "figures": {
       "title": "The headline figures.",
-      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with plugin-hostd 0.15.9 and omx-clap-core 0.26.4, against Zynthian's own mod-host:",
-      "dsp": "DSP load: a plugin-hostd chain has the lowest of the three hosts measured, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
+      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with plugin-hostd 0.15.9 and omx-clap-core 0.26.4, against mod-host, Zynthian's engine for effect chains, and for instruments also against jalv, which runs one plugin per process:",
+      "dsp": "DSP load: a plugin-hostd chain has the lowest load of plugin-hostd, omx-clap-host and mod-host, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
       "memory": "Memory: 41 to 49 % less than mod-host, 64 MB against 109 MB for the 24.",
-      "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s; on a running host mod-host adds two plugins faster, and from four on the chain does.",
-      "instruments": "Instruments: the same DSP load as mod-host, and about 43 MB less memory each.",
+      "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s for mod-host; on a running host mod-host adds two plugins faster, and from four on the chain does.",
+      "instruments": "Instruments: against mod-host, the same DSP load and about 43 MB less memory each. Against jalv, the same DSP load at every note count, and Surge XT ready in about 0.58 s against 1.9 s.",
       "qualified": "Qualification: of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own.",
       "more": "Every table and the method",
       "footer": "Raspberry Pi 5 running Zynthian · 48 kHz, 256 frames · read digitally at JACK ports · plugin-hostd 0.15.9, omx-clap-core 0.26.4 · 2 November 2026",
@@ -94,8 +132,8 @@
         "title": "Proven on the device",
         "engine": "The plugin-hostd engine runs Zynthian chains, LV2 and CLAP side by side, with the plugin menus built from the qualification records.",
         "pages": "Controller pages follow the plugin's own sections and are named by what they hold.",
-        "play": "Instruments and effects play through the engine, read digitally at JACK ports with 0 xruns; factory and user presets load.",
-        "grouping": "Grouping through Zynthian's own engine passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
+        "play": "Instruments and effects play through the plugin-hostd engine, read digitally at JACK ports with 0 xruns; factory and user presets load.",
+        "grouping": "Grouping through the plugin-hostd engine in zynthian-ui passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
         "recover": "A lost worker comes back: after a killed worker, the daemon puts it back with its settings and the links it made itself in about 350 ms."
       },
       "released": {

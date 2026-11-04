@@ -11,13 +11,13 @@
     },
     "what": {
       "title": "Què és.",
-      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes en una Raspberry Pi. Fa córrer plugins LV2 amb jalv i amb mod-host darrere de MOD-UI. plugin-hostd parla el protocol de mod-host i fa córrer cada plugin, LV2 o CLAP, en un procés worker, de manera que un plugin que falla només s'endú el seu worker, que es torna a posar amb els seus valors. Una cadena sencera pot córrer en un sol worker en lloc d'un procés per plugin i plugin-qualify mesura cada plugin a l'aparell abans, de manera que els menús es fan a partir del que ha trobat.",
+      "p1": "Zynthian és una plataforma oberta de sintetitzadors i efectes en una Raspberry Pi. Fa córrer plugins LV2 amb els seus propis motors: mod-host, darrere de MOD-UI, que fa córrer les cadenes d'efectes; i jalv, que fa córrer un plugin per procés. plugin-hostd parla el protocol de mod-host i fa córrer cada plugin, LV2 o CLAP, en un procés worker, de manera que un plugin que falla només s'endú el seu worker, que es torna a posar amb els seus valors. Una cadena sencera pot córrer en un sol worker en lloc d'un procés per plugin i plugin-qualify mesura cada plugin a l'aparell abans, de manera que els menús es fan a partir del que ha trobat.",
       "p2": "Amb ell Zynthian té un motor plugin-hostd al costat de jalv per a plugins LV2 i CLAP en cadenes, plugin-hostd com a substitut commutable de mod-host darrere de MOD-UI, menús de plugins ordenats i etiquetats a partir dels registres de qualificació de cada plugin i cadenes els plugins de les quals el dimoni agrupa en tan pocs workers com permeten les seves empremtes."
     },
     "changes": {
       "title": "Quant canvia Zynthian.",
-      "p1": "Res de Zynthian no en depèn. Continua amb jackd: no canvia cap fitxer de configuració de JACK i no hi intervé PipeWire. Tal com s'ofereix a Zynthian, el motor queda desactivat fins que un usuari l'activa i MOD-UI conserva mod-host fins que un usuari en canvia el motor; tornar enrere és el mateix paràmetre.",
-      "p2": "Els forks de zynthian-ui i zynthian-sys de FreeMixer el tenen activat: plugin-hostd és el motor per defecte i el motor per defecte de MOD-UI i la sincronització de qualificació està activada. Un plugin que plugin-hostd refusa es queda a jalv, llistat al seu menú, de manera que no desapareix res del que té l'usuari.",
+      "p1": "Res de Zynthian no en depèn. Continua amb jackd: no canvia cap fitxer de configuració de JACK i no hi intervé PipeWire. Tal com s'ofereix a Zynthian, el motor plugin-hostd queda desactivat fins que un usuari l'activa i MOD-UI conserva mod-host fins que un usuari en canvia el motor; tornar enrere és el mateix paràmetre.",
+      "p2": "Els forks de zynthian-ui i zynthian-sys de FreeMixer el tenen activat: plugin-hostd és el motor de plugins per defecte, en lloc de jalv; i el motor per defecte de MOD-UI, en lloc de mod-host i la sincronització de qualificació està activada. Un plugin que plugin-hostd refusa es queda a jalv, llistat al seu menú, de manera que no desapareix res del que té l'usuari.",
       "p3": "Què corre quan ningú no el fa servir: la interfície només engega un dimoni quan una cadena té un plugin de plugin-hostd. El que queda activat és la sincronització de qualificació, dos minuts després d'arrencar amb la prioritat de CPU i de disc més baixa, que se salta cada plugin els fitxers del qual no han canviat i les sincronitzacions de MOD GUI i de complements d'omx-panel. Totes es poden desactivar; la primera sincronització en un aparell amb molts plugins és llarga."
     },
     "install": {
@@ -103,13 +103,51 @@
         "caption": "Una cadena amb un instrument i un efecte"
       }
     },
+    "voices": {
+      "title": "Instruments: veus repartides entre els nuclis.",
+      "why": {
+        "title": "Per què",
+        "p1": "Una Pi 5 té quatre nuclis. Un sintetitzador toca moltes veus alhora; i cada bloc d'àudio té una data límit: totes les veus s'han de calcular abans que toqui. Si es calculen una darrere l'altra, fan servir un sol nucli. Aquest nucli decideix quantes notes podeu tocar, per desocupats que estiguin els altres tres.",
+        "p2": "Alguns sintetitzadors reparteixen les veus en tasques i demanen a l'amfitrió que les executi (l'extensió thread-pool de CLAP). Unes tasques així poden córrer en paral·lel, si l'amfitrió ho permet."
+      },
+      "how": {
+        "title": "Com funciona",
+        "p1": "omx-clap-host posa en marxa fils auxiliars: un per cada nucli que el worker del plugin pot fer servir, menys un, perquè el fil d'àudio ocupa l'últim nucli. Cada fil auxiliar queda fixat al seu nucli, corre amb la prioritat de temps real del fil d'àudio i dorm entre bloc i bloc.",
+        "p2": "Quan el plugin demana les tasques, els fils auxiliars i el fil d'àudio les agafen una a una; i la crida torna quan s'ha acabat l'última. Si no es pot fixar la prioritat, no hi ha fils auxiliars i les tasques corren com abans, per torn."
+      },
+      "gate": {
+        "title": "Qui en té",
+        "p1": "No tots els plugins. Els fils auxiliars es donen plugin per plugin, mai a tot arreu. Un plugin només en té si la seva qualificació l'ha trobat segur per a temps real (amb els fils auxiliars també vigilats) i més ràpid amb ells. Una tasca que reserva memòria o espera un bloqueig faria que tots els nuclis arribessin tard.",
+        "p2": "Qualsevol altre plugin corre com abans: les seves tasques una darrere l'altra al fil d'àudio. Un plugin que té fils auxiliars corre en un worker propi, que plugin-hostd posa en marxa amb el pool activat."
+      },
+      "switch": {
+        "title": "Com activar-ho o desactivar-ho",
+        "p1": "És una opció d'omx-clap-host:",
+        "qualified": "qualified (per defecte): només tenen fils auxiliars els plugins que la qualificació hi autoritza. plugin-hostd dona a cada worker el valor adequat, així que a Zynthian no cal que l'indiqueu.",
+        "on": "on: tots els plugins que fan servir l'extensió tenen fils auxiliars.",
+        "off": "off: tots els plugins executen les tasques per torn."
+      },
+      "measured": {
+        "title": "Què en resulta",
+        "p1": "Mesurat en una Raspberry Pi 5 a 48 kHz i 256 mostres, així que el bloc toca en 5333 µs. El plugin és un plugin de prova que reparteix cada bloc en 16 tasques, perquè cap plugin de la Pi demana tasques encara, Surge XT inclòs. El temps és el cost mitjà d'un bloc, amb els fils auxiliars desactivats i activats:",
+        "cols": {
+          "voices": "Veus per tasca",
+          "off": "Desactivats (µs)",
+          "on": "Activats (µs)",
+          "gain": "Més ràpid per"
+        },
+        "p2": "A 512 mostres, la càrrega de 48 veus ocupa 6,6 ms del bloc de 10,7 ms amb els fils auxiliars desactivats i 1,7 ms amb ells activats. Cap bloc va passar de la data límit en cap prova.",
+        "p3": "És el millor cas: tasques iguals que no comparteixen res. No s'ha mesurat un instrument real amb això, així que no hi ha cap xifra de Surge XT. Surge XT no reparteix les veus en tasques; per a ell els nuclis vénen de fer córrer cada instrument en un worker propi: quatre instàncies amb 16 notes cadascuna van treballar al 14-15 % d'un nucli cadascuna.",
+        "more": "Surge XT mesurat, tot"
+      }
+    },
     "figures": {
       "title": "Les xifres principals.",
-      "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb plugin-hostd 0.15.9 i omx-clap-core 0.26.4, contra el mod-host del mateix Zynthian:",
-      "dsp": "Càrrega DSP: una cadena de plugin-hostd té la més baixa dels tres amfitrions mesurats, un 12,5 % per a 24 plugins contra el 15,0 % de mod-host, amb 0 xruns a cada repetició.",
+      "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, a 48 kHz i 256 mostres, llegit digitalment als ports de JACK, amb plugin-hostd 0.15.9 i omx-clap-core 0.26.4, contra mod-host, el motor de Zynthian per a cadenes d'efectes; per als instruments també contra jalv, que fa córrer un plugin per procés:",
+      "dsp": "Càrrega DSP: una cadena de plugin-hostd té la càrrega més baixa de plugin-hostd, omx-clap-host i mod-host, un 12,5 % per a 24 plugins contra el 15,0 % de mod-host, amb 0 xruns a cada repetició.",
       "memory": "Memòria: entre un 41 i un 49 % menys que mod-host, 64 MB contra 109 MB per als 24.",
-      "add": "Temps d'addició: en fred, 24 plugins són a punt en 0,55 s contra 1,46 s; amb l'amfitrió en marxa mod-host afegeix dos plugins més de pressa i a partir de quatre ho fa la cadena.",
-      "instruments": "Instruments: la mateixa càrrega DSP que mod-host i uns 43 MB menys de memòria cadascun.",
+      "add": "Temps d'addició: en fred, 24 plugins són a punt en 0,55 s contra 1,46 s de mod-host; amb l'amfitrió en marxa mod-host afegeix dos plugins més de pressa i a partir de quatre ho fa la cadena.",
+      "instruments": "Instruments: contra mod-host, la mateixa càrrega DSP i uns 43 MB menys de memòria cadascun. Contra jalv, la mateixa càrrega DSP amb qualsevol nombre de notes; Surge XT a punt en uns 0,58 s contra 1,9 s.",
       "qualified": "Qualificació: dels 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi.",
       "more": "Totes les taules i el mètode",
       "footer": "Raspberry Pi 5 amb Zynthian · 48 kHz, 256 mostres · llegit digitalment als ports de JACK · plugin-hostd 0.15.9, omx-clap-core 0.26.4 · 2 de novembre del 2026",
@@ -121,8 +159,8 @@
         "title": "Demostrat a l'aparell",
         "engine": "El motor plugin-hostd fa córrer cadenes de Zynthian, LV2 i CLAP colze a colze, amb els menús de plugins fets a partir dels registres de qualificació.",
         "pages": "Les pàgines de controls segueixen les seccions del mateix plugin i porten el nom del que contenen.",
-        "play": "Els instruments i els efectes sonen a través del motor, llegits digitalment als ports de JACK amb 0 xruns; es carreguen els presets de fàbrica i d'usuari.",
-        "grouping": "L'agrupació a través del motor del mateix Zynthian supera la seva prova: una tirada en sèrie s'agrupa en un sol client i un espai en paral·lel, el canal o un altre client l'acaben.",
+        "play": "Els instruments i els efectes sonen a través del motor plugin-hostd, llegits digitalment als ports de JACK amb 0 xruns; es carreguen els presets de fàbrica i d'usuari.",
+        "grouping": "L'agrupació a través del motor plugin-hostd de zynthian-ui supera la seva prova: una tirada en sèrie s'agrupa en un sol client i un espai en paral·lel, el canal o un altre client l'acaben.",
         "recover": "Un worker perdut torna: després de matar un worker, el dimoni el torna a posar amb els seus valors i els enllaços que ell mateix havia fet en uns 350 ms."
       },
       "released": {
