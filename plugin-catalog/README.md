@@ -1,71 +1,66 @@
 # Plugin catalog data
 
-What openmixer measured about each audio plugin it was asked to host: one JSON file per
-qualification run. The website's `/plugins/` pages are generated from the newest file in `runs/`;
-the `openmixer-plugin-catalog` package installs the same files to
-`/usr/share/openmixer/plugin-catalog/` for consoles to read.
+What was measured about each audio plugin, per platform. The `/plugins/` page is built from the files
+in `app/data/plugin-catalog/`, and those are generated from the public qualification records in
+[FreeMixer/omx-qualification-records](https://github.com/FreeMixer/omx-qualification-records). Nothing is
+typed by hand: every figure is read from a record, from the probe output beside it, or from its set's
+`provenance.json`.
 
-- `schema/plugin-catalog.v1.schema.json` — the contract (JSON Schema 2020-12).
-- `schema/reason-texts.en.json` — the English text for every reason code.
-- `runs/<YYYY-MM-DD>.json` — one run each.
+- `pin.json` — the repository and the one commit of it the data is made from.
+- `schema/plugin-catalog.v2.schema.json` — the contract of the generated files (JSON Schema 2020-12).
+- `app/data/plugin-catalog/index.json` — one entry per platform: the counts, the conditions of the run, where its rows are.
+- `app/data/plugin-catalog/platforms/<host class>-<set>.json` — one row per plugin of that platform. The page
+  fetches one of these when that platform is shown, so the headline counts load with the page and the rows load after it.
 
-`npm run catalog:check` validates every run against the schema and fails on a reason code with no
-text. The website build runs it first.
+## Commands
 
-## Versioning
+```
+node scripts/plugin-catalog-from-records.mjs                  write the data from the pinned commit
+node scripts/plugin-catalog-from-records.mjs --sync <commit>  move the pin to a full 40-character commit, then write the data
+node scripts/plugin-catalog-from-records.mjs --verify         the committed data is what the pinned commit gives
+node scripts/check-plugin-catalog.mjs                         the committed data is well formed and agrees with itself
+```
 
-`schemaVersion` is an integer. Adding an optional field or a new reason code keeps the version;
-renaming or removing a field, changing a field's meaning, or renaming a code is a new version with
-its own schema file (`plugin-catalog.v2.schema.json`). A reader refuses a version it does not know.
+The same as `npm run catalog:gen`, `npm run catalog:sync -- <commit>`, `npm run catalog:verify` and
+`npm run catalog:check`. The first three download the pinned commit as one archive;
+`--records <checkout>` reads a local clone instead, and refuses one whose HEAD is not that commit. The build
+runs only the check, so it needs no network. After a `--sync`, commit the pin and the data together.
 
-## Where the fields come from
+## What a row is
 
-The file is a projection of two producers in the openmixer repository; it adds no judgement of
-its own.
+A platform is one set of records, `records/<host class>/<set>/`. A plugin has one record for each way it can be
+offered (`default`, and for CLAP plugins `custom`); its row holds the best of them.
 
-| Field | Source |
+| Field | Read from |
 | --- | --- |
-| `rating`, `path`, `reasons[].dimension/rating/code/params` | `classifyPluginHosting` (`packages/plugin-qualify/src/hosting-suitability.ts`), as served in `/api/plugins/{uri}.hosting` |
-| `run.rig`, `run.policy` | the same verdict's `basis` |
-| `io`, `latency.class` | the `/api/plugins/{uri}` row (`audioInputs`, `audioOutputs`, `hasMidiIn`, `latencyClass`) |
-| `latency.hostingQuanta/hostingMs` | the row's `offer.cost` |
-| `cost` | the `cost` reason's parameters |
-| `name`, `vendor`, `pluginVersion`, `declaredClass` (CLAP) | `omx-clap-qualify --scan` descriptor (`name`, `vendor`, `version`, `features`) |
-| `vendor`, `declaredClass` (LV2) | lilv: the plugin's author and class |
-| `package` | the package database entry owning the plugin binary |
-| `incidents` | crash reasons, the CLAP qualifier's load refusal and timeouts |
-| `run.inventory` | counted when the file is written: `lv2ls` for the LV2 plugins installed, the `.clap` files under `CLAP_PATH` or the standard directories, and the console's packaged `catalog.json` by URI scheme when `--catalog` names it |
+| `id`, `format` | the record's `plugin` |
+| `version` | the record's `testedVersion` (null when the plugin declares none) |
+| `binary` | the file of the record's `binary.path`, or the `.clap` bundle it sits in. The records name no operating-system package, so the file and the version are what was tested. |
+| `verdict`, `tiers`, `reason` | the record's `tiers`, see below |
+| `offers` | the verdict of each record of the plugin |
+| `reasons` | the `reasons` of every host's verdict, one entry for each distinct reason with the hosts that gave it |
+| `notMeasured` | the record's `notMeasured` codes |
+| `cpu` | the first measured grid cell: median and 95th percentile in ns per sample (the unit the probe output states; any other unit is refused), at its rate and block size |
+| `latency` | the same cell's declared and measured frames, when it has them |
+| `measuredAt` | the record's `measuredAt` |
+
+The index entry carries the set's `provenance.json` as the page shows it: the day it was measured and the
+conditions (system, machine, kernel, host, rate and block size, real-time class, audio server) the set names.
 
 ## Verdict
 
 | `verdict` | Meaning |
 | --- | --- |
-| `in-process` | rated `suitable` on every dimension |
-| `isolated` | rated `conditional` or `unsuitable`; hosted in a separate process, with the deciding reason |
-| `unknown` | at least one dimension not measured; hosted in a separate process |
-| `refused` | the qualifier could not load or run it |
+| `accepted` | offered on a tier whose verdict qualified |
+| `conditional` | offered, but only on a tier that did not qualify: it runs in a process of its own |
+| `refused` | offered on no tier; `reason` is the first reason of the record's `dimmed` line, skipping a memory figure missing at the console's rate when a measured failure of another host is named |
 
-## Kind
+`reason` is the code that decides it, and every code needs its text in both languages (`plugins.reason`, and
+`plugins.reasonShort` for the counts) before `npm run catalog:check` passes. A shape the generator does not
+know is an error, not a guess.
 
-From the plugin's own declared class, never from its name. LV2: `lv2:InstrumentPlugin` is
-`instrument`; the generator and utility classes and a bare `lv2:Plugin` are `other`; every
-processing class is `effect`. CLAP: feature `instrument` is `instrument`, else `audio-effect` is
-`effect`, else `other`. A file taken from a console (`source: console`) has no CLAP features to
-read: there a CLAP row is `effect` when the console's roster gives it a mixer role (a vocabulary
-of effects only), else `other`.
+## Versioning
 
-## One row per plugin
-
-When a plugin is offered both as CLAP and as LV2 (same vendor, same name without the format),
-the website shows one row: the twin the qualifier accepted (verdict not `refused`), and CLAP when
-both were accepted. Run files keep both.
-
-## Producing a file
-
-The qualify job writes these files. `scripts/plugin-catalog-from-console.mjs` takes one from a
-running console instead (its `/api/plugins` verdicts, lilv and rpm on the same machine):
-
-```
-node scripts/plugin-catalog-from-console.mjs --console http://127.0.0.1:8800 --revision <git rev> \
-    --catalog <openmixer>/packages/catalog/data/catalog.json
-```
+`schemaVersion` is an integer. A new optional field keeps it; renaming or removing a field or changing its
+meaning is a new version with its own schema file. The page refuses nothing it does not know, so change the
+page and the check in the same commit.

@@ -9,6 +9,7 @@
 //   node scripts/plugin-catalog-from-records.mjs                 write the data from the pinned commit
 //   node scripts/plugin-catalog-from-records.mjs --sync <commit>  move the pin to <commit>, then write the data
 //   node scripts/plugin-catalog-from-records.mjs --verify         the committed data is what the pinned commit gives
+//   ... --root <dir>      the site checkout to read the pin from and write the data to (default: this one)
 //   ... --records <dir>   read a local checkout of the records repository instead of downloading the commit;
 //                         its HEAD must be the pinned commit (or the one given to --sync)
 //
@@ -28,9 +29,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-export const PIN = join(root, 'plugin-catalog/pin.json');
-export const OUT = join(root, 'app/data/plugin-catalog');
+const here = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const TARBALL = 'https://codeload.github.com/FreeMixer';
 export const SCHEMA_VERSION = 2;
 
@@ -221,8 +220,8 @@ export function build(recordsDir, pin) {
   return out;
 }
 
-function readPin() {
-  const pin = JSON.parse(readFileSync(PIN, 'utf8'));
+function readPin(pinFile) {
+  const pin = JSON.parse(readFileSync(pinFile, 'utf8'));
   if (!/^[0-9a-f]{40}$/.test(pin.commit) || !pin.repo) fail('plugin-catalog/pin.json', 'needs a repo and a full 40-character commit');
   return pin;
 }
@@ -244,7 +243,7 @@ function checkout(pin, commit, local) {
   });
 }
 
-function committed() {
+function committed(OUT) {
   const out = {};
   const walk = (rel) => {
     for (const e of readdirSync(join(OUT, rel), { withFileTypes: true })) {
@@ -260,7 +259,10 @@ function committed() {
 async function main(args) {
   const opt = (name) => (args.includes(name) ? args[args.indexOf(name) + 1] : null);
   const local = opt('--records');
-  const pin = readPin();
+  const site = resolve(opt('--root') ?? here);
+  const PIN = join(site, 'plugin-catalog/pin.json');
+  const OUT = join(site, 'app/data/plugin-catalog');
+  const pin = readPin(PIN);
   const sync = args.includes('--sync');
   const verify = args.includes('--verify');
   if (sync && verify) fail('usage', '--sync and --verify do not go together');
@@ -273,11 +275,12 @@ async function main(args) {
   try {
     const files = build(dir, pin);
     if (verify) {
-      const have = committed();
+      const have = committed(OUT);
       let bad = 0;
       for (const p of new Set([...Object.keys(files), ...Object.keys(have)])) {
         if (files[p] !== have[p]) {
-          console.error(`[plugin-catalog] app/data/plugin-catalog/${p} is ${p in have ? (p in files ? 'not what' : 'not made by') : 'missing from'} ${pin.repo} at ${pin.commit}`);
+          const what = p in have ? (p in files ? `is not what ${pin.repo} gives at ${pin.commit}` : `is not made from ${pin.repo} at ${pin.commit}`) : `is missing, and ${pin.repo} at ${pin.commit} gives it`;
+          console.error(`[plugin-catalog] app/data/plugin-catalog/${p} ${what}`);
           bad = 1;
         }
       }
