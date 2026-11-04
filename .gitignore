@@ -17,3 +17,9 @@ dist
 # intermediate typedoc reflection model stays out of git.
 /.docgen-tmp/
 /.docs-stage/
+
+# Rendered from content/ by scripts/gen-pages.mjs (pages:gen, run by predev/prebuild/pregenerate): public inputs only.
+/app/data/notes/
+/app/data/projects/
+/app/data/notes-index.json
+/app/data/projects-index.json

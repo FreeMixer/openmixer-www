@@ -15,6 +15,7 @@ const links = computed(() =>
     ['plugins', '/plugins'],
     ['benchmarks', '/benchmarks'],
     ['docs', '/docs'],
+    ['notes', '/notes'],
     ['zynthian', '/docs/zynthian'],
     ['faq', '/faq'],
     ['get-it', '/get-it'],

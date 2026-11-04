@@ -74,8 +74,9 @@ shown for its class when its day is later, or its sequence higher on the same da
 rows that did not pass in the other runs of that day.
 
 `rpi5-20261102-1.json` is the document the harness wrote for every host on omx-clap-core 0.26.3. `rpi5-20261102-2.json`
-is composed from the evidence of plugin-hostd by `tools/compose-rpi5-20261102-2.py`: its H1 and H3 rows are the
-first run's, its H2 rows the same bench rerun on 0.26.4, each row unedited.
+is composed from the device runs of the same day: its H1 and H3 rows are the first run's, its H2 rows the same bench
+rerun on 0.26.4, each row unedited. The method and every table are in the technical note
+[plugin-hostd on a Raspberry Pi 5](https://openmixer.org/notes/plugin-hostd-on-a-raspberry-pi-5).
 
 ## Versioning
 
