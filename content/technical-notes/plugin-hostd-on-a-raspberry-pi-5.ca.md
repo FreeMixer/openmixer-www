@@ -118,7 +118,7 @@ sense cap límit; jalv s'hi va aturar per memòria, amb 2 xruns.
 
 ## Qualificació a l'aparell
 
-Amb el paquet de registres de qualificació de l'1 de novembre del 2026: 1602 plugins (1341 LV2, 261 CLAP); 1079 qualificats
+Amb el paquet de registres de qualificació omx-qualification-rpi5-zynthian-vangelis 2026110101: 1602 plugins (1341 LV2, 261 CLAP); 1079 qualificats
 dins del procés i 306 aïllats; 93 han fallat, 46 s'han penjat i 13 s'han refusat; 27 sense mesura, cadascun amb el seu motiu.
 Tots els paquets s'instal·len des del canal i `dpkg -V` no hi troba res canviat; cadascun dels cinc instruments d'abans sona
 amb les seves notes.

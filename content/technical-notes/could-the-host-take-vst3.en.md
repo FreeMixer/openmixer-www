@@ -143,7 +143,7 @@ Three rules came out of it, each one the adapter would carry:
 | closed-source activation | depends on the vendor | serial or key-file activation works headless; activation inside the plugin's editor needs a desktop session once; iLok has no Linux client |
 | crash containment | yes | plugin-hostd runs each plugin in a worker process of its own |
 
-Of 14 closed-source vendors that ship Linux VST3 builds (a survey of the vendors' own pages in October 2026), 8 also ship CLAP
+Of 14 closed-source vendors that ship Linux VST3 builds (a survey of the vendors' own pages, made for this note), 8 also ship CLAP
 or LV2, which the host already takes. The 6 that are VST3-only on Linux are ToneBoosters, Loomer, Renoise (Redux), Tracktion
 (BioTek 3, F'em), Bertom Audio and DDMF.
 

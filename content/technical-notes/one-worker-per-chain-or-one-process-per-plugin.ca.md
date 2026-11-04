@@ -14,8 +14,7 @@ proves](/ca/benchmarks); mesuren el dimoni directament en un graf JACK privat, n
 ## Què hi guanyes agrupant
 
 - **Memòria.** 24 plugins en una sola cadena ocupen 64,1 MB de memòria proporcional, contra 183,1 MB amb un worker per
-  plugin i 109,4 MB amb mod-host (plugin-hostd 0.15.9, 2 de novembre del 2026). Amb jalv, 24 plugins van ocupar 993,6 MB (31
-  d'octubre, plugin-hostd 0.15.4). En una Pi de 4 GB, aquesta és la diferència que creix amb la cadena.
+  plugin i 109,4 MB amb mod-host (plugin-hostd 0.15.9). Amb jalv, 24 plugins van ocupar 993,6 MB (plugin-hostd 0.15.4). En una Pi de 4 GB, aquesta és la diferència que creix amb la cadena.
 - **CPU.** La cadena agrupada té la càrrega DSP més baixa dels amfitrions mesurats: un 12,51 % per als 24, contra un 17,76 %
   amb un worker per plugin i un 15,02 % amb mod-host.
 - **Menys despertars.** Un sol client JACK fa córrer tota la cadena. Amb 16 plugins, la cadena agrupada va fer 6023 canvis de
