@@ -11,13 +11,13 @@
     },
     "what": {
       "title": "What it is.",
-      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through jalv, and through mod-host behind MOD-UI. plugin-hostd speaks mod-host's protocol and runs each plugin, LV2 or CLAP, in a worker process, so a plugin that crashes takes down only its own worker, which is put back with its settings. A whole chain can run in one worker instead of one process per plugin, and plugin-qualify measures each plugin on the device first, so the menus are built from what it found.",
+      "p1": "Zynthian is an open synthesizer and effects platform on a Raspberry Pi. It runs LV2 plugins through its own engines: mod-host, behind MOD-UI, which runs its effect chains, and jalv, which runs one plugin per process. plugin-hostd speaks mod-host's protocol and runs each plugin, LV2 or CLAP, in a worker process, so a plugin that crashes takes down only its own worker, which is put back with its settings. A whole chain can run in one worker instead of one process per plugin, and plugin-qualify measures each plugin on the device first, so the menus are built from what it found.",
       "p2": "With it Zynthian gets a plugin-hostd engine beside jalv for LV2 and CLAP plugins in chains, plugin-hostd as a switchable replacement for mod-host under MOD-UI, plugin menus ordered and tagged from per-plugin qualification records, and chains whose plugins the daemon groups into as few workers as their pins allow."
     },
     "changes": {
       "title": "How much it changes in Zynthian.",
-      "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
-      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default engine and MOD-UI's default backend, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
+      "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the plugin-hostd engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
+      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default plugin engine, in place of jalv, and MOD-UI's default backend, in place of mod-host, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
       "p3": "What runs when nobody uses it: the interface starts a daemon only when a chain holds a plugin-hostd plugin. What stays enabled is the qualification sync, two minutes after boot at the lowest CPU and disk priority, skipping every plugin whose files have not changed, and omx-panel's MOD GUI and complement syncs. All of them can be disabled; the first sync on a device with many plugins is long."
     },
     "install": {
@@ -116,11 +116,11 @@
     },
     "figures": {
       "title": "The headline figures.",
-      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with plugin-hostd 0.15.9 and omx-clap-core 0.26.4, against Zynthian's own mod-host:",
-      "dsp": "DSP load: a plugin-hostd chain has the lowest of the three hosts measured, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
+      "intro": "Measured on a Raspberry Pi 5 running Zynthian, at 48 kHz and 256 frames, read digitally at JACK ports, with plugin-hostd 0.15.9 and omx-clap-core 0.26.4, against mod-host, Zynthian's engine for effect chains, and for instruments also against jalv, which runs one plugin per process:",
+      "dsp": "DSP load: a plugin-hostd chain has the lowest load of plugin-hostd, omx-clap-host and mod-host, 12.5 % for 24 plugins against 15.0 % for mod-host, with 0 xruns in every repeat.",
       "memory": "Memory: 41 to 49 % less than mod-host, 64 MB against 109 MB for the 24.",
-      "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s; on a running host mod-host adds two plugins faster, and from four on the chain does.",
-      "instruments": "Instruments: the same DSP load as mod-host, and about 43 MB less memory each.",
+      "add": "Time to add: from cold, 24 plugins are ready in 0.55 s against 1.46 s for mod-host; on a running host mod-host adds two plugins faster, and from four on the chain does.",
+      "instruments": "Instruments: against mod-host, the same DSP load and about 43 MB less memory each. Against jalv, the same DSP load at every note count, and Surge XT ready in about 0.58 s against 1.9 s.",
       "qualified": "Qualification: of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own.",
       "more": "Every table and the method",
       "footer": "Raspberry Pi 5 running Zynthian · 48 kHz, 256 frames · read digitally at JACK ports · plugin-hostd 0.15.9, omx-clap-core 0.26.4 · 2 November 2026",
@@ -132,8 +132,8 @@
         "title": "Proven on the device",
         "engine": "The plugin-hostd engine runs Zynthian chains, LV2 and CLAP side by side, with the plugin menus built from the qualification records.",
         "pages": "Controller pages follow the plugin's own sections and are named by what they hold.",
-        "play": "Instruments and effects play through the engine, read digitally at JACK ports with 0 xruns; factory and user presets load.",
-        "grouping": "Grouping through Zynthian's own engine passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
+        "play": "Instruments and effects play through the plugin-hostd engine, read digitally at JACK ports with 0 xruns; factory and user presets load.",
+        "grouping": "Grouping through the plugin-hostd engine in zynthian-ui passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
         "recover": "A lost worker comes back: after a killed worker, the daemon puts it back with its settings and the links it made itself in about 350 ms."
       },
       "released": {
