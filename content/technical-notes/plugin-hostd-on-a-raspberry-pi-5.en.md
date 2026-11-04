@@ -114,7 +114,7 @@ xruns.
 
 ## Qualification on the device
 
-With the qualification records package of 1 November 2026: 1602 plugins (1341 LV2, 261 CLAP); 1079 qualified in-process
+With the qualification records package omx-qualification-rpi5-zynthian-vangelis 2026110101: 1602 plugins (1341 LV2, 261 CLAP); 1079 qualified in-process
 and 306 isolated; 93 crashed, 46 hung and 13 refused; 27 unmeasured, each with its reason. Every package installs from the
 channel and `dpkg -V` finds nothing changed; each of the five instruments above sounds under its notes.
 

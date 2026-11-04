@@ -139,7 +139,7 @@
       "mod-host": "mod-host",
       "omx-clap-lv2": "LV2 adapter"
     },
-    "footer": "Run {id} on {machine}. Software: {software}.",
+    "footer": "Run {id}, {date}, on {machine}. Software: {software}.",
     "sources": "Figures read from these records in the plugin-hostd repository: {sources}.",
     "data": "The run files and their format."
   }
