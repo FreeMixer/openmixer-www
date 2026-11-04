@@ -52,6 +52,10 @@
           "probe.refused-instantiation": 1,
           "probe.timeout": 40
         }
+      },
+      "comparison": {
+        "available": false,
+        "why": "no-summary"
       }
     },
     {
@@ -104,6 +108,10 @@
           "omx-clap-host.silent-under-note": 1,
           "probe.crashed": 8
         }
+      },
+      "comparison": {
+        "available": false,
+        "why": "no-summary"
       }
     }
   ]
