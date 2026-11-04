@@ -1,0 +1,21 @@
+{
+  "projects": {
+    "seo": {
+      "title": "The projects' documentation | OpenMixer",
+      "description": "The README, the build guide and the references of each OpenMixer project, as each project writes them."
+    },
+    "hero": {
+      "eyebrow": "Projects",
+      "title": "Each project's own documentation.",
+      "lede": "The README of every project, and the guides and references that came with its packages. The packages install no documentation: this is where it is. The text is each project's own, in English, at the commit its source link names."
+    },
+    "page": {
+      "description": "The documentation of {repo}, as the project writes it.",
+      "asWritten": "The project's own text, in English.",
+      "source": "The source of this page",
+      "contents": "Contents",
+      "more": "More of {repo}",
+      "all": "All the projects"
+    }
+  }
+}
