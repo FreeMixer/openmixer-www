@@ -1,165 +1,137 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 /**
- * The plugin catalog the /plugins/ pages render: the NEWEST run in plugin-catalog/runs/,
- * read at build time. The shape is plugin-catalog/schema/plugin-catalog.v1.schema.json, and
- * `npm run catalog:check` has validated every run before this module is ever bundled, so nothing
- * here re-checks it. Every number on those pages is read from that file; none is typed here.
+ * The plugin catalog the /plugins/ page renders. The data is app/data/plugin-catalog/, written by
+ * scripts/plugin-catalog-from-records.mjs from the qualification records and checked by
+ * `npm run catalog:check` before this module is ever bundled, so nothing here re-checks it. Every
+ * number on the page is read from that data; none is typed here. This file holds types and pure
+ * functions only, so a test can run it without Nuxt.
  */
 
-export type Verdict = 'in-process' | 'isolated' | 'refused' | 'unknown';
-export type Kind = 'effect' | 'instrument' | 'other';
+export type Verdict = 'accepted' | 'conditional' | 'refused';
 export type Rating = 'suitable' | 'conditional' | 'unknown' | 'unsuitable';
+export type Format = 'lv2' | 'clap';
+export type Tier = 'in-process' | 'isolated';
 
 export interface CatalogReason {
-  readonly dimension: 'stability' | 'rtSafety' | 'features' | 'cost' | 'latency' | 'topology';
-  readonly rating: Rating;
+  readonly dimension: 'stability' | 'rtSafety' | 'features' | 'cost' | 'latency' | 'topology' | 'memory' | 'hostAdmission' | null;
+  readonly rating: Rating | null;
   readonly code: string;
   readonly params: Readonly<Record<string, string | number>>;
-  readonly text: string;
+  /** The hosts whose verdict gave this reason. */
+  readonly hosts: readonly string[];
 }
 
-export interface CatalogPlugin {
-  readonly uri: string;
-  readonly name: string;
-  readonly vendor: string | null;
-  readonly format: 'lv2' | 'clap';
-  readonly kind: Kind;
-  readonly declaredClass: readonly string[];
-  readonly package: {
-    readonly manager: 'rpm' | 'deb';
-    readonly name: string;
-    readonly nevr: string;
-    readonly version: string;
-    readonly release: string;
-    readonly arch: string;
-  } | null;
-  readonly pluginVersion: string | null;
+export interface CatalogRow {
+  readonly id: string;
+  readonly format: Format;
+  /** The plugin version the record names; null when the plugin declares none. */
+  readonly version: string | null;
+  /** The file or bundle that was tested. */
+  readonly binary: string;
   readonly verdict: Verdict;
-  readonly rating: Rating;
-  readonly path: 'in-process' | 'isolated';
-  readonly deciding: string | null;
+  readonly tiers: readonly Tier[];
+  readonly reason: string | null;
+  readonly offers: readonly { readonly offer: string; readonly verdict: Verdict; readonly reason: string | null }[];
   readonly reasons: readonly CatalogReason[];
-  readonly io: { readonly audioInputs: number; readonly audioOutputs: number; readonly midiIn: boolean };
-  readonly latency: { readonly class: 'zero' | 'low' | 'high' | null; readonly hostingQuanta: number | null; readonly hostingMs: number | null };
-  readonly cost: { readonly coreFractionP95: number | null; readonly ceiling: number | null };
-  readonly incidents: readonly { readonly kind: 'crash' | 'timeout' | 'load-refused'; readonly code: string | null; readonly text: string }[];
+  readonly notMeasured: readonly string[];
+  /** CPU per sample in nanoseconds, at the stated rate and block size. */
+  readonly cpu: { readonly rate: number; readonly quantum: number; readonly median: number; readonly p95: number } | null;
+  readonly latency: { readonly rate: number; readonly quantum: number; readonly declared: number; readonly measured: number } | null;
+  readonly measuredAt: string;
 }
 
-export interface CatalogRun {
-  readonly schemaVersion: 1;
-  readonly run: {
-    readonly date: string;
-    readonly source: 'qualify' | 'console';
-    readonly producer: { readonly name: string; readonly revision: string | null };
-    readonly rig: { readonly rate: number; readonly quantum: number };
-    readonly policy: { readonly cycleFloor: number; readonly soakSeconds: number; readonly coreFractionCeiling: number };
-    /** What the machine held when the run was written; absent from runs written before it was recorded. */
-    readonly inventory?: {
-      readonly installed: { readonly lv2: number; readonly clap: number };
-      readonly catalog?: { readonly entries: { readonly lv2: number; readonly clap: number } };
-    };
-  };
-  readonly plugins: readonly CatalogPlugin[];
+export interface PlatformSummary {
+  readonly id: string;
+  readonly hostClass: string;
+  readonly set: string;
+  readonly measured: string;
+  readonly package: { readonly name: string; readonly version: string } | null;
+  readonly conditions: Readonly<Record<string, string>>;
+  readonly records: number;
+  readonly tested: number;
+  readonly formats: Readonly<Record<string, number>>;
+  readonly verdicts: Readonly<Record<Verdict, number>>;
+  readonly byFormat: Readonly<Record<string, Readonly<Record<Verdict, number>>>>;
+  readonly reasons: { readonly conditional: Readonly<Record<string, number>>; readonly refused: Readonly<Record<string, number>> };
 }
 
-/** One row on the site: a plugin, and the format it is NOT shown as when it has a twin. */
-export interface CatalogRow extends CatalogPlugin {
-  readonly slug: string;
-  readonly alsoAs: CatalogPlugin | null;
+export interface CatalogIndex {
+  readonly schemaVersion: 2;
+  readonly source: { readonly repo: string; readonly commit: string };
+  readonly platforms: readonly PlatformSummary[];
 }
 
-const runs = import.meta.glob<CatalogRun>('../../plugin-catalog/runs/*.json', { eager: true, import: 'default' });
-
-/** The run the site shows: the newest by its own date. */
-export function latestRun(): { file: string; run: CatalogRun } {
-  const entries = Object.entries(runs).sort(([, a], [, b]) => b.run.date.localeCompare(a.run.date));
-  const first = entries[0];
-  if (!first) throw new Error('plugin-catalog/runs/ holds no run');
-  return { file: first[0].replace(/^.*\/plugin-catalog\//, 'plugin-catalog/'), run: first[1] };
+export interface PlatformFile {
+  readonly schemaVersion: 2;
+  readonly platform: string;
+  readonly rows: readonly CatalogRow[];
 }
 
-/** A URL-safe, stable name for a plugin's page, from its URI. */
-export function slugOf(uri: string): string {
-  return uri
-    .replace(/^[a-z]+:\/\//i, '')
-    .replace(/^urn:/i, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-/** Name and vendor with the format named in them taken out, so twins compare equal. */
-function twinKey(p: CatalogPlugin): string {
-  const bare = (s: string) => s.toLowerCase().replace(/\(?\b(lv2|clap)\b\)?/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
-  return `${bare(p.vendor ?? '')}|${bare(p.name)}`;
-}
-
-/**
- * One row per plugin. Where the same plugin exists as CLAP and LV2, the row is the twin the
- * qualifier accepted (anything but refused); when both were accepted, or neither, CLAP.
- */
-export function catalogRows(run: CatalogRun): CatalogRow[] {
-  const groups = new Map<string, CatalogPlugin[]>();
-  for (const p of run.plugins) {
-    const key = twinKey(p);
-    groups.set(key, [...(groups.get(key) ?? []), p]);
-  }
-  const rows: CatalogRow[] = [];
-  for (const group of groups.values()) {
-    const clap = group.filter((p) => p.format === 'clap');
-    const lv2 = group.filter((p) => p.format === 'lv2');
-    if (clap.length !== 1 || lv2.length !== 1) {
-      // Not a CLAP/LV2 pair (a lone plugin, or several plugins sharing a name): one row each.
-      for (const p of group) rows.push({ ...p, slug: slugOf(p.uri), alsoAs: null });
-      continue;
-    }
-    const [c, l] = [clap[0]!, lv2[0]!];
-    const shown = c.verdict === 'refused' && l.verdict !== 'refused' ? l : c;
-    rows.push({ ...shown, slug: slugOf(shown.uri), alsoAs: shown === c ? l : c });
-  }
-  const seen = new Map<string, string>();
-  for (const r of rows) {
-    const other = seen.get(r.slug);
-    if (other) throw new Error(`plugin pages ${other} and ${r.uri} would share the slug ${r.slug}`);
-    seen.set(r.slug, r.uri);
-  }
-  return rows.sort((a, b) => a.name.localeCompare(b.name));
-}
-
-export const VERDICT_ORDER: readonly Verdict[] = ['in-process', 'isolated', 'unknown', 'refused'];
+export const VERDICT_ORDER: readonly Verdict[] = ['accepted', 'conditional', 'refused'];
 
 /** Nuxt UI badge colours per verdict. */
-export const VERDICT_COLOR: Record<Verdict, 'success' | 'info' | 'neutral' | 'error'> = {
-  'in-process': 'success',
-  isolated: 'info',
-  unknown: 'neutral',
+export const VERDICT_COLOR: Record<Verdict, 'success' | 'warning' | 'error'> = {
+  accepted: 'success',
+  conditional: 'warning',
   refused: 'error',
 };
 
-/** The text of the reason that decided a plugin's verdict, or null when nothing below suitable. */
-export function decidingText(p: CatalogPlugin): string | null {
-  return p.reasons.find((r) => r.code === p.deciding)?.text ?? null;
+/** The message key of a reason code's text: the dots of the code cannot be a message path. */
+export function reasonKey(code: string): string {
+  return `plugins.reason.${code.replace(/\./g, '_')}`;
 }
 
-/** A core fraction as a short percentage. */
-export function pct(fraction: number | null): string {
-  return fraction === null ? '—' : `${Number((fraction * 100).toPrecision(2))} %`;
+/** The p95 cost as a percentage of one core: ns per sample, times samples per second. */
+export function cpuPercent(cpu: NonNullable<CatalogRow['cpu']>): number {
+  return (cpu.p95 * cpu.rate) / 1e7;
 }
 
-/** The run date as a plain day. */
-export function runDay(iso: string): string {
-  return iso.slice(0, 10);
+/** A percentage to two significant figures. */
+export function pct(value: number): string {
+  return `${Number(value.toPrecision(2))} %`;
+}
+
+/** Measured latency in milliseconds. */
+export function latencyMs(l: NonNullable<CatalogRow['latency']>): number {
+  return (l.measured / l.rate) * 1000;
+}
+
+export interface Filters {
+  readonly search: string;
+  readonly format: string;
+  readonly verdict: string;
+  readonly pkg: string;
+}
+
+export const ANY = 'any';
+
+/** The rows that match every filter: the search in the plugin id, the package text in the file and version tested. */
+export function filterRows(rows: readonly CatalogRow[], f: Filters): CatalogRow[] {
+  const q = f.search.trim().toLowerCase();
+  const p = f.pkg.trim().toLowerCase();
+  return rows.filter((r) =>
+    (f.format === ANY || r.format === f.format)
+    && (f.verdict === ANY || r.verdict === f.verdict)
+    && (!q || r.id.toLowerCase().includes(q))
+    && (!p || `${r.binary} ${r.version ?? ''}`.toLowerCase().includes(p)));
+}
+
+/** One page of a list, counting pages from 1. */
+export function pageOf<T>(items: readonly T[], page: number, size: number): T[] {
+  const last = Math.max(1, Math.ceil(items.length / size));
+  const at = Math.min(Math.max(1, page), last);
+  return items.slice((at - 1) * size, at * size);
 }
 
 /** Where a plugin author reports a mistake: the issue form, with the plugin filled in. */
-export function reportUrl(p: CatalogPlugin, runDate: string): string {
+export function reportUrl(r: CatalogRow, day: string): string {
   const q = new URLSearchParams({
     template: 'plugin-verdict.yml',
-    title: `Plugin verdict: ${p.name}`,
-    plugin: p.uri,
-    package: p.package?.nevr ?? 'not from a package',
-    run: runDay(runDate),
+    title: `Plugin verdict: ${r.id}`,
+    plugin: r.id,
+    package: `${r.binary}${r.version ? ` ${r.version}` : ''}`,
+    run: day,
   });
   return `https://github.com/FreeMixer/openmixer-www/issues/new?${q.toString()}`;
 }

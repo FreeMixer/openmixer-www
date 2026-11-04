@@ -20,7 +20,7 @@
 // CLAP plugins `custom`); the plugin's row holds the best of them:
 //   accepted     offered on a tier whose verdict qualified
 //   conditional  offered, but only on a tier that did not qualify (it runs in a process of its own)
-//   refused      offered on no tier; the first reason of the record's `dimmed` line is its reason
+//   refused      offered on no tier; the first measured reason of the record's `dimmed` line is its reason
 
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
@@ -39,6 +39,8 @@ const RECORD_SCHEMA = 'plugin-qualify.qualification-record/1';
 const PROVENANCE_SCHEMA = 'plugin-qualify.distributed-provenance/1';
 const TIER_KEY = { 'in-process': 'inProcess', isolated: 'isolated' };
 export const VERDICTS = ['accepted', 'conditional', 'refused'];
+/** The reason a host gives when it has no figure to judge by; never the deciding one beside a measured failure. */
+const GAP = 'hosting.memory.unmeasured';
 const RANK = { accepted: 0, conditional: 1, refused: 2 };
 /** The provenance fields the page shows as the conditions of the run, when the set names them. */
 const CONDITIONS = ['image', 'board', 'kernel', 'hostProfile', 'grid', 'realtime', 'jack'];
@@ -70,7 +72,9 @@ export function recordVerdict(rec, where) {
   for (const t of offered) if (!(t in TIER_KEY)) fail(where, `offered on the unknown tier ${JSON.stringify(t)}`);
   if (offered.length === 0) {
     if (typeof tiers.dimmed !== 'string') fail(where, 'offered nowhere and no tiers.dimmed line says why');
-    return { verdict: 'refused', tiers: [], reason: parseDimmed(tiers.dimmed)[0].code };
+    // a memory figure missing at the console's rate is a gap, not a failure: a named failure of another host comes first
+    const codes = parseDimmed(tiers.dimmed).map((d) => d.code);
+    return { verdict: 'refused', tiers: [], reason: codes.find((c) => c !== GAP) ?? codes[0] };
   }
   const detail = offered.map((t) => tiers[TIER_KEY[t]] ?? fail(where, `offered on ${t} with no ${TIER_KEY[t]} verdict`));
   if (detail.some((d) => d.qualified === true)) return { verdict: 'accepted', tiers: [...offered], reason: null };
