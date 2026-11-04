@@ -149,8 +149,8 @@ En van sortir tres regles, que l'adaptador hauria de portar:
 | activació de codi tancat | depèn del fabricant | l'activació per número de sèrie o fitxer de clau funciona sense pantalla; l'activació dins de l'editor del plugin necessita una sessió gràfica una vegada; iLok no té client per a Linux |
 | contenció de fallades | sí | plugin-hostd fa córrer cada plugin en un procés worker propi |
 
-Dels 14 fabricants de codi tancat que distribueixen versions VST3 per a Linux (una revisió de les pàgines dels fabricants
-l'octubre del 2026), 8 també distribueixen CLAP o LV2, que l'amfitrió ja accepta. Els 6 que són només VST3 a Linux són
+Dels 14 fabricants de codi tancat que distribueixen versions VST3 per a Linux (una revisió de les pàgines dels fabricants,
+feta per a aquesta nota), 8 també distribueixen CLAP o LV2, que l'amfitrió ja accepta. Els 6 que són només VST3 a Linux són
 ToneBoosters, Loomer, Renoise (Redux), Tracktion (BioTek 3, F'em), Bertom Audio i DDMF.
 
 ## Per què ara no i què ho faria canviar

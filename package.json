@@ -15,6 +15,7 @@
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:public": "node scripts/check-public.mjs",
     "check:readme": "node scripts/check-readme.mjs",
+    "check:dates": "node scripts/check-no-dates.mjs",
     "predev": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
     "prebuild": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
     "pregenerate": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
