@@ -11,7 +11,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
-  acceptance, barPercent, barScale, compareRows, failingRows, families, latestPerClass, sameDayRuns, show, spreadOf, stressRows, variantKey, variants,
+  acceptance, barPercent, barScale, compareRows, failingRows, families, latestPerClass, lowestBuffers, sameDayRuns, show, spreadOf, stressRows, variantKey, variants,
 } from '../app/utils/benchmarkModel.ts';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -121,4 +121,41 @@ test('the latest run of each class wins, by day then sequence, and the same day 
   assert.equal(latest.get('desk').id, 'desk-20260101-1');
   assert.equal(latest.has('ci'), false);
   assert.deepEqual(sameDayRuns(runs, runs[1]).map((r) => r.id), ['rpi5-20261026-10', 'rpi5-20261026-2']);
+});
+
+test('lowest buffer: the smallest frames with no xrun in any repeat, from the rows alone', () => {
+  const row = (host, frames, xr, extra = {}) => ({
+    id: 'f', title: 'F', host, rate: 48000, frames, status: 'ok', repeats: 3, xruns: 0, spread: { xruns: xr }, ...extra,
+  });
+  const run = {
+    ...example,
+    scenarios: [
+      row('H1', 64, [0, 4]), // median 0 but a repeat had xruns: not clean
+      row('H1', 128, [0, 0]),
+      row('H1', 256, [0, 0]),
+      row('H3', 256, [0, 0]),
+      row('H3', 512, [0, 0]),
+      row('H4', 256, [0, 3]),
+      { id: 'f', title: 'F', host: 'H2', mode: 'chain', rate: 48000, frames: 256, status: 'unsupported', note: 'no chain here' },
+    ],
+  };
+  const [g] = lowestBuffers(run);
+  const by = (k) => g.lines.find((l) => l.host.key === k).cell;
+  assert.equal(by('H1').frames, 128);
+  assert.equal(by('H1').ms, (128 / 48000) * 1000);
+  assert.equal(by('H1').vsModHost, 2);
+  assert.equal(by('H1').vsJalv, null);
+  assert.equal(by('H3').frames, 256);
+  assert.deepEqual(by('H4'), { kind: 'none', smallest: 256, ms: (256 / 48000) * 1000 });
+  assert.deepEqual(by('H2|chain'), { kind: 'unsupported', note: 'no chain here' });
+  assert.equal(by('H2|individual').kind, 'absent');
+});
+
+test('lowest buffer: derived from the committed run, modes of plugin-hostd apart', () => {
+  const [g] = lowestBuffers(example);
+  assert.equal(g.family, 'cvp24');
+  const by = (k) => g.lines.find((l) => l.host.key === k).cell;
+  assert.equal(by('H2|chain').frames, 256);
+  assert.equal(by('H2|individual').kind, 'none'); // a repeat had 21 xruns
+  assert.equal(by('H4').kind, 'absent');
 });
