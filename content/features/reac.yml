@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: reac
+title: REAC stageboxes
+state: live
+manual:
+  - docs/manual/reac-clock.md
+  - docs/manual/patchbay.md
+public: true

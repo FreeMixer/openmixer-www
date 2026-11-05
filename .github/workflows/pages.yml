@@ -109,6 +109,9 @@ jobs:
       - run: npm run pages:verify
       - run: node scripts/gen-pages.mjs --self-test
 
+      # The features page's states and deploy/public-docs.txt come from content/features; a hand edit or a stale copy is red.
+      - run: npm run features:verify
+
       - run: npm run generate
 
       # The pinned docs tree: public release, sha256 checked, then added to the generated site.

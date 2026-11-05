@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: lv2
+title: LV2 plugin inserts
+state: measured
+manual:
+  - docs/manual/plugins.md
+public: true

@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: surface
+title: The web surface
+state: live
+manual:
+  - docs/manual/surface.md
+  - docs/manual/layouts.md
+public: true

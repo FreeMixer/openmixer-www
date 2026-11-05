@@ -1,0 +1,55 @@
+{
+  "generated": "scripts/gen-features.mjs from content/features; do not edit",
+  "features": [
+    {
+      "id": "align",
+      "title": "Smart alignment",
+      "state": "live"
+    },
+    {
+      "id": "desk",
+      "title": "The desk",
+      "state": "live"
+    },
+    {
+      "id": "feedback",
+      "title": "Feedback detection and correction",
+      "state": "live"
+    },
+    {
+      "id": "lv2",
+      "title": "LV2 plugin inserts",
+      "state": "measured"
+    },
+    {
+      "id": "native",
+      "title": "Native processing",
+      "state": "measured"
+    },
+    {
+      "id": "reac",
+      "title": "REAC stageboxes",
+      "state": "live"
+    },
+    {
+      "id": "recorder",
+      "title": "Recorder and virtual soundcard",
+      "state": "live"
+    },
+    {
+      "id": "rta",
+      "title": "Real-time analyser",
+      "state": "live"
+    },
+    {
+      "id": "surface",
+      "title": "The web surface",
+      "state": "live"
+    },
+    {
+      "id": "surfaces",
+      "title": "Control surfaces",
+      "state": "live"
+    }
+  ]
+}

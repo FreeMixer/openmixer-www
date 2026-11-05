@@ -1,0 +1,13 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: desk
+title: The desk
+state: live
+manual:
+  - docs/manual/channel-strip.md
+  - docs/manual/sends-buses-dcas.md
+  - docs/manual/cue-solo.md
+  - docs/manual/matrix-outputs.md
+  - docs/manual/scenes-sessions.md
+  - docs/manual/head-amp.md
+  - docs/manual/talkback.md
+public: true
