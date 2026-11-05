@@ -19,6 +19,7 @@ import { extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadPrivateList } from './private-list.mjs';
 import { BRANCH_NAMES } from './branch-names.mjs';
+import { ISSUE_REFS } from './issue-refs.mjs';
 
 // WHAT must never be published comes from the private list (private-list.mjs), not from this
 // file: spelled out here, the names this guard keeps off the site would be published by the guard
@@ -78,7 +79,7 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
     console.error(`[check-public] ${e.message}: nothing was checked, and that is a failure`);
     process.exit(3);
   }
-  const { files, hits } = scanDir(dir, [...list.forbidden, ...BRANCH_NAMES]);
+  const { files, hits } = scanDir(dir, [...list.forbidden, ...BRANCH_NAMES, ...ISSUE_REFS]);
   if (files === 0) {
     console.error(`[check-public] ${dir} holds no text files: nothing was checked`);
     process.exit(2);
