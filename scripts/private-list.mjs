@@ -7,8 +7,8 @@
 // very scripts that hide them. So the list lives in the private ops checkout, and the scripts read
 // it at run time:
 //
-//   PUBLIC_GUARD_LIST   path to the list (JSON). Default ../openmixer-ops/ops/public-guard/www.json,
-//                       relative to this repository's root: the ops checkout beside this one.
+//   PUBLIC_GUARD_LIST   path to the list (JSON), relative to this repository's root or absolute.
+//                       There is no default: the variable is the only way to name the list.
 //
 // A missing, unreadable or empty list is an ERROR, never a pass: a guard with nothing to look for
 // passes everything, and that looks exactly like a clean site.
@@ -27,15 +27,15 @@ import { fileURLToPath } from 'node:url';
 
 const wwwRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
-export const LIST_ENV = 'PUBLIC_GUARD_LIST';
-export const DEFAULT_LIST = '../openmixer-ops/ops/public-guard/www.json';
-
-/** Where the list is read from: the environment variable, else the sibling ops checkout. */
-export function listPath(env = process.env) {
-  return resolve(wwwRoot, env[LIST_ENV] || DEFAULT_LIST);
-}
-
 export class PrivateListError extends Error {}
+
+export const LIST_ENV = 'PUBLIC_GUARD_LIST';
+
+/** Where the list is read from: the environment variable, and nowhere else. */
+export function listPath(env = process.env) {
+  if (!env[LIST_ENV]) throw new PrivateListError(`pattern list not named (set ${LIST_ENV})`);
+  return resolve(wwwRoot, env[LIST_ENV]);
+}
 
 function regex(entry, where, defaultFlags) {
   if (!entry || typeof entry.pattern !== 'string' || entry.pattern === '') {
@@ -52,7 +52,8 @@ function regex(entry, where, defaultFlags) {
  * Read and check the list. Throws PrivateListError, with the path in the message, when the list
  * is missing, is not JSON, lacks a key, has a pattern that does not compile, or forbids nothing.
  */
-export function loadPrivateList(path = listPath()) {
+export function loadPrivateList(path) {
+  path ??= listPath();
   if (!existsSync(path)) throw new PrivateListError(`pattern list not reachable at ${path} (set ${LIST_ENV})`);
   let raw;
   try {

@@ -14,6 +14,7 @@
     "docs:site": "node scripts/build-docs-tree.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
     "check:public": "node scripts/check-public.mjs",
+    "check:refs": "node scripts/issue-refs.mjs check",
     "check:readme": "node scripts/check-readme.mjs",
     "check:dates": "node scripts/check-no-dates.mjs",
     "predev": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",

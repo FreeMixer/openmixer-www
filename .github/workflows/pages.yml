@@ -129,6 +129,7 @@ jobs:
       # The guard's tests use a neutral list of their own. The guard itself reads the real list,
       # which is private (scripts/private-list.mjs) and reaches the runner as the
       # PUBLIC_GUARD_LIST_JSON secret; without it the guard fails closed and nothing is pushed.
+      - run: npm run check:refs
       - run: node --test scripts/*.test.mjs
       - name: Write the guard's private list
         env:

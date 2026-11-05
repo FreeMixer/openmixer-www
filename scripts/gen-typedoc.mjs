@@ -17,6 +17,7 @@ import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { resolve, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { findIssueRefs, redactDir } from './issue-refs.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const wwwRoot = resolve(here, '..');
@@ -103,6 +104,12 @@ function grepFileCount() {
 
 const before = grepFileCount();
 walkHtml(outDir);
+// The comments also cite the private issue that asked for a line; the number points nowhere for a reader.
+console.log(`[gen-typedoc] stripped private issue references from ${redactDir(outDir)} file(s)`);
+if (findIssueRefs([outDir]).length > 0) {
+  console.error('[gen-typedoc] private issue references survived the strip — fix scrubIssueRefs before publishing');
+  process.exit(1);
+}
 const afterCount = grepFileCount();
 console.log(`[gen-typedoc] redacted internal-path citations in ${before} file(s); ${afterCount} remain`);
 if (afterCount > 0) {
