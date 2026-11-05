@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { scanDir, scanText } from './check-public.mjs';
-import { loadPrivateList, listPath, DEFAULT_LIST, LIST_ENV, PrivateListError } from './private-list.mjs';
+import { loadPrivateList, listPath, LIST_ENV, PrivateListError } from './private-list.mjs';
 import { BRANCH_NAMES, scrubBranchNames } from './branch-names.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -189,9 +189,17 @@ test('redactions always replace every occurrence', () => {
   });
 });
 
-test('the list path: the environment variable wins, else the sibling ops checkout', () => {
+test('the list path comes from the environment variable and nowhere else', () => {
   assert.equal(listPath({ [LIST_ENV]: '/some/where.json' }), '/some/where.json');
-  assert.equal(listPath({}), resolve(here, '..', DEFAULT_LIST));
+  assert.throws(() => listPath({}), (e) => e instanceof PrivateListError && e.message.includes(LIST_ENV));
+  assert.throws(() => listPath({ [LIST_ENV]: '' }), PrivateListError);
+});
+
+test('check-public exits 3 when no list is named', () => {
+  const env = { ...process.env };
+  delete env[LIST_ENV];
+  const r = spawnSync('node', [join(here, 'check-public.mjs'), here], { encoding: 'utf8', env });
+  assert.equal(r.status, 3);
 });
 
 test('the docs build refuses to stage a tree without the list', () => {

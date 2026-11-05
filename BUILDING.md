@@ -90,11 +90,15 @@ development (a branch ref); `scripts/branch-names.mjs` holds both shapes.
 
 **The private list.** What the guard looks for, what the staged copy leaves out and what the MCP
 table redacts are names of the private tree, so they are not in this repository: the scripts read
-them from a JSON file at `PUBLIC_GUARD_LIST`, by default `../openmixer-ops/ops/public-guard/www.json`
-(the ops checkout beside this one). Its shape is described in `scripts/private-list.mjs`. Without
+them from a JSON file at the path in `PUBLIC_GUARD_LIST`, which has no default. Its shape is described in `scripts/private-list.mjs`. Without
 it `check-public.mjs` exits 3, and the docs build and the MCP generator refuse; none of them passes
 on an empty list. The guard's own tests use a neutral list of planted markers, so they run anywhere.
 In CI the list comes from the `PUBLIC_GUARD_LIST_JSON` secret.
+
+**Private issue numbers.** typedoc copies the console's doc comments, which cite the issue that asked
+for a line. `scripts/gen-typedoc.mjs` strips every such reference from `public/api-docs/`
+(`scripts/issue-refs.mjs`), `npm run check:refs` fails on one left in `public/`, and `check-public.mjs`
+fails on one in the built site. None of them needs the private list.
 
 **The MCP list.** `/docs/mcp` publishes the MCP tools and environment variables named in
 `deploy/public-mcp.txt` and no others: `scripts/gen-mcp-tools.mjs` reads every row the package
