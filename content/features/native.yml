@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: native
+title: Native processing
+state: measured
+manual:
+  - docs/manual/eq-dynamics.md
+public: true

@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: rta
+title: Real-time analyser
+state: live
+manual:
+  - docs/manual/rta.md
+public: true

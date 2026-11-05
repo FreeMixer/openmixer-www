@@ -17,9 +17,9 @@
     "check:refs": "node scripts/issue-refs.mjs check",
     "check:readme": "node scripts/check-readme.mjs",
     "check:dates": "node scripts/check-no-dates.mjs",
-    "predev": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
-    "prebuild": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
-    "pregenerate": "npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
+    "predev": "npm run features:verify && npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
+    "prebuild": "npm run features:verify && npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
+    "pregenerate": "npm run features:verify && npm run pages:gen && npm run docs:gen && npm run catalog:check && npm run benchmarks:check",
     "dev": "nuxt dev",
     "build": "nuxt build",
     "generate": "nuxt generate",
@@ -32,7 +32,9 @@
     "benchmarks:check": "node scripts/check-benchmarks.mjs",
     "docs:mcp": "node scripts/gen-mcp-tools.mjs",
     "pages:gen": "node scripts/gen-pages.mjs",
-    "pages:verify": "node scripts/gen-pages.mjs --verify"
+    "pages:verify": "node scripts/gen-pages.mjs --verify",
+    "features:gen": "node scripts/gen-features.mjs",
+    "features:verify": "node scripts/gen-features.mjs --verify"
   },
   "dependencies": {
     "@nuxt/ui": "^4.10.0",
@@ -46,6 +48,7 @@
     "ajv-formats": "^3.0.1",
     "markdown-it": "^14.1.0",
     "typescript": "^6.0.3",
-    "vue-tsc": "^3.3.7"
+    "vue-tsc": "^3.3.7",
+    "yaml": "^2.9.1"
   }
 }
