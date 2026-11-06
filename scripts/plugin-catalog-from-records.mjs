@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // SPDX-License-Identifier: GPL-3.0-or-later
 //
-// Builds the plugin catalog's data from the qualification records of FreeMixer/omx-qualification-records,
+// Builds the plugin catalog's data from the qualification records of FreeMixer/plugin-db-qualification,
 // at the commit plugin-catalog/pin.json names. Nothing is typed by hand: every figure is read from a
 // record, its probe output or its set's provenance.json, and a shape this script does not know is
 // refused rather than guessed.

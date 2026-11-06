@@ -86,10 +86,10 @@ const PIECES = [
     npm: [],
   },
   {
-    repo: 'omx-qualification-records',
+    repo: 'plugin-db-qualification',
     pkgconfig: [],
     rpm: [],
-    deb: ['omx-qualification-rpi5-zynthian-vangelis'],
+    deb: ['plugin-db-qualification-rpi5-zynthian-vangelis'],
     npm: [],
   },
   {
