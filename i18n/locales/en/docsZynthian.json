@@ -17,7 +17,7 @@
     "changes": {
       "title": "How much it changes in Zynthian.",
       "p1": "Nothing in Zynthian depends on it. It stays on jackd: no file that configures JACK changes, and no PipeWire is involved. As offered to Zynthian, the plugin-hostd engine stays off until a user turns it on, and MOD-UI keeps mod-host until a user switches its backend; going back is the same setting.",
-      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default plugin engine, in place of jalv, and MOD-UI's default backend, in place of mod-host, and the qualification sync is enabled. A plugin plugin-hostd refuses stays on jalv, listed in its menu, so nothing the user has disappears.",
+      "p2": "FreeMixer's forks of zynthian-ui and zynthian-sys have it on: plugin-hostd is the default plugin engine, in place of jalv, and MOD-UI's default backend, in place of mod-host, and the qualification sync is enabled. Every LV2 and CLAP plugin is listed once, under plugin-hostd and marked (PH). A plugin our host refuses stays in the list, marked not working, with its reason; nothing moves it to jalv. jalv remains an engine you can select.",
       "p3": "What runs when nobody uses it: the interface starts a daemon only when a chain holds a plugin-hostd plugin. What stays enabled is the qualification sync, two minutes after boot at the lowest CPU and disk priority, skipping every plugin whose files have not changed, and omx-panel's MOD GUI and complement syncs. All of them can be disabled; the first sync on a device with many plugins is long."
     },
     "install": {
@@ -35,7 +35,8 @@
       "switch": {
         "title": "Turn it on, and back off",
         "p1": "Three settings, each undone by setting it back:"
-      }
+      },
+      "qualified": "Qualification, from the earlier run named in the footer (plugin-qualify 0.18.5): of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own. The counts from the Pi requalification with the current plugin-qualify will replace these figures when its records are released."
     },
     "use": {
       "title": "Use it.",
@@ -170,7 +171,12 @@
         "title": "Released, to be checked on the device",
         "guard": "Every plugin call saves and checks the registers a function must keep; a plugin that changes one is moved to a worker of its own.",
         "clients": "A chain shares one JACK client per worker, and a mono plugin runs inside a stereo chain.",
-        "adds": "Plugins are added straight into a chain's worker, which is what makes a chain faster to build than mod-host."
+        "adds": "Plugins are added straight into a chain's worker, which is what makes a chain faster to build than mod-host.",
+        "fallback": "No host fallback (plugin-hostd 0.19.0): every LV2 and CLAP plugin is listed once, under plugin-hostd. A plugin it refuses stays listed, marked not working, with the reason, and adding it says why and adds nothing. Nothing hands a plugin to jalv; jalv is still an engine you can select, as mod-host is.",
+        "bar": "Plugin strictness, the setting ZYNTHIAN_PLUGIN_BAR, also a list option in the plugin menu: qualified only, warn on crashes, load all. The default is warn on crashes: a plugin that crashed in qualification asks before it is added, and a plugin below our bar for any other reason is shown as information and loads, in a worker of its own. Qualified only hides what is below the bar; load all never asks. The menu choice lasts until Zynthian restarts: it is not saved yet, so set the variable to keep it.",
+        "lv2": "LV2 plugins run in omx-clap-host's LV2 adapter only (lv2_worker omx-clap-host). Choosing mod-host for them is still possible in the config; it is never chosen for you.",
+        "mpe": "MPE in plugin-hostd chains (zynthian-ui): Surge XT, OB-Xf and TAL U-No-LX switch MPE on, lower zone with 15 channels, when the chain listens on all MIDI channels, as they do under jalv.",
+        "versions": "Released versions: plugin-hostd 0.19.0 (protocol 0.4.0), omx-clap-core and omx-clap-host 0.30.0, plugin-qualify 0.19.1, omx-panel 0.10.2, omx-dsp 0.30.1, plugin-db 0.2.0."
       },
       "open": {
         "title": "Still open",
@@ -182,14 +188,15 @@
       },
       "coming": {
         "title": "Coming next, planned",
-        "mpe": "MPE in plugin-hostd chains: Zynthian sets up its MPE zone only for jalv chains today.",
         "bars": "A bar group in omx-panel: a run of controls with the same range, such as an organ's drawbars or a graphic EQ's bands, shown as one row of bars on every panel.",
-        "curves": "Curves and meters on every omx-panel panel: exact for the omx dynamics and EQ, modelled from what the controls mean for other plugins."
+        "curves": "Curves and meters on every omx-panel panel: exact for the omx dynamics and EQ, modelled from what the controls mean for other plugins.",
+        "effects": "New effects in the next omx-plugins release: omx-ducker, omx-doubler and omx-tone.",
+        "image": "The Zynthian image with all of this: it is built from the fork's docs/openmixer-image.md and is not published yet."
       }
     },
     "series": {
       "title": "Where the changes to Zynthian stand.",
-      "forks": "The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys. In zynthian-ui: the plugin-hostd engine and its client for plugin-hostd's protocol 0.3, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner. In zynthian-sys: the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install. Merged and open pull requests are listed on each fork.",
+      "forks": "The engine and the system changes are carried on FreeMixer's forks of zynthian-ui and zynthian-sys. In zynthian-ui: the plugin-hostd engine and its client for plugin-hostd's protocol 0.4, plugin-hostd by default with a snapshot converter, menus from qualification, chains from the daemon's planner. In zynthian-sys: the OpenMixer repository, plugin-hostd as the mod-host of MOD-UI, MOD GUIs from omx-panel, OpenMixer in the default install. Merged and open pull requests are listed on each fork.",
       "upstream": "Upstream, one change is proposed so far: building MOD-UI's environment on Python 3.13, in zynthian-sys. The rest has not been proposed to Zynthian's maintainers yet."
     },
     "read": {

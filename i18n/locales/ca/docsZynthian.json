@@ -17,7 +17,7 @@
     "changes": {
       "title": "Quant canvia Zynthian.",
       "p1": "Res de Zynthian no en depèn. Continua amb jackd: no canvia cap fitxer de configuració de JACK i no hi intervé PipeWire. Tal com s'ofereix a Zynthian, el motor plugin-hostd queda desactivat fins que un usuari l'activa i MOD-UI conserva mod-host fins que un usuari en canvia el motor; tornar enrere és el mateix paràmetre.",
-      "p2": "Els forks de zynthian-ui i zynthian-sys de FreeMixer el tenen activat: plugin-hostd és el motor de plugins per defecte, en lloc de jalv; i el motor per defecte de MOD-UI, en lloc de mod-host i la sincronització de qualificació està activada. Un plugin que plugin-hostd refusa es queda a jalv, llistat al seu menú, de manera que no desapareix res del que té l'usuari.",
+      "p2": "Els forks de zynthian-ui i zynthian-sys de FreeMixer el tenen activat: plugin-hostd és el motor de plugins per defecte, en lloc de jalv i el motor per defecte de MOD-UI, en lloc de mod-host, la sincronització de qualificació està activada. Cada plugin LV2 i CLAP surt una sola vegada, sota plugin-hostd i marcat (PH). Un plugin que el nostre host refusa es queda a la llista, marcat com que no funciona, amb el motiu; res no el passa a jalv. jalv continua sent un motor que es pot triar.",
       "p3": "Què corre quan ningú no el fa servir: la interfície només engega un dimoni quan una cadena té un plugin de plugin-hostd. El que queda activat és la sincronització de qualificació, dos minuts després d'arrencar amb la prioritat de CPU i de disc més baixa, que se salta cada plugin els fitxers del qual no han canviat i les sincronitzacions de MOD GUI i de complements d'omx-panel. Totes es poden desactivar; la primera sincronització en un aparell amb molts plugins és llarga."
     },
     "install": {
@@ -35,7 +35,8 @@
       "switch": {
         "title": "Activar-lo i desactivar-lo",
         "p1": "Tres paràmetres; cadascun es desfà tornant-lo al valor d'abans:"
-      }
+      },
+      "qualified": "Qualificació, de l'execució anterior que consta al peu (plugin-qualify 0.18.5): de 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi. Els recomptes de la requalificació a la Pi amb l'actual plugin-qualify substituiran aquestes xifres quan se'n publiquin els registres."
     },
     "use": {
       "title": "Fer-lo servir.",
@@ -170,7 +171,12 @@
         "title": "Publicat, per comprovar a l'aparell",
         "guard": "Cada crida a un plugin desa i comprova els registres que una funció ha de preservar; un plugin que en canvia un passa a un worker propi.",
         "clients": "Una cadena comparteix un sol client JACK per worker i un plugin mono corre dins d'una cadena estèreo.",
-        "adds": "Els plugins s'afegeixen directament al worker d'una cadena, que és el que fa que una cadena es construeixi més de pressa que amb mod-host."
+        "adds": "Els plugins s'afegeixen directament al worker d'una cadena, que és el que fa que una cadena es construeixi més de pressa que amb mod-host.",
+        "fallback": "Sense recurs a un altre host (plugin-hostd 0.19.0): cada plugin LV2 i CLAP surt una sola vegada, sota plugin-hostd. Un plugin que refusa es queda a la llista, marcat com que no funciona, amb el motiu i afegir-lo diu per què i no afegeix res. Res no passa un plugin a jalv; jalv continua sent un motor que es pot triar, com mod-host.",
+        "bar": "Exigència dels plugins, el paràmetre ZYNTHIAN_PLUGIN_BAR, també una opció de la llista al menú de plugins: només qualificats, avisa si han fallat, carrega-ho tot. El valor per defecte és avisa si han fallat: un plugin que ha fallat en la qualificació pregunta abans d'afegir-se i un plugin per sota de la nostra barra per qualsevol altre motiu es mostra com a informació i es carrega, en un worker propi. Només qualificats amaga el que és per sota de la barra; carrega-ho tot no pregunta mai. L'elecció del menú dura fins que Zynthian es reinicia: encara no es desa, de manera que cal fixar la variable per conservar-la.",
+        "lv2": "Els plugins LV2 corren només a l'adaptador LV2 d'omx-clap-host (lv2_worker omx-clap-host). Triar mod-host per a ells continua sent possible a la configuració; mai no es tria per tu.",
+        "mpe": "MPE a les cadenes de plugin-hostd (zynthian-ui): Surge XT, OB-Xf i TAL U-No-LX activen l'MPE, zona inferior amb 15 canals, quan la cadena escolta tots els canals MIDI, com ho fan amb jalv.",
+        "versions": "Versions publicades: plugin-hostd 0.19.0 (protocol 0.4.0), omx-clap-core i omx-clap-host 0.30.0, plugin-qualify 0.19.1, omx-panel 0.10.2, omx-dsp 0.30.1, plugin-db 0.2.0."
       },
       "open": {
         "title": "Encara obert",
@@ -182,14 +188,15 @@
       },
       "coming": {
         "title": "El que ve, planificat",
-        "mpe": "MPE a les cadenes de plugin-hostd: avui Zynthian només prepara la seva zona MPE per a les cadenes de jalv.",
         "bars": "Un grup de barres a omx-panel: una tirada de controls amb el mateix rang, com els tiradors d'un orgue o les bandes d'un equalitzador gràfic, mostrada com una sola fila de barres a cada panell.",
-        "curves": "Corbes i mesuradors a cada panell d'omx-panel: exactes per a la dinàmica i l'equalitzador d'omx, modelats a partir del que volen dir els controls per als altres plugins."
+        "curves": "Corbes i mesuradors a cada panell d'omx-panel: exactes per a la dinàmica i l'equalitzador d'omx, modelats a partir del que volen dir els controls per als altres plugins.",
+        "effects": "Efectes nous a la propera versió d'omx-plugins: omx-ducker, omx-doubler i omx-tone.",
+        "image": "La imatge de Zynthian amb tot això: es construeix amb docs/openmixer-image.md del fork i encara no està publicada."
       }
     },
     "series": {
       "title": "On són els canvis a Zynthian.",
-      "forks": "El motor i els canvis del sistema són als forks de zynthian-ui i zynthian-sys de FreeMixer. A zynthian-ui: el motor plugin-hostd i el seu client del protocol 0.3 de plugin-hostd, plugin-hostd per defecte amb un convertidor d'instantànies, menús a partir de la qualificació, cadenes a partir del planificador del dimoni. A zynthian-sys: el repositori d'OpenMixer, plugin-hostd com el mod-host de MOD-UI, MOD GUI generades per omx-panel, OpenMixer a la instal·lació per defecte. Les peticions d'integració acceptades i obertes són a cada fork.",
+      "forks": "El motor i els canvis del sistema són als forks de zynthian-ui i zynthian-sys de FreeMixer. A zynthian-ui: el motor plugin-hostd i el seu client del protocol 0.4 de plugin-hostd, plugin-hostd per defecte amb un convertidor d'instantànies, menús a partir de la qualificació, cadenes a partir del planificador del dimoni. A zynthian-sys: el repositori d'OpenMixer, plugin-hostd com el mod-host de MOD-UI, MOD GUI generades per omx-panel, OpenMixer a la instal·lació per defecte. Les peticions d'integració acceptades i obertes són a cada fork.",
       "upstream": "Al projecte original, fins ara només s'ha proposat un canvi: construir l'entorn de MOD-UI amb Python 3.13, a zynthian-sys. La resta encara no s'ha proposat als responsables de Zynthian."
     },
     "read": {
