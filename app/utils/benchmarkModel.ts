@@ -83,6 +83,8 @@ export interface BenchRun {
     readonly governor?: string;
   };
   readonly software: Readonly<Partial<Record<'plugin-hostd' | 'omx-clap-host' | 'mod-host' | 'jalv' | 'jack', string>>>;
+  /** The JACK server of every row: driver, device, real-time priority, periods per buffer. */
+  readonly jack?: { readonly driver: string; readonly device?: string; readonly priority?: number; readonly periods?: number };
   readonly scenarios: readonly BenchScenario[];
   readonly coverage?: {
     readonly set: string;

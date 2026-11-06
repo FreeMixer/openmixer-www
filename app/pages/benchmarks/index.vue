@@ -58,6 +58,11 @@ const failing = computed(() => {
   const r = run.value;
   return r ? failingRows(sameDayRuns(all, r)) : [];
 });
+/** What the run's own failing rows mean, when the page has words for that run. */
+const failingWhy = computed(() => {
+  const key = `benchmarks.failing.why.${(run.value?.id ?? '').replace(/-/g, '_')}`;
+  return run.value && te(key) ? t(key) : '';
+});
 const stress = computed(() => (run.value ? stressRows(run.value) : []));
 /** The first clause of a failure note: the rest is the process listing the harness kept. */
 const shortNote = (n?: string) => (n ?? '').split(';')[0] ?? '';
@@ -67,6 +72,10 @@ const method = computed(() => {
   const s = r?.scenarios.find((x) => x.status === 'ok');
   if (!r || !s) return null;
   const repeats = Math.max(...r.scenarios.map((x) => x.repeats ?? 1));
+  if (r.jack) {
+    const rates = [...new Set(r.scenarios.map((x) => x.rate))].sort((a, b) => a - b).map(khz).join(', ');
+    return t('benchmarks.method.card', { machine: r.machine.model, governor: r.machine.governor ?? '—', driver: r.jack.driver, device: r.jack.device ?? '—', priority: r.jack.priority ?? '—', periods: r.jack.periods ?? '—', rates, repeats });
+  }
   return t('benchmarks.method.text', { machine: r.machine.model, governor: r.machine.governor ?? '—', rate: khz(s.rate), frames: s.frames, repeats });
 });
 const mixedVersions = computed(() => new Set((run.value?.scenarios ?? []).map((s) => s.software?.['omx-clap-core']).filter(Boolean)).size > 1);
@@ -263,8 +272,11 @@ useSeoMeta({
             </li>
           </ul>
           <p v-else class="text-sm text-ink-dim">{{ t('benchmarks.failing.none') }}</p>
-          <p v-if="failing.length" class="mt-6 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ t('benchmarks.failing.cause') }}</p>
-          <p v-if="failing.length" class="mt-2 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ t('benchmarks.failing.cost') }}</p>
+          <p v-if="failing.length && failingWhy" class="mt-6 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ failingWhy }}</p>
+          <template v-else-if="failing.length && run.id === 'rpi5-20261102-2'">
+            <p class="mt-6 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ t('benchmarks.failing.cause') }}</p>
+            <p class="mt-2 max-w-3xl text-sm leading-relaxed text-ink-dim">{{ t('benchmarks.failing.cost') }}</p>
+          </template>
         </div>
       </section>
 

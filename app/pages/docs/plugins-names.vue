@@ -47,7 +47,7 @@ const PIECES = [
     repo: 'mod-host',
     pkgconfig: ['mod-host-protocol'],
     rpm: ['mod-host', 'mod-host-protocol', 'mod-host-protocol-devel'],
-    deb: ['libmod-host-protocol0', 'libmod-host-protocol-dev'],
+    deb: ['mod-host', 'libmod-host-protocol0', 'libmod-host-protocol-dev'],
     npm: [],
   },
   {
@@ -101,10 +101,24 @@ const PIECES = [
     npm: [],
   },
   {
+    repo: 'plugin-db',
+    pkgconfig: ['plugin-db'],
+    rpm: ['plugin-db-devel', 'plugin-db-contract'],
+    deb: ['plugin-db-dev', 'plugin-db-contract'],
+    npm: [],
+  },
+  {
     repo: 'plugin-hostd',
-    pkgconfig: [],
+    pkgconfig: ['plugin-hostd'],
     rpm: ['plugin-hostd', 'plugin-hostd-devel', 'plugin-hostd-contract', 'plugin-hostd-tests'],
     deb: ['plugin-hostd', 'plugin-hostd-dev', 'plugin-hostd-contract', 'plugin-hostd-tests'],
+    npm: [],
+  },
+  {
+    repo: 'plugin-hostd-protocol',
+    pkgconfig: ['plugin-hostd-protocol'],
+    rpm: ['plugin-hostd-protocol', 'plugin-hostd-protocol-devel', 'plugin-hostd-protocol-contract'],
+    deb: ['libplugin-hostd-protocol0', 'libplugin-hostd-protocol-dev', 'plugin-hostd-protocol-contract'],
     npm: [],
   },
   {
