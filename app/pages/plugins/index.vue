@@ -97,6 +97,17 @@ const tiles = (p: PlatformSummary) => [
 const conditionRows = (p: PlatformSummary) => Object.entries(p.conditions).map(([k, v]) => ({ term: t(`plugins.conditions.${k}`), value: v }));
 const day = (iso: string) => iso.slice(0, 10);
 
+// the host comparison: every figure and every plugin named is read from the platform's comparison block
+const cmpRef = (p: PlatformSummary) => (p.comparison.available ? p.comparison : null);
+const noneWhy = (p: PlatformSummary) => (p.comparison.available ? 'no-summary' : p.comparison.why);
+const cpuCell = (v: number | null) => (v === null ? '—' : pct(v));
+const checkWord = (r: CheckResult | null) => (r === null ? '—' : t(`plugins.compare.check.${r}`));
+const betterLine = (key: 'refBetter' | 'oursBetter', b: Better) => {
+  const { ids, more } = betterList(b);
+  return t(`plugins.compare.${key}`, { host: b.host, count: b.plugins.length, plugins: ids }, b.plugins.length) + (more ? ` ${t('plugins.compare.more', { count: more })}` : '');
+};
+const latencyHidden = (c: Extract<Comparison, { available: true }>) => c.hosts.filter((h) => h.status === 'ran' && !h.latencyObservable).map((h) => h.host);
+
 useSeoMeta({
   title: () => t('plugins.seo.title'),
   description: () => t('plugins.seo.description', { count: total, platforms: platforms.length }),
@@ -130,6 +141,54 @@ useSeoMeta({
                 <dd class="mt-1 font-display text-3xl font-semibold text-ink">{{ tile.value }}</dd>
               </div>
             </dl>
+
+            <div class="mt-8">
+              <h4 class="font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">{{ t('plugins.compare.title') }}</h4>
+              <template v-if="cmpRef(p)">
+                <p class="mt-2 text-sm text-ink-dim">
+                  {{ t('plugins.compare.lede', { rate: cmpRef(p)!.conditions.rate, quantum: cmpRef(p)!.conditions.quantum, cycles: cmpRef(p)!.conditions.cycles, soak: cmpRef(p)!.conditions.soakS }) }}
+                </p>
+                <div class="mt-3 overflow-x-auto rounded border border-edge">
+                  <table class="w-full text-left text-sm">
+                    <thead class="bg-surface font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+                      <tr>
+                        <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.host') }}</th>
+                        <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.version') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.plugins') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.loads') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.runsClean') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.rtSafe') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.crashes') }}</th>
+                        <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.cpu') }}</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-edge">
+                      <tr v-for="h in cmpRef(p)!.hosts" :key="h.host">
+                        <td class="px-3 py-2 font-mono text-xs text-ink">{{ h.host }}</td>
+                        <template v-if="h.status === 'ran'">
+                          <td class="px-3 py-2 font-mono text-xs text-ink-dim">{{ h.version ?? '—' }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ h.plugins }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ h.loads }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ h.runsClean }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ t('plugins.compare.ofObserved', { safe: h.rtSafe, observed: h.rtObserved }) }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ h.crashes }}</td>
+                          <td class="px-3 py-2 text-right font-mono text-xs">{{ cpuCell(h.cpuMedianPercent) }}</td>
+                        </template>
+                        <td v-else colspan="7" class="px-3 py-2 text-xs text-ink-dim">{{ t('plugins.compare.skipped', { reason: h.reason ?? '—' }) }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <ul class="mt-3 space-y-1 text-sm text-ink-dim">
+                  <li v-for="b in cmpRef(p)!.referencesBetter" :key="`r-${b.host}`">{{ betterLine('refBetter', b) }}</li>
+                  <li v-if="cmpRef(p)!.referencesBetter.length === 0">{{ t('plugins.compare.refBetterNone') }}</li>
+                  <li v-for="b in cmpRef(p)!.oursBetter" :key="`o-${b.host}`">{{ betterLine('oursBetter', b) }}</li>
+                  <li v-if="latencyHidden(cmpRef(p)!).length">{{ t('plugins.compare.latencyHidden', { hosts: latencyHidden(cmpRef(p)!).join(', ') }) }}</li>
+                  <li>{{ t('plugins.compare.notObservable') }}</li>
+                </ul>
+              </template>
+              <p v-else class="mt-2 text-sm text-ink-dim">{{ t(`plugins.compare.none.${noneWhy(p)}`) }}</p>
+            </div>
 
             <div class="mt-6 grid gap-8 lg:grid-cols-2">
               <div v-for="kind in (['refused', 'conditional'] as const)" :key="kind">
@@ -261,6 +320,36 @@ useSeoMeta({
                             <dd class="font-mono text-xs text-ink">{{ day(r.measuredAt) }}</dd>
                           </div>
                         </dl>
+                        <template v-if="r.comparison">
+                          <h4 class="mt-5 font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">{{ t('plugins.compare.perPlugin') }}</h4>
+                          <div class="mt-2 overflow-x-auto rounded border border-edge">
+                            <table class="w-full text-left text-xs">
+                              <thead class="bg-surface font-mono text-[10px] uppercase tracking-[0.14em] text-ink-faint">
+                                <tr>
+                                  <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.host') }}</th>
+                                  <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.result') }}</th>
+                                  <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.output') }}</th>
+                                  <th scope="col" class="px-3 py-2 font-normal">{{ t('plugins.compare.col.rtSafeOne') }}</th>
+                                  <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.cpu') }}</th>
+                                  <th scope="col" class="px-3 py-2 text-right font-normal">{{ t('plugins.compare.col.latency') }}</th>
+                                </tr>
+                              </thead>
+                              <tbody class="divide-y divide-edge">
+                                <tr v-for="h in r.comparison" :key="h.host">
+                                  <td class="px-3 py-2 font-mono text-ink">{{ h.host }}</td>
+                                  <td class="px-3 py-2 text-ink">
+                                    {{ t(`plugins.compare.outcome.${hostOutcome(h)}`, { signal: h.crash ?? '' }) }}
+                                    <span v-if="h.reason" class="block text-ink-faint">{{ h.reason }}</span>
+                                  </td>
+                                  <td class="px-3 py-2 text-ink-dim">{{ checkWord(h.output) }}</td>
+                                  <td class="px-3 py-2 text-ink-dim">{{ checkWord(h.rtSafe) }}</td>
+                                  <td class="px-3 py-2 text-right font-mono text-ink-dim">{{ cpuCell(h.cpu) }}</td>
+                                  <td class="px-3 py-2 text-right font-mono text-ink-dim">{{ h.latency === null ? '—' : t('plugins.compare.frames', { frames: h.latency }) }}</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </template>
                         <p class="mt-3 text-sm">
                           <a :href="reportUrl(r, current.measured)" class="text-accent hover:underline" rel="noopener">{{ t('plugins.detail.report') }}</a>
                         </p>

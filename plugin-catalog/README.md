@@ -64,3 +64,24 @@ know is an error, not a guess.
 `schemaVersion` is an integer. A new optional field keeps it; renaming or removing a field or changing its
 meaning is a new version with its own schema file. The page refuses nothing it does not know, so change the
 page and the check in the same commit.
+
+## Host comparison
+
+A set may also hold the host comparison that `plugin-qualify compare` writes: `comparison-summary.json`
+(`plugin-qualify.comparison-summary/1`) and one `<plugin>.comparison.json` (`plugin-qualify.comparison-record/1`)
+per plugin, each plugin run under omx-clap-host, plugin-hostd, mod-host and jalv with the same checks.
+
+The platform's `comparison` in `index.json` is `{ "available": false, "why": "no-summary" | "not-publishable" }`
+unless the summary is publishable, which needs both mod-host and jalv to have run; a summary that says publishable
+without them is refused. When it is available it holds, read from the summary:
+
+| Field | Read from |
+| --- | --- |
+| `conditions` | the rate, quantum, load cycles and soak seconds of the run |
+| `hosts` | each host's version and counts: plugins, loads, runs clean, real-time safe of those observed, crashes, median CPU, and whether it reports latency |
+| `referencesBetter` | the summary's beats of mod-host and jalv over our hosts, one entry per plugin |
+| `oursBetter` | the beats of omx-clap-host and plugin-hostd over mod-host and jalv |
+
+Each row of that platform then carries `comparison`, one entry per host from the plugin's comparison record: its
+status, whether it runs clean, the result of the load, sound and real-time checks (`not-observable` where the host
+does not let the check be made, never a failure), the signal of a crash, CPU and the latency the host reported.

@@ -181,6 +181,51 @@
       "probe_crashed": "El plugin ha fallat durant la mesura",
       "probe_refused-instantiation": "El plugin s’ha negat a arrencar",
       "omx-clap-host_silent-under-note": "No ha donat so quan se tocaven notes"
+    },
+    "compare": {
+      "title": "Comparat amb mod-host i jalv",
+      "lede": "Cada connector d'aquesta plataforma s'executa en cada amfitrió amb les mateixes proves, en un servidor d'àudio privat a {rate} Hz i {quantum} mostres: es carrega, fa so (un efecte amb un to, un instrument amb notes), aguanta {cycles} cicles de càrrega i {soak} segons en marxa; a més, es vigila si el fil d'àudio reserva memòria, pren bloquejos o fa crides al sistema.",
+      "col": {
+        "host": "Amfitrió",
+        "version": "Versió",
+        "plugins": "Connectors",
+        "loads": "Es carreguen",
+        "runsClean": "Funcionen nets",
+        "rtSafe": "Segurs en temps real, dels observats",
+        "crashes": "Fallades",
+        "cpu": "CPU mediana",
+        "result": "Resultat",
+        "output": "So",
+        "rtSafeOne": "Segur en temps real",
+        "latency": "Latència declarada"
+      },
+      "ofObserved": "{safe} de {observed}",
+      "skipped": "No executat: {reason}",
+      "refBetter": "{host} ho fa millor que omx-clap-host o plugin-hostd en un connector: {plugins}. | {host} ho fa millor que omx-clap-host o plugin-hostd en {count} connectors: {plugins}.",
+      "more": "I {count} més.",
+      "refBetterNone": "En aquesta execució ni mod-host ni jalv ho han fet millor que els nostres amfitrions en cap connector.",
+      "oursBetter": "{host} ho fa millor que mod-host o jalv en un connector: {plugins}. | {host} ho fa millor que mod-host o jalv en {count} connectors: {plugins}.",
+      "latencyHidden": "{hosts} no comunica la latència dels connectors al servidor d'àudio, de manera que no es pot observar.",
+      "notObservable": "Una prova que un amfitrió no deixa observar es mostra com a no observable i mai no compta com a error.",
+      "perPlugin": "En cada amfitrió",
+      "check": {
+        "pass": "Superada",
+        "fail": "Fallida",
+        "not-observable": "No observable",
+        "not-run": "No arribada"
+      },
+      "outcome": {
+        "clean": "Funciona net",
+        "notClean": "No funciona net",
+        "crashed": "Ha fallat ({signal})",
+        "skipped": "No executat",
+        "notApplicable": "No accepta aquest format"
+      },
+      "frames": "{frames} mostres",
+      "none": {
+        "no-summary": "Encara no s'ha publicat cap comparació amb mod-host i jalv per a aquesta plataforma.",
+        "not-publishable": "L'execució de comparació d'aquesta plataforma no incloïa mod-host i jalv alhora, de manera que no es mostra."
+      }
     }
   }
 }

@@ -181,6 +181,51 @@
       "probe_crashed": "The plugin crashed during the measurement",
       "probe_refused-instantiation": "The plugin refused to start",
       "omx-clap-host_silent-under-note": "Gave no sound when notes were played"
+    },
+    "compare": {
+      "title": "Compared with mod-host and jalv",
+      "lede": "Every plugin of this platform run through each host with the same checks, on one private audio server at {rate} Hz and {quantum} frames: it loads, it gives sound (an effect a tone, an instrument notes), it survives {cycles} load cycles and {soak} seconds of running, and its audio thread is watched for allocations, locks and system calls.",
+      "col": {
+        "host": "Host",
+        "version": "Version",
+        "plugins": "Plugins",
+        "loads": "Loads",
+        "runsClean": "Runs clean",
+        "rtSafe": "Real-time safe, of observed",
+        "crashes": "Crashes",
+        "cpu": "Median CPU",
+        "result": "Result",
+        "output": "Sound",
+        "rtSafeOne": "Real-time safe",
+        "latency": "Latency reported"
+      },
+      "ofObserved": "{safe} of {observed}",
+      "skipped": "Not run: {reason}",
+      "refBetter": "{host} does better than omx-clap-host or plugin-hostd on one plugin: {plugins}. | {host} does better than omx-clap-host or plugin-hostd on {count} plugins: {plugins}.",
+      "more": "And {count} more.",
+      "refBetterNone": "In this run neither mod-host nor jalv did better than our hosts on any plugin.",
+      "oursBetter": "{host} does better than mod-host or jalv on one plugin: {plugins}. | {host} does better than mod-host or jalv on {count} plugins: {plugins}.",
+      "latencyHidden": "{hosts} reports no plugin latency to the audio server, so its latency is not observable.",
+      "notObservable": "A check a host does not let us observe is shown as not observable and never counted as a failure.",
+      "perPlugin": "Under each host",
+      "check": {
+        "pass": "Passed",
+        "fail": "Failed",
+        "not-observable": "Not observable",
+        "not-run": "Not reached"
+      },
+      "outcome": {
+        "clean": "Runs clean",
+        "notClean": "Does not run clean",
+        "crashed": "Crashed ({signal})",
+        "skipped": "Not run",
+        "notApplicable": "Does not take this format"
+      },
+      "frames": "{frames} frames",
+      "none": {
+        "no-summary": "No comparison with mod-host and jalv has been published for this platform.",
+        "not-publishable": "The comparison run for this platform did not include both mod-host and jalv, so it is not shown."
+      }
     }
   }
 }
