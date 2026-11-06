@@ -1,0 +1,21 @@
+{
+  "zynthianHome": {
+    "seo": {
+      "title": "Zynthian with OpenMixer's plugin host",
+      "description": "What OpenMixer's plugin host gives a Zynthian player: crash isolation, qualification, presets, MOD GUIs and measured figures against mod-host and jalv."
+    },
+    "hero": {
+      "eyebrow": "Zynthian",
+      "title": "A steadier plugin host for your Zynthian.",
+      "lede": "Plugins that cannot take the set down, menus built from what each plugin did on your device, and figures measured against mod-host and jalv."
+    },
+    "intro": {
+      "p1": "OpenMixer's plugin host, plugin-hostd, runs the LV2 and CLAP plugins of a Zynthian in workers of their own. It works on a Raspberry Pi 4 or 5 with the Vangelis system and needs nothing from the OpenMixer console.",
+      "p2": "Below is everything it gives you, with the version each part shipped in. The guide has the install steps, the settings and the full tables."
+    },
+    "guide": "Read the guide: install, use and settings",
+    "figuresTitle": "The figures",
+    "figuresIntro": "Each figure names the versions it was read with, and every comparison names mod-host and jalv.",
+    "notes": "All the notes and benchmarks"
+  }
+}

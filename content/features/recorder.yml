@@ -2,6 +2,7 @@
 id: recorder
 title: Recorder and virtual soundcard
 state: live
+confirmed: false
 manual:
   - docs/manual/recording.md
 public: true

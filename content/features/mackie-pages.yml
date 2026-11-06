@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: mackie-pages
+title: Control-surface pages
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: Your Mackie surface drives the plugin
+    line: Plugin assign puts the current plugin on the V-Pots, eight controls a page.
+    text: A Mackie Control surface gets one contract for its layout. A processor's control groups become pages of eight that follow the screen you are looking at, and Plugin assign selects the plugin to drive.
+  ca:
+    title: La teva superfície Mackie porta el plugin
+    line: Plugin assign posa el plugin actual als V-Pots, vuit controls per pàgina.
+    text: Una superfície Mackie Control rep un únic contracte per a la seva disposició. Els grups de controls d'un processador esdevenen pàgines de vuit que segueixen la pantalla que mires, i Plugin assign tria el plugin que es porta.
+proof: []

@@ -2,6 +2,7 @@
 id: native
 title: Native processing
 state: measured
+confirmed: false
 manual:
   - docs/manual/eq-dynamics.md
 public: true

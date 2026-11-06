@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: plugin-menus
+title: Menus by tier
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /notes/from-a-plugin-file-to-a-page
+card:
+  en:
+    title: Menus that tell you what is safe
+    line: Plugins are sorted by how well they ran on your device, with latency, real-time and cost on every row.
+    text: The engine menu orders plugins by tier, live first, then studio, then the ones not qualified. Each row carries short figures for latency, real-time safety and cost, and the list can be sorted and filtered by them. A plugin is listed once, whichever formats it is installed in.
+  ca:
+    title: Menús que et diuen què és segur
+    line: Els plugins s'ordenen per com han anat a l'aparell, amb latència, temps real i cost a cada fila.
+    text: "El menú del motor ordena els plugins per nivell: primer els de directe, després els d'estudi i després els que no estan qualificats. Cada fila porta xifres curtes de latència, seguretat per al temps real i cost, i la llista es pot ordenar i filtrar per aquestes xifres. Un plugin surt una sola vegada, tant se val en quants formats estigui instal·lat."
+proof: []

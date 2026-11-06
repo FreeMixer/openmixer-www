@@ -35,8 +35,7 @@
       "switch": {
         "title": "Turn it on, and back off",
         "p1": "Three settings, each undone by setting it back:"
-      },
-      "qualified": "Qualification, from the earlier run named in the footer (plugin-qualify 0.18.5): of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own. The counts from the Pi requalification with the current plugin-qualify will replace these figures when its records are released."
+      }
     },
     "use": {
       "title": "Use it.",
@@ -48,8 +47,7 @@
       },
       "strip": {
         "title": "A channel strip as plugins",
-        "p1": "EQ and dynamics per chain are ordinary effects in that chain; Zynthian's mixer keeps its level, pan and sends. Either add separate plugins (omx keyed-gate, omx eq8, omx comp: you choose each one and its order, and eq8 has eight bands), or one plugin, omx strip: input trim, filters, a gate, four EQ bands and a compressor in stereo, in one load and one worker, its five stages in any order.",
-        "p2": "At 48 kHz and 512 frames, omx strip costs about 5.9 µs per block; omx eq8 and omx comp together about 11.4 µs, with eight EQ bands against four."
+        "p1": "EQ and dynamics per chain are ordinary effects in that chain; Zynthian's mixer keeps its level, pan and sends. Either add separate plugins (omx keyed-gate, omx eq8, omx comp: you choose each one and its order, and eq8 has eight bands), or one plugin, omx strip: input trim, filters, a gate, four EQ bands and a compressor in stereo, in one load and one worker, its five stages in any order."
       }
     },
     "mixbus": {
@@ -145,39 +143,12 @@
     "figures": {
       "title": "The headline figures.",
       "intro": "Measured on a Raspberry Pi 5 running Zynthian, with an RME Babyface Pro as its audio interface and JACK at real-time priority 70 with 3 periods, Zynthian's own setting. Read digitally at the JACK server and its ports. plugin-hostd 0.18.0 and omx-clap-host 0.29.0 against mod-host 0.10.9, the host behind Zynthian's effect chains and MOD-UI, and jalv 1.6.9, which runs one plugin per process:",
-      "dsp": "DSP load at 48 kHz, 16 plugins (omx comp, delay and drive): a plugin-hostd chain 6.75 % at 128 frames, against 9.36 % for omx-clap-host, 8.86 % for mod-host and 11.40 % for jalv; at 256 frames 6.38 % against 7.75, 7.38 and 8.49 %. 0 xruns for the chain in every repeat.",
-      "rate96": "At 96 kHz the load is about twice the 48 kHz figure on every host and the order holds: the same 16 plugins at 256 frames, 12.64 % in a chain against 15.43 % for omx-clap-host, 14.60 % for mod-host (8 xruns) and 18.16 % for jalv (52 xruns). Xruns come back at 96 kHz where 48 kHz had none, fewest in the chain.",
-      "memory": "Memory: 55 MB for those 16 plugins in a chain, against 53 MB for omx-clap-host, 99 MB for mod-host and 690 MB for jalv's 16 processes.",
-      "add": "Time to add 16 plugins one by one, the host running: 80 ms into a plugin-hostd chain, against 364 ms for mod-host, 397 ms for omx-clap-host and 13.8 s for jalv.",
-      "instruments": "Instruments: Pianoteq 9 costs 13.4 to 14.7 % on every host at 48 kHz and 256 frames, since its own threads do the work; it takes 250 MB under plugin-hostd, 288 MB under mod-host and 279 MB under jalv.",
-      "floor": "The floor: 64 frames at 48 kHz has xruns on every host even with no plugin loaded, so it is the device's limit, not a host's. At 96 kHz, 128 frames runs with no xrun on omx-clap-host, plugin-hostd and mod-host with no plugin (jalv has no host without a plugin), and the third period is worth keeping: with 2, the heavier sets read higher on omx-clap-host and mod-host.",
-      "qualified": "Qualification, from the earlier run named in the footer (plugin-qualify 0.18.5): of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own. A new run with plugin-qualify 0.19.0 will replace these figures.",
       "more": "Every table and the method",
       "footer": "Raspberry Pi 5 running Zynthian, RME Babyface Pro · JACK priority 70, 3 periods · 48 and 96 kHz, 128 and 256 frames · read digitally at the JACK server and ports · plugin-hostd 0.18.0 (protocol 0.3.0), omx-clap-host 0.29.0, omx-plugins 0.18.0, mod-host 0.10.9, jalv 1.6.9 · 5 November 2026 · qualification: plugin-qualify 0.18.5, records omx-qualification-rpi5-zynthian-vangelis 2026110101, 1 November 2026",
       "bench": "The benchmarks, row by row"
     },
     "status": {
       "title": "Where it stands.",
-      "proven": {
-        "title": "Proven on the device",
-        "engine": "The plugin-hostd engine runs Zynthian chains, LV2 and CLAP side by side, with the plugin menus built from the qualification records.",
-        "pages": "Controller pages follow the plugin's own sections and are named by what they hold.",
-        "play": "Instruments and effects play through the plugin-hostd engine, read digitally at JACK ports with 0 xruns.",
-        "grouping": "Grouping through the plugin-hostd engine in zynthian-ui passes its proof: a run in series groups as one client, and a parallel slot, the strip or another client ends it.",
-        "recover": "A lost worker comes back: after a killed worker, the daemon puts it back with its settings and the links it made itself in about 350 ms.",
-        "presets": "Presets, through plugin-hostd 0.18.0 and omx-clap-host 0.29.0: omx eq8 (CLAP) and mda Piano (LV2) list their presets, load them with their values and save one that loads back; Odin 2 (with pins off) and Surge XT's LV2 build list, load and save; Surge XT's CLAP build lists and loads its factory presets."
-      },
-      "released": {
-        "title": "Released, to be checked on the device",
-        "guard": "Every plugin call saves and checks the registers a function must keep; a plugin that changes one is moved to a worker of its own.",
-        "clients": "A chain shares one JACK client per worker, and a mono plugin runs inside a stereo chain.",
-        "adds": "Plugins are added straight into a chain's worker, which is what makes a chain faster to build than mod-host.",
-        "fallback": "No host fallback (plugin-hostd 0.19.0): every LV2 and CLAP plugin is listed once, under plugin-hostd. A plugin it refuses stays listed, marked not working, with the reason, and adding it says why and adds nothing. Nothing hands a plugin to jalv; jalv is still an engine you can select, as mod-host is.",
-        "bar": "Plugin strictness, the setting ZYNTHIAN_PLUGIN_BAR, also a list option in the plugin menu: qualified only, warn on crashes, load all. The default is warn on crashes: a plugin that crashed in qualification asks before it is added, and a plugin below our bar for any other reason is shown as information and loads, in a worker of its own. Qualified only hides what is below the bar; load all never asks. The menu choice lasts until Zynthian restarts: it is not saved yet, so set the variable to keep it.",
-        "lv2": "LV2 plugins run in omx-clap-host's LV2 adapter only (lv2_worker omx-clap-host). Choosing mod-host for them is still possible in the config; it is never chosen for you.",
-        "mpe": "MPE in plugin-hostd chains (zynthian-ui): Surge XT, OB-Xf and TAL U-No-LX switch MPE on, lower zone with 15 channels, when the chain listens on all MIDI channels, as they do under jalv.",
-        "versions": "Released versions: plugin-hostd 0.19.0 (protocol 0.4.0), omx-clap-core and omx-clap-host 0.30.0, plugin-qualify 0.19.1, omx-panel 0.10.2, omx-dsp 0.30.1, plugin-db 0.2.0."
-      },
       "open": {
         "title": "Still open",
         "menu": "Chains built from Zynthian's menu with grouping on, measured as the daemon's chains were.",
@@ -186,13 +157,7 @@
         "snapshot": "The round trip of a snapshot that holds a plugin-hostd instrument.",
         "mixbus": "Mixbus chains and parallel slots measured with Zynthian's own mixer in the path on the device."
       },
-      "coming": {
-        "title": "Coming next, planned",
-        "bars": "A bar group in omx-panel: a run of controls with the same range, such as an organ's drawbars or a graphic EQ's bands, shown as one row of bars on every panel.",
-        "curves": "Curves and meters on every omx-panel panel: exact for the omx dynamics and EQ, modelled from what the controls mean for other plugins.",
-        "effects": "New effects in the next omx-plugins release: omx-ducker, omx-doubler and omx-tone.",
-        "image": "The Zynthian image with all of this: it is built from the fork's docs/openmixer-image.md and is not published yet."
-      }
+      "intro": "Everything below is still to be measured on the device. What is released, merged or coming is in the cards after it."
     },
     "series": {
       "title": "Where the changes to Zynthian stand.",
@@ -201,26 +166,9 @@
     },
     "read": {
       "title": "Read more.",
-      "bench": {
-        "title": "plugin-hostd on a Raspberry Pi 5",
-        "body": "The device, the method and every table: four hosts at 48 and 96 kHz, 128 and 256 frames, under load, time to add, instruments, where a chain's time goes."
-      },
-      "tradeoffs": {
-        "title": "One worker per chain or one process per plugin",
-        "body": "What grouping buys and what it costs, CLAP hosting, qualification and mod-host compatibility."
-      },
-      "instruments": {
-        "title": "Instruments on a Pi 5",
-        "body": "Why voices need cores, what the host does about it, and Surge XT measured."
-      },
-      "page": {
-        "title": "From a plugin file to a page",
-        "body": "The five stages from a plugin file to a menu row, controller pages and a MOD GUI."
-      },
-      "groups": {
-        "title": "Inferred port groups",
-        "body": "Why most LV2 plugins on a Zynthian need port groups they do not declare, and how they get them."
-      }
+      "intro": "One card for each thing it gives you, each with the version it shipped in and a link to the detail.",
+      "coming": "Coming next.",
+      "comingIntro": "Merged and not yet in a release, or planned. Each card says which."
     }
   }
 }

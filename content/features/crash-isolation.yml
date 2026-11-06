@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: crash-isolation
+title: Crash isolation
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: to-confirm
+detail: /notes/one-worker-per-chain-or-one-process-per-plugin
+card:
+  en:
+    title: A crash stays in one plugin
+    line: If a plugin crashes, only that plugin stops. The rest of your set keeps playing.
+    text: Every plugin runs in a worker process of its own, or shares one with the plugins next to it in a chain. A worker that dies is started again by the daemon with its settings and the links it had made, so a bad plugin costs you a moment, not the show.
+  ca:
+    title: Un error es queda en un sol plugin
+    line: Si un plugin falla, només s'atura aquell plugin. La resta del teu muntatge continua sonant.
+    text: Cada plugin corre en un procés worker propi, o el comparteix amb els plugins que té al costat en una cadena. Un worker que cau el torna a posar el dimoni amb els seus valors i els enllaços que havia fet, de manera que un plugin dolent et costa un moment i no el concert.
+proof:
+  - kind: test
+    with: plugin-hostd 0.19.0, omx-clap-host 0.29.0
+    en: After a killed worker, the daemon put it back with its settings and its links in about 350 ms, on the Pi 5 under Zynthian.
+    ca: Després de matar un worker, el dimoni el va tornar a posar amb els seus valors i els seus enllaços en uns 350 ms, a la Pi 5 amb Zynthian.

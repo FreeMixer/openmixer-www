@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: grouping
+title: Grouping
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: to-confirm
+detail: /notes/the-grouping-planner
+card:
+  en:
+    title: A chain in one worker
+    line: Plugins in series share one worker and one JACK client. You get most of the memory back.
+    text: "The daemon plans what can run together: a run of plugins in series is one worker, and a parallel slot, the mixer strip or a jalv plugin ends the run. A processor that runs alone has a Grouping entry in its options that says why. Grouping is off until you turn it on."
+  ca:
+    title: Una cadena en un sol worker
+    line: Els plugins en sèrie comparteixen un worker i un client JACK. Recuperes gairebé tota la memòria.
+    text: "El dimoni planifica què pot córrer junt: una tirada de plugins en sèrie és un sol worker, i un espai en paral·lel, el canal del mesclador o un plugin de jalv l'acaben. Un processador que corre sol té una entrada Grouping a les opcions que diu per què. L'agrupació està desactivada fins que l'actives."
+proof:
+  - kind: bench
+    rate: 48 kHz
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: "Memory for 16 plugins in a chain: 55 MB under plugin-hostd, against 99 MB for mod-host and 690 MB for jalv, which runs one process per plugin."
+    ca: "Memòria per a 16 plugins en una cadena: 55 MB amb plugin-hostd, contra 99 MB de mod-host i 690 MB de jalv, que fa servir un procés per plugin."
+  - kind: bench
+    rate: 48 kHz
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: "Time to add 16 plugins one by one: 80 ms into a plugin-hostd chain, against 364 ms for mod-host and 13.8 s for jalv."
+    ca: "Temps per afegir 16 plugins un per un: 80 ms dins d'una cadena de plugin-hostd, contra 364 ms de mod-host i 13,8 s de jalv."

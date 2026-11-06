@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: image
+title: The Zynthian image
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: coming
+  console:
+    state: none
+detail: /docs/zynthian#install
+card:
+  en:
+    title: A ready-made image
+    line: An image with all of this installed and made the default.
+    text: Built from the released Vangelis image for the Raspberry Pi 4 and 5. It is not published yet. Until it is, install the packages on a Vangelis you already run.
+  ca:
+    title: Una imatge ja feta
+    line: Una imatge amb tot això instal·lat i fet el valor per defecte.
+    text: Construïda a partir de la imatge publicada de Vangelis per a la Raspberry Pi 4 i 5. Encara no està publicada. Fins que ho estigui, instal·la els paquets en un Vangelis que ja tinguis.
+proof: []

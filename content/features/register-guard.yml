@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: register-guard
+title: Register guard
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: plugin-hostd 0.19.0
+  console:
+    state: to-confirm
+detail: /notes/plugins-that-change-a-callee-saved-register
+card:
+  en:
+    title: A plugin that breaks the rules is isolated
+    line: A plugin that corrupts the host's own state is moved to a worker of its own.
+    text: Every plugin call saves and checks the registers a function must keep. A plugin that changes one is caught and runs alone from then on, so it cannot take the rest of a chain with it.
+  ca:
+    title: Un plugin que trenca les normes queda aïllat
+    line: Un plugin que fa malbé l'estat de l'amfitrió passa a un worker propi.
+    text: Cada crida a un plugin desa i comprova els registres que una funció ha de preservar. Un plugin que en canvia un queda detectat i des d'aleshores corre sol, de manera que no s'emporta la resta d'una cadena.
+proof: []

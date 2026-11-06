@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: mod-host-backend
+title: plugin-hostd under MOD-UI
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-sys omx-track 2026110102
+  console:
+    state: none
+detail: /docs/zynthian#install
+card:
+  en:
+    title: MOD-UI on plugin-hostd
+    line: MOD-UI can run on plugin-hostd instead of mod-host. Switching back is one setting.
+    text: plugin-hostd speaks mod-host's protocol, so MOD-UI pedalboards run on it with crash isolation and the qualification behind them. A setting picks the backend, and the old one stays available.
+  ca:
+    title: MOD-UI sobre plugin-hostd
+    line: MOD-UI pot córrer sobre plugin-hostd en lloc de mod-host. Tornar enrere és un sol paràmetre.
+    text: plugin-hostd parla el protocol de mod-host, de manera que les pedalboards de MOD-UI hi corren amb l'aïllament d'errors i la qualificació al darrere. Un paràmetre tria el motor i l'anterior continua disponible.
+proof: []

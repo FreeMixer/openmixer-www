@@ -35,8 +35,7 @@
       "switch": {
         "title": "Activar-lo i desactivar-lo",
         "p1": "Tres paràmetres; cadascun es desfà tornant-lo al valor d'abans:"
-      },
-      "qualified": "Qualificació, de l'execució anterior que consta al peu (plugin-qualify 0.18.5): de 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi. Els recomptes de la requalificació a la Pi amb l'actual plugin-qualify substituiran aquestes xifres quan se'n publiquin els registres."
+      }
     },
     "use": {
       "title": "Fer-lo servir.",
@@ -48,8 +47,7 @@
       },
       "strip": {
         "title": "Un canal fet de plugins",
-        "p1": "L'EQ i la dinàmica de cada cadena són efectes normals d'aquella cadena; el mesclador de Zynthian conserva el nivell, el pan i els envíos. O bé afegiu plugins separats (omx keyed-gate, omx eq8, omx comp: trieu cadascun i el seu ordre i eq8 té vuit bandes) o bé un sol plugin, omx strip: guany d'entrada, filtres, una gate, quatre bandes d'EQ i un compressor en estèreo, en una sola càrrega i un sol worker, amb les seves cinc etapes en qualsevol ordre.",
-        "p2": "A 48 kHz i 512 mostres, omx strip costa uns 5,9 µs per bloc; omx eq8 i omx comp junts uns 11,4 µs, amb vuit bandes d'EQ contra quatre."
+        "p1": "L'EQ i la dinàmica de cada cadena són efectes normals d'aquella cadena; el mesclador de Zynthian conserva el nivell, el pan i els envíos. O bé afegiu plugins separats (omx keyed-gate, omx eq8, omx comp: trieu cadascun i el seu ordre i eq8 té vuit bandes) o bé un sol plugin, omx strip: guany d'entrada, filtres, una gate, quatre bandes d'EQ i un compressor en estèreo, en una sola càrrega i un sol worker, amb les seves cinc etapes en qualsevol ordre."
       }
     },
     "mixbus": {
@@ -145,39 +143,12 @@
     "figures": {
       "title": "Les xifres principals.",
       "intro": "Mesurat en una Raspberry Pi 5 amb Zynthian, amb una RME Babyface Pro com a interfície d'àudio i JACK amb prioritat de temps real 70 i 3 períodes, el paràmetre del mateix Zynthian. Llegit digitalment al servidor JACK i als seus ports. plugin-hostd 0.18.0 i omx-clap-host 0.29.0 contra mod-host 0.10.9, l'amfitrió de les cadenes d'efectes de Zynthian i de MOD-UI, a més de jalv 1.6.9, que fa córrer un plugin per procés:",
-      "dsp": "Càrrega DSP a 48 kHz, 16 plugins (omx comp, delay i drive): una cadena de plugin-hostd un 6,75 % a 128 mostres, contra el 9,36 % d'omx-clap-host, el 8,86 % de mod-host i l'11,40 % de jalv; a 256 mostres un 6,38 % contra el 7,75, el 7,38 i el 8,49 %. 0 xruns per a la cadena a cada repetició.",
-      "rate96": "A 96 kHz la càrrega és més o menys el doble que a 48 kHz a tots els amfitrions i l'ordre es manté: els mateixos 16 plugins a 256 mostres, un 12,64 % en una cadena contra el 15,43 % d'omx-clap-host, el 14,60 % de mod-host (8 xruns) i el 18,16 % de jalv (52 xruns). A 96 kHz tornen els xruns on a 48 kHz no n'hi havia, menys que enlloc a la cadena.",
-      "memory": "Memòria: 55 MB per a aquests 16 plugins en una cadena, contra 53 MB d'omx-clap-host, 99 MB de mod-host i 690 MB dels 16 processos de jalv.",
-      "add": "Temps per afegir 16 plugins un per un, amb l'amfitrió en marxa: 80 ms dins d'una cadena de plugin-hostd, contra 364 ms de mod-host, 397 ms d'omx-clap-host i 13,8 s de jalv.",
-      "instruments": "Instruments: Pianoteq 9 costa entre un 13,4 i un 14,7 % a tots els amfitrions a 48 kHz i 256 mostres, perquè la feina la fan els seus propis fils; ocupa 250 MB amb plugin-hostd, 288 MB amb mod-host i 279 MB amb jalv.",
-      "floor": "El límit: a 48 kHz, 64 mostres tenen xruns a tots els amfitrions fins i tot sense cap plugin carregat, de manera que és el límit de l'aparell i no d'un amfitrió. A 96 kHz, 128 mostres corren sense xruns a omx-clap-host, plugin-hostd i mod-host sense cap plugin (jalv no té amfitrió sense plugin); a més, val la pena mantenir el tercer període: amb 2, els conjunts més pesats donen més càrrega a omx-clap-host i a mod-host.",
-      "qualified": "Qualificació, de l'execució anterior que diu el peu (plugin-qualify 0.18.5): dels 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi. Una execució nova amb plugin-qualify 0.19.0 substituirà aquestes xifres.",
       "more": "Totes les taules i el mètode",
       "footer": "Raspberry Pi 5 amb Zynthian, RME Babyface Pro · JACK prioritat 70, 3 períodes · 48 i 96 kHz, 128 i 256 mostres · llegit digitalment al servidor JACK i als ports · plugin-hostd 0.18.0 (protocol 0.3.0), omx-clap-host 0.29.0, omx-plugins 0.18.0, mod-host 0.10.9, jalv 1.6.9 · 5 de novembre del 2026 · qualificació: plugin-qualify 0.18.5, registres omx-qualification-rpi5-zynthian-vangelis 2026110101, 1 de novembre del 2026",
       "bench": "Els bancs de proves, fila per fila"
     },
     "status": {
       "title": "On és.",
-      "proven": {
-        "title": "Demostrat a l'aparell",
-        "engine": "El motor plugin-hostd fa córrer cadenes de Zynthian, LV2 i CLAP colze a colze, amb els menús de plugins fets a partir dels registres de qualificació.",
-        "pages": "Les pàgines de controls segueixen les seccions del mateix plugin i porten el nom del que contenen.",
-        "play": "Els instruments i els efectes sonen a través del motor plugin-hostd, llegits digitalment als ports de JACK amb 0 xruns.",
-        "grouping": "L'agrupació a través del motor plugin-hostd de zynthian-ui supera la seva prova: una tirada en sèrie s'agrupa en un sol client i un espai en paral·lel, el canal o un altre client l'acaben.",
-        "recover": "Un worker perdut torna: després de matar un worker, el dimoni el torna a posar amb els seus valors i els enllaços que ell mateix havia fet en uns 350 ms.",
-        "presets": "Presets, amb plugin-hostd 0.18.0 i omx-clap-host 0.29.0: omx eq8 (CLAP) i mda Piano (LV2) llisten els seus presets, els carreguen amb els seus valors i en desen un que es torna a carregar; Odin 2 (sense fixacions) i la versió LV2 de Surge XT llisten, carreguen i desen; la versió CLAP de Surge XT llista i carrega els presets de fàbrica."
-      },
-      "released": {
-        "title": "Publicat, per comprovar a l'aparell",
-        "guard": "Cada crida a un plugin desa i comprova els registres que una funció ha de preservar; un plugin que en canvia un passa a un worker propi.",
-        "clients": "Una cadena comparteix un sol client JACK per worker i un plugin mono corre dins d'una cadena estèreo.",
-        "adds": "Els plugins s'afegeixen directament al worker d'una cadena, que és el que fa que una cadena es construeixi més de pressa que amb mod-host.",
-        "fallback": "Sense recurs a un altre host (plugin-hostd 0.19.0): cada plugin LV2 i CLAP surt una sola vegada, sota plugin-hostd. Un plugin que refusa es queda a la llista, marcat com que no funciona, amb el motiu i afegir-lo diu per què i no afegeix res. Res no passa un plugin a jalv; jalv continua sent un motor que es pot triar, com mod-host.",
-        "bar": "Exigència dels plugins, el paràmetre ZYNTHIAN_PLUGIN_BAR, també una opció de la llista al menú de plugins: només qualificats, avisa si han fallat, carrega-ho tot. El valor per defecte és avisa si han fallat: un plugin que ha fallat en la qualificació pregunta abans d'afegir-se i un plugin per sota de la nostra barra per qualsevol altre motiu es mostra com a informació i es carrega, en un worker propi. Només qualificats amaga el que és per sota de la barra; carrega-ho tot no pregunta mai. L'elecció del menú dura fins que Zynthian es reinicia: encara no es desa, de manera que cal fixar la variable per conservar-la.",
-        "lv2": "Els plugins LV2 corren només a l'adaptador LV2 d'omx-clap-host (lv2_worker omx-clap-host). Triar mod-host per a ells continua sent possible a la configuració; mai no es tria per tu.",
-        "mpe": "MPE a les cadenes de plugin-hostd (zynthian-ui): Surge XT, OB-Xf i TAL U-No-LX activen l'MPE, zona inferior amb 15 canals, quan la cadena escolta tots els canals MIDI, com ho fan amb jalv.",
-        "versions": "Versions publicades: plugin-hostd 0.19.0 (protocol 0.4.0), omx-clap-core i omx-clap-host 0.30.0, plugin-qualify 0.19.1, omx-panel 0.10.2, omx-dsp 0.30.1, plugin-db 0.2.0."
-      },
       "open": {
         "title": "Encara obert",
         "menu": "Cadenes fetes des del menú de Zynthian amb l'agrupació activada, mesurades com es van mesurar les cadenes del dimoni.",
@@ -186,13 +157,7 @@
         "snapshot": "L'anada i tornada d'una instantània que conté un instrument de plugin-hostd.",
         "mixbus": "Cadenes de Mixbus i espais en paral·lel mesurats amb el mesclador del mateix Zynthian al camí, a l'aparell."
       },
-      "coming": {
-        "title": "El que ve, planificat",
-        "bars": "Un grup de barres a omx-panel: una tirada de controls amb el mateix rang, com els tiradors d'un orgue o les bandes d'un equalitzador gràfic, mostrada com una sola fila de barres a cada panell.",
-        "curves": "Corbes i mesuradors a cada panell d'omx-panel: exactes per a la dinàmica i l'equalitzador d'omx, modelats a partir del que volen dir els controls per als altres plugins.",
-        "effects": "Efectes nous a la propera versió d'omx-plugins: omx-ducker, omx-doubler i omx-tone.",
-        "image": "La imatge de Zynthian amb tot això: es construeix amb docs/openmixer-image.md del fork i encara no està publicada."
-      }
+      "intro": "Tot el que ve a continuació s'ha de mesurar encara a l'aparell. El que és publicat, integrat o previst és a les targetes següents."
     },
     "series": {
       "title": "On són els canvis a Zynthian.",
@@ -201,26 +166,9 @@
     },
     "read": {
       "title": "Per saber-ne més.",
-      "bench": {
-        "title": "plugin-hostd en una Raspberry Pi 5",
-        "body": "L'aparell, el mètode i totes les taules: quatre amfitrions a 48 i 96 kHz, 128 i 256 mostres, amb càrrega, temps d'addició, instruments, on va el temps d'una cadena."
-      },
-      "tradeoffs": {
-        "title": "Un worker per cadena o un procés per plugin",
-        "body": "Què hi guanyes agrupant i què costa, l'allotjament CLAP, la qualificació i la compatibilitat amb mod-host."
-      },
-      "instruments": {
-        "title": "Instruments en una Pi 5",
-        "body": "Per què les veus necessiten nuclis, què hi fa l'amfitrió i Surge XT mesurat."
-      },
-      "page": {
-        "title": "D'un fitxer de plugin a una pàgina",
-        "body": "Les cinc etapes d'un fitxer de plugin a una fila de menú, unes pàgines de controls i una MOD GUI."
-      },
-      "groups": {
-        "title": "Grups de ports inferits",
-        "body": "Per què la majoria dels plugins LV2 d'un Zynthian necessiten grups de ports que no declaren i com els obtenen."
-      }
+      "intro": "Una targeta per a cada cosa que et dona, amb la versió en què va sortir i un enllaç al detall.",
+      "coming": "El que ve.",
+      "comingIntro": "Integrat i encara no en una versió o previst. Cada targeta ho diu."
     }
   }
 }

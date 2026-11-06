@@ -2,6 +2,7 @@
 id: desk
 title: The desk
 state: live
+confirmed: false
 manual:
   - docs/manual/channel-strip.md
   - docs/manual/sends-buses-dcas.md

@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: plugin-bar
+title: Plugin bar
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: merged
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: You choose how strict the host is
+    line: Qualified only, warn on crashes or load all. The choice is saved and applies at once.
+    text: "Plugin bar (Admin > Audio > Plugin bar, or the plugin list options): choose qualified only, warn on crashes (the default) or load all. The choice is saved and applies at once, with no restart. A plugin below the bar runs in a plugin-hostd worker of its own, never in another host, and with qualified only it is not offered."
+  ca:
+    title: Tu tries com d'estricte és l'amfitrió
+    line: Només qualificats, avisa si han fallat o carrega-ho tot. L'elecció es desa i s'aplica a l'instant.
+    text: "Nivell dels plugins (Administració > Àudio > Nivell dels plugins, o les opcions de la llista de plugins): trieu només qualificats, avisa si han fallat (per defecte) o carrega-ho tot. L'elecció es desa i s'aplica a l'instant, sense reiniciar. Un plugin per sota del nivell s'executa en un procés propi de plugin-hostd, mai en un altre amfitrió, i amb només qualificats no s'ofereix."
+proof: []

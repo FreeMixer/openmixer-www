@@ -38,21 +38,6 @@ const poolRows = [
   { voices: '48', off: '3335.5', on: '857.9', gain: '3.9x' },
 ];
 
-const notes = computed(() =>
-  ([
-    ['bench', 'plugin-hostd-on-a-raspberry-pi-5'],
-    ['tradeoffs', 'one-worker-per-chain-or-one-process-per-plugin'],
-    ['instruments', 'instruments-on-a-pi-5'],
-    ['page', 'from-a-plugin-file-to-a-page'],
-    ['groups', 'why-lv2-plugins-on-zynthian-need-inferred-port-groups'],
-  ] as const).map(([k, slug]) => ({
-    title: t(`docsZynthian.read.${k}.title`),
-    body: t(`docsZynthian.read.${k}.body`),
-    href: sitePath(`/notes/${slug}`),
-    label: `/notes/${slug}`,
-  })),
-);
-
 const slots = computed(() =>
   (['series', 'parallel', 'mixed', 'strip', 'jalv'] as const).map((k) => ({
     slots: t(`docsZynthian.mixbus.rows.${k}.slots`),
@@ -60,11 +45,9 @@ const slots = computed(() =>
   })),
 );
 
-const PROVEN = ['engine', 'pages', 'play', 'presets', 'grouping', 'recover'] as const;
-const RELEASED = ['fallback', 'bar', 'lv2', 'mpe', 'versions', 'guard', 'clients', 'adds'] as const;
 const OPEN = ['menu', 'listen', 'presets', 'snapshot', 'mixbus'] as const;
-const COMING = ['bars', 'curves', 'effects', 'image'] as const;
-const FIGURES = ['dsp', 'rate96', 'memory', 'add', 'instruments', 'floor', 'qualified'] as const;
+/** The headline figures come from the proof in the feature records. */
+const { figures } = useFeatureCards();
 
 useSeoMeta({
   title: () => t('docsZynthian.seo.title'),
@@ -101,7 +84,7 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-b border-edge">
+    <section id="install" class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
         <SectionHead eyebrow="03" :title="t('docsZynthian.install.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
@@ -119,7 +102,7 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-b border-edge bg-surface/40">
+    <section id="use" class="border-b border-edge bg-surface/40">
       <div class="mx-auto max-w-4xl px-6 py-16">
         <SectionHead eyebrow="04" :title="t('docsZynthian.use.title')" />
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
@@ -129,7 +112,6 @@ useSeoMeta({
           <p>{{ t('docsZynthian.use.group.p2') }}</p>
           <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.use.strip.title') }}</h3>
           <p>{{ t('docsZynthian.use.strip.p1') }}</p>
-          <p>{{ t('docsZynthian.use.strip.p2') }}</p>
           <h3 class="pt-2 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.mixbus.title') }}</h3>
           <p>{{ t('docsZynthian.mixbus.p1') }}</p>
           <ol class="list-decimal space-y-2 pl-6">
@@ -221,7 +203,10 @@ useSeoMeta({
         <SectionHead eyebrow="06" :title="t('docsZynthian.figures.title')" />
         <p class="mb-4 text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.figures.intro') }}</p>
         <ul class="list-disc space-y-3 pl-6 text-base leading-relaxed text-ink-dim">
-          <li v-for="k in FIGURES" :key="k">{{ t(`docsZynthian.figures.${k}`) }}</li>
+          <li v-for="f in figures" :key="f.text">
+            {{ f.text }}
+            <span class="block font-mono text-xs text-ink-faint">{{ f.with }}<template v-if="f.rate"> · {{ f.rate }}</template></span>
+          </li>
         </ul>
         <p class="mt-6 flex flex-wrap gap-x-6 text-base leading-relaxed">
           <NuxtLink :to="sitePath('/notes/plugin-hostd-on-a-raspberry-pi-5')" class="text-accent hover:underline">{{ t('docsZynthian.figures.more') }}</NuxtLink>
@@ -231,34 +216,14 @@ useSeoMeta({
       </div>
     </section>
 
-    <section class="border-b border-edge">
+    <section id="status" class="border-b border-edge">
       <div class="mx-auto max-w-4xl px-6 py-16">
         <SectionHead eyebrow="07" :title="t('docsZynthian.status.title')" />
         <div class="space-y-6 text-base leading-relaxed text-ink-dim">
-          <div>
-            <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.proven.title') }}</h3>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li v-for="k in PROVEN" :key="k">{{ t(`docsZynthian.status.proven.${k}`) }}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.released.title') }}</h3>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li v-for="k in RELEASED" :key="k">{{ t(`docsZynthian.status.released.${k}`) }}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.open.title') }}</h3>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li v-for="k in OPEN" :key="k">{{ t(`docsZynthian.status.open.${k}`) }}</li>
-            </ul>
-          </div>
-          <div>
-            <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.coming.title') }}</h3>
-            <ul class="mt-3 list-disc space-y-2 pl-6">
-              <li v-for="k in COMING" :key="k">{{ t(`docsZynthian.status.coming.${k}`) }}</li>
-            </ul>
-          </div>
+          <p>{{ t('docsZynthian.status.intro') }}</p>
+          <ul class="list-disc space-y-2 pl-6">
+            <li v-for="k in OPEN" :key="k">{{ t(`docsZynthian.status.open.${k}`) }}</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -273,14 +238,19 @@ useSeoMeta({
       </div>
     </section>
 
-    <section>
+    <section id="read-more" class="border-b border-edge">
       <div class="mx-auto max-w-6xl px-6 py-16">
         <SectionHead eyebrow="09" :title="t('docsZynthian.read.title')" />
-        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          <LinkCard v-for="n in notes" :key="n.label" :title="n.title" :href="n.href" :label="n.label">
-            <p>{{ n.body }}</p>
-          </LinkCard>
-        </div>
+        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.read.intro') }}</p>
+        <FeatureCards surface="zynthian" group="released" />
+      </div>
+    </section>
+
+    <section id="coming-next">
+      <div class="mx-auto max-w-6xl px-6 py-16">
+        <SectionHead eyebrow="10" :title="t('docsZynthian.read.coming')" />
+        <p class="mb-8 max-w-3xl text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.read.comingIntro') }}</p>
+        <FeatureCards surface="zynthian" group="coming" />
       </div>
     </section>
   </div>

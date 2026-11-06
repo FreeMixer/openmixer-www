@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: plugin-window
+title: Plugin window
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /docs/plugins-panels
+card:
+  en:
+    title: Open the plugin's own window
+    line: Show or hide a plugin's own window from the processor options.
+    text: For a plugin that ships its own interface, one menu entry shows it and one hides it, without leaving the chain.
+  ca:
+    title: Obre la finestra pròpia del plugin
+    line: Mostra o amaga la finestra pròpia d'un plugin des de les opcions del processador.
+    text: Per a un plugin que porta la seva pròpia interfície, una entrada del menú la mostra i una altra l'amaga, sense sortir de la cadena.
+proof: []

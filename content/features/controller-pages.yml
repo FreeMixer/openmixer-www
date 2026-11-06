@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: controller-pages
+title: Controller pages
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /notes/why-lv2-plugins-on-zynthian-need-inferred-port-groups
+card:
+  en:
+    title: Pages named for what they hold
+    line: Controls follow the plugin's own sections, four to a page, with names you can read.
+    text: Pages start with the plugin's own remote pages, then its sections, and are named by what they contain rather than by a number.
+  ca:
+    title: Pàgines amb el nom del que contenen
+    line: Els controls segueixen les seccions del mateix plugin, de quatre en quatre, amb noms que es llegeixen.
+    text: Les pàgines comencen amb les pàgines remotes del mateix plugin, després les seves seccions, i porten el nom del que contenen i no un número.
+proof: []

@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: thread-pool
+title: Voices across the cores
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-clap-host 0.30.0, plugin-qualify 0.19.1
+  zynthian:
+    state: released
+    version: omx-clap-host 0.30.0
+  console:
+    state: to-confirm
+detail: /notes/instruments-on-a-pi-5
+card:
+  en:
+    title: Big synths use all four cores
+    line: A synth that splits its voices into tasks plays more notes, because every core helps.
+    text: The host starts helper threads, pinned to the cores the plugin may use. A plugin gets them only after qualification found it safe for real time with the helpers running and faster with them. Any other plugin runs as before. You do not set anything on Zynthian.
+  ca:
+    title: Els sintetitzadors grans fan servir els quatre nuclis
+    line: Un sintetitzador que reparteix les veus en tasques toca més notes, perquè cada nucli hi ajuda.
+    text: L'amfitrió engega fils d'ajuda, fixats als nuclis que el plugin pot fer servir. Un plugin els rep només si la qualificació ha trobat que és segur per al temps real amb els fils en marxa i més ràpid amb ells. Qualsevol altre plugin corre com abans. A Zynthian no cal configurar res.
+proof:
+  - kind: bench
+    rate: 48 kHz, 256 frames
+    figure: true
+    with: omx-clap-host 0.29.0, test plugin of 16 tasks per block, Raspberry Pi 5
+    en: The mean cost of one block with 48 voices fell from 3335.5 to 857.9 µs, 3.9 times faster, with no block over its deadline. This is a test plugin; Surge XT has no figure of this kind because it does not split its voices.
+    ca: El cost mitjà d'un bloc amb 48 veus va baixar de 3335,5 a 857,9 µs, 3,9 vegades més de pressa, sense cap bloc fora de termini. És un plugin de prova; Surge XT no té una xifra d'aquest tipus perquè no reparteix les veus.

@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: snapshot-converter
+title: Snapshot converter
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /docs/zynthian#install
+card:
+  en:
+    title: Your jalv snapshots come along
+    line: A one-time converter moves your old snapshots to plugin-hostd.
+    text: The converter rewrites the plugins of a snapshot saved under jalv, and keeps a preset in the Factory or User bank it belongs to. The round trip of a snapshot that holds a plugin-hostd instrument is still to be measured on the device.
+  ca:
+    title: Les teves instantànies de jalv t'acompanyen
+    line: Un convertidor d'un sol cop passa les instantànies velles a plugin-hostd.
+    text: El convertidor reescriu els plugins d'una instantània desada amb jalv i deixa un preset al banc Factory o User que li toca. L'anada i tornada d'una instantània amb un instrument de plugin-hostd encara s'ha de mesurar a l'aparell.
+proof: []

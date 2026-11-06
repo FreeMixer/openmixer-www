@@ -1,0 +1,49 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: pi-bench
+title: Lighter than mod-host and jalv
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.18.0
+  zynthian:
+    state: released
+    version: plugin-hostd 0.18.0
+  console:
+    state: none
+detail: /notes/plugin-hostd-on-a-raspberry-pi-5
+card:
+  en:
+    title: Lighter on a Pi 5
+    line: The same plugins cost less load than on mod-host or jalv, at 48 and 96 kHz.
+    text: Four hosts ran the same plugins at the same rate and buffer size on a Raspberry Pi 5 with an RME Babyface Pro. A plugin-hostd chain came out lowest in load at both rates, with the fewest xruns.
+  ca:
+    title: Més lleuger en una Pi 5
+    line: Els mateixos plugins costen menys càrrega que amb mod-host o jalv, a 48 i 96 kHz.
+    text: Quatre amfitrions van fer córrer els mateixos plugins a la mateixa freqüència i mida de buffer en una Raspberry Pi 5 amb una RME Babyface Pro. Una cadena de plugin-hostd va donar la càrrega més baixa a totes dues freqüències, amb menys xruns.
+proof:
+  - kind: bench
+    rate: 48 kHz
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: "DSP load for 16 plugins at 128 frames: a plugin-hostd chain 6.75 %, against 9.36 % for omx-clap-host, 8.86 % for mod-host and 11.40 % for jalv. At 256 frames 6.38 % against 7.75, 7.38 and 8.49 %. 0 xruns for the chain in every repeat."
+    ca: "Càrrega DSP per a 16 plugins a 128 mostres: una cadena de plugin-hostd un 6,75 %, contra el 9,36 % d'omx-clap-host, el 8,86 % de mod-host i l'11,40 % de jalv. A 256 mostres un 6,38 % contra el 7,75, el 7,38 i el 8,49 %. 0 xruns per a la cadena a cada repetició."
+  - kind: bench
+    rate: 96 kHz
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: "The load is about twice the 48 kHz figure on every host and the order holds. The same 16 plugins at 256 frames: 12.64 % in a chain, against 15.43 % for omx-clap-host, 14.60 % for mod-host (8 xruns) and 18.16 % for jalv (52 xruns)."
+    ca: "La càrrega és més o menys el doble que a 48 kHz a tots els amfitrions i l'ordre es manté. Els mateixos 16 plugins a 256 mostres: un 12,64 % en una cadena, contra el 15,43 % d'omx-clap-host, el 14,60 % de mod-host (8 xruns) i el 18,16 % de jalv (52 xruns)."
+  - kind: bench
+    rate: 48 kHz, 256 frames
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: Pianoteq 9 costs 13.4 to 14.7 % on every host, since its own threads do the work. It takes 250 MB under plugin-hostd, 288 MB under mod-host and 279 MB under jalv.
+    ca: Pianoteq 9 costa entre un 13,4 i un 14,7 % a tots els amfitrions, perquè la feina la fan els seus propis fils. Ocupa 250 MB amb plugin-hostd, 288 MB amb mod-host i 279 MB amb jalv.
+  - kind: bench
+    rate: 48 and 96 kHz, 64 and 128 frames
+    figure: true
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0, mod-host 0.10.9, jalv 1.6.9
+    en: "The floor: 64 frames at 48 kHz has xruns on every host with no plugin loaded, so it is the device's limit. At 96 kHz, 128 frames runs with no xrun on omx-clap-host, plugin-hostd and mod-host with no plugin; jalv has no host without a plugin. Keep the third period: with two, the heavier sets read higher on omx-clap-host and mod-host."
+    ca: "El límit: a 48 kHz, 64 mostres tenen xruns a tots els amfitrions sense cap plugin carregat, de manera que és el límit de l'aparell. A 96 kHz, 128 mostres corren sense xruns a omx-clap-host, plugin-hostd i mod-host sense cap plugin; jalv no té amfitrió sense plugin. Val la pena mantenir el tercer període: amb dos, els conjunts més pesats donen més càrrega a omx-clap-host i a mod-host."

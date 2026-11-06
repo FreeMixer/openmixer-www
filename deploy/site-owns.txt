@@ -19,6 +19,7 @@ docs
 manual
 faq
 features
+zynthian
 plugins
 benchmarks
 get-it

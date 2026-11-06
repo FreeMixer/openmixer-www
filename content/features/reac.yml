@@ -2,6 +2,7 @@
 id: reac
 title: REAC stageboxes
 state: live
+confirmed: false
 manual:
   - docs/manual/reac-clock.md
   - docs/manual/patchbay.md

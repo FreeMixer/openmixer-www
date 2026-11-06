@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: modgui
+title: MOD GUIs
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-panel 0.10.2
+  zynthian:
+    state: released
+    version: zynthian-sys omx-track 2026110102
+  console:
+    state: to-confirm
+detail: /docs/plugins-panels
+card:
+  en:
+    title: A MOD GUI for every plugin
+    line: Plugins that ship no interface get one, drawn from the same layout as the controller pages.
+    text: omx-panel builds a MOD GUI for each plugin that has none, so MOD-UI pedalboards show a real panel. The same layout feeds the pages on the Zynthian screen, so the two always agree.
+  ca:
+    title: Una MOD GUI per a cada plugin
+    line: Els plugins que no porten interfície en reben una, dibuixada amb la mateixa disposició que les pàgines de controls.
+    text: omx-panel construeix una MOD GUI per a cada plugin que no en té, de manera que les pedalboards de MOD-UI mostren un panell de debò. La mateixa disposició alimenta les pàgines de la pantalla de Zynthian, així que les dues sempre coincideixen.
+proof: []
