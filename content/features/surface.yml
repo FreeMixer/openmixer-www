@@ -2,7 +2,7 @@
 id: surface
 title: The web surface
 state: live
-confirmed: false
+confirmed: true
 manual:
   - docs/manual/surface.md
   - docs/manual/layouts.md

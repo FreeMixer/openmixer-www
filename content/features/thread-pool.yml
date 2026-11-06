@@ -11,7 +11,8 @@ surfaces:
     state: released
     version: omx-clap-host 0.30.0
   console:
-    state: to-confirm
+    state: released
+    version: omx-clap-host 0.27.0
 detail: /notes/instruments-on-a-pi-5
 card:
   en:

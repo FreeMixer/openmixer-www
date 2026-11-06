@@ -2,6 +2,6 @@
 id: surfaces
 title: Control surfaces
 state: live
-confirmed: false
+confirmed: true
 manual: []
 public: true

@@ -2,7 +2,7 @@
 id: rta
 title: Real-time analyser
 state: live
-confirmed: false
+confirmed: true
 manual:
   - docs/manual/rta.md
 public: true

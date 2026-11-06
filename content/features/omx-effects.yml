@@ -11,7 +11,8 @@ surfaces:
     state: released
     version: omx-plugins 0.18.0
   console:
-    state: to-confirm
+    state: released
+    version: omx-plugins 0.18.0
 detail: /docs/plugins-shipped
 card:
   en:
