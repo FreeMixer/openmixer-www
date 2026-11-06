@@ -78,7 +78,7 @@ function fixture() {
   git('commit', '-q', '-m', 'records');
   const site = mkdtempSync(join(tmpdir(), 'catalog-site-'));
   mkdirSync(join(site, 'plugin-catalog'));
-  writeFileSync(join(site, 'plugin-catalog/pin.json'), JSON.stringify({ repo: 'omx-qualification-records', commit: git('rev-parse', 'HEAD').trim() }));
+  writeFileSync(join(site, 'plugin-catalog/pin.json'), JSON.stringify({ repo: 'plugin-db-qualification', commit: git('rev-parse', 'HEAD').trim() }));
   const run = (...a) => spawnSync(process.execPath, [script, '--root', site, '--records', dir, ...a], { encoding: 'utf8' });
   return { dir, site, run, git };
 }
@@ -93,7 +93,7 @@ test('the data is written, --verify passes on it and fails when the data or the 
   writeFileSync(join(site, 'app/data/plugin-catalog/platforms/rpi5-demo.json'), readFileSync(join(site, 'app/data/plugin-catalog/platforms/rpi5-demo.json'), 'utf8').replace('accepted', 'refused'));
   const edited = run('--verify');
   assert.equal(edited.status, 1);
-  assert.match(edited.stderr, /rpi5-demo\.json is not what omx-qualification-records gives at [0-9a-f]{40}/);
+  assert.match(edited.stderr, /rpi5-demo\.json is not what plugin-db-qualification gives at [0-9a-f]{40}/);
 
   assert.equal(run().status, 0);
   writeFileSync(join(dir, 'records/rpi5/demo/extra.txt'), 'x');

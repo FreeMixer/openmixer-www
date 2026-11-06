@@ -140,7 +140,7 @@ the scenario modes and how to add a run are in `benchmarks/README.md`;
 ## The plugin catalog data
 
 `/plugins/` is rendered from `app/data/plugin-catalog/`, which `scripts/plugin-catalog-from-records.mjs` writes
-from the public qualification records (FreeMixer/omx-qualification-records) at the one commit
+from the public qualification records (FreeMixer/plugin-db-qualification) at the one commit
 `plugin-catalog/pin.json` names, the way `content/projects/projects.json` pins project documents. The data is
 committed; the build reads it and `npm run catalog:check` (wired into `predev`, `prebuild` and `pregenerate`)
 fails on data that does not match `plugin-catalog/schema/plugin-catalog.v2.schema.json` or that disagrees with
