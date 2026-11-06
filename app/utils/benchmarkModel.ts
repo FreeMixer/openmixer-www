@@ -10,7 +10,7 @@
 
 export type HostId = 'H1' | 'H2' | 'H3' | 'H4';
 export type MachineClass = 'rpi5' | 'desk' | 'ci';
-export type Mode = 'individual' | 'chain' | 'chain-add' | 'shared-process';
+export type Mode = 'individual' | 'chain' | 'chain-add' | 'shared-process' | 'plan' | 'pool';
 
 export interface BenchScenario {
   readonly id: string;
@@ -34,6 +34,7 @@ export interface BenchScenario {
   readonly status: 'ok' | 'unsupported' | 'failed';
   readonly note?: string;
   readonly stress?: string;
+  readonly nice?: number;
   readonly xruns?: number | null;
   readonly repeats?: number | null;
   readonly jack_clients?: number | null;
