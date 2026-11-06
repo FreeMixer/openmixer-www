@@ -448,7 +448,7 @@
           "version": "omx-plugins 0.19.0"
         },
         "console": {
-          "state": "none"
+          "state": "coming"
         }
       },
       "detail": "/docs/plugins-shipped",
