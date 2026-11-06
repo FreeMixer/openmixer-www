@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: presets
+title: Presets
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: Factory and User banks for every plugin
+    line: Every plugin lists its presets and loads them. Save your own and they load back.
+    text: LV2 presets and CLAP factory presets appear as a Factory bank, and what you save goes into a User bank, written by the worker. Snapshots from jalv are converted once into the same banks.
+  ca:
+    title: Bancs Factory i User per a cada plugin
+    line: Cada plugin llista els seus presets i els carrega. Desa els teus i tornen a carregar-se.
+    text: Els presets LV2 i els presets de fàbrica de CLAP surten en un banc Factory, i el que desis va a un banc User, escrit pel worker. Les instantànies de jalv es converteixen una vegada als mateixos bancs.
+proof:
+  - kind: test
+    with: plugin-hostd 0.18.0, omx-clap-host 0.29.0
+    en: omx eq8 (CLAP) and mda Piano (LV2) list their presets, load them with their values and save one that loads back. Surge XT's CLAP build lists and loads its factory presets; saving one back is still open.
+    ca: omx eq8 (CLAP) i mda Piano (LV2) llisten els seus presets, els carreguen amb els seus valors i en desen un que es torna a carregar. La versió CLAP de Surge XT llista i carrega els presets de fàbrica; desar-ne un i recuperar-lo encara és obert.

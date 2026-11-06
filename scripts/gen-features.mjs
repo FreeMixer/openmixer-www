@@ -6,9 +6,24 @@
 //
 //   id        lower-kebab, the key of the feature's text in i18n/locales/<lang>/features.json
 //   title     the English name; it must equal that file's `features.<id>.title`
-//   state     building | measured | live
+//   state     building | measured | live   (a console feature with a row on the features page)
+//   confirmed true | false: the owner has confirmed that state for the console (required with `state`)
 //   manual    the manual pages of the feature, as docs/manual/<page>.md
 //   public    true: listed on the site, and its manual pages are published
+//
+// A feature that is sold on the site (the features page, the Zynthian guide's cards and the /zynthian page)
+// is written ONCE, in its record, in English and in Catalan, and nowhere else:
+//
+//   card      { en, ca }: each { title, line, text }   the selling points: a title, one or two plain lines on
+//                                                       what it gives the player, a longer paragraph
+//   surfaces  { console, zynthian, libraries }: each { state, version? }
+//             state: released | merged | coming | to-confirm | none. `released` names the version it shipped in.
+//             to-confirm: the console state was never confirmed by the owner; it is shown as such, not guessed.
+//   proof     [{ kind: bench | test, with, rate?, figure?, en, ca }]   `with` names the versions the figure was
+//             read with; a bench names its rate; a text that names mod-host or jalv names both
+//   detail    the page that explains it: /notes/<slug>, /docs/<page>[#id] or /benchmarks
+//
+// A record that has a card and no `state` is a card only: manual [] and public false.
 //
 // The records are the public projection of the console's own feature records; `--sync <checkout>`
 // copies them from <checkout>/docs/features/. Two files are generated and committed, like the API
@@ -27,12 +42,18 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { parse as parseYaml } from 'yaml';
+import { parse as parseYaml, stringify as stringifyYaml } from 'yaml';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 export const STATES = ['building', 'measured', 'live'];
 export const LANGS = ['en', 'ca'];
 const KEYS = ['id', 'title', 'state', 'manual', 'public'];
+/** The keys that carry the selling points. `--sync` copies KEYS from the console and keeps these as they are. */
+export const EXT = ['confirmed', 'surfaces', 'detail', 'card', 'proof'];
+export const SURFACES = ['console', 'zynthian', 'libraries'];
+export const SURFACE_STATES = ['released', 'merged', 'coming', 'to-confirm', 'none'];
+const CARD_KEYS = ['title', 'line', 'text'];
+const DETAIL = /^\/(?:notes\/[a-z0-9-]+|docs\/[a-z0-9-]+(?:#[a-z0-9-]+)?|benchmarks)$/;
 const ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PAGE = /^docs\/manual\/[a-z0-9][a-z0-9/-]*\.md$/;
 export const MARK = '#@ feature-pages';
@@ -58,8 +79,9 @@ export function readRecords(files) {
       problems.push(`${file}: not a mapping`);
       continue;
     }
-    for (const k of Object.keys(r)) if (!KEYS.includes(k)) problems.push(`${file}: unknown key ${k}`);
-    for (const k of KEYS) if (!(k in r)) problems.push(`${file}: no ${k}`);
+    const cardOnly = !('state' in r) && 'card' in r;
+    for (const k of Object.keys(r)) if (!KEYS.includes(k) && !EXT.includes(k)) problems.push(`${file}: unknown key ${k}`);
+    for (const k of KEYS) if (!(k in r) && !(cardOnly && k === 'state')) problems.push(`${file}: no ${k}`);
     if (typeof r.id !== 'string' || !ID.test(r.id)) problems.push(`${file}: id must be lower-kebab`);
     else {
       if (file.replace(/^.*\//, '') !== `${r.id}.yml`) problems.push(`${file}: the file must be named ${r.id}.yml`);
@@ -67,7 +89,11 @@ export function readRecords(files) {
       ids.add(r.id);
     }
     if (typeof r.title !== 'string' || r.title.trim() === '') problems.push(`${file}: no title`);
-    if (!STATES.includes(r.state)) problems.push(`${file}: state must be one of ${STATES.join(', ')}`);
+    if (!cardOnly && !STATES.includes(r.state)) problems.push(`${file}: state must be one of ${STATES.join(', ')}`);
+    if (!cardOnly && typeof r.confirmed !== 'boolean') problems.push(`${file}: confirmed must be true or false (the owner has or has not confirmed the console state)`);
+    if (cardOnly && 'confirmed' in r) problems.push(`${file}: confirmed belongs to a record with a state`);
+    if (cardOnly && (r.public !== false || (Array.isArray(r.manual) && r.manual.length))) problems.push(`${file}: a card-only record has manual [] and public false`);
+    if ('card' in r || 'surfaces' in r || 'proof' in r || 'detail' in r) problems.push(...cardProblems(file, r));
     if (typeof r.public !== 'boolean') problems.push(`${file}: public must be true or false`);
     if (!Array.isArray(r.manual) || r.manual.some((m) => typeof m !== 'string' || !PAGE.test(m))) {
       problems.push(`${file}: manual is a list of docs/manual/<page>.md`);
@@ -84,9 +110,98 @@ export function readRecords(files) {
   return { records: records.sort((a, b) => String(a.id).localeCompare(String(b.id))), problems };
 }
 
+const textOk = (v) => typeof v === 'string' && v.trim() !== '';
+const FIGURE = /\d\s?(?:%|ms\b|µs|MB\b|GB\b|s\b|xruns?\b|frames?\b|mostres\b)/;
+const VERSION = /\b\d+\.\d+(?:\.\d+)?\b|\b\d{10}\b/;
+
+/** The problems of one record's selling points. */
+export function cardProblems(file, r) {
+  const out = [];
+  const bad = (m) => out.push(`${file}: ${m}`);
+  if (typeof r.card !== 'object' || r.card === null) bad('no card');
+  else {
+    for (const lang of LANGS) {
+      const c = r.card[lang];
+      if (typeof c !== 'object' || c === null) { bad(`card has no ${lang}`); continue; }
+      for (const k of Object.keys(c)) if (!CARD_KEYS.includes(k)) bad(`card.${lang}: unknown key ${k}`);
+      for (const k of CARD_KEYS) if (!textOk(c[k])) bad(`card.${lang}.${k} is empty`);
+      if (textOk(c.line) && c.line.length > 220) bad(`card.${lang}.line is over 220 characters; a card line is one or two short sentences`);
+      if (textOk(c.title) && c.title.length > 60) bad(`card.${lang}.title is over 60 characters`);
+    }
+  }
+  const s = r.surfaces;
+  if (typeof s !== 'object' || s === null) bad('no surfaces');
+  else {
+    for (const k of Object.keys(s)) if (!SURFACES.includes(k)) bad(`surfaces: unknown surface ${k}`);
+    for (const k of SURFACES) {
+      const x = s[k];
+      if (typeof x !== 'object' || x === null) { bad(`surfaces.${k} is missing`); continue; }
+      if (!SURFACE_STATES.includes(x.state)) bad(`surfaces.${k}.state must be one of ${SURFACE_STATES.join(', ')}`);
+      if (x.state === 'released' && !(textOk(x.version) && VERSION.test(x.version))) bad(`surfaces.${k} is released and names no version`);
+      if (x.state === 'none' && 'version' in x) bad(`surfaces.${k} is none and names a version`);
+    }
+    if (SURFACES.every((k) => s[k]?.state === 'none')) bad('every surface is none; a card applies somewhere');
+  }
+  if (!textOk(r.detail) || !DETAIL.test(r.detail)) bad('detail must be /notes/<slug>, /docs/<page>[#id] or /benchmarks');
+  if (!Array.isArray(r.proof)) bad('proof must be a list (empty when there is none)');
+  else {
+    r.proof.forEach((p, i) => {
+      const w = `proof[${i}]`;
+      if (!['bench', 'test'].includes(p?.kind)) bad(`${w}.kind must be bench or test`);
+      if (!textOk(p?.with) || !VERSION.test(p.with)) bad(`${w} names no versions in "with"`);
+      if (p?.kind === 'bench' && !textOk(p.rate)) bad(`${w} is a bench figure and names no rate`);
+      for (const lang of LANGS) {
+        const txt = p?.[lang];
+        if (!textOk(txt)) { bad(`${w}.${lang} is empty`); continue; }
+        const named = (re) => re.test(txt);
+        if (named(/mod-host|jalv/i) && !(named(/mod-host/i) && named(/jalv/i))) bad(`${w}.${lang} names only one of mod-host and jalv; a comparison names both`);
+        if (named(/mod-host|jalv/i) && !(/mod-host/i.test(p.with) && /jalv/i.test(p.with))) bad(`${w}: the comparison's "with" must name the mod-host and jalv versions`);
+        if (p.kind === 'bench' && !FIGURE.test(txt)) bad(`${w}.${lang} is a bench figure with no figure in it`);
+      }
+    });
+  }
+  return out;
+}
+
+/** The sold features: every record with a card, in the order the site shows them. */
+export function cardsJson(records) {
+  const cards = records
+    .filter((r) => r.card)
+    .map(({ id, title, surfaces, detail, card, proof, state, public: pub }) => ({ id, title, row: Boolean(state && pub), surfaces, detail, card, proof }));
+  return `${JSON.stringify({ generated: 'scripts/gen-features.mjs from content/features; do not edit', cards }, null, 2)}\n`;
+}
+
+/**
+ * Card text written by hand outside the records. The wording of a feature lives in its record; a page or a
+ * message file that repeats it, or that rebuilds a card list of its own, is refused. `files` is [{ file, text }]
+ * for the pages and message files.
+ */
+export function handTextProblems(records, files) {
+  const out = [];
+  const pieces = [];
+  for (const r of records.filter((x) => x.card)) {
+    for (const lang of LANGS) {
+      for (const k of CARD_KEYS) pieces.push({ id: r.id, what: `card.${lang}.${k}`, s: r.card?.[lang]?.[k] });
+      (r.proof ?? []).forEach((p, i) => pieces.push({ id: r.id, what: `proof[${i}].${lang}`, s: p?.[lang] }));
+    }
+  }
+  for (const { file, text } of files) {
+    for (const { id, what, s } of pieces) {
+      if (typeof s === 'string' && s.length >= 10 && text.includes(s)) out.push(`${file} repeats ${what} of the record ${id}; write it in content/features/${id}.yml only`);
+    }
+    if (/locales\/[a-z]{2}\/docsZynthian\.json$/.test(file)) {
+      const read = JSON.parse(text)?.docsZynthian?.read ?? {};
+      for (const [k, v] of Object.entries(read)) {
+        if (typeof v === 'object') out.push(`${file}: docsZynthian.read.${k} is a hand-written card; the cards come from the records`);
+      }
+    }
+  }
+  return out;
+}
+
 /** The data the features page reads. */
 export function featuresJson(records) {
-  const features = records.filter((r) => r.public).map(({ id, title, state }) => ({ id, title, state }));
+  const features = records.filter((r) => r.public).map(({ id, title, state, confirmed }) => ({ id, title, state, confirmed }));
   return `${JSON.stringify({ generated: 'scripts/gen-features.mjs from content/features; do not edit', features }, null, 2)}\n`;
 }
 
@@ -108,11 +223,11 @@ export function publicDocs(base, records) {
 export function pageProblems(records, pageText, locales) {
   const out = [];
   const used = [...pageText.matchAll(/stateOf\('([a-z0-9-]+)'\)/g)].map((m) => m[1]);
-  const pub = records.filter((r) => r.public).map((r) => r.id);
+  const pub = records.filter((r) => r.public && r.state).map((r) => r.id);
   for (const id of pub) if (!used.includes(id)) out.push(`app/pages/features.vue has no row for the record ${id}`);
   for (const id of used) if (!pub.includes(id)) out.push(`app/pages/features.vue shows ${id}, which has no public record`);
   if (/\bstate\s*=\s*"(?:live|measured|building)"/.test(pageText)) out.push('app/pages/features.vue types a state by hand');
-  for (const r of records.filter((x) => x.public)) {
+  for (const r of records.filter((x) => x.public && x.state)) {
     for (const [lang, j] of Object.entries(locales)) {
       const t = j?.features?.[r.id]?.title;
       if (typeof t !== 'string') out.push(`i18n ${lang}: no features.${r.id}.title`);
@@ -138,12 +253,48 @@ function load() {
     if (existsSync(f)) locales[l] = JSON.parse(readFileSync(f, 'utf8'));
   }
   const pageText = readFileSync(join(root, 'app/pages/features.vue'), 'utf8');
-  return { records, problems: [...problems, ...pageProblems(records, pageText, locales)], base };
+  const hand = handTextProblems(records, textFiles());
+  const missing = detailProblems(records, (f) => existsSync(join(root, f)));
+  return { records, problems: [...problems, ...pageProblems(records, pageText, locales), ...hand, ...missing], base };
+}
+
+/** A card's detail link must reach a page that exists: a note in both languages, a docs page or /benchmarks. */
+export function detailProblems(records, exists) {
+  const out = [];
+  for (const r of records.filter((x) => x.card && typeof x.detail === 'string')) {
+    const [path] = r.detail.split('#');
+    const m = /^\/(notes|docs)\/(.+)$/.exec(path);
+    const ok = m
+      ? m[1] === 'notes'
+        ? LANGS.every((l) => exists(`content/technical-notes/${m[2]}.${l}.md`))
+        : exists(`app/pages/docs/${m[2]}.vue`)
+      : exists('app/pages/benchmarks');
+    if (!ok) out.push(`content/features/${r.id}.yml: detail ${r.detail} is not a page of the site`);
+  }
+  return out;
+}
+
+/** The pages, components and message files a card's text must not be copied into. */
+function textFiles() {
+  const out = [];
+  const walk = (dir, re) => {
+    if (!existsSync(dir)) return;
+    for (const e of readdirSync(dir, { withFileTypes: true })) {
+      const p = join(dir, e.name);
+      if (e.isDirectory()) walk(p, re);
+      else if (re.test(e.name)) out.push({ file: p.slice(root.length + 1), text: readFileSync(p, 'utf8') });
+    }
+  };
+  walk(join(root, 'app/pages'), /\.vue$/);
+  walk(join(root, 'app/components'), /\.vue$/);
+  walk(join(root, 'i18n/locales'), /\.json$/);
+  return out;
 }
 
 function outputs({ records, base }) {
   return {
     'app/data/features.json': featuresJson(records),
+    'app/data/feature-cards.json': cardsJson(records),
     'deploy/public-docs.txt': publicDocs(base, records),
   };
 }
@@ -162,7 +313,10 @@ function main(argv) {
     mkdirSync(join(root, 'content/features'), { recursive: true });
     for (const r of records) {
       const { file, ...rest } = r;
-      writeFileSync(join(root, 'content/features', `${r.id}.yml`), `# SPDX-License-Identifier: GPL-3.0-or-later\n${yamlOf(rest)}`);
+      const mine = join(root, 'content/features', `${r.id}.yml`);
+      const kept = existsSync(mine) ? parseYaml(readFileSync(mine, 'utf8')) : {};
+      for (const k of EXT) if (k in kept) rest[k] = kept[k];
+      writeFileSync(mine, `# SPDX-License-Identifier: GPL-3.0-or-later\n${yamlOf(rest)}`);
     }
   }
   const state = load();
@@ -187,14 +341,16 @@ function projection(text) {
   if (r === null || typeof r !== 'object') return text;
   const keep = {};
   for (const k of KEYS) if (k in r) keep[k] = r[k];
+  // The console's records do not say whether the owner confirmed the state; the site's copy does.
+  const mine = join(root, 'content/features', `${r.id}.yml`);
+  keep.confirmed = (existsSync(mine) ? parseYaml(readFileSync(mine, 'utf8'))?.confirmed : undefined) ?? false;
   return yamlOf(keep);
 }
 
 function yamlOf(r) {
-  const lines = [`id: ${r.id}`, `title: ${r.title}`, `state: ${r.state}`];
-  lines.push(r.manual.length ? `manual:\n${r.manual.map((m) => `  - ${m}`).join('\n')}` : 'manual: []');
-  lines.push(`public: ${r.public}`);
-  return `${lines.join('\n')}\n`;
+  const ordered = {};
+  for (const k of [...KEYS, ...EXT]) if (k in r) ordered[k] = r[k];
+  return stringifyYaml(ordered, { lineWidth: 0 });
 }
 
 function fail(problems) {

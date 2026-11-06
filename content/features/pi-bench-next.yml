@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: pi-bench-next
+title: New Pi measurements
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: coming
+  zynthian:
+    state: coming
+  console:
+    state: none
+detail: /benchmarks
+card:
+  en:
+    title: Fresh figures with the new release
+    line: The same bench again with plugin-hostd 0.19.0, at 48 and 96 kHz, against mod-host and jalv.
+    text: The next run repeats the four-host comparison with the current releases and adds the qualification figures from the Pi.
+  ca:
+    title: Xifres noves amb la nova versió
+    line: El mateix banc de proves un altre cop amb plugin-hostd 0.19.0, a 48 i 96 kHz, contra mod-host i jalv.
+    text: La propera execució repeteix la comparació amb quatre amfitrions amb les versions actuals i hi afegeix les xifres de qualificació de la Pi.
+proof: []

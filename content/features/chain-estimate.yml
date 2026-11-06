@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: chain-estimate
+title: Chain estimate
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /notes/the-grouping-planner
+card:
+  en:
+    title: See the cost before you add
+    line: The chain editor shows latency, CPU, memory and workers before you insert a plugin.
+    text: The figures come from the daemon's own estimate of the chain with the plugin in it, so they follow the groups it will really run.
+  ca:
+    title: Mira el cost abans d'afegir
+    line: L'editor de cadenes mostra latència, CPU, memòria i workers abans d'inserir un plugin.
+    text: Les xifres surten de l'estimació que fa el dimoni de la cadena amb el plugin dins, de manera que segueixen els grups que realment faran córrer.
+proof: []

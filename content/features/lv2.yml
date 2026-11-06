@@ -2,6 +2,26 @@
 id: lv2
 title: LV2 plugin inserts
 state: measured
+confirmed: false
 manual:
   - docs/manual/plugins.md
 public: true
+surfaces:
+  libraries:
+    state: released
+    version: omx-clap-host 0.30.0
+  zynthian:
+    state: merged
+  console:
+    state: to-confirm
+detail: /notes/the-lv2-adapter-against-mod-host-and-jalv
+card:
+  en:
+    title: LV2 plugins on one adapter
+    line: LV2 plugins run in omx-clap-host's own adapter, so they get the same isolation and measurement as CLAP.
+    text: LV2 plugins run in omx-clap-host's LV2 adapter only. Choosing mod-host for them is still possible in the configuration; it is never chosen for you.
+  ca:
+    title: Plugins LV2 en un sol adaptador
+    line: Els plugins LV2 corren a l'adaptador propi d'omx-clap-host, de manera que tenen el mateix aïllament i la mateixa mesura que els CLAP.
+    text: Els plugins LV2 corren només a l'adaptador LV2 d'omx-clap-host. Triar mod-host per a ells continua sent possible a la configuració; mai no es tria per tu.
+proof: []

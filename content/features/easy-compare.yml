@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: easy-compare
+title: Easy page and Compare
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-panel 0.10.2
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /notes/from-a-plugin-file-to-a-page
+card:
+  en:
+    title: Easy page, and A/B/C/D to compare
+    line: The first page of a plugin holds the controls you reach for. Compare four settings and go back.
+    text: The first controller page is Easy. In the processor options, Compare keeps four settings, A to D, so you can switch between them while you listen, and undo steps back.
+  ca:
+    title: Pàgina Easy i A/B/C/D per comparar
+    line: La primera pàgina d'un plugin porta els controls que més fas servir. Compara quatre valors i torna enrere.
+    text: La primera pàgina de controls és Easy. A les opcions del processador, Compare guarda quatre valors, de l'A a la D, per poder canviar de l'un a l'altre mentre escoltes, i desfer torna enrere.
+proof: []

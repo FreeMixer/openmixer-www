@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: mono-in-stereo
+title: Mono in a stereo chain
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-clap-host 0.30.0
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201
+  console:
+    state: none
+detail: /notes/audio-layouts-and-how-the-host-judges-the-fit
+card:
+  en:
+    title: Mono effects in a stereo chain
+    line: A mono effect sits in a stereo chain and the run stays in one worker.
+    text: The host runs a mono plugin inside a stereo chain, so a mono compressor or gate does not break a group in two. The worker says what it can do and the engine asks it.
+  ca:
+    title: Efectes mono en una cadena estèreo
+    line: Un efecte mono viu en una cadena estèreo i la tirada es manté en un sol worker.
+    text: L'amfitrió fa córrer un plugin mono dins d'una cadena estèreo, de manera que un compressor o un gate mono no parteix un grup en dos. El worker diu què sap fer i el motor li ho pregunta.
+proof: []

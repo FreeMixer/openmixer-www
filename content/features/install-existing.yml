@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: install-existing
+title: Install on an existing Zynthian
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-sys omx-track 2026110102
+  console:
+    state: none
+detail: /docs/zynthian#install
+card:
+  en:
+    title: Add it to the Zynthian you have
+    line: One signed release package adds the repository. Nothing is enabled until you switch it on.
+    text: Install openmixer-release, then the packages. The key is checked against the pinned one, and mod-host, MOD-UI, jalv and the menus stay as they were until you switch them.
+  ca:
+    title: Afegeix-ho al Zynthian que ja tens
+    line: Un paquet de publicació signat afegeix el repositori. No s'activa res fins que ho engegues.
+    text: Instal·la openmixer-release i després els paquets. La clau es comprova contra la fixada, i mod-host, MOD-UI, jalv i els menús es queden com eren fins que els canvies.
+proof: []

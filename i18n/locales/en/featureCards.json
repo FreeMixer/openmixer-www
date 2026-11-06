@@ -1,0 +1,18 @@
+{
+  "featureCards": {
+    "state": {
+      "released": "Released",
+      "merged": "Merged, not released",
+      "coming": "Coming",
+      "to-confirm": "To confirm"
+    },
+    "surface": {
+      "console": "Console",
+      "zynthian": "Zynthian",
+      "libraries": "Any host"
+    },
+    "readMore": "Detail",
+    "proof": "Measured",
+    "with": "Read with"
+  }
+}

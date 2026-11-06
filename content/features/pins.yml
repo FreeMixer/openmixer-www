@@ -1,0 +1,25 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: pins
+title: Pins on first use
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: released
+    version: zynthian-sys omx-track 2026110102
+  console:
+    state: to-confirm
+detail: /notes/pins-on-first-use
+card:
+  en:
+    title: What loads is what was measured
+    line: A plugin is pinned the first time it is used. If its files change, it is measured again.
+    text: The pin ties a plugin name to the exact file that was qualified. The host loads only pinned plugins, so a plugin that was swapped or updated behind its back does not run on trust.
+  ca:
+    title: El que es carrega és el que s'ha mesurat
+    line: Un plugin es fixa la primera vegada que es fa servir. Si els seus fitxers canvien, es torna a mesurar.
+    text: La fixació lliga el nom d'un plugin al fitxer exacte que s'ha qualificat. L'amfitrió només carrega plugins fixats, de manera que un plugin canviat o actualitzat d'amagat no corre per confiança.
+proof: []

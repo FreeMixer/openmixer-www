@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: no-fallback
+title: No host fallback
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-hostd 0.19.0
+  zynthian:
+    state: merged
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: A refused plugin says why
+    line: A plugin the host refuses stays in the list, marked not working, with the reason.
+    text: Nothing quietly hands a plugin to another host. Adding a refused plugin tells you why and adds nothing. You can still pick jalv or mod-host yourself as an engine; they are never chosen for you.
+  ca:
+    title: Un plugin refusat diu per què
+    line: Un plugin que l'amfitrió refusa es queda a la llista, marcat com que no funciona, amb el motiu.
+    text: Res no passa un plugin a un altre amfitrió sense avisar. Afegir un plugin refusat et diu per què i no afegeix res. Pots triar jalv o mod-host com a motor tu mateix; mai no es trien per tu.
+proof: []

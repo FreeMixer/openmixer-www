@@ -1,0 +1,31 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: omx-effects
+title: The omx effects
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-plugins 0.18.0
+  zynthian:
+    state: released
+    version: omx-plugins 0.18.0
+  console:
+    state: to-confirm
+detail: /docs/plugins-shipped
+card:
+  en:
+    title: Effects that ship with it
+    line: EQ, compressor, gate, reverb, delay, drive and a one-load channel strip, as CLAP and LV2.
+    text: "omx-plugins carries the effects used in the console, each as a CLAP and an LV2 plugin. Add them one by one and choose the order, or load omx strip: trim, filters, a gate, four EQ bands and a compressor in one load and one worker, its five stages in any order."
+  ca:
+    title: Efectes que ja hi van inclosos
+    line: EQ, compressor, gate, reverb, delay, drive i un canal complet en una sola càrrega, en CLAP i LV2.
+    text: "omx-plugins porta els efectes que fa servir la taula, cadascun com a plugin CLAP i LV2. Afegeix-los un per un i tria l'ordre, o carrega omx strip: trim, filtres, un gate, quatre bandes d'EQ i un compressor en una sola càrrega i un sol worker, amb les cinc etapes en l'ordre que vulguis."
+proof:
+  - kind: bench
+    rate: 48 kHz, 512 frames
+    figure: true
+    with: omx-plugins 0.18.0, Raspberry Pi 5
+    en: omx strip costs about 5.9 µs per block; omx eq8 and omx comp together about 11.4 µs, with eight EQ bands against four.
+    ca: omx strip costa uns 5,9 µs per bloc; omx eq8 i omx comp junts uns 11,4 µs, amb vuit bandes d'EQ contra quatre.

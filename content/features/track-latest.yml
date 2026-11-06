@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: track-latest
+title: omx-track-latest
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: released
+    version: zynthian-sys omx-track 2026110102
+  console:
+    state: none
+detail: /docs/zynthian#install
+card:
+  en:
+    title: The device follows the releases
+    line: omx-track-latest brings a Zynthian up to the latest signed release every day.
+    text: It takes only signed tags, and moves zynthian-sys, the web configuration and the package list together, so the pieces always match.
+  ca:
+    title: L'aparell segueix les versions
+    line: omx-track-latest porta cada dia un Zynthian a l'última versió signada.
+    text: Només agafa etiquetes signades i mou junts zynthian-sys, la configuració web i la llista de paquets, de manera que les peces sempre quadren.
+proof: []

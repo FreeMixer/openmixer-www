@@ -94,6 +94,11 @@
       "packageBody": "The plugin hosts are: {link}.",
       "packageLink": "install them from our packages",
       "footer": "This list changes as work lands. The documentation set carries the current version of it."
+    },
+    "hosting": {
+      "eyebrow": "Plugin hosting",
+      "title": "The plugin host.",
+      "intro": "The host that runs the plugins serves the console and Zynthian alike. Each card says where a feature stands on the console, on Zynthian and on any other host. \"To confirm\" means this state has not been checked on the console yet."
     }
   }
 }

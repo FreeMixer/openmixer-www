@@ -2,6 +2,7 @@
 id: align
 title: Smart alignment
 state: live
+confirmed: false
 manual:
   - docs/manual/alignment.md
 public: true

@@ -1,0 +1,18 @@
+{
+  "featureCards": {
+    "state": {
+      "released": "Publicat",
+      "merged": "Integrat, no publicat",
+      "coming": "Previst",
+      "to-confirm": "Per confirmar"
+    },
+    "surface": {
+      "console": "Taula",
+      "zynthian": "Zynthian",
+      "libraries": "Qualsevol amfitrió"
+    },
+    "readMore": "Detall",
+    "proof": "Mesurat",
+    "with": "Llegit amb"
+  }
+}

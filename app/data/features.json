@@ -4,52 +4,62 @@
     {
       "id": "align",
       "title": "Smart alignment",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "desk",
       "title": "The desk",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "feedback",
       "title": "Feedback detection and correction",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "lv2",
       "title": "LV2 plugin inserts",
-      "state": "measured"
+      "state": "measured",
+      "confirmed": false
     },
     {
       "id": "native",
       "title": "Native processing",
-      "state": "measured"
+      "state": "measured",
+      "confirmed": false
     },
     {
       "id": "reac",
       "title": "REAC stageboxes",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "recorder",
       "title": "Recorder and virtual soundcard",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "rta",
       "title": "Real-time analyser",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "surface",
       "title": "The web surface",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     },
     {
       "id": "surfaces",
       "title": "Control surfaces",
-      "state": "live"
+      "state": "live",
+      "confirmed": false
     }
   ]
 }

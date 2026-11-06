@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: panel-curves-bars
+title: Bars and curves
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: coming
+  zynthian:
+    state: coming
+  console:
+    state: none
+detail: /docs/plugins-panels
+card:
+  en:
+    title: Bars and curves on every panel
+    line: Drawbars and graphic EQ bands as one row of bars, and curves and meters on every panel.
+    text: A run of controls with the same range, such as an organ's drawbars or a graphic EQ's bands, will show as one row of bars. Curves and meters will be exact for the omx dynamics and EQ, and modelled from what the controls mean for other plugins.
+  ca:
+    title: Barres i corbes a cada panell
+    line: Els tiradors d'orgue i les bandes d'un EQ gràfic com una sola fila de barres, i corbes i vúmetres a cada panell.
+    text: Una tirada de controls amb el mateix rang, com els tiradors d'un orgue o les bandes d'un EQ gràfic, es mostrarà com una sola fila de barres. Les corbes i els vúmetres seran exactes per a la dinàmica i l'EQ d'omx, i modelats a partir del que volen dir els controls per als altres plugins.
+proof: []

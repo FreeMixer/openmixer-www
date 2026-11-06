@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: mpe
+title: MPE
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: merged
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: MPE switches on by itself
+    line: Surge XT, OB-Xf and TAL U-No-LX play MPE in plugin-hostd chains, as they do under jalv.
+    text: When the chain listens on all MIDI channels, these synths get MPE, lower zone with 15 channels, chosen by the plugin's name whichever engine hosts it.
+  ca:
+    title: L'MPE s'activa sol
+    line: Surge XT, OB-Xf i TAL U-No-LX toquen MPE a les cadenes de plugin-hostd, com amb jalv.
+    text: Quan la cadena escolta tots els canals MIDI, aquests sintetitzadors reben MPE, zona inferior amb 15 canals, triat pel nom del plugin sigui quin sigui el motor que l'allotja.
+proof: []

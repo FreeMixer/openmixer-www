@@ -1,0 +1,29 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: qualification
+title: Qualification
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: plugin-qualify 0.19.1, plugin-db-qualification 2026110101
+  zynthian:
+    state: released
+    version: zynthian-ui omx-track 2026110201, zynthian-sys omx-track 2026110102
+  console:
+    state: to-confirm
+detail: /notes/from-a-plugin-file-to-a-page
+card:
+  en:
+    title: Every plugin measured on your device
+    line: You see how heavy a plugin is and whether it is safe before you add it.
+    text: "plugin-qualify runs each plugin on the device and writes what it found: latency, real-time safety and cost. The menus are built from those records. The records package ships ready-made results for the Pi 5, and a sync in the background checks only the plugins whose files changed."
+  ca:
+    title: Cada plugin, mesurat al teu aparell
+    line: Veus quant pesa un plugin i si és segur abans d'afegir-lo.
+    text: "plugin-qualify fa córrer cada plugin a l'aparell i escriu el que ha trobat: latència, seguretat per al temps real i cost. Els menús es construeixen a partir d'aquests registres. El paquet de registres porta resultats ja fets per a la Pi 5 i una sincronització en segon pla només comprova els plugins els fitxers dels quals han canviat."
+proof:
+  - kind: test
+    with: plugin-qualify 0.18.5, Raspberry Pi 5
+    en: Of 1602 plugins tried on the device, 1079 run in a shared worker and 306 in a worker of their own.
+    ca: Dels 1602 plugins provats a l'aparell, 1079 corren en un worker compartit i 306 en un worker propi.

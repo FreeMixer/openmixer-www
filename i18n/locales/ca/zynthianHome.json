@@ -1,0 +1,21 @@
+{
+  "zynthianHome": {
+    "seo": {
+      "title": "Zynthian amb l'amfitrió de plugins d'OpenMixer",
+      "description": "El que l'amfitrió de plugins d'OpenMixer dona a qui toca amb Zynthian: aïllament d'errors, qualificació, presets, MOD GUI i xifres mesurades contra mod-host i jalv."
+    },
+    "hero": {
+      "eyebrow": "Zynthian",
+      "title": "Un amfitrió de plugins més estable per al teu Zynthian.",
+      "lede": "Plugins que no et poden tombar el muntatge, menús fets a partir del que ha fet cada plugin al teu aparell i xifres mesurades contra mod-host i jalv."
+    },
+    "intro": {
+      "p1": "L'amfitrió de plugins d'OpenMixer, plugin-hostd, fa córrer els plugins LV2 i CLAP d'un Zynthian en workers propis. Funciona en una Raspberry Pi 4 o 5 amb el sistema Vangelis i no necessita res de la taula d'OpenMixer.",
+      "p2": "A continuació hi ha tot el que et dona, amb la versió en què va sortir cada part. La guia té els passos d'instal·lació, els paràmetres i les taules completes."
+    },
+    "guide": "Llegeix la guia: instal·lació, ús i paràmetres",
+    "figuresTitle": "Les xifres",
+    "figuresIntro": "Cada xifra diu amb quines versions s'ha llegit; cada comparació nomena mod-host i jalv.",
+    "notes": "Totes les notes i els bancs de proves"
+  }
+}

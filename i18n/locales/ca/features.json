@@ -94,6 +94,11 @@
       "packageBody": "Els hosts de plugins sí: {link}.",
       "packageLink": "instal·leu-los des dels nostres paquets",
       "footer": "Aquesta llista canvia a mesura que s'incorpora feina. La documentació en porta la versió actual."
+    },
+    "hosting": {
+      "eyebrow": "Allotjament de plugins",
+      "title": "L'amfitrió de plugins.",
+      "intro": "L'amfitrió que fa córrer els plugins serveix igual la taula i Zynthian. Cada targeta diu on és una funció a la taula, a Zynthian i a qualsevol altre amfitrió. «Per confirmar» vol dir que encara no s'ha comprovat l'estat a la taula."
     }
   }
 }
