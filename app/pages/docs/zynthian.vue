@@ -61,9 +61,9 @@ const slots = computed(() =>
 );
 
 const PROVEN = ['engine', 'pages', 'play', 'presets', 'grouping', 'recover'] as const;
-const RELEASED = ['guard', 'clients', 'adds'] as const;
+const RELEASED = ['fallback', 'bar', 'lv2', 'mpe', 'versions', 'guard', 'clients', 'adds'] as const;
 const OPEN = ['menu', 'listen', 'presets', 'snapshot', 'mixbus'] as const;
-const COMING = ['mpe', 'bars', 'curves'] as const;
+const COMING = ['bars', 'curves', 'effects', 'image'] as const;
 const FIGURES = ['dsp', 'rate96', 'memory', 'add', 'instruments', 'floor', 'qualified'] as const;
 
 useSeoMeta({
