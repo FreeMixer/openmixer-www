@@ -94,6 +94,9 @@
         },
         "calf-plugins": {
           "type": "string"
+        },
+        "lv2-calf-plugins": {
+          "type": "string"
         }
       }
     },
@@ -592,6 +595,12 @@
         "note": {
           "type": "string"
         },
+        "nice": {
+          "type": "integer",
+          "minimum": -20,
+          "maximum": 19,
+          "description": "The nice value the run started its programs at. Absent when it is not on record. It applies to the threads that are not real-time: the time to add a plugin moves with it, the DSP load of a SCHED_FIFO thread does not."
+        },
         "stress": {
           "type": "string",
           "description": "The load applied while measuring; none for an idle graph."
@@ -721,7 +730,9 @@
         "individual",
         "chain",
         "chain-add",
-        "shared-process"
+        "shared-process",
+        "plan",
+        "pool"
       ]
     },
     "range": {

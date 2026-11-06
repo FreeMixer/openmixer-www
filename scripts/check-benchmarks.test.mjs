@@ -68,6 +68,14 @@ test('refusals', () => {
 const sc = (o) => ({ id: 'x', title: 'X', rate: 48000, frames: 256, status: 'ok', ...o });
 const run = (scenarios, id = 'rpi5-20261102-2', klass = 'rpi5') => ({ ...example, id, machine: { ...example.machine, class: klass }, scenarios });
 
+test('a row may name its nice value, and only as a nice value', () => {
+  const withNice = (nice) => ({ ...example, scenarios: [{ ...example.scenarios[0], nice }, ...example.scenarios.slice(1)] });
+  assert.equal(check({ [NAME]: withNice(19) }).status, 0);
+  const r = check({ [NAME]: withNice(20) });
+  assert.notEqual(r.status, 0);
+  assert.match(r.stderr, /nice/);
+});
+
 test('the committed run states what was measured', () => {
   const find = (id, host, mode) => example.scenarios.find((s) => s.id === id && s.host === host && s.mode === mode);
   // The headline figures, read from the committed run: H2 chain, H3, H1 shared.

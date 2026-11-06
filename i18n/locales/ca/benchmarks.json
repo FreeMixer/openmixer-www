@@ -27,6 +27,8 @@
       "H2_chain-add": "plugin-hostd, afegits en una sola cadena",
       "H2_chain": "plugin-hostd, cadena muntada després d'afegir",
       "H2_individual": "plugin-hostd, un treballador per plugin",
+      "H2_plan": "plugin-hostd, un worker per segment planificat",
+      "H2_pool": "plugin-hostd, planificat, la resta compartible en un pool",
       "H2_default": "plugin-hostd",
       "H1_shared-process": "omx-clap-host, un sol procés",
       "H1_default": "omx-clap-host",

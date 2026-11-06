@@ -40,6 +40,9 @@ The acceptance of a row is that it ran and that no repeat had an xrun. The page 
 repeat, never from the median alone, marks a row that fails, and lists every such row of the day's runs.
 A row is never dropped for failing: `status: "failed"` keeps the reason in `note`.
 
+`nice` is the nice value the run started its programs at, absent when it is not on record. It reaches the threads that
+are not real-time, so `add_ms` is not compared between a row that has it and one that does not.
+
 `stress` names the load applied while measuring (`none` for an idle graph). A run with no stress rows says
 so on the page.
 
@@ -56,6 +59,8 @@ plugin. `mode` names how a host ran them:
 | `chain` | H2 | the chain built after the adds |
 | `individual` | H2 | no chain, each instance in its own worker |
 | `shared-process` | H1, H3 | every instance inside the one process |
+| `plan` | H2 | the daemon's planner groups the members; one worker per segment |
+| `pool` | H2 | the same plan, and the members it left alone that may share run in one pool worker |
 | `individual` | H4 | one jalv process per plugin |
 
 Per row: `processes`, `rss_mb_total`, `pss_mb_total` (sums over the host's processes of `VmRSS` and of the
@@ -84,6 +89,12 @@ and omx-clap-host 0.29.0: every row at real-time priority 70 with 3 periods per 
 is the one kept (Pianoteq on plugin-hostd and jalv at 48 kHz and 256 frames, the 16-plugin CLAP set on omx-clap-host and
 plugin-hostd at 48 kHz and 128 frames). Its `jack` field names the server's driver, device, priority and periods. The method and every table are in the technical note
 [plugin-hostd on a Raspberry Pi 5](https://openmixer.org/notes/plugin-hostd-on-a-raspberry-pi-5).
+
+`desk-20261106-1.json` is composed from the desk runs of the same build: its 64-frame rows are the run at 48000,
+96000 and 192000 Hz, its 128- and 256-frame rows the run at 96000 Hz, and a row in which JACK did not answer is the
+same row measured again alone, unedited. A row of the 128- and 256-frame run says `nice: 19`; the 64-frame rows ran at
+a nice value that is not on record. `software` names the Fedora package `lv2-calf-plugins`, the Debian one
+`calf-plugins`.
 
 ## Versioning
 
