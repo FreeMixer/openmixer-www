@@ -10,11 +10,6 @@ const sitePath = useSitePath();
 /** The captures, shared with the note that walks a plugin from its file to these screens. */
 const SHOTS = '/technical-notes/from-a-plugin-file-to-a-page';
 
-const fromRelease = [
-  '# the image is published in parts: join them, check the sum, then flash',
-  'cat zynthianos-vangelis-omx.img.xz.* > zynthianos-vangelis-omx.img.xz',
-  'sha256sum -c zynthianos-vangelis-omx.img.xz.sha256',
-];
 const onExisting = [
   'curl -fsSLO https://www.openmixer.org/deb/openmixer-release.deb',
   'sudo apt install ./openmixer-release.deb',
@@ -65,9 +60,11 @@ const slots = computed(() =>
   })),
 );
 
-const PROVEN = ['engine', 'pages', 'play', 'grouping', 'recover'] as const;
+const PROVEN = ['engine', 'pages', 'play', 'presets', 'grouping', 'recover'] as const;
 const RELEASED = ['guard', 'clients', 'adds'] as const;
 const OPEN = ['menu', 'listen', 'presets', 'snapshot', 'mixbus'] as const;
+const COMING = ['mpe', 'bars', 'curves'] as const;
+const FIGURES = ['dsp', 'rate96', 'memory', 'add', 'instruments', 'floor', 'qualified'] as const;
 
 useSeoMeta({
   title: () => t('docsZynthian.seo.title'),
@@ -110,7 +107,6 @@ useSeoMeta({
         <div class="space-y-4 text-base leading-relaxed text-ink-dim">
           <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.install.image.title') }}</h3>
           <p>{{ t('docsZynthian.install.image.where') }}</p>
-          <CodeBlock :lines="fromRelease" />
           <p>{{ t('docsZynthian.install.image.firstBoot') }}</p>
           <h3 class="pt-4 font-display text-lg font-semibold text-ink">{{ t('docsZynthian.install.existing.title') }}</h3>
           <p>{{ t('docsZynthian.install.existing.p1') }}</p>
@@ -225,11 +221,7 @@ useSeoMeta({
         <SectionHead eyebrow="06" :title="t('docsZynthian.figures.title')" />
         <p class="mb-4 text-base leading-relaxed text-ink-dim">{{ t('docsZynthian.figures.intro') }}</p>
         <ul class="list-disc space-y-3 pl-6 text-base leading-relaxed text-ink-dim">
-          <li>{{ t('docsZynthian.figures.dsp') }}</li>
-          <li>{{ t('docsZynthian.figures.memory') }}</li>
-          <li>{{ t('docsZynthian.figures.add') }}</li>
-          <li>{{ t('docsZynthian.figures.instruments') }}</li>
-          <li>{{ t('docsZynthian.figures.qualified') }}</li>
+          <li v-for="k in FIGURES" :key="k">{{ t(`docsZynthian.figures.${k}`) }}</li>
         </ul>
         <p class="mt-6 flex flex-wrap gap-x-6 text-base leading-relaxed">
           <NuxtLink :to="sitePath('/notes/plugin-hostd-on-a-raspberry-pi-5')" class="text-accent hover:underline">{{ t('docsZynthian.figures.more') }}</NuxtLink>
@@ -259,6 +251,12 @@ useSeoMeta({
             <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.open.title') }}</h3>
             <ul class="mt-3 list-disc space-y-2 pl-6">
               <li v-for="k in OPEN" :key="k">{{ t(`docsZynthian.status.open.${k}`) }}</li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="font-display text-lg font-semibold text-ink">{{ t('docsZynthian.status.coming.title') }}</h3>
+            <ul class="mt-3 list-disc space-y-2 pl-6">
+              <li v-for="k in COMING" :key="k">{{ t(`docsZynthian.status.coming.${k}`) }}</li>
             </ul>
           </div>
         </div>

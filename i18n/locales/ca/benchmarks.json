@@ -2,11 +2,11 @@
   "benchmarks": {
     "seo": {
       "title": "Mesuraments — OpenMixer",
-      "description": "Càrrega de DSP, memòria, xruns i temps d'afegir dels mateixos plugins a plugin-hostd, omx-clap-host i mod-host, mesurats en una Raspberry Pi 5."
+      "description": "Càrrega de DSP, memòria, xruns i temps d'afegir dels mateixos plugins a plugin-hostd, omx-clap-host, mod-host i jalv, mesurats en una Raspberry Pi 5."
     },
     "hero": {
       "eyebrow": "Mesuraments",
-      "title": "Els mateixos plugins en tres amfitrions",
+      "title": "Els mateixos plugins en quatre amfitrions",
       "lede": "Cada escenari executa els mateixos plugins amb la mateixa freqüència de mostratge i la mateixa mida de buffer en cada amfitrió. La càrrega és la càrrega de DSP del servidor JACK que els governa, llegida mentre l'escenari sona. Els nivells, quan aquesta pàgina en dona, es mesuren digitalment als ports de JACK.",
       "reproduce": "El banc de proves del repositori plugin-hostd escriu les execucions d'aquesta pàgina i les repeteix en qualsevol màquina.",
       "readme": "Llegiu el README."
@@ -20,7 +20,7 @@
     "hostMeaning": {
       "H1": "L'amfitrió CLAP governat directament pel protocol de mod-host al seu propi port. Tots els plugins comparteixen el seu únic procés.",
       "H2": "El dimoni de plugins amb omx-clap-host com a treballador. Els plugins s'executen en treballadors aïllats i una cadena és un sol treballador.",
-      "H3": "El programa mod-host tal com l'entrega Zynthian. Només plugins LV2.",
+      "H3": "mod-host, l'amfitrió que hi ha darrere de MOD-UI i de les cadenes d'efectes de Zynthian. Només plugins LV2; la versió és al peu.",
       "H4": "Un procés jalv per plugin, tal com s'executaven els plugins en una Zynthian abans."
     },
     "variant": {
@@ -69,12 +69,20 @@
     "method": {
       "title": "Com s'ha mesurat",
       "text": "{machine}, governador {governor}, un servidor JACK privat amb el controlador dummy a {rate}, {frames} mostres de buffer. Cada xifra és la mediana de {repeats} repeticions, amb la repetició més baixa i la més alta al costat. No s'arrodoneix res; una xifra es mostra tal com la va escriure el banc de proves.",
-      "versions": "Les files marcades amb omx-clap-core van córrer amb la versió que diu la fila. Les files d'omx-clap-host van córrer amb omx-clap-core 0.26.3 i les de plugin-hostd amb la 0.26.4, perquè amb la 0.26.3 les cadenes de plugin-hostd no es formaven (vegeu les files que no han passat)."
+      "versions": "Les files marcades amb omx-clap-core van córrer amb la versió que diu la fila. Les files d'omx-clap-host van córrer amb omx-clap-core 0.26.3 i les de plugin-hostd amb la 0.26.4, perquè amb la 0.26.3 les cadenes de plugin-hostd no es formaven (vegeu les files que no han passat).",
+      "card": "{machine}, governador {governor}, JACK amb el controlador {driver} de la interfície d'àudio {device}, prioritat de temps real {priority}, {periods} períodes per buffer, a {rates}; cada fila diu la seva freqüència i les seves mostres. Cada xifra és la mediana de {repeats} repeticions, amb la repetició més baixa i la més alta al costat. No s'arrodoneix res; una xifra es mostra tal com la va escriure el banc de proves. Tot es mesura digitalment, al servidor JACK i als seus ports."
     },
     "scenario": {
       "cvp24": "24 plugins, versions CLAP (Calf en LV2; mod-host executa les versions LV2)",
       "cvp24-lv2": "Els mateixos 24 plugins, versions LV2 a tots els amfitrions",
-      "tp10": "Deu plugins LV2 de tercers"
+      "tp10": "Deu plugins LV2 de tercers",
+      "idle": "L'amfitrió en marxa, sense cap plugin",
+      "cvp8": "8 plugins, versions CLAP (Calf en LV2; mod-host i jalv executen les versions LV2)",
+      "cvp16": "16 plugins, versions CLAP (Calf en LV2; mod-host i jalv executen les versions LV2)",
+      "cvc3": "3 plugins, omx comp, delay i drive (CLAP; mod-host i jalv executen les versions LV2)",
+      "cvc8": "8 plugins, omx comp, delay i drive (CLAP; mod-host i jalv executen les versions LV2)",
+      "cvc16": "16 plugins, omx comp, delay i drive (CLAP; mod-host i jalv executen les versions LV2)",
+      "pianoteq": "Pianoteq 9 (LV2), una instància, acords de cinc notes"
     },
     "status": {
       "unsupported": "No admès",
@@ -104,7 +112,10 @@
       "row": "{run}, {title}, {variant}, {where}",
       "xrunsOf": "xruns: mediana {median}, repeticions de {low} a {high}",
       "cause": "Amb omx-clap-core 0.26.3 cap de les cadenes de plugin-hostd es va formar: Calf i els plugins DPF activen el bit de flush-to-zero del registre FPCR en obrir la seva biblioteca; la guarda de registres el va prendre per seu i va moure cada plugin així a un treballador propi. La 0.26.4 registra aquest canvi i ja no aïlla el plugin per això.",
-      "cost": "Un treballador per plugin és el mode pesat: 24 processos i 24 clients de JACK en quatre nuclis. No és el mode per defecte."
+      "cost": "Un treballador per plugin és el mode pesat: 24 processos i 24 clients de JACK en quatre nuclis. No és el mode per defecte.",
+      "why": {
+        "rpi5_20261105_1": "Dues files van fallar perquè el servidor JACK no va respondre en 10 s durant una repetició, totes dues a 96 kHz: mod-host amb 16 plugins a 256 mostres i jalv amb 8 a 128. Cap amfitrió no va refusar cap plugin. A 96 kHz tornen els xruns on a 48 kHz no n'hi havia, menys a la cadena de plugin-hostd; amb la càrrega afegida totes les formes en tenen, la cadena i jalv menys que les altres."
+      }
     },
     "stress": {
       "eyebrow": "Estrès",

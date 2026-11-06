@@ -97,6 +97,30 @@
         }
       }
     },
+    "jack": {
+      "type": "object",
+      "description": "The JACK server the rows ran on: its driver, device, real-time priority and periods per buffer. Absent in runs before the harness wrote it.",
+      "additionalProperties": false,
+      "required": [
+        "driver"
+      ],
+      "properties": {
+        "driver": {
+          "type": "string"
+        },
+        "device": {
+          "type": "string"
+        },
+        "priority": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "periods": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
     "scenarios": {
       "type": "array",
       "minItems": 1,
