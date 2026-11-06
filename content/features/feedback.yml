@@ -2,7 +2,7 @@
 id: feedback
 title: Feedback detection and correction
 state: live
-confirmed: false
+confirmed: true
 manual:
   - docs/manual/fbs.md
 public: true

@@ -11,7 +11,8 @@ surfaces:
     state: released
     version: zynthian-ui omx-track 2026110201, zynthian-sys omx-track 2026110102
   console:
-    state: to-confirm
+    state: released
+    version: plugin-qualify 0.18.5
 detail: /notes/from-a-plugin-file-to-a-page
 card:
   en:

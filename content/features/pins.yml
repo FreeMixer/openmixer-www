@@ -11,7 +11,8 @@ surfaces:
     state: released
     version: zynthian-sys omx-track 2026110102
   console:
-    state: to-confirm
+    state: released
+    version: plugin-hostd 0.16.0
 detail: /notes/pins-on-first-use
 card:
   en:

@@ -2,7 +2,7 @@
 id: lv2
 title: LV2 plugin inserts
 state: measured
-confirmed: false
+confirmed: true
 manual:
   - docs/manual/plugins.md
 public: true
@@ -13,7 +13,7 @@ surfaces:
   zynthian:
     state: merged
   console:
-    state: to-confirm
+    state: coming
 detail: /notes/the-lv2-adapter-against-mod-host-and-jalv
 card:
   en:
