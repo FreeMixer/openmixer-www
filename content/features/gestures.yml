@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: gestures
+title: One set of gestures
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: merged
+  zynthian:
+    state: coming
+  console:
+    state: none
+detail: /docs/plugins-panels
+card:
+  en:
+    title: The same gestures on every panel
+    line: One table says what a tap, a long press, a double tap and a drag do on each control.
+    text: The table covers every standard widget, a bar and a curve handle, with nine gesture words and their timings. A palm guard and a safety hold protect a value from a stray touch. It is merged in omx-panel and not in a release yet. The Zynthian side is on a branch and not merged.
+  ca:
+    title: Els mateixos gestos a cada panell
+    line: Una taula diu què fan un toc, una pulsació llarga, un doble toc i un arrossegament a cada control.
+    text: La taula cobreix tots els ginys estàndard, una barra i una nansa de corba, amb nou paraules de gest i els seus temps. Una guarda de palmell i una retenció de seguretat protegeixen un valor d'un toc accidental. Està integrada a omx-panel i encara no és en cap versió. La part de Zynthian és en una branca i no està integrada.
+proof:
+  - kind: test
+    with: omx-panel main after 0.11.0
+    en: 492 tests ran, 475 passed, 17 were skipped as before and none failed. Each guard has a test that goes red when it is broken, such as the palm guard removed or a safety hold below its floor.
+    ca: Van córrer 492 proves, 475 van passar, 17 es van saltar com abans i cap va fallar. Cada guarda té una prova que es posa en vermell quan es trenca, com la guarda de palmell treta o una retenció de seguretat per sota del seu límit.
