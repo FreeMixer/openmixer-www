@@ -123,6 +123,8 @@ test('each bad card is refused', () => {
   assert.match(bench({ with: 'plugin-hostd' }), /names no versions/);
   assert.match(bench({ en: '6 % load against mod-host' }), /names only one of mod-host and jalv/);
   assert.match(bench({ en: '6 % against mod-host and jalv', with: 'plugin-hostd 0.18.0' }), /must name the mod-host and jalv versions/);
+  assert.equal(bench({ en: '6 % against mod-host. jalv was not measured', ca: '6 % contra mod-host. jalv no s\'ha mesurat', with: 'mod-host v0.10.6' }), '');
+  assert.match(bench({ en: '6 % against mod-host. jalv was not measured', ca: '6 % contra mod-host. jalv no s\'ha mesurat', with: 'plugin-hostd 0.18.0' }), /must name/);
   assert.equal(bench({ en: '6 % against mod-host and jalv', ca: '6 % contra mod-host i jalv', with: 'mod-host 0.10.9, jalv 1.6.9' }), '');
 });
 
