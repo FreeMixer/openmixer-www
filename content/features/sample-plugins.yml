@@ -24,6 +24,6 @@ proof:
   - kind: bench
     rate: 48000 and 96000 Hz, 128 frames
     figure: true
-    with: omx-clap-core 0.30.4 (open PR), plugin-hostd 0.19.1, samplv1 1.3.1, mod-host 0.10.9, jalv 1.6.9
-    en: "On a Raspberry Pi 5, measured digitally, samplv1 goes from silence to -9.6 dBFS after a note on once its sample is set with patch_set, at 48000 and at 96000 Hz with 128 frames. mod-host gives -9.6 dBFS for the same file at 48000 Hz. jalv was not run for this figure. The installed omx-clap-core 0.30.2 answers the verb with -902 and stays silent."
-    ca: "En una Raspberry Pi 5, mesurat digitalment, samplv1 passa del silenci a -9,6 dBFS després d'una nota un cop la mostra s'ha posat amb patch_set, a 48000 i a 96000 Hz amb 128 mostres. mod-host dóna -9,6 dBFS amb el mateix fitxer a 48000 Hz. jalv no s'ha provat per a aquesta xifra. L'omx-clap-core 0.30.2 instal·lat respon el verb amb -902 i es queda en silenci."
+    with: omx-clap-core 0.30.4 (open PR), plugin-hostd 0.19.1, samplv1 1.3.1, mod-host v0.10.6-595-g6c1cdd8 (Zynthian's build)
+    en: "On a Raspberry Pi 5, measured digitally, samplv1 goes from silence to -9.6 dBFS after a note on once its sample is set with patch_set, at 48000 and at 96000 Hz with 128 frames. mod-host v0.10.6-595-g6c1cdd8 (Zynthian's build) gives -9.6 dBFS for the same file at 48000 Hz. jalv was not measured for this figure. The installed omx-clap-core 0.30.2 answers the verb with -902 and stays silent."
+    ca: "En una Raspberry Pi 5, mesurat digitalment, samplv1 passa del silenci a -9,6 dBFS després d'una nota un cop la mostra s'ha posat amb patch_set, a 48000 i a 96000 Hz amb 128 mostres. mod-host v0.10.6-595-g6c1cdd8 (compilació de Zynthian) dóna -9,6 dBFS amb el mateix fitxer a 48000 Hz. jalv no s'ha mesurat per a aquesta xifra. L'omx-clap-core 0.30.2 instal·lat respon el verb amb -902 i es queda en silenci."

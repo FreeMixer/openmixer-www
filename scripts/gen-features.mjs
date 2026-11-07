@@ -154,8 +154,14 @@ export function cardProblems(file, r) {
         const txt = p?.[lang];
         if (!textOk(txt)) { bad(`${w}.${lang} is empty`); continue; }
         const named = (re) => re.test(txt);
-        if (named(/mod-host|jalv/i) && !(named(/mod-host/i) && named(/jalv/i))) bad(`${w}.${lang} names only one of mod-host and jalv; a comparison names both`);
-        if (named(/mod-host|jalv/i) && !(/mod-host/i.test(p.with) && /jalv/i.test(p.with))) bad(`${w}: the comparison's "with" must name the mod-host and jalv versions`);
+        // A host the text says was not measured for this figure needs no version; the others must be named.
+        const skipped = (h) => new RegExp(`${h}\\s+(?:was|were)\\s+not\\s+(?:measured|run)|${h}\\s+no\\s+s'ha\\s+(?:mesurat|provat)`, 'i').test(txt);
+        const hosts = ['mod-host', 'jalv'].filter((h) => !skipped(h));
+        const said = ['mod-host', 'jalv'].filter((h) => new RegExp(h, 'i').test(txt));
+        if (said.length && !hosts.every((h) => said.includes(h)) && !(said.length === 1 && skipped(said[0] === 'jalv' ? 'mod-host' : 'jalv')))
+          bad(`${w}.${lang} names only one of mod-host and jalv; a comparison names both`);
+        if (said.some((h) => !skipped(h)) && !said.filter((h) => !skipped(h)).every((h) => new RegExp(h, 'i').test(p.with)))
+          bad(`${w}: the comparison's "with" must name the mod-host and jalv versions`);
         if (p.kind === 'bench' && !FIGURE.test(txt)) bad(`${w}.${lang} is a bench figure with no figure in it`);
       }
     });
