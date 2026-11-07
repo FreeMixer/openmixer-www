@@ -1,0 +1,27 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: position-law
+title: Frequency knobs that feel even
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: none
+  zynthian:
+    state: merged
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: A frequency knob turns evenly
+    line: On a plugin-hostd plugin, a 20 Hz to 20 kHz control puts 1 kHz about halfway round.
+    text: Frequency controls follow the same position law as the console, so each turn covers a similar change in pitch instead of crowding the low end. Other hosts on the device keep upstream's law, and MIDI CC mapping is unchanged.
+  ca:
+    title: Un control de freqüència gira de manera uniforme
+    line: En un plugin de plugin-hostd, un control de 20 Hz a 20 kHz posa 1 kHz més o menys a mig recorregut.
+    text: Els controls de freqüència segueixen la mateixa llei de posició que la consola, de manera que cada volta cobreix un canvi de to semblant en lloc d'apretar els greus. Els altres amfitrions de l'aparell mantenen la llei d'upstream, i el mapatge de MIDI CC no canvia.
+proof:
+  - kind: test
+    with: zynthian-ui vangelis, plugin-hostd 0.19.1, omx-contract scale vectors
+    en: A 20 Hz to 20 kHz control puts 1 kHz at 0.5663 of the arc. Twelve tests check the vectors both ways within one ulp and that other engines keep upstream's law. The drawing of an omx-eq frequency at 1 kHz has not been checked on a Pi yet.
+    ca: Un control de 20 Hz a 20 kHz posa 1 kHz a 0,5663 de l'arc. Dotze proves comproven els vectors en tots dos sentits dins d'un ulp i que els altres motors mantenen la llei d'upstream. El dibuix d'una freqüència d'omx-eq a 1 kHz encara no s'ha comprovat en una Pi.

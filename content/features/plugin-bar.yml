@@ -15,10 +15,14 @@ detail: /docs/zynthian#use
 card:
   en:
     title: You choose how strict the host is
-    line: Qualified only, warn on crashes or load all. The choice is saved and applies at once.
-    text: "Plugin bar (Admin > Audio > Plugin bar, or the plugin list options): choose qualified only, warn on crashes (the default) or load all. The choice is saved and applies at once, with no restart. A plugin below the bar runs in a plugin-hostd worker of its own, never in another host, and with qualified only it is not offered."
+    line: Qualified only, warn on crashes or load all. The choice is saved, applies at once and survives a restart.
+    text: "Plugin bar (Admin > Audio > Plugin bar, or the plugin list options): choose qualified only, warn on crashes (the default) or load all. The choice is saved and applies at once, with no restart. Raising the bar takes back a plugin you had accepted, and a refusal leaves no lasting mark, so lowering the bar brings the plugin back. A plugin below the bar runs in a plugin-hostd worker of its own, never in another host, and with qualified only it is not offered."
   ca:
     title: Tu tries com d'estricte és l'amfitrió
-    line: Només qualificats, avisa si han fallat o carrega-ho tot. L'elecció es desa i s'aplica a l'instant.
-    text: "Nivell dels plugins (Administració > Àudio > Nivell dels plugins, o les opcions de la llista de plugins): trieu només qualificats, avisa si han fallat (per defecte) o carrega-ho tot. L'elecció es desa i s'aplica a l'instant, sense reiniciar. Un plugin per sota del nivell s'executa en un procés propi de plugin-hostd, mai en un altre amfitrió, i amb només qualificats no s'ofereix."
-proof: []
+    line: Només qualificats, avisa si han fallat o carrega-ho tot. L'elecció es desa, s'aplica a l'instant i continua després de reiniciar.
+    text: "Nivell dels plugins (Administració > Àudio > Nivell dels plugins, o les opcions de la llista de plugins): trieu només qualificats, avisa si han fallat (per defecte) o carrega-ho tot. L'elecció es desa i s'aplica a l'instant, sense reiniciar. Pujar el nivell treu un plugin que havíeu acceptat, i un refús no deixa cap marca duradora, de manera que baixar el nivell el torna a oferir. Un plugin per sota del nivell s'executa en un procés propi de plugin-hostd, mai en un altre amfitrió, i amb només qualificats no s'ofereix."
+proof:
+  - kind: test
+    with: zynthian-ui vangelis, plugin-hostd 0.19.1
+    en: Three new tests were red before the change. They check that a bar raised to qualified only refuses a plugin accepted earlier, that lowering the bar brings a refused plugin back, and that the saved bar is in force after the interface restarts.
+    ca: Tres proves noves eren vermelles abans del canvi. Comproven que un nivell pujat a només qualificats refusa un plugin acceptat abans, que baixar el nivell torna a oferir un plugin refusat i que el nivell desat segueix vigent després de reiniciar la interfície.

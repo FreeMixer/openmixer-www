@@ -1,0 +1,23 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: plugin-window-request
+title: A plugin's window on request
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: coming
+  zynthian:
+    state: coming
+  console:
+    state: none
+detail: /docs/plugins-panels
+card:
+  en:
+    title: The plugin's own window, when you ask
+    line: A plugin hosted by plugin-hostd can show its own window and hide it again, as jalv and mod-host do.
+    text: Two new verbs, show_external_ui and hide_external_ui, go from the controller through the daemon to the worker that holds the plugin. A daemon with no display refuses them by name. A window you showed comes back after a worker restart, and one you hid stays hidden. Both changes are open for review and are not in a release yet.
+  ca:
+    title: La finestra del plugin, quan la demanes
+    line: Un plugin allotjat per plugin-hostd pot mostrar la seva finestra i amagar-la, com fan jalv i mod-host.
+    text: Dos verbs nous, show_external_ui i hide_external_ui, van del controlador, a través del dimoni, al worker que té el plugin. Un dimoni sense pantalla els refusa pel seu nom. Una finestra que has mostrat torna després de reiniciar un worker, i una que has amagat continua amagada. Tots dos canvis són en revisió i encara no són en cap versió.
+proof: []

@@ -1,0 +1,24 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+id: qt-headless
+title: Qt plugins without a screen
+manual: []
+public: false
+surfaces:
+  libraries:
+    state: released
+    version: omx-clap-core 0.30.2, plugin-hostd 0.19.1
+  zynthian:
+    state: none
+  console:
+    state: none
+detail: /docs/zynthian#use
+card:
+  en:
+    title: Qt plugins run with no screen
+    line: The Qt-based LV2 plugins samplv1, synthv1 and drumkv1 load in the host with no display attached.
+    text: These plugins draw with Qt and used to need a display just to start. With no display, the worker now gives Qt its offscreen platform, so they load and play on a device that has no screen on, the way a console runs.
+  ca:
+    title: Els plugins Qt funcionen sense pantalla
+    line: Els plugins LV2 basats en Qt samplv1, synthv1 i drumkv1 es carreguen a l'amfitrió sense cap pantalla connectada.
+    text: Aquests plugins dibuixen amb Qt i abans necessitaven una pantalla només per arrencar. Sense pantalla, el worker ara dóna a Qt la plataforma offscreen, de manera que es carreguen i sonen en un aparell sense pantalla, com funciona una consola.
+proof: []

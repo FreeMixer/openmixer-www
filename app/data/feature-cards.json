@@ -137,6 +137,43 @@
       "proof": []
     },
     {
+      "id": "gestures",
+      "title": "One set of gestures",
+      "row": false,
+      "surfaces": {
+        "libraries": {
+          "state": "merged"
+        },
+        "zynthian": {
+          "state": "coming"
+        },
+        "console": {
+          "state": "none"
+        }
+      },
+      "detail": "/docs/plugins-panels",
+      "card": {
+        "en": {
+          "title": "The same gestures on every panel",
+          "line": "One table says what a tap, a long press, a double tap and a drag do on each control.",
+          "text": "The table covers every standard widget, a bar and a curve handle, with nine gesture words and their timings. A palm guard and a safety hold protect a value from a stray touch. It is merged in omx-panel and not in a release yet. The Zynthian side is on a branch and not merged."
+        },
+        "ca": {
+          "title": "Els mateixos gestos a cada panell",
+          "line": "Una taula diu què fan un toc, una pulsació llarga, un doble toc i un arrossegament a cada control.",
+          "text": "La taula cobreix tots els ginys estàndard, una barra i una nansa de corba, amb nou paraules de gest i els seus temps. Una guarda de palmell i una retenció de seguretat protegeixen un valor d'un toc accidental. Està integrada a omx-panel i encara no és en cap versió. La part de Zynthian és en una branca i no està integrada."
+        }
+      },
+      "proof": [
+        {
+          "kind": "test",
+          "with": "omx-panel main after 0.11.0",
+          "en": "492 tests ran, 475 passed, 17 were skipped as before and none failed. Each guard has a test that goes red when it is broken, such as the palm guard removed or a safety hold below its floor.",
+          "ca": "Van córrer 492 proves, 475 van passar, 17 es van saltar com abans i cap va fallar. Cada guarda té una prova que es posa en vermell quan es trenca, com la guarda de palmell treta o una retenció de seguretat per sota del seu límit."
+        }
+      ]
+    },
+    {
       "id": "grouping",
       "title": "Grouping",
       "row": false,
@@ -720,16 +757,23 @@
       "card": {
         "en": {
           "title": "You choose how strict the host is",
-          "line": "Qualified only, warn on crashes or load all. The choice is saved and applies at once.",
-          "text": "Plugin bar (Admin > Audio > Plugin bar, or the plugin list options): choose qualified only, warn on crashes (the default) or load all. The choice is saved and applies at once, with no restart. A plugin below the bar runs in a plugin-hostd worker of its own, never in another host, and with qualified only it is not offered."
+          "line": "Qualified only, warn on crashes or load all. The choice is saved, applies at once and survives a restart.",
+          "text": "Plugin bar (Admin > Audio > Plugin bar, or the plugin list options): choose qualified only, warn on crashes (the default) or load all. The choice is saved and applies at once, with no restart. Raising the bar takes back a plugin you had accepted, and a refusal leaves no lasting mark, so lowering the bar brings the plugin back. A plugin below the bar runs in a plugin-hostd worker of its own, never in another host, and with qualified only it is not offered."
         },
         "ca": {
           "title": "Tu tries com d'estricte és l'amfitrió",
-          "line": "Només qualificats, avisa si han fallat o carrega-ho tot. L'elecció es desa i s'aplica a l'instant.",
-          "text": "Nivell dels plugins (Administració > Àudio > Nivell dels plugins, o les opcions de la llista de plugins): trieu només qualificats, avisa si han fallat (per defecte) o carrega-ho tot. L'elecció es desa i s'aplica a l'instant, sense reiniciar. Un plugin per sota del nivell s'executa en un procés propi de plugin-hostd, mai en un altre amfitrió, i amb només qualificats no s'ofereix."
+          "line": "Només qualificats, avisa si han fallat o carrega-ho tot. L'elecció es desa, s'aplica a l'instant i continua després de reiniciar.",
+          "text": "Nivell dels plugins (Administració > Àudio > Nivell dels plugins, o les opcions de la llista de plugins): trieu només qualificats, avisa si han fallat (per defecte) o carrega-ho tot. L'elecció es desa i s'aplica a l'instant, sense reiniciar. Pujar el nivell treu un plugin que havíeu acceptat, i un refús no deixa cap marca duradora, de manera que baixar el nivell el torna a oferir. Un plugin per sota del nivell s'executa en un procés propi de plugin-hostd, mai en un altre amfitrió, i amb només qualificats no s'ofereix."
         }
       },
-      "proof": []
+      "proof": [
+        {
+          "kind": "test",
+          "with": "zynthian-ui vangelis, plugin-hostd 0.19.1",
+          "en": "Three new tests were red before the change. They check that a bar raised to qualified only refuses a plugin accepted earlier, that lowering the bar brings a refused plugin back, and that the saved bar is in force after the interface restarts.",
+          "ca": "Tres proves noves eren vermelles abans del canvi. Comproven que un nivell pujat a només qualificats refusa un plugin acceptat abans, que baixar el nivell torna a oferir un plugin refusat i que el nivell desat segueix vigent després de reiniciar la interfície."
+        }
+      ]
     },
     {
       "id": "plugin-menus",
@@ -794,6 +838,73 @@
       "proof": []
     },
     {
+      "id": "plugin-window-request",
+      "title": "A plugin's window on request",
+      "row": false,
+      "surfaces": {
+        "libraries": {
+          "state": "coming"
+        },
+        "zynthian": {
+          "state": "coming"
+        },
+        "console": {
+          "state": "none"
+        }
+      },
+      "detail": "/docs/plugins-panels",
+      "card": {
+        "en": {
+          "title": "The plugin's own window, when you ask",
+          "line": "A plugin hosted by plugin-hostd can show its own window and hide it again, as jalv and mod-host do.",
+          "text": "Two new verbs, show_external_ui and hide_external_ui, go from the controller through the daemon to the worker that holds the plugin. A daemon with no display refuses them by name. A window you showed comes back after a worker restart, and one you hid stays hidden. Both changes are open for review and are not in a release yet."
+        },
+        "ca": {
+          "title": "La finestra del plugin, quan la demanes",
+          "line": "Un plugin allotjat per plugin-hostd pot mostrar la seva finestra i amagar-la, com fan jalv i mod-host.",
+          "text": "Dos verbs nous, show_external_ui i hide_external_ui, van del controlador, a través del dimoni, al worker que té el plugin. Un dimoni sense pantalla els refusa pel seu nom. Una finestra que has mostrat torna després de reiniciar un worker, i una que has amagat continua amagada. Tots dos canvis són en revisió i encara no són en cap versió."
+        }
+      },
+      "proof": []
+    },
+    {
+      "id": "position-law",
+      "title": "Frequency knobs that feel even",
+      "row": false,
+      "surfaces": {
+        "libraries": {
+          "state": "none"
+        },
+        "zynthian": {
+          "state": "merged"
+        },
+        "console": {
+          "state": "none"
+        }
+      },
+      "detail": "/docs/zynthian#use",
+      "card": {
+        "en": {
+          "title": "A frequency knob turns evenly",
+          "line": "On a plugin-hostd plugin, a 20 Hz to 20 kHz control puts 1 kHz about halfway round.",
+          "text": "Frequency controls follow the same position law as the console, so each turn covers a similar change in pitch instead of crowding the low end. Other hosts on the device keep upstream's law, and MIDI CC mapping is unchanged."
+        },
+        "ca": {
+          "title": "Un control de freqüència gira de manera uniforme",
+          "line": "En un plugin de plugin-hostd, un control de 20 Hz a 20 kHz posa 1 kHz més o menys a mig recorregut.",
+          "text": "Els controls de freqüència segueixen la mateixa llei de posició que la consola, de manera que cada volta cobreix un canvi de to semblant en lloc d'apretar els greus. Els altres amfitrions de l'aparell mantenen la llei d'upstream, i el mapatge de MIDI CC no canvia."
+        }
+      },
+      "proof": [
+        {
+          "kind": "test",
+          "with": "zynthian-ui vangelis, plugin-hostd 0.19.1, omx-contract scale vectors",
+          "en": "A 20 Hz to 20 kHz control puts 1 kHz at 0.5663 of the arc. Twelve tests check the vectors both ways within one ulp and that other engines keep upstream's law. The drawing of an omx-eq frequency at 1 kHz has not been checked on a Pi yet.",
+          "ca": "Un control de 20 Hz a 20 kHz posa 1 kHz a 0,5663 de l'arc. Dotze proves comproven els vectors en tots dos sentits dins d'un ulp i que els altres motors mantenen la llei d'upstream. El dibuix d'una freqüència d'omx-eq a 1 kHz encara no s'ha comprovat en una Pi."
+        }
+      ]
+    },
+    {
       "id": "presets",
       "title": "Presets",
       "row": false,
@@ -831,6 +942,37 @@
           "ca": "omx eq8 (CLAP) i mda Piano (LV2) llisten els seus presets, els carreguen amb els seus valors i en desen un que es torna a carregar. La versió CLAP de Surge XT llista i carrega els presets de fàbrica; desar-ne un i recuperar-lo encara és obert."
         }
       ]
+    },
+    {
+      "id": "qt-headless",
+      "title": "Qt plugins without a screen",
+      "row": false,
+      "surfaces": {
+        "libraries": {
+          "state": "released",
+          "version": "omx-clap-core 0.30.2, plugin-hostd 0.19.1"
+        },
+        "zynthian": {
+          "state": "none"
+        },
+        "console": {
+          "state": "none"
+        }
+      },
+      "detail": "/docs/zynthian#use",
+      "card": {
+        "en": {
+          "title": "Qt plugins run with no screen",
+          "line": "The Qt-based LV2 plugins samplv1, synthv1 and drumkv1 load in the host with no display attached.",
+          "text": "These plugins draw with Qt and used to need a display just to start. With no display, the worker now gives Qt its offscreen platform, so they load and play on a device that has no screen on, the way a console runs."
+        },
+        "ca": {
+          "title": "Els plugins Qt funcionen sense pantalla",
+          "line": "Els plugins LV2 basats en Qt samplv1, synthv1 i drumkv1 es carreguen a l'amfitrió sense cap pantalla connectada.",
+          "text": "Aquests plugins dibuixen amb Qt i abans necessitaven una pantalla només per arrencar. Sense pantalla, el worker ara dóna a Qt la plataforma offscreen, de manera que es carreguen i sonen en un aparell sense pantalla, com funciona una consola."
+        }
+      },
+      "proof": []
     },
     {
       "id": "qualification",
@@ -904,6 +1046,45 @@
         }
       },
       "proof": []
+    },
+    {
+      "id": "sample-plugins",
+      "title": "Sample plugins load their sample",
+      "row": false,
+      "surfaces": {
+        "libraries": {
+          "state": "coming"
+        },
+        "zynthian": {
+          "state": "coming"
+        },
+        "console": {
+          "state": "none"
+        }
+      },
+      "detail": "/docs/zynthian#use",
+      "card": {
+        "en": {
+          "title": "A sampler loads its own sample",
+          "line": "A sample-based plugin such as samplv1 takes its sample file from the host and plays it.",
+          "text": "The host now writes a plugin's file and text properties through patch_set and reads them back with patch_get, so a path with spaces in it works too. This is open for review in omx-clap-core and is not in a release yet."
+        },
+        "ca": {
+          "title": "Un sampler carrega la seva mostra",
+          "line": "Un plugin basat en mostres, com samplv1, rep el fitxer de mostra de l'amfitrió i el reprodueix.",
+          "text": "L'amfitrió ara escriu les propietats de fitxer i de text d'un plugin amb patch_set i les llegeix amb patch_get, de manera que també funciona un camí amb espais. Està en revisió a omx-clap-core i encara no és en cap versió."
+        }
+      },
+      "proof": [
+        {
+          "kind": "bench",
+          "rate": "48000 and 96000 Hz, 128 frames",
+          "figure": true,
+          "with": "omx-clap-core 0.30.4 (open PR), plugin-hostd 0.19.1, samplv1 1.3.1, mod-host 0.10.9, jalv 1.6.9",
+          "en": "On a Raspberry Pi 5, measured digitally, samplv1 goes from silence to -9.6 dBFS after a note on once its sample is set with patch_set, at 48000 and at 96000 Hz with 128 frames. mod-host gives -9.6 dBFS for the same file at 48000 Hz. jalv was not run for this figure. The installed omx-clap-core 0.30.2 answers the verb with -902 and stays silent.",
+          "ca": "En una Raspberry Pi 5, mesurat digitalment, samplv1 passa del silenci a -9,6 dBFS després d'una nota un cop la mostra s'ha posat amb patch_set, a 48000 i a 96000 Hz amb 128 mostres. mod-host dóna -9,6 dBFS amb el mateix fitxer a 48000 Hz. jalv no s'ha provat per a aquesta xifra. L'omx-clap-core 0.30.2 instal·lat respon el verb amb -902 i es queda en silenci."
+        }
+      ]
     },
     {
       "id": "snapshot-converter",
