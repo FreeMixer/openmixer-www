@@ -1053,7 +1053,7 @@
       "row": false,
       "surfaces": {
         "libraries": {
-          "state": "coming"
+          "state": "merged"
         },
         "zynthian": {
           "state": "coming"
@@ -1067,12 +1067,12 @@
         "en": {
           "title": "A sampler loads its own sample",
           "line": "A sample-based plugin such as samplv1 takes its sample file from the host and plays it.",
-          "text": "The host now writes a plugin's file and text properties through patch_set and reads them back with patch_get, so a path with spaces in it works too. This is open for review in omx-clap-core and is not in a release yet."
+          "text": "The host now writes a plugin's file and text properties through patch_set and reads them back with patch_get, so a path with spaces in it works too. It is merged in omx-clap-core and is not in a release yet."
         },
         "ca": {
           "title": "Un sampler carrega la seva mostra",
           "line": "Un plugin basat en mostres, com samplv1, rep el fitxer de mostra de l'amfitrió i el reprodueix.",
-          "text": "L'amfitrió ara escriu les propietats de fitxer i de text d'un plugin amb patch_set i les llegeix amb patch_get, de manera que també funciona un camí amb espais. Està en revisió a omx-clap-core i encara no és en cap versió."
+          "text": "L'amfitrió ara escriu les propietats de fitxer i de text d'un plugin amb patch_set i les llegeix amb patch_get, de manera que també funciona un camí amb espais. Està integrat a omx-clap-core i encara no és en cap versió."
         }
       },
       "proof": [
@@ -1080,7 +1080,7 @@
           "kind": "bench",
           "rate": "48000 and 96000 Hz, 128 frames",
           "figure": true,
-          "with": "omx-clap-core 0.30.4 (open PR), plugin-hostd 0.19.1, samplv1 1.3.1, mod-host v0.10.6-595-g6c1cdd8 (Zynthian's build)",
+          "with": "omx-clap-core 0.30.4 (main, 234813ad8e), plugin-hostd 0.19.1, samplv1 1.3.1, mod-host v0.10.6-595-g6c1cdd8 (Zynthian's build)",
           "en": "On a Raspberry Pi 5, measured digitally, samplv1 goes from silence to -9.6 dBFS after a note on once its sample is set with patch_set, at 48000 and at 96000 Hz with 128 frames. mod-host v0.10.6-595-g6c1cdd8 (Zynthian's build) gives -9.6 dBFS for the same file at 48000 Hz. jalv was not measured for this figure. The installed omx-clap-core 0.30.2 answers the verb with -902 and stays silent.",
           "ca": "En una Raspberry Pi 5, mesurat digitalment, samplv1 passa del silenci a -9,6 dBFS després d'una nota un cop la mostra s'ha posat amb patch_set, a 48000 i a 96000 Hz amb 128 mostres. mod-host v0.10.6-595-g6c1cdd8 (compilació de Zynthian) dóna -9,6 dBFS amb el mateix fitxer a 48000 Hz. jalv no s'ha mesurat per a aquesta xifra. L'omx-clap-core 0.30.2 instal·lat respon el verb amb -902 i es queda en silenci."
         }
